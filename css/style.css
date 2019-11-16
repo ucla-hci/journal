@@ -1,0 +1,73 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+  
+body {
+    margin: 30px;
+    background-color: #f0f0f0;
+}
+
+.container, .backdrop, textarea {
+    width: 460px;
+    height: 180px;
+}
+
+.highlights, textarea {
+    padding: 10px;
+    font: 20px Helvetica, sans-serif;
+    font-weight: 100;
+    letter-spacing: 1px;
+}
+
+.container {
+    display: block;
+    margin: 0 auto;
+    transform: translateZ(0);
+    -webkit-text-size-adjust: none;
+}
+
+.backdrop {
+    position: absolute;
+    z-index: 1;
+    border: 2px solid #6c6c6c;
+    background-color: #fff;
+    overflow: auto;
+    pointer-events: none;
+    transition: transform 1s;
+}
+
+.highlights {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: grey;
+}
+
+textarea {
+    display: block;
+    position: absolute;
+    z-index: 2;
+    margin: 0;
+    border: 2px solid #808080;
+    border-radius: 0;
+    color: #808080;
+    background-color: transparent;
+    overflow: auto;
+    resize: none;
+    transition: transform 1s;
+}
+
+markpos {
+    border-radius: 3px;
+    color: grey;
+    background-color: #bce5b1;
+}
+
+markneg {
+    border-radius: 3px;
+    color: grey;
+    background-color: #e2c0c0;
+}
+
+textarea:focus {
+    outline: none;
+}
