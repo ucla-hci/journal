@@ -2,6 +2,7 @@ var num = 0;
 var write = document.getElementById('write');
 var $highlights = $('.highlights');
 var $backdrop = $('.backdrop');
+var key;
 
 function applyHighlights(text, valence) {
     var edits = text;
@@ -22,59 +23,54 @@ function runPyScript(input){
 }
 
 write.onkeydown = function(event) {
-    if (event.keyCode == 8 || event.keyCode == 46) {
+    key = event.keyCode;
+}
+
+write.oninput = function(event) {
+    if (key == 8 || key == 46) {
         var currhtml = $highlights.html();
         currhtml = String(currhtml);
 
-        var numsent = (write.value.match(/./g)||[]).length;
-        if (currhtml.length < (write.value.length + (numsent*19))) { return; }
+        var numsent_wr = (write.value.match(/\./g)||[]).length;
+        var numsent_ht = (currhtml.match(/\./g)||[]).length;
 
-        if (currhtml[currhtml.length - 1] == ">") {
-            var i, flag = 0;
-            for (i = currhtml.length - 1; i >= 0; i--) {   
-                if (currhtml[i] == "<") {
-                    currhtml = currhtml.slice(0, i);
-                    $highlights.html(currhtml);
-                    flag = 0;
+        if (numsent_ht > numsent_wr) { 
+            if (currhtml[currhtml.length - 1] == ">") {
+                var i;
+                for (i = currhtml.length - 1; i >= 0; i--) {
+                    if (currhtml[i] == "<" && currhtml[i-1] == " " || i == 0) {
+                        currhtml = currhtml.slice(0, i - 1);
+    
+                        $highlights.html(currhtml);
+                        if (i==0) { $highlights.html(""); }
+                        break;
+                    } 
                 }
-
-                if (flag == 1) {continue;}
-
-                if (currhtml[i] == "/") {
-                    if (currhtml[i-3] == ">") {flag = 1;}
-                    currhtml = currhtml.slice(0, i - 2) + currhtml.slice(i - 1);
-                    console.log(currhtml);
-                    $highlights.html(currhtml);
-                    if (flag == 1) {i++; continue;}
-                    break;
-                }
-                
             }
         }
-        else {
-            $highlights.html("");
-        }
+        
+        return;
     }
-}
 
-write.oninput = function() {
-    var text = write.value;
-    if (text[text.length - 1] == ".") {
-        var result = runPyScript(text);
-        var resparse = JSON.parse(result); 
+    else {
+        var text = write.value;
+        if (text[text.length - 1] == ".") {
+            var result = runPyScript(text);
+            var resparse = JSON.parse(result); 
 
-        if (resparse["valence"] == "neg") {
-            var slice = text.slice(resparse["start"],resparse["end"]);
-            var highlightedText = applyHighlights(slice, resparse["valence"]);
-            if ($highlights.html() == "") {$highlights.html($highlights.html() + highlightedText);}
-            else {$highlights.html($highlights.html() + " " + highlightedText);}
-        } 
-        else if (resparse["valence"] == "pos") {
-            var slice = text.slice(resparse["start"],resparse["end"]);
-            var highlightedText = applyHighlights(slice, resparse["valence"]);
-            if ($highlights.html() == "") {$highlights.html($highlights.html() + highlightedText);}
-            else {$highlights.html($highlights.html() + " " + highlightedText);}
-        } 
+            if (resparse["valence"] == "neg") {
+                var slice = text.slice(resparse["start"],resparse["end"]);
+                var highlightedText = applyHighlights(slice, resparse["valence"]);
+                if ($highlights.html() == "") {$highlights.html($highlights.html() + highlightedText);}
+                else {$highlights.html($highlights.html() + " " + highlightedText);}
+            } 
+            else if (resparse["valence"] == "pos") {
+                var slice = text.slice(resparse["start"],resparse["end"]);
+                var highlightedText = applyHighlights(slice, resparse["valence"]);
+                if ($highlights.html() == "") {$highlights.html($highlights.html() + highlightedText);}
+                else {$highlights.html($highlights.html() + " " + highlightedText);}
+            } 
+        }
     }
 }
 
