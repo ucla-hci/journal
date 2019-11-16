@@ -58,13 +58,13 @@ textarea {
 
 markpos {
     border-radius: 3px;
-    color: grey;
+    color: transparent;
     background-color: #bce5b1;
 }
 
 markneg {
     border-radius: 3px;
-    color: grey;
+    color: transparent;
     background-color: #e2c0c0;
 }
 

@@ -1,7 +1,6 @@
 var num = 0;
 var write = document.getElementById('write');
 var $highlights = $('.highlights');
-var $textarea = $('textarea');
 var $backdrop = $('.backdrop');
 
 function applyHighlights(text, valence) {
@@ -26,6 +25,10 @@ write.onkeydown = function(event) {
     if (event.keyCode == 8 || event.keyCode == 46) {
         var currhtml = $highlights.html();
         currhtml = String(currhtml);
+
+        var numsent = (write.value.match(/./g)||[]).length;
+        if (currhtml.length < (write.value.length + (numsent*19))) { return; }
+
         if (currhtml[currhtml.length - 1] == ">") {
             var i, flag = 0;
             for (i = currhtml.length - 1; i >= 0; i--) {   
@@ -76,6 +79,6 @@ write.oninput = function() {
 }
 
 write.onscroll = function() {
-    var scrollTop = $textarea.scrollTop();
+    var scrollTop = write.scrollTop;
     $backdrop.scrollTop(scrollTop);
 }
