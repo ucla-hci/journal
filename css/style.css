@@ -7,12 +7,12 @@ body {
     background-color: #f0f0f0;
 }
 
-.container, .backdrop, textarea {
+.container, .backdrop, #write {
     width: 460px;
     height: 180px;
 }
 
-.highlights, textarea {
+.highlights, #write {
     padding: 10px;
     font: 20px Helvetica, sans-serif;
     font-weight: 100;
@@ -56,6 +56,22 @@ body {
     transition: transform 1s;
 }
 
+#popup {
+    padding: 5px;
+    font: 20px Helvetica, sans-serif;
+    font-weight: 100;
+
+    display: none;
+    position: absolute;
+    margin: 0;
+    border-radius: 0;
+    height: 100px;
+    width: 100px;
+    z-index: 3;
+    color: white;
+    background-color:#808080;
+}
+
 markpos {
     border-radius: 3px;
     color: transparent;
@@ -68,6 +84,6 @@ markneg {
     background-color: #e2c0c0;
 }
 
-textarea:focus {
+#write:focus {
     outline: none;
 }

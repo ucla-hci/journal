@@ -1,12 +1,9 @@
 var num = 0;
 var write = document.getElementById('write');
+var popup = document.getElementById('popup');
 var $highlights = $('.highlights');
 var $backdrop = $('.backdrop');
 var key;
-
-function testFunc() {
-    console.log("test");
-}
 
 function applyHighlights(text, valence) {
     var edits = text;
@@ -26,7 +23,9 @@ function runPyScript(input){
     return jqXHR.responseText;
 }
 
-write.onclick = function(event){
+write.onclick = function(){
+    if (popup.style.display == "block") { popup.style.display = "none"; return; }
+
     var curpos = write.selectionStart;
     var currhtml = $highlights.html();
     currhtml = String(currhtml);
@@ -39,7 +38,7 @@ write.onclick = function(event){
         var i;
         for (i = curpos + (numsent_slc * 19) + 9; i < currhtml.length; i++) {
             if (currhtml[i] == "<") {
-                var label = currhtml.slice(i+2, currhtml.length-1);
+                var label = currhtml.slice(i+2, i+9);
 
                 if (label == "markneg"){ negPopup(); return; }
                 else { return; }
@@ -49,7 +48,7 @@ write.onclick = function(event){
 }
 
 function negPopup() {
-    console.log("popup trigger")
+    popup.style.display = "block";
 }
 
 write.onkeydown = function(event) {
