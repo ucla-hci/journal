@@ -91,25 +91,10 @@ write.oninput = function() {
             var result = runPyScript(text);
             var resparse = JSON.parse(result); 
 
-            if (resparse["valence"] == "neg") {
-                var slice = text.slice(resparse["start"],resparse["end"]);
-                var highlightedText = applyHighlights(slice, resparse["valence"]);
-                if ($highlights.html() == "") {$highlights.html($highlights.html() + highlightedText);}
-                else {$highlights.html($highlights.html() + " " + highlightedText);}
-            } 
-            else if (resparse["valence"] == "pos") {
-                 var slice = text.slice(resparse["start"],resparse["end"]);
-                var highlightedText = applyHighlights(slice, resparse["valence"]);
-                if ($highlights.html() == "") {$highlights.html($highlights.html() + highlightedText);}
-                else {$highlights.html($highlights.html() + " " + highlightedText);}
-            }
-            else {
-                console.log("nan");
-                var slice = text.slice(resparse["start"],resparse["end"]);
-                var highlightedText = applyHighlights(slice, resparse["valence"]);
-                if ($highlights.html() == "") {$highlights.html($highlights.html() + highlightedText);}
-                else {$highlights.html($highlights.html() + " " + highlightedText);}
-            }
+            var slice = text.slice(resparse["start"],resparse["end"]);
+            var highlightedText = applyHighlights(slice, resparse["valence"]);
+            if ($highlights.html() == "") {$highlights.html($highlights.html() + highlightedText);}
+            else {$highlights.html($highlights.html() + " " + highlightedText);}
         }
     }
 }
