@@ -25,10 +25,12 @@ def login():
         # clsrslt = textobj.sentences[total - 1].classify()
 
         # sentiment from sentiment analysis
-        if (textobj.sentences[total - 1].sentiment.polarity <= 0):
+        if (textobj.sentences[total - 1].sentiment.polarity <= -.5):
             clsrslt = "neg"
-        elif (textobj.sentences[total - 1].sentiment.polarity > 0):
+        elif (textobj.sentences[total - 1].sentiment.polarity >= 0.5):
             clsrslt = "pos"
+        else:
+            clsrslt = "nan"
 
         result = clsrslt
         resp = make_response('{"valence": "'+result+'", "start": '+str(textobj.sentences[total - 1].start)+', "end": '+str(textobj.sentences[total-1].end)+'}')

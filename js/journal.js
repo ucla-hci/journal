@@ -9,6 +9,8 @@ function applyHighlights(text, valence) {
     var edits = text;
     if (valence == "pos") {edits = "<markpos>" + edits + "</markpos>";}
     else if (valence == "neg") {edits = "<markneg>" + edits + "</markneg>";}
+    else { edits = "<marknut>" + edits + "</markut>"; }
+    
     return edits;
 }
 
@@ -29,6 +31,7 @@ write.onclick = function(){
     var curpos = write.selectionStart;
     var currhtml = $highlights.html();
     currhtml = String(currhtml);
+    console.log(currhtml);
 
     var slc = write.value.slice(0, curpos);
     var numsent_slc = (slc.match(/\./g)||[]).length;
@@ -37,12 +40,13 @@ write.onclick = function(){
     else {
         var i;
         for (i = curpos + (numsent_slc * 19) + 9; i < currhtml.length; i++) {
-            if (currhtml[i] == "<") {
+            if (currhtml[i] == "<" && currhtml[i+1] == "/") {
                 var label = currhtml.slice(i+2, i+9);
 
                 if (label == "markneg"){ negPopup(); return; }
                 else { return; }
             }
+            else if(currhtml[i] == "<") { return; }
         }
     }
 }
@@ -94,11 +98,18 @@ write.oninput = function() {
                 else {$highlights.html($highlights.html() + " " + highlightedText);}
             } 
             else if (resparse["valence"] == "pos") {
+                 var slice = text.slice(resparse["start"],resparse["end"]);
+                var highlightedText = applyHighlights(slice, resparse["valence"]);
+                if ($highlights.html() == "") {$highlights.html($highlights.html() + highlightedText);}
+                else {$highlights.html($highlights.html() + " " + highlightedText);}
+            }
+            else {
+                console.log("nan");
                 var slice = text.slice(resparse["start"],resparse["end"]);
                 var highlightedText = applyHighlights(slice, resparse["valence"]);
                 if ($highlights.html() == "") {$highlights.html($highlights.html() + highlightedText);}
                 else {$highlights.html($highlights.html() + " " + highlightedText);}
-            } 
+            }
         }
     }
 }

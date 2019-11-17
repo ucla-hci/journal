@@ -84,6 +84,12 @@ markneg {
     background-color: #e2c0c0;
 }
 
+marknut {
+    border-radius: 3px;
+    color: transparent;
+    background-color: transparent;
+}
+
 #write:focus {
     outline: none;
 }
