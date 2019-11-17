@@ -9,7 +9,7 @@ function applyHighlights(text, valence) {
     var edits = text;
     if (valence == "pos") {edits = "<markpos>" + edits + "</markpos>";}
     else if (valence == "neg") {edits = "<markneg>" + edits + "</markneg>";}
-    else { edits = "<marknut>" + edits + "</markut>"; }
+    else { edits = "<marknut>" + edits + "</marknut>"; }
     
     return edits;
 }
