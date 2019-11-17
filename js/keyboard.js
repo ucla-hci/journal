@@ -4,6 +4,10 @@ var $highlights = $('.highlights');
 var $backdrop = $('.backdrop');
 var key;
 
+function testFunc() {
+    console.log("test");
+}
+
 function applyHighlights(text, valence) {
     var edits = text;
     if (valence == "pos") {edits = "<markpos>" + edits + "</markpos>";}
@@ -22,11 +26,37 @@ function runPyScript(input){
     return jqXHR.responseText;
 }
 
+write.onclick = function(event){
+    var curpos = write.selectionStart;
+    var currhtml = $highlights.html();
+    currhtml = String(currhtml);
+
+    var slc = write.value.slice(0, curpos);
+    var numsent_slc = (slc.match(/\./g)||[]).length;
+    var numsent_ht = (currhtml.match(/\./g)||[]).length;
+    if (numsent_slc >= numsent_ht) { return; }
+    else {
+        var i;
+        for (i = curpos + (numsent_slc * 19) + 9; i < currhtml.length; i++) {
+            if (currhtml[i] == "<") {
+                var label = currhtml.slice(i+2, currhtml.length-1);
+
+                if (label == "markneg"){ negPopup(); return; }
+                else { return; }
+            }
+        }
+    }
+}
+
+function negPopup() {
+    console.log("popup trigger")
+}
+
 write.onkeydown = function(event) {
     key = event.keyCode;
 }
 
-write.oninput = function(event) {
+write.oninput = function() {
     if (key == 8 || key == 46) {
         var currhtml = $highlights.html();
         currhtml = String(currhtml);

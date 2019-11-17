@@ -42,7 +42,7 @@ body {
     color: grey;
 }
 
-textarea {
+#write {
     display: block;
     position: absolute;
     z-index: 2;
