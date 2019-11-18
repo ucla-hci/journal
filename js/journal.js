@@ -3,7 +3,8 @@ var write = document.getElementById('write');
 var popup = document.getElementById('popup');
 var $highlights = $('.highlights');
 var $backdrop = $('.backdrop');
-var key;
+
+var key, flag = 0;
 
 function applyHighlights(text, valence) {
     var edits = text;
@@ -31,7 +32,6 @@ write.onclick = function(){
     var curpos = write.selectionStart;
     var currhtml = $highlights.html();
     currhtml = String(currhtml);
-    console.log(currhtml);
 
     var slc = write.value.slice(0, curpos);
     var numsent_slc = (slc.match(/\./g)||[]).length;
@@ -60,10 +60,16 @@ write.onkeydown = function(event) {
 }
 
 write.oninput = function() {
-    if (key == 8 || key == 46) {
-        var currhtml = $highlights.html();
-        currhtml = String(currhtml);
+    var currhtml = $highlights.html();
+    currhtml = String(currhtml);
 
+    if (flag == 1) {
+        flag = 0;
+        var n = currhtml.indexOf(" <marktmp>");
+        $highlights.html(currhtml.slice(0, n));
+    }
+
+    if (key == 8 || key == 46) {
         var numsent_wr = (write.value.match(/\./g)||[]).length;
         var numsent_ht = (currhtml.match(/\./g)||[]).length;
 
@@ -96,10 +102,25 @@ write.oninput = function() {
             if ($highlights.html() == "") {$highlights.html($highlights.html() + highlightedText);}
             else {$highlights.html($highlights.html() + " " + highlightedText);}
         }
+
+        else if (text[text.length - 1] == " " && text[text.length - 2] == ".") {
+            var i;
+            for (i = currhtml.length - 1; i >= 0; i--) {
+                if (currhtml[i] == "/") {
+                    var label = currhtml.slice(i+1, i+8);
+                    if (label == "markneg") {
+                        $highlights.html($highlights.html() + " <marktmp>Try reframing that negative thought.</marktmp>");
+                        flag = 1;
+                    }
+                    return;
+                }
+
+            }
+        }
     }
 }
 
 write.onscroll = function() {
-    var scrollTop = write.scrollTop;
+    var scrollTop = $('textarea').scrollTop();
     $backdrop.scrollTop(scrollTop);
 }

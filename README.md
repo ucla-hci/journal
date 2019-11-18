@@ -7,6 +7,6 @@ Dependencies: `flask`, `textblob`
 - open `index.html`
 - type!
 
-Currently, CORS needs to be disabled if you're running it locally. In Safari, under `Develop` toggle `Disable Local File Restrictions`
+CORS needs to be disabled if the project is being run locally. In Safari, under `Develop` toggle `Disable Local File Restrictions`
 
 On a PC, try https://alfilatov.com/posts/run-chrome-without-cors/

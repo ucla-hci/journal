@@ -39,7 +39,7 @@ body {
 .highlights {
     white-space: pre-wrap;
     word-wrap: break-word;
-    color: grey;
+    color: transparent;
 }
 
 #write {
@@ -88,6 +88,10 @@ marknut {
     border-radius: 3px;
     color: transparent;
     background-color: transparent;
+}
+
+marktmp {
+    color: #cecece;
 }
 
 #write:focus {
