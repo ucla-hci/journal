@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Journal Test-Sheet</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+	<style>
+	@import url(http://fonts.googleapis.com/earlyaccess/notosanstc.css);
+	html, body{
+		width: 100%;
+		height: 100%;
+		border: 0;
+		margin: 0;
+	}
+	textarea{
+		width: 100vw;
+    	height: 100vh;
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		font-size:2rem;
+		padding:4rem;
+		line-height:1.4;
+		border: none;
+		display: flex;
+    	align-items: center;
+    	justify-content: center;
+    	font-family: 'Noto Sans TC', sans-serif;
+	}
+	textarea:focus{
+    	outline: 0;
+	}
+	</style>
+</head>
+<body>
+	<div>
+		<button type="button" onclick="savedata()">Save</button>
+		<button type="button" onclick="cleardata()">Clear</button>
+		<button type="button" onclick="withdraw()">Withdraw</button>
+		<button type="button" onclick="loaddata()">Load</button>
+	</div>
+
+	<div class="container">
+        <div id="popup">Selected text is negative</div>
+        <div class="backdrop">
+            <div class="highlights"></div>
+        </div>
+        <textarea id="write" oninput="savedata_noalert();" autofocus spellcheck="false"></textarea>
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+        <script type="text/javascript" src="js/journal.js"></script>
+	</div>
+	
+	<script>
+	function loaddata(){
+		if(window.localStorage["data"]){
+			document.getElementById("write").value = window.localStorage["data"];
+		}
+	}
+	function savedata(){
+		window.localStorage["data"] = document.getElementById("write").value;
+		alert('All Secure!');
+	}
+	function cleardata(){
+		window.localStorage["withdraw"] = document.getElementById("write").value;
+		document.getElementById("write").value = "";
+		savedata_noalert();
+	}
+	function withdraw(){
+		if(window.localStorage["withdraw"]){
+			document.getElementById("write").value = window.localStorage["withdraw"];
+		}
+		else{
+			alert('No input can be withdrawn!');
+		}
+	}
+	function savedata_noalert(){
+		window.localStorage["data"] = document.getElementById("write").value;
+	}
+
+	//code copy from http://stackoverflow.com/questions/1601593/fire-tab-keypress-event-in-javascript
+	document.getElementById('write').onkeydown = function(e){
+		if (e.keyCode == 9) {
+			insertAtCursor('    ');
+			return false;
+		}
+	}
+
+	// code edit from http://jsfiddle.net/Znarkus/Z99mK/
+	function insertAtCursor(myValue) {
+		myField = document.getElementById("write");
+	    //IE support
+	    if (document.selection) {
+	        myField.focus();
+	        sel = document.selection.createRange();
+	        sel.text = myValue;
+	    }
+	    //MOZILLA and others
+	    else if (myField.selectionStart || myField.selectionStart == '0') {
+	        var startPos = myField.selectionStart;
+	        var endPos = myField.selectionEnd;
+	        myField.value = myField.value.substring(0, startPos)
+	            + myValue
+	            + myField.value.substring(endPos, myField.value.length);
+	        myField.selectionStart = startPos + myValue.length;
+	        myField.selectionEnd = startPos + myValue.length;
+	    } else {
+	        myField.value += myValue;
+	    }
+	}
+	</script>
+</body>
+</html>
