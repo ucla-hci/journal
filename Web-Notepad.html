@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Journey</title>
+	<title>Journey Alpha</title>
 	<style>
 	@import url(http://fonts.googleapis.com/earlyaccess/notosanstc.css);
 	html, body{
@@ -106,12 +106,21 @@
             <li><a id = "m4" href="#" onclick="swich(4)">Jounal 4</a></li>
             <li><a id = "m5" href="#" onclick="swich(5)">Jounal 5</a></li>
             <li><a id = "m6" href="#" onclick="swich(6)">Jounal 6</a></li>
-            <li><a id = "m7" href="#" onclick="swich(7)">Jounal 7</a></li>
+			<li><a id = "m7" href="#" onclick="swich(7)">Jounal 7</a></li>
+			<div id="popup">Selected text is negative</div>
         </ul>
 	</aside>
 
 	<article>
+
+		<div class="backdrop">
+			<div class="highlights"></div>
+		</div>
 		<textarea id="textarea" oninput="savedata_noalert();" autofocus spellcheck="false"></textarea>
+			
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+		<script type="text/javascript" src="js/journal.js"></script>
+
 	</article>
 	<footer>This is Page Footer Area</footer>
 

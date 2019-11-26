@@ -1,5 +1,5 @@
 var num = 0;
-var write = document.getElementById('write');
+var write = document.getElementById('textarea');
 var popup = document.getElementById('popup');
 var $highlights = $('.highlights');
 var $backdrop = $('.backdrop');
@@ -18,7 +18,7 @@ function applyHighlights(text, valence) {
 function runPyScript(input){
     var jqXHR = $.ajax({
         type: "POST",
-        url: "http://localhost:5000/login",
+        url: "http://127.0.0.1:5000/login",
         async: false,
         data: { mydata: input }
     });
