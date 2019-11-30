@@ -1,5 +1,5 @@
 var num = 0;
-var write = document.getElementById('textarea');
+var write = document.getElementById('write');
 var popup = document.getElementById('popup');
 var $highlights = $('.highlights');
 var $backdrop = $('.backdrop');
@@ -69,7 +69,7 @@ write.oninput = function() {
         $highlights.html(currhtml.slice(0, n));
     }
 
-    if (key == 8 || key == 46) {
+    if (key == 8 || key == 46) {    // Backspace + Delete
         var numsent_wr = (write.value.match(/\./g)||[]).length;
         var numsent_ht = (currhtml.match(/\./g)||[]).length;
 
