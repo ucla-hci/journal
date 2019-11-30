@@ -7,9 +7,7 @@ Dependencies: `flask`, `textblob`
 - `source venv/bin/activate` to activate virtual environment, which is necessary before we can import `textblob` lib.
 - run by using command `python3 app.py`
 - make sure Flask is running on "127.0.0.1:5000", otherwise you need to modify `js/journal.js` first
-#### Test backend only
-- open `index.html`
-- type!
+
 #### Test frontend
 - open `Web-Notepad.html`
 - type!
