@@ -8,13 +8,12 @@ This repository tracks the development of an interactive journal intended to inc
 ### Test Frontend + Backend
 Dependencies: `flask`, `textblob`
 - `cd` to `python` folder
-- `source venv/bin/activate` to activate virtual environment, which is necessary before we can import `textblob` lib.
-- run by using command `python3 app.py`
-- make sure Flask is running on "127.0.0.1:5000", otherwise you need to modify `js/journal.js` first
+- `source venv/bin/activate` to activate virtual environment (Necessary for importing `textblob` lib in Python)
+- run backend server by using command `python3 app.py`
+- make sure Flask is running on `127.0.0.1:5000`, otherwise you need to modify ip setting in `js/journal.js` first
 - open `Web-Notepad.html`
 - type!
 
 #### Attention
 CORS needs to be disabled if the project is being run locally. In Safari, under `Develop` toggle `Disable Local File Restrictions`
-
 On a PC, try https://alfilatov.com/posts/run-chrome-without-cors/
