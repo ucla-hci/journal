@@ -142,6 +142,7 @@ textarea:focus{
     overflow: auto;
     resize: none;
     transition: transform 1s;
+    pointer-events: none;
 }
 
 #popup {
@@ -184,4 +185,14 @@ marktmp {
 
 #write:focus {
     outline: none;
+}
+
+und_pos { 
+    text-decoration: underline; 
+    text-decoration-color: #40862d;
+}
+
+und_neg { 
+    text-decoration: underline; 
+    text-decoration-color: #af5050;
 }

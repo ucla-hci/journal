@@ -4,6 +4,9 @@
 	<meta charset="UTF-8">
 	<title>Journey Alpha</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-light-blue.css">
 </head>
 <body>
 	<header>
@@ -18,27 +21,27 @@
             <li>
                 <h3>Archive</h3>
             </li>
-            <li><a id = "m1" href="#" onclick="swich(1)">Jounal 1</a></li>
-            <li><a id = "m2" href="#" onclick="swich(2)">Jounal 2</a></li>
-            <li><a id = "m3" href="#" onclick="swich(3)">Jounal 3</a></li>
-            <li><a id = "m4" href="#" onclick="swich(4)">Jounal 4</a></li>
-            <li><a id = "m5" href="#" onclick="swich(5)">Jounal 5</a></li>
-            <li><a id = "m6" href="#" onclick="swich(6)">Jounal 6</a></li>
-			<li><a id = "m7" href="#" onclick="swich(7)">Jounal 7</a></li>
+            <li><a id = "m1" href="#" onclick="swich(1)">Journal 1</a></li>
+            <li><a id = "m2" href="#" onclick="swich(2)">Journal 2</a></li>
+            <li><a id = "m3" href="#" onclick="swich(3)">Journal 3</a></li>
+            <li><a id = "m4" href="#" onclick="swich(4)">Journal 4</a></li>
+            <li><a id = "m5" href="#" onclick="swich(5)">Journal 5</a></li>
+            <li><a id = "m6" href="#" onclick="swich(6)">Journal 6</a></li>
+			<li><a id = "m7" href="#" onclick="swich(7)">Journal 7</a></li>
 			<div id="popup">Selected text is negative</div>
         </ul>
 	</aside>
 
 	<div class="container">
 		<div class="backdrop">
-			<div class="highlights"></div>
+			<div class="highlights" id="clear_text"></div>
 		</div>
 		<textarea id="write" oninput="savedata_noalert();" autofocus spellcheck="false"></textarea>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 		<script type="text/javascript" src="js/journal.js"></script>
 	</div>
 
-	<footer>This is Page Footer Area</footer>
+	<footer id="clear_footer">This is Page Footer Area</footer>
 
 	<script>
 	var index = 1;
@@ -85,6 +88,12 @@
 	function cleardata(){
 		window.localStorage["withdraw"] = document.getElementById("write").value;
 		document.getElementById("write").value = "";
+		var highlights = document.getElementById("clear_text");
+		while (highlights.firstChild) highlights.removeChild(highlights.firstChild);
+		var footer = document.getElementById("clear_footer");
+		while (footer.firstChild) footer.removeChild(footer.firstChild);
+		// var highlights = document.querySelectorAll('.backdrop')
+		// while (highlights.length > 0) { highlights[0].remove(); }
 		savedata_noalert();
 	}
 
