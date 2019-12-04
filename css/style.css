@@ -55,6 +55,7 @@ header {
 }
 
 button{ 
+    border: 0;
     height:40px;
     text-decoration:none;
     background:#2f435e;
@@ -168,13 +169,25 @@ button{
     background-color:#808080;
 }
 
-markpos {
+marksld {
     border-radius: 3px;
     color: transparent;
-    background-color: #bce5b1;
+    background-color: #dcb1e5;
 }
 
-markneg {
+markblm {
+    border-radius: 3px;
+    color: transparent;
+    background-color: #b1d1e5;
+}
+
+markfrt {
+    border-radius: 3px;
+    color: transparent;
+    background-color: #dee5b1;
+}
+
+markspl {
     border-radius: 3px;
     color: transparent;
     background-color: #e2c0c0;
@@ -242,7 +255,7 @@ marktmp {
     width: 25%;
     display: inline-block;
     height: 160px;
-    background-color: #a34;
+    background-color: rgb(196, 196, 196);
 }
 
 .dis_bott {
@@ -320,11 +333,15 @@ marktmp {
 }
 
 und_pos { 
+    position: relative;
     text-decoration: underline; 
     text-decoration-color: #40862d;
+    z-index: 10;
 }
 
 und_neg { 
+    position: relative;
     text-decoration: underline; 
     text-decoration-color: #af5050;
+    z-index: 10;
 }

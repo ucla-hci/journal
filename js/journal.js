@@ -52,7 +52,7 @@ function runPyScript_check(input){
 }
 
 // Support Functions
-function applyHighlights(text, valence, cats, subject) {
+function applyHighlights(text, valence, clss, cats, subject) {
     var edits = text;
     var subjects = subject.split(" ");
     console.log(subjects);
@@ -65,13 +65,13 @@ function applyHighlights(text, valence, cats, subject) {
         subjects.forEach(function (sub, i) {
             var cut = edits.search(sub);
             var len = sub.length;
-            edits = edits.substring(0, cut) + "<und_pos>" + edits.substring(cut, cut + len) + "</und_pos>" + edits.substring(cut+len);
+            edits = edits.substring(0, cut) + "<und_pos id=" + (h_id) +" style='pointer-events:auto' onclick='showTags(" + num_highlights + ")'>" + edits.substring(cut, cut + len) + "</und_pos>" + edits.substring(cut+len);
         });
-        edits = "<markpos id=" + (h_id) +" style='pointer-events:auto' onclick='showTags(" + num_highlights + ")'>" + edits + "</markpos>";
+        //edits = "<markpos id=" + (h_id) +" style='pointer-events:auto' onclick='showTags(" + num_highlights + ")'>" + edits + "</markpos>";
         document.getElementById("popup").innerHTML = subject;
         footerPopup(cats, num_highlights);
-
     }
+
     else if (valence == "neg") {
         num_highlights++;
         var h_id = 'h_' + num_highlights;
@@ -79,12 +79,26 @@ function applyHighlights(text, valence, cats, subject) {
         subjects.forEach(function (sub, i) {
             var cut = edits.search(sub);
             var len = sub.length;
-            edits = edits.substring(0, cut) + "<und_neg>" + edits.substring(cut, cut + len) + "</und_neg>" + edits.substring(cut+len);
+            edits = edits.substring(0, cut) + "<und_neg id=" + (h_id) +" style='pointer-events:auto' onclick='showTags(" + num_highlights + ")'>" + edits.substring(cut, cut + len) + "</und_neg>" + edits.substring(cut+len);
         });
-        edits = "<markneg id=" + (h_id) +" style='pointer-events:auto' onclick='showTags(" + num_highlights + ")'>" + edits + "</markneg>";
+        //edits = "<markneg id=" + (h_id) +" style='pointer-events:auto' onclick='showTags(" + num_highlights + ")'>" + edits + "</markneg>";
         document.getElementById("popup").innerHTML = subject;
         footerPopup(cats, num_highlights);
     }
+
+    console.log("class" + clss);
+    if (clss == "spl") { 
+        edits = "<markspl>" + edits + "</markspl>";
+        popup.innerHTML = "This is an example of splitting"; }
+    else if (clss == "sld") { 
+        edits = "<marksld>" + edits + "</marksld>";
+        popup.innerHTML = "Try not to use should statements"; }
+    else if (clss == "frt") { 
+        edits = "<markfrt>" + edits + "</markfrt>";
+        popup.innerHTML = "You're predicting the future"; }
+    if (clss == "blm") { 
+        edits = "<markblm>" + edits + "</markblm>";
+        popup.innerHTML = "Try not to assign blame"; }
     else { edits = "<marknut>" + edits + "</marknut>"; }
     
     return edits;
@@ -140,8 +154,8 @@ write.onclick = function(){
             if (currhtml[i] == "<" && currhtml[i+1] == "/") {
                 var label = currhtml.slice(i+2, i+9);
 
-                if (label == "markneg"){ negPopup(); return; }
-                else if (label == "markpos") { negPopup(); return; }
+                if (label != "marknut"){ negPopup(); return; }
+                else if (label == "marknut") { negPopup(); return; }
                 else { return; }
             }
             else if(currhtml[i] == "<") { return; }
@@ -242,7 +256,7 @@ write.oninput = function() {
         if (text[text.length - 1] == "." || text[text.length - 1] == "?" || text[text.length - 1] == "!") {
 
             var slice = text.slice(resparse["start"],resparse["end"]);
-            var highlightedText = applyHighlights(slice, resparse["valence"], cats, und);
+            var highlightedText = applyHighlights(slice, resparse["valence"], resparse["class"], cats, und);
             console.log("hT" + highlightedText);
             if ($highlights.html() == "") {$highlights.html($highlights.html() + highlightedText);}
             else if (brcounter > 0) {brcounter = 0; $highlights.html($highlights.html() + highlightedText);}    // if LF, no extra space is needed.
@@ -254,10 +268,8 @@ write.oninput = function() {
             for (i = currhtml.length - 1; i >= 0; i--) {
                 if (currhtml[i] == "/") {
                     var label = currhtml.slice(i+1, i+8);
-                    if (label == "markneg" || label == "markpos") {
-                        $highlights.html($highlights.html() + " <marktmp>" + eliza + "</marktmp>");
-                        flag = 1;
-                    }
+                    $highlights.html($highlights.html() + " <marktmp>" + eliza + "</marktmp>");
+                    flag = 1;
                     return;
                 }
             }
