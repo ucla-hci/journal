@@ -304,6 +304,11 @@ function swich(i){
     console.log("Switch to ", i);
 }
 
+function enable_click() {
+    console.log('click enabled!');
+    document.getElementById("write").style.pointerEvents = "auto";
+}
+
 function loaddata(index){
     var name = "data" + index.toString();
     if (index == -1){
