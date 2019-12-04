@@ -176,8 +176,10 @@ function footerPopup(tags, num) {
     for (i = 1; i <= num_highlights-1; i++)
     {
         tag = document.getElementById('t_'+i);
-        if (tag.style.display == "block") {tag.style.display = "none";}
-        console.log(tag.style.display);
+        if (tag != null){
+            if (tag.style.display == "block") {tag.style.display = "none";}
+            console.log(tag.style.display);
+        }
     }
 
     t_id = 't_'+num_highlights;
@@ -224,13 +226,18 @@ write.oninput = function() {
         var numsent_wr = (write.value.match(/\./g)||[]).length;
         var numsent_ht = (currhtml.match(/\./g)||[]).length;
 
-        if (numsent_ht > numsent_wr) { 
+        if (numsent_ht > numsent_wr) {
             if (currhtml[currhtml.length - 1] == ">") {
                 var i;
                 for (i = currhtml.length - 1; i >= 0; i--) {
-                    if (currhtml[i] == "<" && currhtml[i-1] == " " || i == 0) {
-                        currhtml = currhtml.slice(0, i - 1);
-    
+                    if (currhtml[i] == "m" && currhtml[i-1] == "<" || i == 0) {
+                        if (currhtml[i-2] == " ") {
+                            currhtml = currhtml.slice(0, i-2);
+                        }
+                        else {
+                            currhtml = currhtml.slice(0, i-1);
+                        }
+
                         $highlights.html(currhtml);
                         if (i==0) { $highlights.html(""); }
                         break;
