@@ -46,6 +46,14 @@ def login():
         eliza.load('doctor.txt')
 
         # sentiment from sentiment analysis
+        if (textobj.sentences[total - 1].sentiment.polarity <= 0):
+            val = "neg"
+        elif (textobj.sentences[total - 1].sentiment.polarity > 0):
+            val = "pos"
+        else:
+            val = "nan"
+
+
         if (textobj.sentences[total - 1].sentiment.polarity <= -.7): #splitting
             clsrslt = "spl"
         else:
@@ -68,6 +76,7 @@ def login():
                 clsrslt = "blm"
             else:
                 clsrslt = "nan"
+                
 
         # determine relevant words in sentence to underline
         lexicon = Empath()
@@ -150,16 +159,16 @@ def login():
         # catgories
         categories = effect[::2]
 
-        val = "nan"
-        if (len(effect) > 0):
-            if ("positive_emotion" in effect):
-                val = "pos"
-                categories.remove("positive_emotion")
-            elif ("negative_emotion" in effect):
-                val = "neg"
-                categories.remove("negative_emotion")
-            elif ("emotional" in effect):
-                val = "neg"
+        if (val == "nan"):
+            if (len(effect) > 0):
+                if ("positive_emotion" in effect):
+                    val = "pos"
+                    categories.remove("positive_emotion")
+                elif ("negative_emotion" in effect):
+                    val = "neg"
+                    categories.remove("negative_emotion")
+                elif ("emotional" in effect):
+                    val = "neg"
 
         categories = str(" ".join(categories))
         result = clsrslt
