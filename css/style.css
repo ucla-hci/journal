@@ -143,6 +143,7 @@ button{
     background-image:url("../src/title.png"), url("../src/redlines.png"), url("../src/lines.png"), url("../src/paper.png");
 	background-repeat:no-repeat, repeat-y, repeat, repeat;
     opacity: 0.5;
+    pointer-events: auto;
 }
 
 #popup {
