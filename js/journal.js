@@ -126,7 +126,7 @@ function removeTags(t, ID)
 
 
 write.onclick = function(){
-    // if (popup.style.display == "block") { popup.style.display = "none"; return; }
+    if (popup.style.display == "block") { popup.style.display = "none"; return; }
     // while (footer.firstChild) { 
     //     if (footer.firstChild.style.display == "block"){footer.firstChild.style.display == "none"}
     // }
@@ -153,9 +153,19 @@ write.onclick = function(){
         for (i = curpos + (numsent_slc * 19) + 9; i < currhtml.length; i++) {
             if (currhtml[i] == "<" && currhtml[i+1] == "/") {
                 var label = currhtml.slice(i+2, i+9);
-
-                if (label != "marknut"){ negPopup(); return; }
-                else if (label == "marknut") { negPopup(); return; }
+                
+                if (label == "markspl") { 
+                    popup.innerHTML = "This is an example of splitting";
+                    negPopup(); return; }
+                else if (label == "marksld") { 
+                    popup.innerHTML = "Try not to use should statements";
+                    negPopup(); return; }
+                else if (label == "markfrt") { 
+                    popup.innerHTML = "You're predicting the future";
+                    negPopup(); return; }
+                if (label == "markblm") { 
+                    popup.innerHTML = "Try not to assign blame";
+                    negPopup(); return; }
                 else { return; }
             }
             else if(currhtml[i] == "<") { return; }
