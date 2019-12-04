@@ -1,12 +1,15 @@
-from empath import Empath
-from textblob import TextBlob
-from textblob import Word
-from textblob.classifiers import NaiveBayesClassifier
-from flask import Flask, render_template, redirect, url_for,request
-from flask import make_response
+import operator
 import re
 import string
-import operator
+
+from empath import Empath
+from flask import (Flask, make_response, redirect, render_template, request,
+                   url_for)
+from textblob import TextBlob, Word
+from textblob.classifiers import NaiveBayesClassifier
+
+import eliza_util
+
 # import sys 
 app = Flask(__name__)
 
@@ -27,6 +30,10 @@ def login():
         textobj = TextBlob(datafromjs, classifier=cl)
         total = len(textobj.sentences)
         
+        eliza = eliza_util.Eliza()
+        eliza.load('doctor.txt')
+        # print ("done loading!")
+
         # sentiment from training data
         # clsrslt = textobj.sentences[total - 1].classify()
 
@@ -43,6 +50,7 @@ def login():
         cats = lexicon.cats.keys()
 
         st = str(textobj.sentences[total - 1])
+        auto_sug = eliza.respond(st)
 
         #remove punctuation
         st = st.translate(str.maketrans('', '', string.punctuation))
@@ -132,7 +140,7 @@ def login():
         categories = str(" ".join(categories))
         result = clsrslt
 
-        resp = make_response('{"valence": "'+result+'", "cats": "'+categories+'", "und": "'+words+'", "start": '+str(textobj.sentences[total - 1].start)+', "end": '+str(textobj.sentences[total-1].end)+'}')
+        resp = make_response('{"valence": "'+result+'", "cats": "'+categories+'", "und": "'+words+'", "eliza": "'+auto_sug+'", "start": '+str(textobj.sentences[total - 1].start)+', "end": '+str(textobj.sentences[total-1].end)+'}')
         resp.headers['Content-Type'] = "application/json"
 
         return resp
