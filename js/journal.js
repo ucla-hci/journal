@@ -29,6 +29,27 @@ else{
 loaddata(curr_index);
 document.getElementById("m"+curr_index.toString()).style.background = "#d3d";
 
+// Front-Back Communication
+function runPyScript(input){
+    var jqXHR = $.ajax({
+        type: "POST",
+        url: "http://127.0.0.1:5000/login",
+        async: false,
+        data: { mydata: input }
+    });
+    return jqXHR.responseText;
+}
+
+function runPyScript_check(input){
+    var jqXHR = $.ajax({
+        type: "POST",
+        url: "http://127.0.0.1:5000/check",
+        async: false,
+        data: { mydata: input }
+    });
+    return jqXHR.responseText;
+}
+
 // Support Functions
 function applyHighlights(text, valence, cats, subject) {
     var edits = text;
@@ -66,17 +87,6 @@ function applyHighlights(text, valence, cats, subject) {
     else { edits = "<marknut>" + edits + "</marknut>"; }
     
     return edits;
-}
-
-function runPyScript(input){
-    var jqXHR = $.ajax({
-        type: "POST",
-        url: "http://127.0.0.1:5000/login",
-        async: false,
-        data: { mydata: input }
-    });
-
-    return jqXHR.responseText;
 }
 
 function showTags(t_ID)
@@ -339,6 +349,13 @@ function insertAtCursor(myValue) {
     }
 }
 */
+
+function overall(){
+    var text = write.value;
+    var result = runPyScript_check(text);
+    var value = float(result);
+}
+
 function mood(){
     $(".dislog").css("display","block");
 }
