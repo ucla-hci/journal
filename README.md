@@ -6,7 +6,7 @@ This repository tracks the development of an interactive journal intended to inc
 - type!
 
 ### Test Frontend + Backend
-Dependencies: `flask`, `textblob`, `empath`
+Dependencies: `flask`, `textblob`, `empath`, `eliza_utils`
 - `cd` to `python` folder
 - `source venv/bin/activate` to activate virtual environment (Necessary for importing `textblob` lib in Python)
 - run backend server by using command `python3 app.py`

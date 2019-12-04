@@ -8,12 +8,18 @@
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-light-blue.css">
 </head>
-<body>
+<body onload="mood()">
 	<header>
-		<button type="button" onclick="savedata()">Save</button>
-		<button type="button" onclick="cleardata()">Clear</button>
-		<button type="button" onclick="withdraw()">Withdraw</button>
-		<button type="button" onclick="loaddata(1)">Load</button>
+		<div id="buttons">
+			<button type="button" onclick="savedata()">Save</button>
+			<button type="button" onclick="cleardata()">Clear</button>
+			<button type="button" onclick="withdraw()">Withdraw</button>
+			<button type="button" onclick="loaddata(-1)">Load</button>
+			<button type="button" onclick="mood()">Mood</button>
+		</div>
+		<div id="tags">
+			<footer id="clear_footer"></footer>
+		</div>
 	</header>
 
 	<aside class="box" id="test">
@@ -21,127 +27,45 @@
             <li>
                 <h3>Archive</h3>
             </li>
-            <li><a id = "m1" href="#" onclick="swich(1)">Journal 1</a></li>
-            <li><a id = "m2" href="#" onclick="swich(2)">Journal 2</a></li>
-            <li><a id = "m3" href="#" onclick="swich(3)">Journal 3</a></li>
-            <li><a id = "m4" href="#" onclick="swich(4)">Journal 4</a></li>
-            <li><a id = "m5" href="#" onclick="swich(5)">Journal 5</a></li>
-            <li><a id = "m6" href="#" onclick="swich(6)">Journal 6</a></li>
-			<li><a id = "m7" href="#" onclick="swich(7)">Journal 7</a></li>
+            <li><a id = "m1" href="#" onclick="swich(1)">Jounal 1</a></li>
+            <li><a id = "m2" href="#" onclick="swich(2)">Jounal 2</a></li>
+            <li><a id = "m3" href="#" onclick="swich(3)">Jounal 3</a></li>
+            <li><a id = "m4" href="#" onclick="swich(4)">Jounal 4</a></li>
+            <li><a id = "m5" href="#" onclick="swich(5)">Jounal 5</a></li>
+            <li><a id = "m6" href="#" onclick="swich(6)">Jounal 6</a></li>
+			<li><a id = "m7" href="#" onclick="swich(7)">Jounal 7</a></li>
 			<div id="popup">Selected text is negative</div>
         </ul>
 	</aside>
 
-	<div class="container">
-		<div class="backdrop">
-			<div class="highlights" id="clear_text"></div>
+	<!--Pop up Question-->
+	<div class="dislog" style="display: {{block}};">
+		<div class="dis_cont">
+			<!--Button-->
+			<div class="close_window">
+				<label class="close-bt" onclick="mood_hide()">x</label>
+			</div>
+			<!--Window-->
+			<div class="cont_dis">
+				How is your day?
+			</div>
+			<div class="dis_bott">
+				<label class="left_name" onclick="left()">Bad Day</label>
+				<label class="middle_name" onclick="middle()">Not Bad</label>
+				<label class="right_name" onclick="right()">Wonderful</label>
+			</div>
 		</div>
-		<textarea id="write" oninput="savedata_noalert();" autofocus spellcheck="false"></textarea>
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-		<script type="text/javascript" src="js/journal.js"></script>
 	</div>
 
-	<footer id="clear_footer">This is Page Footer Area</footer>
-
-	<script>
-	var index = 1;
-	if(window.localStorage["last_index"]){
-		index = parseInt(window.localStorage["last_index"]);
-		if (!index) {
-			index = 1;
-		}
-	}
-	else{
-		window.localStorage["last_index"] = 1;
-	}
-	loaddata(index);
-	document.getElementById("m"+index.toString()).style.background = "#d3d";
-	
-	function swich(i){
-		document.getElementById("m" + index.toString()).style.background = "#a34";
-		document.getElementById("m"+i.toString()).style.background = "#d3d";
-		savedata_noalert();
-		index = i;
-		loaddata(index);
-		console.log("Switch to ", i);
-	}
-
-	function loaddata(index){
-		var name = "data" + index.toString();
-		if (window.localStorage[name]){
-			document.getElementById("write").value = window.localStorage[name];
-		} 
-		else{
-			document.getElementById("write").value = ""
-		}
-		console.log("loaddata",name)
-	}
-
-	function savedata(){
-		var name = "data" + index.toString();
-		console.log("save",name)
-		window.localStorage[name] = document.getElementById("write").value;
-		window.localStorage["last_index"] = index;
-		alert('All Secure!');
-	}
-
-	function cleardata(){
-		window.localStorage["withdraw"] = document.getElementById("write").value;
-		document.getElementById("write").value = "";
-		var highlights = document.getElementById("clear_text");
-		while (highlights.firstChild) highlights.removeChild(highlights.firstChild);
-		var footer = document.getElementById("clear_footer");
-		while (footer.firstChild) footer.removeChild(footer.firstChild);
-		// var highlights = document.querySelectorAll('.backdrop')
-		// while (highlights.length > 0) { highlights[0].remove(); }
-		savedata_noalert();
-	}
-
-	function withdraw(){
-		if(window.localStorage["withdraw"]){
-			document.getElementById("write").value = window.localStorage["withdraw"];
-		}
-		else{
-			alert('No input can be withdrawn!');
-		}
-	}
-
-	function savedata_noalert(){
-		var name = "data" + index.toString();
-		window.localStorage[name] = document.getElementById("write").value;
-		window.localStorage["last_index"] = index;
-	}
-
-	//code copy from http://stackoverflow.com/questions/1601593/fire-tab-keypress-event-in-javascript
-	document.getElementById('write').onkeydown = function(e){
-		if (e.keyCode == 9) {
-			insertAtCursor('    ');
-			return false;
-		}
-	}
-
-	// code edit from http://jsfiddle.net/Znarkus/Z99mK/
-	function insertAtCursor(myValue) {
-		myField = document.getElementById("write");
-	    //IE support
-	    if (document.selection) {
-	        myField.focus();
-	        sel = document.selection.createRange();
-	        sel.text = myValue;
-	    }
-	    //MOZILLA and others
-	    else if (myField.selectionStart || myField.selectionStart == '0') {
-	        var startPos = myField.selectionStart;
-	        var endPos = myField.selectionEnd;
-	        myField.value = myField.value.substring(0, startPos)
-	            + myValue
-	            + myField.value.substring(endPos, myField.value.length);
-	        myField.selectionStart = startPos + myValue.length;
-	        myField.selectionEnd = startPos + myValue.length;
-	    } else {
-	        myField.value += myValue;
-	    }
-	}
-	</script>
+	<div class="container">
+		<div class="backdrop">
+			<div class="highlights"></div>
+		</div>
+		<textarea id="write" autofocus spellcheck="false"></textarea>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+		<script type="text/javascript" src="js/jquery-1.8.3.js" ></script>
+		<script type="text/javascript" src="js/journal.js"></script>
+	</div>
 </body>
+
 </html>
