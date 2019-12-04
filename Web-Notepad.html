@@ -4,14 +4,22 @@
 	<meta charset="UTF-8">
 	<title>Journey Alpha</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-light-blue.css">
 </head>
 <body onload="mood()">
 	<header>
-		<button type="button" onclick="savedata()">Save</button>
-		<button type="button" onclick="cleardata()">Clear</button>
-		<button type="button" onclick="withdraw()">Withdraw</button>
-		<button type="button" onclick="loaddata(1)">Load</button>
-		<button type="button" onclick="mood()">Mood</button>
+		<div id="buttons">
+			<button type="button" onclick="savedata()">Save</button>
+			<button type="button" onclick="cleardata()">Clear</button>
+			<button type="button" onclick="withdraw()">Withdraw</button>
+			<button type="button" onclick="loaddata(-1)">Load</button>
+			<button type="button" onclick="mood()">Mood</button>
+		</div>
+		<div id="tags">
+			<footer id="clear_footer"></footer>
+		</div>
 	</header>
 
 	<aside class="box" id="test">
@@ -30,10 +38,14 @@
         </ul>
 	</aside>
 
-	<!--居中显示视图-->
+	<!--Pop up Question-->
 	<div class="dislog" style="display: {{block}};">
-		<!--内容-->
 		<div class="dis_cont">
+			<!--Button-->
+			<div class="close_window">
+				<label class="close-bt" onclick="mood_hide()">x</label>
+			</div>
+			<!--Window-->
 			<div class="cont_dis">
 				How is your day?
 			</div>
@@ -41,7 +53,6 @@
 				<label class="left_name" onclick="left()">Bad Day</label>
 				<label class="middle_name" onclick="middle()">Not Bad</label>
 				<label class="right_name" onclick="right()">Wonderful</label>
-
 			</div>
 		</div>
 	</div>
@@ -56,4 +67,5 @@
 		<script type="text/javascript" src="js/journal.js"></script>
 	</div>
 </body>
+
 </html>
