@@ -7,7 +7,8 @@ from flask import make_response
 import re
 import string
 import operator
-# import sys 
+import eliza_util
+
 app = Flask(__name__)
 
 # list from textblob 
@@ -38,6 +39,9 @@ def login():
         textobj = TextBlob(datafromjs, classifier=cl)
         total = len(textobj.sentences)
         
+        eliza = eliza_util.Eliza()
+        eliza.load('doctor.txt')
+
         # sentiment from training data
         # clsrslt = textobj.sentences[total - 1].classify()
 
@@ -54,6 +58,7 @@ def login():
         cats = lexicon.cats.keys()
 
         st = str(textobj.sentences[total - 1])
+        auto_sug = eliza.respond(st)
 
         #remove punctuation
         st = st.translate(str.maketrans('', '', string.punctuation))
@@ -143,7 +148,7 @@ def login():
         categories = str(" ".join(categories))
         result = clsrslt
 
-        resp = make_response('{"valence": "'+result+'", "cats": "'+categories+'", "und": "'+words+'", "start": '+str(textobj.sentences[total - 1].start)+', "end": '+str(textobj.sentences[total-1].end)+'}')
+        resp = make_response('{"valence": "'+result+'", "cats": "'+categories+'", "und": "'+words+'", "eliza": "'+auto_sug+'", "start": '+str(textobj.sentences[total - 1].start)+', "end": '+str(textobj.sentences[total-1].end)+'}')
         resp.headers['Content-Type'] = "application/json"
 
         return resp
