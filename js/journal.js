@@ -92,11 +92,11 @@ function showTags(t_ID)
     document.getElementById("write").style.pointerEvents = "auto";
 }
 
-function removeTags(t_ID)
+function removeTags(t, ID)
 {
     console.log("t_ID");
-    var x = document.getElementById(t_ID);
-    x.parentNode.removeChild(x);
+    var x = document.getElementById(ID.toString()+ t.toString());
+    x.parentNode.parentNode.removeChild(x.parentNode);
 }
 
 
@@ -106,7 +106,7 @@ write.onclick = function(){
     //     if (footer.firstChild.style.display == "block"){footer.firstChild.style.display == "none"}
     // }
     console.log("click!");
-    document.getElementById("write").style.pointerEvents = "none";
+    
     for (i = 1; i <= num_highlights; i++)
     {
         console.log('hiding t_' + i);
@@ -138,6 +138,11 @@ write.onclick = function(){
     }
 }
 
+write.ondblclick = function() {
+    console.log("double-click!");
+    document.getElementById("write").style.pointerEvents = "none";
+}
+
 function negPopup() {
     popup.style.display = "block";
 }
@@ -156,13 +161,13 @@ function footerPopup(tags, num) {
     var all_tags=""
 
     var tag_inner = "<div class='w3-container w3-tag w3-round w3-theme-l2' style='padding:3px 5px'><img src = 'https://findicons.com/files/icons/557/creme/128/delete.png' height='15' id="; 
-    var tag_mid = " onclick='removeTags("
-    var tag_func = ");'><div class='w3-container w3-tag w3-round w3-theme-l2 w3-border w3-border-white'>";
+    var tag_mid = " onclick='removeTags(\"";
+    var tag_func = ")'><div class='w3-container w3-tag w3-round w3-theme-l2 w3-border w3-border-white'>";
     var tag_end = "</div></div>";
 
     fancy_tags.forEach(function (tag, i) {
-        var id = num.toString() + tag;
-        all_tags += tag_inner + id + tag_mid + id + tag_func + tag + tag_end;
+        var id = num.toString() + tag.toString();
+        all_tags += tag_inner + id + tag_mid + tag +"\"," + num.toString() + tag_func + tag + tag_end;
     });
 
     var tagify = "<div id=" + t_id + ">" + all_tags + "</div>";
