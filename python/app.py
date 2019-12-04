@@ -150,6 +150,7 @@ def login():
         # catgories
         categories = effect[::2]
 
+        val = "nan"
         if (len(effect) > 0):
             if ("positive_emotion" in effect):
                 val = "pos"
