@@ -8,7 +8,9 @@ var num_highlights = 0;
 
 var key, flag = 0;
 var curr_index = 0;
+var brcounter = 0;
 
+// Page Onload Operation
 write.onscroll = function() {
     var scrollTop = $('textarea').scrollTop();
     $backdrop.scrollTop(scrollTop);
@@ -27,6 +29,7 @@ else{
 loaddata(curr_index);
 document.getElementById("m"+curr_index.toString()).style.background = "#d3d";
 
+// Support Functions
 function applyHighlights(text, valence, cats, subject) {
     var edits = text;
     var subjects = subject.split(" ");
@@ -183,7 +186,7 @@ write.oninput = function() {
         $highlights.html(currhtml.slice(0, n));
     }
 
-    if (key == 13){    // Enter
+    if (key == 13){    // LF
         $highlights.html($highlights.html() + "<marknut><br></marknut>");
         brcounter += 1;
     }
@@ -225,6 +228,7 @@ write.oninput = function() {
             var highlightedText = applyHighlights(slice, resparse["valence"], cats, und);
             console.log("hT" + highlightedText);
             if ($highlights.html() == "") {$highlights.html($highlights.html() + highlightedText);}
+            else if (brcounter > 0) {brcounter = 0; $highlights.html($highlights.html() + highlightedText);}    // if LF, no extra space is needed.
             else {$highlights.html($highlights.html() + " " + highlightedText);}
         }
 
