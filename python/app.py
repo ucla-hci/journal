@@ -12,13 +12,24 @@ app = Flask(__name__)
 
 # list from textblob 
 train = [('I love this sandwich.', 'pos'),('this is an amazing place!', 'pos'),('I feel very good about these beers.', 'pos'),('this is my best work.', 'pos'),("what an awesome view", 'pos'),('I do not like this restaurant', 'neg'),('I am tired of this stuff.', 'neg'),("I can't deal with this", 'neg'),('he is my sworn enemy!', 'neg'),('my boss is horrible.', 'neg'),('the beer was good.', 'pos'),('I do not enjoy my job', 'neg'),("I ain't feeling dandy today.", 'neg'),("I feel amazing!", 'pos'),('Gary is a friend of mine.', 'pos'),("I can't believe I'm doing this.", 'neg')]
-
+words = ['should','rules','believe','believed','college','must','blame','wrong','fault','die','panicked','worried','panic','responsible','guilty','feeling','change','loser','bitter','never','again','jealous','sacrifice']
 
 @app.route("/")
 def home():
     return ""
 @app.route("/index")
 
+@app.route('/check', methods=['GET', 'POST'])
+def check():
+    if request.method == 'POST':
+        datafromjs = request.form['mydata']
+        textobj = TextBlob(datafromjs)
+        total = len(textobj.words)
+        freq = 0
+        for i in range(0, len(words)):
+            freq += textobj.words.count(words[i])
+        return str(freq)
+    
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':

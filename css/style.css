@@ -15,6 +15,13 @@ html, body{
     margin: 0;
 }
 
+#weather{
+    width: 8vw;
+    height: 8vw;
+    padding: 5px;
+    margin-top: 40vh;
+}
+
 .box {
     float: left;
     position: relative;

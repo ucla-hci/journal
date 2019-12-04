@@ -1,6 +1,7 @@
 var num = 0;
 var write = document.getElementById('write');
 var popup = document.getElementById('popup');
+var weather = document.getElementById('weather');
 var footer = document.getElementById('clear_footer')
 var $highlights = $('.highlights');
 var $backdrop = $('.backdrop');
@@ -353,7 +354,32 @@ function insertAtCursor(myValue) {
 function overall(){
     var text = write.value;
     var result = runPyScript_check(text);
-    var value = float(result);
+    var value = parseFloat(result);
+    console.log(value);
+    if (value < 0.001) {
+        weather.src="./src/1.png";
+    }
+    else if (value < 0.01) {
+        weather.src="./src/2.png";
+    }
+    else if (value < 0.02) {
+        weather.src="./src/3.png";
+    }
+    else if (value < 0.03) {
+        weather.src="./src/4.png";
+    }
+    else if (value < 0.04) {
+        weather.src="./src/5.png";
+    }
+    else if (value < 0.05) {
+        weather.src="./src/6.png";
+    }
+    else if (value < 0.06) {
+        weather.src="./src/7.png";
+    }
+    else {
+        weather.src="./src/8.png";
+    }
 }
 
 function mood(){
