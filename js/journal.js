@@ -228,17 +228,18 @@ write.oninput = function() {
     }
     else {
         var text = write.value;
-        if (text[text.length - 1] == "." || text[text.length - 1] == "?" || text[text.length - 1] == "!") {
-            var result = runPyScript(text);
-            console.log("result" + result)
-            var resparse = JSON.parse(result); 
-            console.log(resparse);
+        var result = runPyScript(text);
+        console.log("result" + result)
+        var resparse = JSON.parse(result); 
+        console.log(resparse);
 
-            var cats = resparse["cats"];
-            var und = resparse["und"];
-            // var effect = resparse["empath"];
-            console.log(cats);
-            console.log(und);
+        var cats = resparse["cats"];
+        var und = resparse["und"];
+        var eliza = resparse["eliza"];
+        console.log(cats);
+        console.log(und);
+
+        if (text[text.length - 1] == "." || text[text.length - 1] == "?" || text[text.length - 1] == "!") {
 
             var slice = text.slice(resparse["start"],resparse["end"]);
             var highlightedText = applyHighlights(slice, resparse["valence"], cats, und);
@@ -248,13 +249,13 @@ write.oninput = function() {
             else {$highlights.html($highlights.html() + " " + highlightedText);}
         }
 
-        else if (text[text.length - 1] == " " && text[text.length - 2] == ".") {
+        else if (text[text.length - 1] == " " && (text[text.length - 2] == "." || text[text.length - 2] == "?" || text[text.length - 2] == "!")) {
             var i;
             for (i = currhtml.length - 1; i >= 0; i--) {
                 if (currhtml[i] == "/") {
                     var label = currhtml.slice(i+1, i+8);
-                    if (label == "markneg") {
-                        $highlights.html($highlights.html() + " <marktmp>Try reframing that negative thought.</marktmp>");
+                    if (label == "markneg" || label == "markpos") {
+                        $highlights.html($highlights.html() + " <marktmp>" + eliza + "</marktmp>");
                         flag = 1;
                     }
                     return;
@@ -301,6 +302,9 @@ function cleardata(){
     document.getElementById("write").value = "";
     savedata_noalert();
     $highlights.html("");
+
+    var footer = document.getElementById("clear_footer");
+	while (footer.firstChild) footer.removeChild(footer.firstChild);
 }
 
 function withdraw(){
