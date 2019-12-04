@@ -38,7 +38,7 @@ synon: everyone everybody nobody noone
 synon: be am is are was
 key: xnone
   decomp: *
-    reasmb: I'm not sure I understand you fully.
+    reasmb: Please go on.
     reasmb: Please go on.
     reasmb: What does that suggest to you ?
     reasmb: Do you feel strongly about discussing such things ?

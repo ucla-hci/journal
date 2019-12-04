@@ -173,7 +173,7 @@ class Eliza:
             return None
 
         text = re.sub(r'\s*\.+\s*', ' . ', text)
-        text = re.sub(r'\s*,+\s*', ' , ', text)
+        # text = re.sub(r'\s*,+\s*', ' , ', text)
         text = re.sub(r'\s*;+\s*', ' ; ', text)
         log.debug('After punctuation cleanup: %s', text)
 
