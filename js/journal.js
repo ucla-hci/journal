@@ -86,19 +86,15 @@ function applyHighlights(text, valence, clss, cats, subject) {
         footerPopup(cats, num_highlights);
     }
 
-    console.log("class" + clss);
+    console.log("class: " + clss);
     if (clss == "spl") { 
-        edits = "<markspl>" + edits + "</markspl>";
-        popup.innerHTML = "This is an example of splitting"; }
+        edits = "<markspl>" + edits + "</markspl>";}
     else if (clss == "sld") { 
-        edits = "<marksld>" + edits + "</marksld>";
-        popup.innerHTML = "Try not to use should statements"; }
+        edits = "<marksld>" + edits + "</marksld>";}
     else if (clss == "frt") { 
-        edits = "<markfrt>" + edits + "</markfrt>";
-        popup.innerHTML = "You're predicting the future"; }
-    if (clss == "blm") { 
-        edits = "<markblm>" + edits + "</markblm>";
-        popup.innerHTML = "Try not to assign blame"; }
+        edits = "<markfrt>" + edits + "</markfrt>";}
+    else if (clss == "blm") { 
+        edits = "<markblm>" + edits + "</markblm>";}
     else { edits = "<marknut>" + edits + "</marknut>"; }
     
     return edits;
@@ -147,13 +143,33 @@ write.onclick = function(){
     var slc = write.value.slice(0, curpos);
     var numsent_slc = (slc.match(/\./g)||[]).length;
     var numsent_ht = (currhtml.match(/\./g)||[]).length;
-    if (numsent_slc >= numsent_ht) { return; }
+    
+    // First, find start point by skipping <mark***> (numsent_slc + 1) times
+    // If numsent_slc == 0, then start no need to skip
+    if (numsent_slc >= numsent_ht) { return;}
     else {
-        var i;
-        for (i = curpos + (numsent_slc * 19) + 9; i < currhtml.length; i++) {
-            if (currhtml[i] == "<" && currhtml[i+1] == "/") {
-                var label = currhtml.slice(i+2, i+9);
-                
+        var i, j;
+        var sl_counter = 0;
+        //console.log("Currhtml ", currhtml);
+        //console.log("numsent_slc ", numsent_slc)
+        
+        if (numsent_slc == 0) {j = 0;}
+        else {
+            for (i = 0; i < currhtml.length; i++) {
+                if (currhtml[i] == "<" && currhtml.slice(i+1, i+5) == "mark") {sl_counter++;console.log("sl_counter =",sl_counter)}
+                if (sl_counter == (numsent_slc+1)) {
+                    j = i + 8;
+                    sl_counter = 0;
+                    break;
+                }
+            }
+        }
+        //console.log(" j = ",j ," currhtml[i] = ", currhtml.slice(j));
+    // Then, find highlight label by looping from this index point
+        for (i = j; j < currhtml.length; j++) {
+            if (currhtml[j] == "<" && currhtml[j+2] == "m"){
+                var label = currhtml.slice(j+2, j+9);
+                //console.log(label)
                 if (label == "markspl") { 
                     popup.innerHTML = "This is an example of splitting";
                     negPopup(); return; }
@@ -166,9 +182,12 @@ write.onclick = function(){
                 if (label == "markblm") { 
                     popup.innerHTML = "Try not to assign blame";
                     negPopup(); return; }
+                if (label == "marknut") {
+                    continue;}
                 else { return; }
             }
-            else if(currhtml[i] == "<") { return; }
+            //else if(currhtml[i] == "<") { return; }   
+            // YIFAN 12/07/19 11:30 Note: Don't know what's the function of above line, but it cause loop to end too soon, and then, cause no popup display
         }
     }
 }
@@ -259,18 +278,18 @@ write.oninput = function() {
     }
     else {
         var text = write.value;
-        var result = runPyScript(text);
-        console.log("result" + result)
-        var resparse = JSON.parse(result); 
-        console.log(resparse);
-
-        var cats = resparse["cats"];
-        var und = resparse["und"];
-        var eliza = resparse["eliza"];
-        console.log(cats);
-        console.log(und);
 
         if (text[text.length - 1] == "." || text[text.length - 1] == "?" || text[text.length - 1] == "!") {
+            var result = runPyScript(text);
+            console.log("result" + result)
+            var resparse = JSON.parse(result); 
+            console.log(resparse);
+
+            var cats = resparse["cats"];
+            var und = resparse["und"];
+            var eliza = resparse["eliza"];
+            console.log(cats);
+            console.log(und);
 
             var slice = text.slice(resparse["start"],resparse["end"]);
             var highlightedText = applyHighlights(slice, resparse["valence"], resparse["class"], cats, und);
