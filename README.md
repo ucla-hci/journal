@@ -5,7 +5,9 @@ So far, we have implemented basic sentiment analysis, and a simple cognitive dis
 
 ## Dependencies
 Lib needed: `flask`, `textblob`, `empath`, `eliza_utils`, `fuzzywuzzy`
-Especially, to enable `flask`, 'venv' is required. Follow these steps:
+
+### Python Virtual Environment
+Use a virtual environment to manage the dependencies:
 - `cd` to `python` folder
 - `python3 -m venv venv` to build dir (Windows: `py -3 -m venv venv`)
 - `source venv/bin/activate` to activate virtual environment (Windows: `venv\Scripts\activate`)
