@@ -7,8 +7,8 @@ So far, we have implemented basic sentiment analysis, and a simple cognitive dis
 Lib needed: `flask`, `textblob`, `empath`, `eliza_utils`, `fuzzywuzzy`
 Especially, to enable `flask`, 'venv' is required. Follow these steps:
 - `cd` to `python` folder
-- `python3 -m venv venv` to build dir
-- `source venv/bin/activate` to activate virtual environment (Windows-Powershell command: `py -3 -m venv venv`)
+- `python3 -m venv venv` to build dir (Windows: `py -3 -m venv venv`)
+- `source venv/bin/activate` to activate virtual environment (Windows: `venv\Scripts\activate`)
 - `pip install xxxx` to install all dependencies
 
 ## Test Frontend Only
@@ -17,7 +17,7 @@ Especially, to enable `flask`, 'venv' is required. Follow these steps:
 - Note that features like Highlight and Underline are not available without backend
 
 ## Test Frontend + Backend
-- run backend server by using command `python3 app.py`
+- run backend server by using command `python3 app.py` (Windows: `py .\app.py`)
 - make sure `Flask` is running on `127.0.0.1:5000`, otherwise you need to modify ip setting in `js/journal.js` first
 - open `Web-Notepad.html`
 - Type!
