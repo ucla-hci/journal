@@ -34,23 +34,34 @@ So far, we have implemented basic sentiment analysis, and a simple cognitive dis
 
     ![Splitting](/screenshots/screenshot7.PNG)
 
+* Video Demo
+[![Demo Video](/screenshots/videoshot.png)](https://youtu.be/Cgnsm-mMLqU)
 
 
-[![Demo Video](/screenshots/screenshot1.png)](https://youtu.be/Cgnsm-mMLqU)
-
-
-### Test Frontend
+## Test Frontend Only
 - open `Web-Notepad.html`
-- type!
+- Type!
+- Note that features like Highlight and Underline are not available without backend
 
-### Test Frontend + Backend
-Dependencies: `flask`, `textblob`, `empath`, `eliza_utils`
+
+## Test Frontend + Backend
+- run backend server by using command `python3 app.py` (Windows: `py .\app.py`)
+- make sure `Flask` is running on `127.0.0.1:5000`, otherwise you need to modify ip setting in `js/journal.js` first
+- open `Web-Notepad.html`
+- Type!
+
+### Dependencies
+Lib needed: `flask`, `textblob`, `empath`, `eliza_utils`, `fuzzywuzzy`
+
+### Python Virtual Environment
+Use a virtual environment to manage the dependencies:
+- `cd` to `python` folder
+- `python3 -m venv venv` to build dir (Windows: `py -3 -m venv venv`)
+- `source venv/bin/activate` to activate virtual environment (Windows: `venv\Scripts\activate`)
+- `pip install xxxx` to install all dependencies
 - `cd` to `python` folder
 - `source venv/bin/activate` to activate virtual environment (Necessary for importing `textblob` lib in Python)
-- run backend server by using command `python3 app.py`
-- make sure Flask is running on `127.0.0.1:5000`, otherwise you need to modify ip setting in `js/journal.js` first
-- open `Web-Notepad.html`
-- type!
+
 
 #### Attention
 CORS needs to be disabled if the project is being run locally. In Safari, under `Develop` toggle `Disable Local File Restrictions`
