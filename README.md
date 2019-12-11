@@ -8,24 +8,24 @@ So far, we have implemented basic sentiment analysis, and a simple cognitive dis
 
 ![Welcome_Question](/screenshots/screenshot1.png)
 
-![Welcome_Question2](/screenshots/screenshot2.png)
+![Welcome_Question2](/screenshots/screenshot2.PNG)
 
 * Underlining words associated with positive (green) or negative (red) connotation, so that the user can determine their level of positivity/negativity and also make connections about what subjects contribute to these sentiments. Underlined words can also be selected to show related subjects. 
-![Sentiment](/screenshots/screenshot3.png)
+![Sentiment](/screenshots/screenshot3.PNG)
 
 * Detecting four different cognitive distortions. This will be more intelligent in the future.
 
     * Splitting
-    ![Splitting](/screenshots/screenshot4.png)
+    ![Splitting](/screenshots/screenshot4.PNG)
 
     * Blaming
-    ![Splitting](/screenshots/screenshot5.png)
+    ![Splitting](/screenshots/screenshot5.PNG)
 
     * Fortune-telling
-    ![Splitting](/screenshots/screenshot6.png)
+    ![Splitting](/screenshots/screenshot6.PNG)
 
     * Using "Should" Statements
-    ![Splitting](/screenshots/screenshot7.png)
+    ![Splitting](/screenshots/screenshot7.PNG)
 
 
 
