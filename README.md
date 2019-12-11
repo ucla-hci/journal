@@ -34,15 +34,17 @@ So far, we have implemented basic sentiment analysis, and a simple cognitive dis
 
     ![Splitting](/screenshots/screenshot7.PNG)
 
+
 * Video Demo
+
 [![Demo Video](/screenshots/videoshot.png)](https://youtu.be/Cgnsm-mMLqU)
+
 
 
 ## Test Frontend Only
 - open `Web-Notepad.html`
 - Type!
 - Note that features like Highlight and Underline are not available without backend
-
 
 ## Test Frontend + Backend
 - run backend server by using command `python3 app.py` (Windows: `py .\app.py`)
@@ -54,7 +56,7 @@ So far, we have implemented basic sentiment analysis, and a simple cognitive dis
 Lib needed: `flask`, `textblob`, `empath`, `eliza_utils`, `fuzzywuzzy`
 
 ### Python Virtual Environment
-Use a virtual environment to manage the dependencies:
+It is recommend to use the virtual environment to manage the dependencies:
 - `cd` to `python` folder
 - `python3 -m venv venv` to build dir (Windows: `py -3 -m venv venv`)
 - `source venv/bin/activate` to activate virtual environment (Windows: `venv\Scripts\activate`)
