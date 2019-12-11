@@ -6,6 +6,9 @@ var footer = document.getElementById('clear_footer')
 var $highlights = $('.highlights');
 var $backdrop = $('.backdrop');
 var num_highlights = 0;
+var modal = document.getElementById("myModal");
+var close = document.getElementsByClassName("close")[0]
+
 
 var key, flag = 0;
 var curr_index = 0;
@@ -127,6 +130,7 @@ write.onclick = function(){
     //     if (footer.firstChild.style.display == "block"){footer.firstChild.style.display == "none"}
     // }
     console.log("click!");
+    modal.style.display = "none";
     
     for (i = 1; i <= num_highlights; i++)
     {
@@ -172,16 +176,17 @@ write.onclick = function(){
                 //console.log(label)
                 if (label == "markspl") { 
                     popup.innerHTML = "This is an example of splitting";
-                    negPopup(); return; }
+                    
+                    negPopup("markspl"); return; }
                 else if (label == "marksld") { 
                     popup.innerHTML = "Try not to use should statements";
-                    negPopup(); return; }
+                    negPopup("marksld"); return; }
                 else if (label == "markfrt") { 
                     popup.innerHTML = "You're predicting the future";
-                    negPopup(); return; }
+                    negPopup("markfrt"); return; }
                 if (label == "markblm") { 
                     popup.innerHTML = "Try not to assign blame";
-                    negPopup(); return; }
+                    negPopup("markblm"); return; }
                 if (label == "marknut") {
                     continue;}
                 else { return; }
@@ -197,8 +202,42 @@ write.ondblclick = function() {
     document.getElementById("write").style.pointerEvents = "none";
 }
 
-function negPopup() {
-    popup.style.display = "block";
+function negPopup(cog_dist) {
+    // popup.style.display = "block";
+    var cd, color, def, ex1, ex2, ex3;
+    switch(cog_dist) {
+        case "markspl":
+            cd = "Splitting";
+            color = "#e2c0c0";
+            def="All-or-nothing thinking, or a.k.a. black-or-white thinking, can blind your understanding of a situation for all its positives and negatives. Try to reframe your thoughts more holistically or objectively.";
+            ex1="<p><span class='strikethrough'>I'm never going find another oppurtunity like that again.</span> &#x27F6 I missed out on a really good opportunity for a variety of valid reasons; however, when one door closes, another door opens.</p>";
+            break;
+        case "marksld":
+            cd = "Using \"Should\" Statements";
+            color = "#dcb1e5";
+            def="Thoughts that include \"should,\" \"ought,\" or \"must\" may induce feelings of guilt or shame. Such thoughts can lead you to feel frustration, anger, and bitterness when you or others around you fail to meet the unrealistic expectations you've laid out. Try to set realistic expections for yourself and others and be forgiving if some expections are not met. ";
+            ex1="<p><span class='strikethrough'>I should lose weight to be more attractive.</span> &#x27F6 I want to adopt healthier lifestyle habits to improve my body confidence.</p>";
+            break;
+        case "markfrt":
+            cd = "Fortune-telling";
+            color = "#dee5b1";
+            def="Arbitrarily predicting that things will turn out poorly may cause you to avoid doing something necessary but difficult as a result. Try to avoid determining a possible event as the certain future.";
+            ex1="<p><span class='strikethrough'>I know I won't get the job, so I'm just not going to practice for the interview.</span> &#x27F6 I cannot be certain whether or not I will get the job, but I want to do my best to prepare.</p>";
+            break;
+        case "markblm":
+            cd = "Blaming";
+            color = "#b1d1e5";
+            def="Putting all the blame on someone or something else may cloud your ability to accept your responsilibty in a situation. Try to view the situation from an outside perspective and understand both your's and the other party's circumstances.";
+            ex1="<p><span class='strikethrough'>It was all because of my brother's loud singing that I couldn't study for the exam.</span> &#x27F6 I could have gone to the library to allow myself a quieter environment for concentration. </p>";            
+            break;
+    }
+    document.getElementById("cog_dist").innerHTML = cd;
+    document.getElementById("cog_dist").style.backgroundColor = color;
+    document.getElementById("cd_def").innerHTML = def;
+    document.getElementById("ex1").innerHTML = ex1;
+    // document.getElementById("ex2").innerHTML = ex2;
+    // document.getElementById("ex3").innerHTML = ex3;
+    modal.style.display = "block";
 }
 
 function footerPopup(tags, num) {
@@ -300,6 +339,17 @@ write.oninput = function() {
         }
 
         else if (text[text.length - 1] == " " && (text[text.length - 2] == "." || text[text.length - 2] == "?" || text[text.length - 2] == "!")) {
+            var result = runPyScript(text);
+            console.log("result" + result)
+            var resparse = JSON.parse(result); 
+            console.log(resparse);
+
+            var cats = resparse["cats"];
+            var und = resparse["und"];
+            var eliza = resparse["eliza"];
+            console.log(cats);
+            console.log(und);
+
             var i;
             for (i = currhtml.length - 1; i >= 0; i--) {
                 if (currhtml[i] == "/") {
@@ -463,4 +513,8 @@ function right(){
     $(".dislog").css("display","none");
     $highlights.html(" <marktmp>Cool! Why not write down those happy moments now?</marktmp>");
     flag = 1;
+}
+
+close.onclick = function() {
+    modal.style.display = "none";
 }
