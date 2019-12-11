@@ -37,7 +37,7 @@ So far, we have implemented basic sentiment analysis, and a simple cognitive dis
 
 
 
-
+[![Watch the video]](https://youtu.be/Cgnsm-mMLqU)
 
 
 ### Test Frontend
