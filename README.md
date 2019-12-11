@@ -11,20 +11,27 @@ So far, we have implemented basic sentiment analysis, and a simple cognitive dis
 ![Welcome_Question2](/screenshots/screenshot2.PNG)
 
 * Underlining words associated with positive (green) or negative (red) connotation, so that the user can determine their level of positivity/negativity and also make connections about what subjects contribute to these sentiments. Underlined words can also be selected to show related subjects. 
+
+* Autosuggest based on MIT's Eliza that will rephrase parts of the user's input to encourage further introspection. This will be more intelligent in the future.
+
 ![Sentiment](/screenshots/screenshot3.PNG)
 
 * Detecting four different cognitive distortions. This will be more intelligent in the future.
 
     * Splitting
+
     ![Splitting](/screenshots/screenshot4.PNG)
 
     * Blaming
+
     ![Splitting](/screenshots/screenshot5.PNG)
 
     * Fortune-telling
+
     ![Splitting](/screenshots/screenshot6.PNG)
 
     * Using "Should" Statements
+    
     ![Splitting](/screenshots/screenshot7.PNG)
 
 
