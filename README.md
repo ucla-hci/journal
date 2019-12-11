@@ -61,8 +61,7 @@ It is recommend to use the virtual environment to manage the dependencies:
 - `python3 -m venv venv` to build dir (Windows: `py -3 -m venv venv`)
 - `source venv/bin/activate` to activate virtual environment (Windows: `venv\Scripts\activate`)
 - `pip install xxxx` to install all dependencies
-- `cd` to `python` folder
-- `source venv/bin/activate` to activate virtual environment (Necessary for importing `textblob` lib in Python)
+- `python3 app.py` to run backend and test
 
 
 #### Attention
