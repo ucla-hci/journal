@@ -4,7 +4,7 @@ Our Assisted Journaling project is motivated by the therapeutic practice of expr
 So far, we have implemented basic sentiment analysis, and a simple cognitive distortion detector. We are in the process of gathering real data to build a more nuanced cognitive distortion detector before we can build a model for thought-reframing.
 
 ### Features
-* Asking the user a question to get them in the headspace of journaling. This feature can become more customized and intelligent in the future. 
+* Asking the user a question to get them in the headspace of journaling. This feature will become more customized and intelligent in the future. 
 
 ![Welcome_Question](/screenshots/screenshot1.png)
 
@@ -12,11 +12,11 @@ So far, we have implemented basic sentiment analysis, and a simple cognitive dis
 
 * Underlining words associated with positive (green) or negative (red) connotation, so that the user can determine their level of positivity/negativity and also make connections about what subjects contribute to these sentiments. Underlined words can also be selected to show related subjects. 
 
-* Autosuggest based on MIT's Eliza that will rephrase parts of the user's input to encourage further introspection. This will be more intelligent in the future.
+* Autosuggest based on MIT's Eliza that will rephrase parts of the user's input in order to encourage further introspection. This feature will become more customized and intelligent in the future. 
 
 ![Sentiment](/screenshots/screenshot3.PNG)
 
-* Detecting four different cognitive distortions. This will be more intelligent in the future.
+* Detecting four different cognitive distortions. This feature will become more customized and intelligent in the future. 
 
     * Splitting
 
@@ -31,7 +31,7 @@ So far, we have implemented basic sentiment analysis, and a simple cognitive dis
     ![Splitting](/screenshots/screenshot6.PNG)
 
     * Using "Should" Statements
-    
+
     ![Splitting](/screenshots/screenshot7.PNG)
 
 
