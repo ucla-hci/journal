@@ -179,24 +179,28 @@ marksld {
     border-radius: 3px;
     color: transparent;
     background-color: #dcb1e5;
+    z-index: 15;
 }
 
 markblm {
     border-radius: 3px;
     color: transparent;
     background-color: #b1d1e5;
+    z-index: 15;
 }
 
 markfrt {
     border-radius: 3px;
     color: transparent;
     background-color: #dee5b1;
+    z-index: 15;
 }
 
 markspl {
     border-radius: 3px;
     color: transparent;
     background-color: #e2c0c0;
+    z-index: 15;
 }
 
 marknut {
@@ -351,3 +355,93 @@ und_neg {
     text-decoration-color: #af5050;
     z-index: 10;
 }
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: right; /* Stay in place */
+    z-index: 100; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 80%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: #d9d9d9; /* Black w/ opacity */
+    -webkit-animation-name: fadeIn; /* Fade in the background */
+    -webkit-animation-duration: 0.4s;
+    animation-name: fadeIn;
+    animation-duration: 0.4s;
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    z-index: 100; /* Sit on top */
+    position: fixed;
+    bottom: 0;
+    background-color: #FDFDFD;
+    width: 80%;
+    -webkit-animation-name: slideIn;
+    -webkit-animation-duration: 0.4s;
+    animation-name: slideIn;
+    animation-duration: 0.4s;
+    border-radius: 25px;
+    margin: auto;
+    opacity: 1;
+    display: none;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #BABABA;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .modal-header {
+    background-color: #FAF9F7  ;
+    padding: 0px 10vh;
+  }
+  
+  .modal-body {
+  background-color: #FAF9F7  ;
+    padding: 0px 10vh;
+  }
+  
+  .modal-footer {
+    background-color: #5cb85c;
+    color: white;
+  }
+  
+  /* Add Animation */
+  @-webkit-keyframes slideIn {
+    from {bottom: -300px; opacity: 0} 
+    to {bottom: 0; opacity: 1}
+  }
+  
+  @keyframes slideIn {
+    from {bottom: -300px; opacity: 0}
+    to {bottom: 0; opacity: 1}
+  }
+  
+  @-webkit-keyframes fadeIn {
+    from {opacity: 0} 
+    to {opacity: 1}
+  }
+  
+  @keyframes fadeIn {
+    from {opacity: 0} 
+    to {opacity: 1}
+  }
+
+  .strikethrough {
+    text-decoration: line-through red;
+  }
