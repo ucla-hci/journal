@@ -7,15 +7,19 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-light-blue.css">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 </head>
 <body onload="mood()">
+	<div id="heatmap"></div>
+	
 	<header>
 		<div id="buttons">
 			<button type="button" onclick="savedata()">Save</button>
 			<button type="button" onclick="cleardata()">Clear</button>
 			<button type="button" onclick="withdraw()">Withd</button>
 			<button type="button" onclick="loaddata(-1)">Load</button>
-			<button type="button" onclick="overall()">Eval</button>
+			<button type="button" id="keyboardlog">Keyboard</button>
+			<button type="button" onclick="reportMouseLog()">Mouse</button>
 		</div>
 		<div id="tags">
 			<footer id="clear_footer"></footer>
@@ -75,9 +79,8 @@
 				</ol> 
 		</div>
 		<textarea id="write" autofocus spellcheck="false"></textarea>
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-		<script type="text/javascript" src="js/journal.js"></script>
 	</div>
 </body>
-
+<script type="text/javascript" src="js/journal.js"></script>
+<script type="text/javascript" src="js/logger.js"></script>
 </html>
