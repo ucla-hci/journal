@@ -1,2 +1,4 @@
 python/venv/
 python/__pycache__/
+node_modules/
++data_sample/
