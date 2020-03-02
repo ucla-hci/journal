@@ -3,8 +3,13 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+// The page for User
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
+});
+// The page for Expert
+app.get('/exp', function(req, res){
+  res.sendFile(__dirname + '/expert.html');
 });
 
 app.use('/python', express.static('python'));
@@ -15,7 +20,7 @@ app.use('/ot.js', express.static('ot.js'));
 app.use('/node_modules', express.static('node_modules'));
 
 http.listen(3000, function(){
-  console.log('listening on *:3000');
+  console.log('Server listening on http://localhost:3000');
 });
 
 var EditorSocketIOServer = require('./ot.js/editor-socketio-server.js');
@@ -23,4 +28,9 @@ var server = new EditorSocketIOServer("", [], 1);
 
 io.on('connection', function(socket) {
   server.addClient(socket);
+  // Handle commands from expert, send them to all clients
+  socket.on("sentToServer", command => {
+    console.log("Command Receive:", command);
+    io.emit("sendToClient", {command});
+  });
 });
