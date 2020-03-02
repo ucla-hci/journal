@@ -27,13 +27,13 @@
 	<script src="node_modules/socket.io-client/dist/socket.io.js"></script>
 
 </head>
-<body onload="mood()">
+<body>
 	<header>
 		<div id="buttons">
-			<button type="button" onclick="savedata()">Save</button>
-			<button type="button" onclick="cleardata()">Clear</button>
-			<button type="button" onclick="withdraw()">Withd</button>
-			<button type="button" onclick="loaddata(-1)">Load</button>
+			<button type="button" onclick="control(1)">Func1</button>
+			<button type="button" onclick="control(2)">Func2</button>
+			<button type="button" onclick="control(3)">Func3</button>
+			<button type="button" onclick="control(4)">Func4</button>
 			<button type="button" onclick="Test()">Test</button>
 		</div>
 		<div id="tags">
@@ -109,6 +109,11 @@
 			function Test(){
 				//let message = $("#message").val().trim();
 				let command = "Test command!";
+				socket.emit("sentToServer", command);
+			}
+			function control(i){
+				//let message = $("#message").val().trim();
+				let command = "Expert: Command" + i;
 				socket.emit("sentToServer", command);
 			}
 		</script>

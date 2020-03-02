@@ -104,12 +104,10 @@
 			  var serverAdapter = new ot.SocketIOAdapter(socket);
 			  var editorAdapter = new ot.CodeMirrorAdapter(cm);
 			  var client = new ot.EditorClient(data.revision, data.clients, serverAdapter, editorAdapter);
-			  console.log("data",data);
-			  console.log("cm",cm);
 			})
 			// Receive Expert Command from Server
 			socket.on("sendToClient", command => {
-				console.log("Receive a command:", command);
+				console.log("Receive a command:", command.command);
 			});
 
 			// Demo: How to get text from CodeMirror
