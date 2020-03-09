@@ -1,0 +1,394 @@
+body {
+  font-family: "Lato", sans-serif;
+}
+
+#main {
+    transition: margin-left .5s; /* If you want a transition effect */
+    padding: 20px;
+    color: #6c6c6c;
+  }
+
+
+.bottombar {
+    border-top-style: solid;
+    border-color: rgb(255, 76, 76);
+
+    width: 100%;
+    height: 0;
+    position: fixed;
+    z-index: 2;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgb(255, 255, 255);
+    overflow-y: hidden;
+    transition: 0.5s;
+}
+  
+.bottombar a {
+    padding: 25px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #6c6c6c;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar {
+  border-right-style: solid;
+  border-color: rgb(255, 76, 76);
+
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  background-color: rgb(255, 255, 255);
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidebar a {
+  padding: 8px 8px 15px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #6c6c6c;
+  display: block;
+  transition: 0.3s;
+}
+
+.collapsible {
+    background: none;
+    border: none;
+    padding: 8px 8px 15px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #6c6c6c;
+    display: block;
+    transition: 0.3s;
+}
+
+.collapsible:hover {
+    color: #000000;
+}
+
+.collapsible:after {
+    content: '\002B';
+    font-weight: lighter;
+    float: right;
+    margin-left: 10px;
+}
+  
+.active:after {
+    content: "\2212";
+}
+
+.content {
+    padding: 0 18px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+.sidebar a:hover {
+  color: #000000;
+}
+
+.sidebar .greeting {
+    padding: 8px 8px 50px 32px;
+    font-size: 30px;
+}
+
+.sidebar .closebtn {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 36px;
+  display: block;
+}
+
+.openbtn {
+    background-image: url("https://s3-alpha-sig.figma.com/img/efb8/354e/cdb18b9e0a6419f02808894751f4e152?Expires=1584316800&Signature=gBwhOd6iWhUffH-HuyYT6V02WNx~W~621cBNhsO7~jBr1Qv2HqF13T6ZK4ixyw1YuGygtMvON0TDmSWuKnVFxYss9OSsDUZEXM5DCas0uEEjWpvQA-3rGSqESiG0CVXB~YQEBTVn8wBWzB0ty9reK6~knXX~yZEb9dEGjRiu-RWaXlXAwWjVIivCC6mJgBhkuOtKOyFAivgMO1A~tlZ128XKPYEuzWDXfQI4Xk3JU8R4zkujGGlopMUkiL6hRE3GoGx40AqXmBB3tsesNWslTUc5vyIbHK7PIfknxR42aDSEEQ44PdUNmjmBoQzqHXsUKmpVQeP49e14dwYHI1jpzQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    left: 24px;
+    width: 23px;
+    top: 24px;
+    height: 20px;
+    border-style: none;
+}
+
+.openbottombtn {
+    background-image: url("https://s3-alpha-sig.figma.com/img/efb8/354e/cdb18b9e0a6419f02808894751f4e152?Expires=1584316800&Signature=gBwhOd6iWhUffH-HuyYT6V02WNx~W~621cBNhsO7~jBr1Qv2HqF13T6ZK4ixyw1YuGygtMvON0TDmSWuKnVFxYss9OSsDUZEXM5DCas0uEEjWpvQA-3rGSqESiG0CVXB~YQEBTVn8wBWzB0ty9reK6~knXX~yZEb9dEGjRiu-RWaXlXAwWjVIivCC6mJgBhkuOtKOyFAivgMO1A~tlZ128XKPYEuzWDXfQI4Xk3JU8R4zkujGGlopMUkiL6hRE3GoGx40AqXmBB3tsesNWslTUc5vyIbHK7PIfknxR42aDSEEQ44PdUNmjmBoQzqHXsUKmpVQeP49e14dwYHI1jpzQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    right: 24px;
+    width: 23px;
+    height: 20px;
+    border-style: none;
+    position: absolute;
+    bottom: 24px;
+}
+
+#container {
+  transition: margin-left .5s;
+  padding: 16px;
+}
+
+button {
+    outline: none;
+}
+
+
+
+
+/* #Onboarding Screen */
+	/* Welcome to Journal! */
+	#n21_27 {
+		/*font-family: Poligon;*/
+		font-size: 60px;
+		font-weight: 600;
+		letter-spacing: 0px;
+		color: rgb(79, 79, 79);
+		vertical-align: middle;
+		justify-content: flex-start;
+		width: 100%;
+		transform: translate(0px, 0px);
+		line-height: 70.3125px;
+		height: 54px;
+		left: 179px;
+		top: 140px;
+	}
+ 
+	/* How is your day today? */
+	#n21_28 {
+		font-size: 24px;
+		font-weight: 400;
+		letter-spacing: 0px;
+		color: rgb(67, 67, 67);
+		vertical-align: middle;
+		justify-content: flex-start;
+		width: 100%;
+		transform: translate(0px, 0px);
+		line-height: 28.125px;
+		height: 31px;
+		left: 179px;
+		top: 240px;
+	}
+ 
+	/* image 17 */
+	#n21_29 {
+		background-image: url("https://s3-alpha-sig.figma.com/img/0198/f5ef/8d7bfa4afe5772e8a8a8dff0a6c5bbe7?Expires=1584316800&Signature=DNiT~feICL-JecXtNJuZDmYEWfAfo1QzIDkpclug9gEELMUrxlnhGbtrE-1Y8NA52j6AOpBTyFeICOCe1qmZcw-S16R0dx8wAQ5F2Cc0VjnYafo1O9GDAFGo927CRhsl6nFlnfYDIB7mZjU-KkHVPDrEY5JXtfSSqFENVXoGMxUtvpHxUUfIiiGHKCBtmSIjaM-O7OiqXFUFe01g5FPobvNDC-K3LT0ZS-nPjw8a68RoaRXqeljjYXoXd7bxRjbfXWJE0-Fhp8ARIzlJOu8JKpovLqn71NwIZi1SlHm50mXCrbBtPL969RWbg8VcQXRSQ0FwhjzaRKP9HCHf3bQIqw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA");
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center center;
+		left: 195px;
+		width: 72px;
+		top: 318px;
+		height: 72px;
+	}
+ 
+	/* Good Day */
+	#n21_30 {
+		font-size: 24px;
+		font-weight: 400;
+		letter-spacing: 0px;
+		color: rgb(0, 0, 0);
+		opacity: 0.4;
+		vertical-align: middle;
+		justify-content: flex-start;
+		width: 104px;
+		transform: translate(0px, 0px);
+		line-height: 28.125px;
+		height: 31px;
+		left: 179px;
+		top: 406px;
+	}
+ 
+	/* Neutral Day */
+	#n21_31 {
+		font-size: 24px;
+		font-weight: 400;
+		letter-spacing: 0px;
+		color: rgb(0, 0, 0);
+		opacity: 0.4;
+		vertical-align: middle;
+		justify-content: flex-start;
+		width: 125px;
+		transform: translate(0px, 0px);
+		line-height: 28.125px;
+		height: 31px;
+		left: 329px;
+		top: 406px;
+	}
+ 
+	/* image 18 */
+	#n21_32 {
+		background-image: url("https://s3-alpha-sig.figma.com/img/75ac/48d2/8578bed23622cc86591638ab5e1f4cb0?Expires=1584316800&Signature=arDnMdGg0tU5jTJvZhYpD5gNzcwPYiKdZap19JUE1EoePIJaaYp8D0pxGtEYZiQavPkt9X-hgw3BuGrX4yVLbZnZvzSoSjSM0xxOYRKQdBFpPd1OWx0I8rstAutbpT7OrONa5efKJadQdViHGwX4L5~SKsihBv32xgthiLqrtB~-6i8K7GuKLP021nsUx2bVRDh6Cj~UPWGUqUVptM6VmF3ugDfg1HBkQNobvh25zR2X6wQcn8XAEqsrwwurUeLbMWRcO8tQJNSNvXrizicWfZCJKOl4taOQTiNv86~TWHAXrrG9UL5k3J1-HyfWjP4M7BuQdq8luEU1SJdx1TT90Q__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA");
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center center;
+		left: 355px;
+		width: 72px;
+		top: 317px;
+		height: 72px;
+	}
+ 
+ 
+		/* Bad Day */
+		#n21_33 {
+			font-size: 24px;
+			font-weight: 400;
+			letter-spacing: 0px;
+			color: rgb(0, 0, 0);
+			opacity: 0.4;
+			vertical-align: middle;
+			justify-content: flex-start;
+			width: 88px;
+			transform: translate(0px, 0px);
+			line-height: 28.125px;
+			height: 31px;
+			left: 507px;
+			top: 406px;
+		}
+ 
+		/* image 19 */
+		#n21_34 {
+			background-image: url("https://s3-alpha-sig.figma.com/img/f529/75dc/39cbcb36f6cd7a023e9c1d17d71e1f73?Expires=1584316800&Signature=hY2KdTXbMFCQHp0aLV9wiiaENYaMJm5Ky2f9Xa2ZLLm76GaD6U4yvot3IZplKG6pUsUmtvhi6rUYZJwLUOqbaEotmEw47CriYR1tugUkuiyN-bSOnJFMLGt1-lpFkHMqhmSd7kt~SMjdf4sDcZ11GGL9utUHWftV-aHAbqaktQiZqZ31e1zS5v3sJQlZsHcOli~idf-zKRhzcZPN8CLNeg6ib6s2tF34GLo3i9RjUtzKUGmsQdZrO264T~HgVx4Mt2R1L1JKQaRBGaWZoUWA9Rfs8rJwB34r0lcJAywPH7LsIzMfKvhX0MhQativA7BcTweHCkRj3UcGNqybKwTaHw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA");
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-position: center center;
+			left: 515px;
+			width: 72px;
+			top: 317px;
+			height: 72px;
+        }
+        
+
+        .container{
+            border: none;
+            width: 92vw;
+            height: 94vh;
+            margin-left: 8vw;
+            display: block;
+            transform: translateZ(0);
+            -webkit-text-size-adjust: none;
+        }
+        
+        .backdrop, #write {
+            width: 92vw;
+            height: 94vh;
+        }
+        
+        .highlights, #write {
+            padding: 10px;
+            font: 24px Helvetica, sans-serif;
+            font-weight: 100;
+            letter-spacing: 1px;
+            line-height:40px;
+            /*padding-left:130px;
+            padding-right:100px;*/
+            padding-top:5px;
+            padding-bottom:34px;
+        }
+        
+        .backdrop {
+            position: absolute;
+            z-index: 1;
+            /*border: 1px solid #6c6c6c;*/
+            background-color: #fff;
+            overflow: auto;
+            pointer-events: none;
+            transition: transform 1s;
+        }
+        
+        .highlights {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            color: transparent;
+        }
+        
+        #write {
+            display: block;
+            position: absolute;
+            z-index: 2;
+            margin: 0;
+            border: 2px solid #808080;
+            border-radius: 0;
+            color: #000000;
+            background-color: transparent;
+            overflow: auto;
+            resize: none;
+            transition: transform 1s;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image:url("../src/title.png"), url("../src/redlines.png"), url("../src/lines.png"), url("../src/paper.png");
+            background-repeat:no-repeat, repeat-y, repeat, repeat;
+            opacity: 0.5;
+            pointer-events: auto;
+        }
+        
+        #popup {
+            padding: 5px;
+            font: 20px Helvetica, sans-serif;
+            font-weight: 100;
+            display: none;
+            position: absolute;
+            margin: 0;
+            border-radius: 0;
+            height: auto;
+            width: 8vw;
+            z-index: 3;
+            color: white;
+            background-color:#808080;
+        }
+        
+        marksld {
+            border-radius: 3px;
+            color: transparent;
+            background-color: #dcb1e5;
+            z-index: 15;
+        }
+        
+        markblm {
+            border-radius: 3px;
+            color: transparent;
+            background-color: #b1d1e5;
+            z-index: 15;
+        }
+        
+        markfrt {
+            border-radius: 3px;
+            color: transparent;
+            background-color: #dee5b1;
+            z-index: 15;
+        }
+        
+        markspl {
+            border-radius: 3px;
+            color: transparent;
+            background-color: #e2c0c0;
+            z-index: 15;
+        }
+        
+        marknut {
+            border-radius: 3px;
+            color: transparent;
+            background-color: transparent;
+        }
+        
+        marktmp {
+            color: #cecece;
+        }
+        
+        #write:focus {
+            outline: none;
+        }

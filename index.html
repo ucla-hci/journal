@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+
+<body onload="loader()">
+<div id="mySidebar" class="sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">Settings</a>
+  <a href="#" class="greeting">Good afternoon, Sam.</a>
+  <a href="#">Drafts</a>
+  <a href="#">Journals</a>
+  <a href="##">New Journal</a>
+  <button type="button" class="collapsible">Recent Journals</button>
+  <div class="content">
+    <button type="button" class="collapsible">Good Days</button>
+    <button type="button" class="collapsible">Neutral Days</button>
+    <button type="button" class="collapsible">Bad Days</button>
+  </div>
+
+</div>
+
+<div id="container">
+    <div id="main">
+        <button class="openbtn" id="opnsidebar" onclick="openNav()"></button>  
+        <h1>Entry Title</h1>
+        <div class="backdrop">
+			<div class="highlights"></div>
+		</div>
+
+        <textarea id="write" autofocus spellcheck="false"></textarea>
+    <!-- 
+        Onboarding elements 
+        </!-- Welcome to Journal! --/>
+        <div class="left top text" id="n21_27">Welcome to Journal!</div>
+        </!-- How is your day today? --/>
+        <div class="left top text" id="n21_28">How is your day today?</div>
+        </!-- Good Day image --/>
+        <div class="left top rectangle" id="n21_29"></div>
+        </!-- Good Day --/>
+        <div class="left top text" id="n21_30">Good Day</div>
+        </!-- Neutral Day --/>
+        <div class="left top text" id="n21_31">Neutral Day</div>
+        </!-- Neutral Day image --/>
+        <div class="left top rectangle" id="n21_32"></div>
+        
+        </!-- Group 4 --/>
+        <div class="group" id="n21_35">
+            </!-- Bad Day --/>
+            <div class="left top text" id="n21_33">Bad Day</div>
+            </!-- image 19 --/>
+            <div class="left top rectangle" id="n21_34"></div>
+        </div>
+    -->
+
+        <button class="openbottombtn" onclick="openDef()"></button>
+    </div>
+
+    
+
+    <div id="myBottombar" class="bottombar">
+        <a href="javascript:void(0)" class="closedef" onclick="closeDef()">Distortion Name</a>
+        <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque in ornare nulla. Curabitur augue velit, sodales ut congue a, aliquam non arcu. Aliquam sed erat non turpis pretium finibus. Integer rhoncus nisl ac augue egestas, id vestibulum erat accumsan. Donec efficitur commodo nisl in molestie. Nunc molestie quam ut augue cursus, ac blandit nisi cursus. Nam malesuada erat nec mauris interdum, in ultrices arcu gravida.</a>
+    </div>
+</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script type="text/javascript" src="funcs.js"></script>
+
+</body>
+</html> 
