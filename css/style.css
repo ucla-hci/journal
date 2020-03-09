@@ -6,6 +6,7 @@ body {
     transition: margin-left .5s; /* If you want a transition effect */
     padding: 20px;
     color: #6c6c6c;
+    /*background-color: transparent;*/
   }
 
 
@@ -88,7 +89,7 @@ body {
 .content {
     padding: 0 18px;
     max-height: 0;
-    overflow: hidden;
+    overflow: auto;
     transition: max-height 0.2s ease-out;
 }
 
@@ -113,6 +114,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+    background-color: transparent;
     left: 24px;
     width: 23px;
     top: 24px;
@@ -125,6 +127,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+    background-color: transparent;
     right: 24px;
     width: 23px;
     height: 20px;
@@ -268,127 +271,89 @@ button {
         }
         
 
-        .container{
-            border: none;
-            width: 92vw;
-            height: 94vh;
-            margin-left: 8vw;
-            display: block;
-            transform: translateZ(0);
-            -webkit-text-size-adjust: none;
-        }
-        
-        .backdrop, #write {
-            width: 92vw;
-            height: 94vh;
-        }
-        
-        .highlights, #write {
-            padding: 10px;
-            font: 24px Helvetica, sans-serif;
-            font-weight: 100;
-            letter-spacing: 1px;
-            line-height:40px;
-            /*padding-left:130px;
-            padding-right:100px;*/
-            padding-top:5px;
-            padding-bottom:34px;
-        }
-        
-        .backdrop {
-            position: absolute;
-            z-index: 1;
-            /*border: 1px solid #6c6c6c;*/
-            background-color: #fff;
-            overflow: auto;
-            pointer-events: none;
-            transition: transform 1s;
-        }
-        
-        .highlights {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            color: transparent;
-        }
-        
-        #write {
-            display: block;
-            position: absolute;
-            z-index: 2;
-            margin: 0;
-            border: 2px solid #808080;
-            border-radius: 0;
-            color: #000000;
-            background-color: transparent;
-            overflow: auto;
-            resize: none;
-            transition: transform 1s;
-            box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            -webkit-box-sizing: border-box;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-image:url("../src/title.png"), url("../src/redlines.png"), url("../src/lines.png"), url("../src/paper.png");
-            background-repeat:no-repeat, repeat-y, repeat, repeat;
-            opacity: 0.5;
-            pointer-events: auto;
-        }
-        
-        #popup {
-            padding: 5px;
-            font: 20px Helvetica, sans-serif;
-            font-weight: 100;
-            display: none;
-            position: absolute;
-            margin: 0;
-            border-radius: 0;
-            height: auto;
-            width: 8vw;
-            z-index: 3;
-            color: white;
-            background-color:#808080;
-        }
-        
-        marksld {
-            border-radius: 3px;
-            color: transparent;
-            background-color: #dcb1e5;
-            z-index: 15;
-        }
-        
-        markblm {
-            border-radius: 3px;
-            color: transparent;
-            background-color: #b1d1e5;
-            z-index: 15;
-        }
-        
-        markfrt {
-            border-radius: 3px;
-            color: transparent;
-            background-color: #dee5b1;
-            z-index: 15;
-        }
-        
-        markspl {
-            border-radius: 3px;
-            color: transparent;
-            background-color: #e2c0c0;
-            z-index: 15;
-        }
-        
-        marknut {
-            border-radius: 3px;
-            color: transparent;
-            background-color: transparent;
-        }
-        
-        marktmp {
-            color: #cecece;
-        }
-        
-        #write:focus {
-            outline: none;
-        }
+.container{
+    border: none;
+    width: 92vw;
+    height: 94vh;
+    margin-left: 8vw;
+    display: block;
+    transform: translateZ(0);
+    -webkit-text-size-adjust: none;
+}
+
+.backdrop, #write {
+    width: 92vw;
+    height: 94vh;
+}
+
+.highlights, #write {
+    padding: 10px;
+    font: 24px Helvetica, sans-serif;
+    font-weight: 100;
+    letter-spacing: 1px;
+    line-height:40px;
+    /*padding-left:130px;
+    padding-right:100px;*/
+    padding-top:5px;
+    padding-bottom:34px;
+}
+
+.backdrop {
+    position: absolute;
+    z-index: 1;
+    /*border: 1px solid #6c6c6c;*/
+    /*background-color: #fff;*/
+    overflow: hidden;
+    pointer-events: none;
+    transition: transform 1s;
+}
+
+.highlights {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: transparent;
+}
+
+#write {
+    display: block;
+    position: absolute;
+    z-index: 2;
+    margin: 0;
+    border: 2px solid #808080;
+    border-radius: 0;
+    color: #000000;
+    background-color: transparent;
+    overflow: auto;
+    resize: none;
+    transition: transform 1s;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5;
+    pointer-events: auto;
+}
+
+markneg {
+    border-radius: 3px;
+    color: transparent;
+    background-color: #e2c0c0;
+    z-index: 15;
+}
+
+marknut {
+    border-radius: 3px;
+    color: transparent;
+    background-color: transparent;
+}
+
+marktmp {
+    color: #cecece;
+}
+
+#write:focus {
+    outline: none;
+}
