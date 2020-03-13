@@ -17,6 +17,7 @@ app.use('/src', express.static('src'));
 app.use('/css', express.static('css'));
 app.use('/js', express.static('js'));
 app.use('/ot.js', express.static('ot.js'));
+app.use('/contextMenu', express.static('contextMenu'));
 app.use('/node_modules', express.static('node_modules'));
 
 http.listen(3000, function(){
