@@ -21,9 +21,9 @@ app.use('/contextMenu', express.static('contextMenu'));
 app.use('/node_modules', express.static('node_modules'));
 
 http.listen(3000, function(){
-  console.log('Server listening on http://localhost:3000');
-  console.log('Access Patient Page on http://localhost:3000');
-  console.log('Access Expert Page on http://localhost:3000/exp');
+  console.log('Server listening on http://localhost:80');
+  console.log('Access Patient Page on http://localhost:80');
+  console.log('Access Expert Page on http://localhost:80/exp');
 });
 
 var EditorSocketIOServer = require('./ot.js/editor-socketio-server.js');
