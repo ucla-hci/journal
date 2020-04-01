@@ -15,8 +15,9 @@ app.get('/exp', function(req, res){
 app.use('/python', express.static('python'));
 app.use('/css', express.static('css'));
 app.use('/js', express.static('js'));
-app.use('/lib/ot.js', express.static('ot.js'));
-app.use('/lib/contextMenu', express.static('contextMenu'));
+app.use('/lib/ot.js', express.static('lib/ot.js'));
+app.use('/lib', express.static('lib'));
+app.use('/lib/contextMenu', express.static('lib/contextMenu'));
 app.use('/node_modules', express.static('node_modules'));
 
 http.listen(3000, '127.0.0.1');
