@@ -181,11 +181,9 @@ a {
 }
 
 .entryList {
-    font: 24px Helvetica, sans-serif;
+    font: 20px Helvetica, sans-serif;
     color: #6c6c6c;
-    background-color: black;
-    z-index: 10;
-    display: block;
+    padding-left: 30px;
 }
 
 button {

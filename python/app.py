@@ -31,6 +31,17 @@ def load():
         resp.headers['Content-Type'] = "application/json"
         return resp
 
+@app.route('/check', methods=['GET', 'POST'])
+def check():
+    if request.method == 'POST':
+        datafromjs = request.form['mydata']
+        textobj = TextBlob(datafromjs)
+        total = len(textobj.words)
+        freq = 0
+        for i in range(0, len(words)):
+            freq += textobj.words.count(words[i])
+        return str(freq)
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
    if request.method == 'POST':

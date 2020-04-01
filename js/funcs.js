@@ -29,6 +29,16 @@ function runPyScript(input){
     return jqXHR.responseText;
 }
 
+function runPyScript_check(input){
+    var jqXHR = $.ajax({
+        type: "POST",
+        url: "http://127.0.0.1:5000/check",
+        async: false,
+        data: { mydata: input }
+    });
+    return jqXHR.responseText;
+}
+
 //handling mouse clicks... 
 //jesus, that was a whole thing to track down
 var movedByMouse = false;
@@ -81,9 +91,19 @@ function isMovementKey(keyCode) {
 function openEntry(date) {
     for(var i = 0; i < entries.length; ++i) {
         if (entries[i]["date"] == date) {
+            document.getElementById("temp").style.display = "none";
+            document.getElementById("main").style.display = "block";
+
+            document.getElementById("title").innerHTML = "Bad Day :(";
+            entry.setValue(entries[i]["content"]);
             console.log(entries[i]["content"]);
         }
     }
+}
+
+function newEntry(){
+    document.getElementById("temp").style.display = "block";
+    document.getElementById("main").style.display = "none";
 }
 
 function toEntry(){
@@ -149,4 +169,6 @@ function loader() {
             } 
         });
     }
+
+    document.getElementById("alltypes").style.maxHeight = document.getElementById("alltypes").scrollHeight + "px";
 }

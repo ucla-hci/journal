@@ -1,4 +1,6 @@
 python/venv/
 python/__pycache__/
 Python/settings.py
+node_modules/
++data_sample/
 .DS_Store
