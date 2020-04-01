@@ -1,2 +1,4 @@
 python/venv/
 python/__pycache__/
+Python/settings.py
+.DS_Store

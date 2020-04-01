@@ -2,9 +2,48 @@ body {
   font-family: "Lato", sans-serif;
 }
 
+.container{
+    border: none;
+    width: 92vw;
+    height: 94vh;
+    margin-left: 8vw;
+    display: block;
+    transform: translateZ(0);
+    -webkit-text-size-adjust: none;
+}
+
+#onboard{
+    transition: margin-left .5s;
+    padding: 16px;
+    color: #6c6c6c;
+    text-decoration: none;
+}
+
+a {
+    transition: margin-left .5s;
+    padding-left: 16px;
+    color: #6c6c6c;
+    text-decoration: none;
+}
+
+.page {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: -110vw;
+    overflow-y: auto;
+    z-index: 0;
+    background-color: hsl(0,0%,100%);
+  }
+  
+  .page:target {
+    left: 0vw;
+    z-index: 1;
+  }
+
 #main {
     transition: margin-left .5s; /* If you want a transition effect */
-    padding: 20px;
     color: #6c6c6c;
     /*background-color: transparent;*/
   }
@@ -141,16 +180,75 @@ body {
   padding: 16px;
 }
 
+.entryList {
+    font: 24px Helvetica, sans-serif;
+    color: #6c6c6c;
+    background-color: black;
+    z-index: 10;
+    display: block;
+}
+
 button {
     outline: none;
 }
 
+#write {
+    width: 92vw;
+    height: 94vh;
 
+    padding: 10px;
+    font: 24px Helvetica, sans-serif;
+    font-weight: 100;
+    letter-spacing: 1px;
+    line-height:40px;
+    /*padding-left:130px;
+    padding-right:100px;*/
+    padding-top:5px;
+    padding-bottom:34px;
+
+    position: absolute;
+    z-index: 2;
+    margin: 0;
+    color: #000000;
+    background-color: transparent;
+    overflow: auto;
+    resize: none;
+    transition: transform 1s;
+    border: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5;
+    pointer-events: auto;
+}
+
+.markneg {
+    border-radius: 3px;
+    color: #6c6c6c;
+    background-color: #e2c0c0;
+    z-index: 15;
+}
+
+#write:focus {
+    outline: none;
+}
 
 
 /* #Onboarding Screen */
+    .parent { 
+        text-align: center;
+        display: grid; 
+        padding: 16px 16px 16px 16px;
+        grid-template-columns: repeat(3, 1fr); 
+        grid-template-rows: 1fr; 
+        grid-column-gap: 0px;
+        grid-row-gap: 0px; 
+    }
+    .good { grid-area: 1 / 1 / 2 / 2; } 
+    .neutral { grid-area: 1 / 2 / 2 / 3; } 
+    .bad { grid-area: 1 / 3 / 2 / 4; } 
+
 	/* Welcome to Journal! */
-	#n21_27 {
+	#welcome {
 		/*font-family: Poligon;*/
 		font-size: 60px;
 		font-weight: 600;
@@ -163,11 +261,13 @@ button {
 		line-height: 70.3125px;
 		height: 54px;
 		left: 179px;
-		top: 140px;
+        top: 140px;
+        padding-top: 16px;
+        padding-bottom: 16px;
 	}
  
 	/* How is your day today? */
-	#n21_28 {
+	#query {
 		font-size: 24px;
 		font-weight: 400;
 		letter-spacing: 0px;
@@ -179,7 +279,8 @@ button {
 		line-height: 28.125px;
 		height: 31px;
 		left: 179px;
-		top: 240px;
+        top: 240px;
+        padding: 16px 16px 16px 16px;
 	}
  
 	/* image 17 */
@@ -191,7 +292,9 @@ button {
 		left: 195px;
 		width: 72px;
 		top: 318px;
-		height: 72px;
+        height: 72px;
+        margin-left: auto;
+        margin-right: auto;
 	}
  
 	/* Good Day */
@@ -203,12 +306,8 @@ button {
 		opacity: 0.4;
 		vertical-align: middle;
 		justify-content: flex-start;
-		width: 104px;
-		transform: translate(0px, 0px);
-		line-height: 28.125px;
-		height: 31px;
-		left: 179px;
-		top: 406px;
+        margin-left: auto;
+        margin-right: auto;
 	}
  
 	/* Neutral Day */
@@ -220,12 +319,8 @@ button {
 		opacity: 0.4;
 		vertical-align: middle;
 		justify-content: flex-start;
-		width: 125px;
-		transform: translate(0px, 0px);
-		line-height: 28.125px;
-		height: 31px;
-		left: 329px;
-		top: 406px;
+		margin-left: auto;
+        margin-right: auto;
 	}
  
 	/* image 18 */
@@ -237,123 +332,36 @@ button {
 		left: 355px;
 		width: 72px;
 		top: 317px;
-		height: 72px;
+        height: 72px;
+        margin-left: auto;
+        margin-right: auto;
 	}
  
- 
-		/* Bad Day */
-		#n21_33 {
-			font-size: 24px;
-			font-weight: 400;
-			letter-spacing: 0px;
-			color: rgb(0, 0, 0);
-			opacity: 0.4;
-			vertical-align: middle;
-			justify-content: flex-start;
-			width: 88px;
-			transform: translate(0px, 0px);
-			line-height: 28.125px;
-			height: 31px;
-			left: 507px;
-			top: 406px;
-		}
- 
-		/* image 19 */
-		#n21_34 {
-			background-image: url("https://s3-alpha-sig.figma.com/img/f529/75dc/39cbcb36f6cd7a023e9c1d17d71e1f73?Expires=1584316800&Signature=hY2KdTXbMFCQHp0aLV9wiiaENYaMJm5Ky2f9Xa2ZLLm76GaD6U4yvot3IZplKG6pUsUmtvhi6rUYZJwLUOqbaEotmEw47CriYR1tugUkuiyN-bSOnJFMLGt1-lpFkHMqhmSd7kt~SMjdf4sDcZ11GGL9utUHWftV-aHAbqaktQiZqZ31e1zS5v3sJQlZsHcOli~idf-zKRhzcZPN8CLNeg6ib6s2tF34GLo3i9RjUtzKUGmsQdZrO264T~HgVx4Mt2R1L1JKQaRBGaWZoUWA9Rfs8rJwB34r0lcJAywPH7LsIzMfKvhX0MhQativA7BcTweHCkRj3UcGNqybKwTaHw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA");
-			background-size: cover;
-			background-repeat: no-repeat;
-			background-position: center center;
-			left: 515px;
-			width: 72px;
-			top: 317px;
-			height: 72px;
-        }
+    /* Bad Day */
+    #n21_33 {
+        font-size: 24px;
+        font-weight: 400;
+        letter-spacing: 0px;
+        color: rgb(0, 0, 0);
+        opacity: 0.4;
+        vertical-align: middle;
+        justify-content: flex-start;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* image 19 */
+    #n21_34 {
+        background-image: url("https://s3-alpha-sig.figma.com/img/f529/75dc/39cbcb36f6cd7a023e9c1d17d71e1f73?Expires=1584316800&Signature=hY2KdTXbMFCQHp0aLV9wiiaENYaMJm5Ky2f9Xa2ZLLm76GaD6U4yvot3IZplKG6pUsUmtvhi6rUYZJwLUOqbaEotmEw47CriYR1tugUkuiyN-bSOnJFMLGt1-lpFkHMqhmSd7kt~SMjdf4sDcZ11GGL9utUHWftV-aHAbqaktQiZqZ31e1zS5v3sJQlZsHcOli~idf-zKRhzcZPN8CLNeg6ib6s2tF34GLo3i9RjUtzKUGmsQdZrO264T~HgVx4Mt2R1L1JKQaRBGaWZoUWA9Rfs8rJwB34r0lcJAywPH7LsIzMfKvhX0MhQativA7BcTweHCkRj3UcGNqybKwTaHw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        left: 515px;
+        width: 72px;
+        top: 317px;
+        height: 72px;
+        margin-left: auto;
+        margin-right: auto;
+    }
         
 
-.container{
-    border: none;
-    width: 92vw;
-    height: 94vh;
-    margin-left: 8vw;
-    display: block;
-    transform: translateZ(0);
-    -webkit-text-size-adjust: none;
-}
-
-.backdrop, #write {
-    width: 92vw;
-    height: 94vh;
-}
-
-.highlights, #write {
-    padding: 10px;
-    font: 24px Helvetica, sans-serif;
-    font-weight: 100;
-    letter-spacing: 1px;
-    line-height:40px;
-    /*padding-left:130px;
-    padding-right:100px;*/
-    padding-top:5px;
-    padding-bottom:34px;
-}
-
-.backdrop {
-    position: absolute;
-    z-index: 1;
-    /*border: 1px solid #6c6c6c;*/
-    /*background-color: #fff;*/
-    overflow: hidden;
-    pointer-events: none;
-    transition: transform 1s;
-}
-
-.highlights {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    color: transparent;
-}
-
-#write {
-    display: block;
-    position: absolute;
-    z-index: 2;
-    margin: 0;
-    border: 2px solid #808080;
-    border-radius: 0;
-    color: #000000;
-    background-color: transparent;
-    overflow: auto;
-    resize: none;
-    transition: transform 1s;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0.5;
-    pointer-events: auto;
-}
-
-markneg {
-    border-radius: 3px;
-    color: transparent;
-    background-color: #e2c0c0;
-    z-index: 15;
-}
-
-marknut {
-    border-radius: 3px;
-    color: transparent;
-    background-color: transparent;
-}
-
-marktmp {
-    color: #cecece;
-}
-
-#write:focus {
-    outline: none;
-}

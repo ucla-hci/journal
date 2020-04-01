@@ -1,17 +1,21 @@
 var num = 0;
 var write = document.getElementById('write');
-var $highlights = $('.highlights');
-var $backdrop = $('.backdrop');
+var entry = CodeMirror.fromTextArea(write, {
+    lineWrapping: true, 
+});
 
-var key, flag = 0;
+var entries;
+var key, prevKey, flag = 0;
 
-function applyHighlights(text, valence) {
-    var edits = text;
-    if (valence == "pos") {edits = "<markpos>" + edits + "</markpos>";}
-    else if (valence == "neg") {edits = "<markneg>" + edits + "</markneg>";}
-    else { edits = "<marknut>" + edits + "</marknut>"; }
-    
-    return edits;
+function loadJSON(){
+    var jqXHR = $.ajax({
+        type: "POST",
+        url: "http://localhost:5000/load",
+        async: false,
+        data: { }
+    });
+
+    return jqXHR.responseText;
 }
 
 function runPyScript(input){
@@ -25,100 +29,67 @@ function runPyScript(input){
     return jqXHR.responseText;
 }
 
-write.onclick = function(){
+//handling mouse clicks... 
+//jesus, that was a whole thing to track down
+var movedByMouse = false;
+entry.on("mousedown", function () {
+    movedByMouse = true;
+});
 
-    var curpos = write.selectionStart;
-    var currhtml = $highlights.html();
-    currhtml = String(currhtml);
-
-    var slc = write.value.slice(0, curpos);
-    var numsent_slc = (slc.match(/\./g)||[]).length;
-    var numsent_ht = (currhtml.match(/\./g)||[]).length;
-    if (numsent_slc >= numsent_ht) { return; }
-    else {
-        var i;
-        for (i = curpos + (numsent_slc * 19) + 9; i < currhtml.length; i++) {
-            if (currhtml[i] == "<" && currhtml[i+1] == "/") {
-                var label = currhtml.slice(i+2, i+9);
-
-                if (label == "markneg"){ return; }
-                else { return; }
+entry.on("cursorActivity", function () {
+    if (movedByMouse) {
+        movedByMouse = false;
+        if (!entry.getSelection()) {
+            closeDef();
+            //branch based on whether a highlight was clicked here
+            if(entry.findMarksAt(entry.getCursor()).length != 0) {
+                if(entry.findMarksAt(entry.getCursor())[0]["className"] == "markneg") 
+                    openDef();
             }
-            else if(currhtml[i] == "<") { return; }
         }
     }
-}
+});
 
-write.onkeydown = function(event) {
+entry.on("keydown", function () {
+    prevKey = key;
     key = event.keyCode;
-}
 
-write.oninput = function() {
-    var currhtml = $highlights.html();
-    currhtml = String(currhtml);
-
-    if (flag == 1) {
-        flag = 0;
-        var n = currhtml.indexOf(" <marktmp>");
-        $highlights.html(currhtml.slice(0, n));
+    if (isMovementKey(event.which)) {
+        movedByMouse = false;
     }
 
-    if (key == 8 || key == 46) {
-        var numsent_wr = (write.value.match(/\./g)||[]).length;
-        var numsent_ht = (currhtml.match(/\./g)||[]).length;
+    if(key == 190 || prevKey == 16 && key == 49 || prevKey == 16 && key == 191) {
+        entry.getAllMarks().forEach(mark => mark.clear());
+        var result = runPyScript(entry.doc.getValue());
+        var resparse = JSON.parse(result);
 
-        if (numsent_ht > numsent_wr) { 
-            if (currhtml[currhtml.length - 1] == ">") {
-                var i;
-                for (i = currhtml.length - 1; i >= 0; i--) {
-                    if (currhtml[i] == "<" && currhtml[i-1] == " " || i == 0) {
-                        currhtml = currhtml.slice(0, i - 1);
-    
-                        $highlights.html(currhtml);
-                        if (i==0) { $highlights.html(""); }
-                        break;
-                    } 
-                }
-            }
-        }
-        
-        return;
+        for(i = 0; i < resparse["valence"].length; i++) {
+            if(resparse["valence"][i] == "negative")
+                entry.markText(entry.doc.posFromIndex(resparse["starts"][i]), entry.doc.posFromIndex(resparse["ends"][i]), {className: "markneg"});
+        } 
     }
+});
 
-    else {
-        var text = write.value;
-        if (text[text.length - 1] == ".") {
-            var result = runPyScript(text);
-            var resparse = JSON.parse(result); 
+entry.on("beforeChange", function () {
+    movedByMouse = false;
+});
 
-            var slice = text.slice(resparse["start"],resparse["end"]);
-            var highlightedText = applyHighlights(slice, resparse["valence"]);
-            if ($highlights.html() == "") {$highlights.html($highlights.html() + highlightedText);}
-            else {$highlights.html($highlights.html() + " " + highlightedText);}
-        }
+function isMovementKey(keyCode) {
+    return 33 <= keyCode && keyCode <= 40;
+};
 
-        else if (text[text.length - 1] == " " && text[text.length - 2] == ".") {
-            var i;
-            for (i = currhtml.length - 1; i >= 0; i--) {
-                if (currhtml[i] == "/") {
-                    var label = currhtml.slice(i+1, i+8);
-                    if (label == "markneg") {
-                        $highlights.html($highlights.html() + " <marktmp>Try reframing that negative thought.</marktmp>");
-                        flag = 1;
-                    }
-                    return;
-                }
-
-            }
+function openEntry(date) {
+    for(var i = 0; i < entries.length; ++i) {
+        if (entries[i]["date"] == date) {
+            console.log(entries[i]["content"]);
         }
     }
 }
 
-write.onscroll = function() {
-    var scrollTop = $('textarea').scrollTop();
-    $backdrop.scrollTop(scrollTop);
+function toEntry(){
+    document.getElementById("temp").style.display = "none";
+    document.getElementById("main").style.display = "block";
 }
-
 
 function openNav() {
     document.getElementById("mySidebar").style.width = "250px";
@@ -147,18 +118,35 @@ function closeDef() {
 }
 
 function loader() {
+    document.getElementById("main").style.display = "none";
+    document.getElementById("temp").style.display = "block";
+
+    var temp = loadJSON();
+    var parsed = JSON.parse(temp);
+    entries = parsed["content"]["entries"];
+
     var coll = document.getElementsByClassName("collapsible");
     var i;
 
+    for(i = 0; i < entries.length; i++) {
+        if(entries[i]["mood"] == "bad") {
+            var entry = document.createElement("div");
+            entry.innerHTML = entries[i]["date"];
+            entry.className = "entryList";
+            entry.setAttribute("onclick", "openEntry('"+entries[i]["date"]+"')");
+            document.getElementById("baddays").appendChild(entry);
+        }
+    }
+
     for (i = 0; i < coll.length; i++) {
-    coll[i].addEventListener("click", function() {
-        this.classList.toggle("active");
-        var content = this.nextElementSibling;
-        if (content.style.maxHeight){
-        content.style.maxHeight = null;
-        } else {
-        content.style.maxHeight = content.scrollHeight + "px";
-        } 
-    });
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight){
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            } 
+        });
     }
 }
