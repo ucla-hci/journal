@@ -105,9 +105,8 @@
 			var socket = io();
 			var cm;
 			socket.on('doc', function(data) {
-			  cm = CodeMirror.fromTextArea(document.getElementById('write'), {lineNumbers: false});
+			  cm = CodeMirror.fromTextArea(document.getElementById('write'), {lineNumbers: true});
 			  cm.setValue(data.str);
-			  cm.setSize('90vw','93.5vh');
 			  var serverAdapter = new ot.SocketIOAdapter(socket);
 			  var editorAdapter = new ot.CodeMirrorAdapter(cm);
 			  var client = new ot.EditorClient(data.revision, data.clients, serverAdapter, editorAdapter);
