@@ -39,123 +39,48 @@
 	<script src="node_modules/socket.io-client/dist/socket.io.js"></script>
 </head>
 
-<body onload="loader()">
+<body>
 <div id="mySidebar" class="sidebar">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">Settings</a>
-  <a href="" class="greeting">Good afternoon, Sam.</a>
-  <a href="">Drafts</a>
-  <a href="" onclick = "newEntry()">New Journal</a>
-  <button type="button" class="collapsible">Recent Journals</button>
-  <div class="content" id="alltypes">
-    <button type="button" id="gooddays" class="collapsible">Good Days</button>
-    <div class="content"></div>
-    <button type="button" id="neutraldays" class="collapsible">Neutral Days</button>
-    <div class="content"></div>
-    <button type="button" class="collapsible">Bad Days</button>
-    <div class="content" id="baddays"></div>
+  <div id="buttons">
+	<a href="" onclick="control(1)">Turn on suggestion</a>
+	<a href="" onclick="control(2)">Turn on highlight</a>
+	<a href="" onclick="control(3)">Get Keybd Log</a>
+	<a href="" onclick="control(4)">Get Mouse Log</a>
   </div>
-
 </div>
 
 <div id="container">
   <button class="openbtn" id="opnsidebar" onclick="openNav()"></button> 
-    <div class="onboard" id="temp">
-      <!-- Welcome to Journal! -->
-      <div id="welcome">Welcome to Journal!</div>
-      <!-- How is your day today? -->
-      <div id="query" onclick="toEntry()">How is your day today?</div>
-
-      <div class="parent">
-        <div class="good">
-          <!-- Good Day image -->
-          <div class="left top rectangle" id="n21_29"></div>
-          <!-- Good Day -->
-          <div class="left top text" id="n21_30">Good Day</div>
-        </div>
-
-        <div class="neutral">
-          <!-- Neutral Day image -->
-          <div class="left top rectangle" id="n21_32"></div>
-          <!-- Neutral Day -->
-          <div class="left top text" id="n21_31">Neutral Day</div>
-        </div>
-        
-        <div class="bad">
-          <!-- image 19 -->
-          <div class="left top rectangle" id="n21_34"></div>
-          <!-- Bad Day -->
-          <div class="left top text" id="n21_33">Bad Day</div>
-        </div>
-      </div>
-    </div>
 
     <div id="main">
       <h1 id="title">Entry Title</h1>
-      <textarea id="write" autofocus spellcheck="false"></textarea>
-      <!-- init client -->
-      <script>
-        var socket = io();
-        var cm;
-        socket.on('doc', function(data) {
-          cm = CodeMirror.fromTextArea(document.getElementById('write'), {lineWrapping: true});
-          cm.setValue(data.str);
-          var serverAdapter = new ot.SocketIOAdapter(socket);
-          var editorAdapter = new ot.CodeMirrorAdapter(cm);
-          var client = new ot.EditorClient(data.revision, data.clients, serverAdapter, editorAdapter);
-        })
-
-        function getFirstCoor(command, tag) {
-          let bias = tag.length + 1;
-          let start = bias+1;
-          let comma = command.indexOf(",",start);
-          let end = command.indexOf(")",comma)
-          let _line = parseInt(command.substring(start,comma+1));
-          let _char = parseInt(command.substring(comma+1,end));
-          return {line: _line, ch: _char}
-        }
-
-        function getSecondCoor(command, tag) {
-          let bias = tag.length + 1;
-          let start = command.indexOf(")",bias) + 3;
-          let comma = command.indexOf(",",start);
-          let end = command.indexOf(")",comma)
-          let _line = parseInt(command.substring(start,comma));
-          let _char = parseInt(command.substring(comma+1,end));
-          console.log("2nd:", start, comma, end)
-          return {line: _line, ch: _char}
-        }
-
-        function handleCommand(command){
-          console.log(command)
-          if (command.indexOf("HighLt:") == 0){
-            let from = getFirstCoor(command, "HighLt")
-            let to = getSecondCoor(command, "HighLt")
-            cm.markText(from, to, {className: "styled-background"})
-          }
-          else if (command.indexOf("AutoSug:") == 0) {
-            let start = getFirstCoor(command, "AutoSug");
-            let end = getSecondCoor(command, "AutoSug");
-            cm.markText(start, end, {className: "AutoSuggest-font"})
-          }
-          else if (command.indexOf("On:Keyboard") == 0) {
-            $('#keyboardlog').trigger("click");
-          }
-          else if (command.indexOf("On:Mouse") == 0) {
-            reportMouseLog();
-          }
-        }
-        // Receive Expert Command from Server
-        socket.on("sendToClient", command => {
-          console.log(command);
-          handleCommand(command.command);
-        });
-
-        // Demo: How to get text from CodeMirror
-        function fetch(){
-          var text = cm.getValue();
-            console.log("Socket:",text);
-        }
-      </script>
+	  <textarea id="write" autofocus spellcheck="false"></textarea>
+	  <!--
+	  <div id="cd-pop-up">
+		<div class="close-pop-up"><span>x</span></div>
+		<div class="pop-up-title">
+			<span>Choose a Cognitive Distortion:</span>
+		</div>
+		<div id="cd-pop-up">
+			<div class="close-pop-up"><span>x</span></div>
+			<div class="pop-up-title">
+				<span>Choose a Cognitive Distortion:</span>
+			</div>
+			<div class="pop-up-content"> 
+				<div>
+					<div class="pop-up-selection" id="Being Right"><span>Being Right</span></div>
+					<div class="pop-up-selection" id="Blaming"><span>Blaming</span></div>
+					<div class="pop-up-selection" id="Catastrophizing"><span>Catastrophizing</span></div>
+					<div class="pop-up-selection" id="Mind Reading"><span>Mind Reading</span></div>
+					<div class="pop-up-selection" id="Overgeneraspanzation"><span>Overgeneraspanzation</span></div>
+					<div class="pop-up-selection" id="Personaspanzation"><span>Personaspanzation</span></div>
+					<div class="pop-up-selection" id="Spspanting"><span>Splitting</span></div>
+				</div>
+			</div>
+		</div>
+	  </div>
+	  -->
     </div>
 
     <div id="myBottombar" class="bottombar">
