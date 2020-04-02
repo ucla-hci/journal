@@ -20,7 +20,7 @@ app.use('/ot.js', express.static('ot.js'));
 app.use('/contextMenu', express.static('contextMenu'));
 app.use('/node_modules', express.static('node_modules'));
 
-http.listen(3000, function(){
+http.listen(80, function(){
   console.log('Server listening on http://localhost:80');
   console.log('Access Patient Page on http://localhost:80');
   console.log('Access Expert Page on http://localhost:80/exp');
