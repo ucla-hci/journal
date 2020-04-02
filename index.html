@@ -3,6 +3,27 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+  <!-- Code mirror scripts -->
+  <script src="lib/codemirror.js"></script>
+  <link rel="stylesheet" href="lib/codemirror.css">
+  <script src="node_modules/codemirror/lib/codemirror.js"></script>
+  <script src="node_modules/codemirror/addon/search/searchcursor.js"></script>
+  <script src="node_modules/codemirror/addon/selection/mark-selection.js"></script>
+
+  <!-- Javascript -->
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+
+  <!-- ot.js -->
+  <script src="lib/ot.js/text-operation.js"></script>
+  <script src="lib/ot.js/selection.js"></script>
+  <script src="lib/ot.js/wrapped-operation.js"></script>
+  <script src="lib/ot.js/undo-manager.js"></script>
+  <script src="lib/ot.js/client.js"></script>
+  <script src="lib/ot.js/codemirror-adapter.js"></script>
+  <script src="lib/ot.js/socketio-adapter.js"></script>
+  <script src="lib/ot.js/editor-client.js"></script>
+
   <script src="node_modules/socket.io-client/dist/socket.io.js"></script>
 </head>
 
@@ -59,70 +80,6 @@
     <div id="main">
       <h1 id="title">Entry Title</h1>
       <textarea id="write" autofocus spellcheck="false"></textarea>
-      <!-- init client -->
-      <script>
-        var socket = io();
-        var cm;
-        socket.on('doc', function(data) {
-          cm = CodeMirror.fromTextArea(document.getElementById('write'), {lineWrapping: true});
-          cm.setValue(data.str);
-          var serverAdapter = new ot.SocketIOAdapter(socket);
-          var editorAdapter = new ot.CodeMirrorAdapter(cm);
-          var client = new ot.EditorClient(data.revision, data.clients, serverAdapter, editorAdapter);
-        })
-
-        function getFirstCoor(command, tag) {
-          let bias = tag.length + 1;
-          let start = bias+1;
-          let comma = command.indexOf(",",start);
-          let end = command.indexOf(")",comma)
-          let _line = parseInt(command.substring(start,comma+1));
-          let _char = parseInt(command.substring(comma+1,end));
-          return {line: _line, ch: _char}
-        }
-
-        function getSecondCoor(command, tag) {
-          let bias = tag.length + 1;
-          let start = command.indexOf(")",bias) + 3;
-          let comma = command.indexOf(",",start);
-          let end = command.indexOf(")",comma)
-          let _line = parseInt(command.substring(start,comma));
-          let _char = parseInt(command.substring(comma+1,end));
-          console.log("2nd:", start, comma, end)
-          return {line: _line, ch: _char}
-        }
-
-        function handleCommand(command){
-          console.log(command)
-          if (command.indexOf("HighLt:") == 0){
-            let from = getFirstCoor(command, "HighLt")
-            let to = getSecondCoor(command, "HighLt")
-            cm.markText(from, to, {className: "styled-background"})
-          }
-          else if (command.indexOf("AutoSug:") == 0) {
-            let start = getFirstCoor(command, "AutoSug");
-            let end = getSecondCoor(command, "AutoSug");
-            cm.markText(start, end, {className: "AutoSuggest-font"})
-          }
-          else if (command.indexOf("On:Keyboard") == 0) {
-            $('#keyboardlog').trigger("click");
-          }
-          else if (command.indexOf("On:Mouse") == 0) {
-            reportMouseLog();
-          }
-        }
-        // Receive Expert Command from Server
-        socket.on("sendToClient", command => {
-          console.log(command);
-          handleCommand(command.command);
-        });
-
-        // Demo: How to get text from CodeMirror
-        function fetch(){
-          var text = cm.getValue();
-            console.log("Socket:",text);
-        }
-      </script>
     </div>
 
     <div id="myBottombar" class="bottombar">
@@ -130,28 +87,8 @@
         <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque in ornare nulla. Curabitur augue velit, sodales ut congue a, aliquam non arcu. Aliquam sed erat non turpis pretium finibus. Integer rhoncus nisl ac augue egestas, id vestibulum erat accumsan. Donec efficitur commodo nisl in molestie. Nunc molestie quam ut augue cursus, ac blandit nisi cursus. Nam malesuada erat nec mauris interdum, in ultrices arcu gravida.</a>
     </div>
 </div>
+</body>
 
-<!-- Code mirror scripts -->
-<script src="lib/codemirror.js"></script>
-<link rel="stylesheet" href="lib/codemirror.css">
-<script src="node_modules/codemirror/lib/codemirror.js"></script>
-<script src="node_modules/codemirror/addon/search/searchcursor.js"></script>
-<script src="node_modules/codemirror/addon/selection/mark-selection.js"></script>
-
-<!-- Javascript -->
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 <script type="text/javascript" src="js/funcs.js"></script>
 <script type="text/javascript" src="js/logger.js"></script>
-
-<!-- ot.js -->
-<script src="lib/ot.js/text-operation.js"></script>
-<script src="lib/ot.js/selection.js"></script>
-<script src="lib/ot.js/wrapped-operation.js"></script>
-<script src="lib/ot.js/undo-manager.js"></script>
-<script src="lib/ot.js/client.js"></script>
-<script src="lib/ot.js/codemirror-adapter.js"></script>
-<script src="lib/ot.js/socketio-adapter.js"></script>
-<script src="lib/ot.js/editor-client.js"></script>
-
-</body>
 </html> 

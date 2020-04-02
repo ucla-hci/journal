@@ -17,6 +17,7 @@ app.use('/css', express.static('css'));
 app.use('/js', express.static('js'));
 app.use('/lib/ot.js', express.static('lib/ot.js'));
 app.use('/lib', express.static('lib'));
+app.use('/src', express.static('src'));
 app.use('/lib/contextMenu', express.static('lib/contextMenu'));
 app.use('/node_modules', express.static('node_modules'));
 

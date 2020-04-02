@@ -1,14 +1,11 @@
-
 var socket = io();
 var cm;
 socket.on('doc', function(data) {
     cm = CodeMirror.fromTextArea(document.getElementById('write'), {lineNumbers: false, styleSelectedText: true});
     cm.setValue(data.str);
-    cm.setSize('90vw','93.5vh');
     var serverAdapter = new ot.SocketIOAdapter(socket);
     var editorAdapter = new ot.CodeMirrorAdapter(cm);
     var client = new ot.EditorClient(data.revision, data.clients, serverAdapter, editorAdapter);
-    
 })
 
 function Test(){
@@ -34,6 +31,33 @@ function log(sentence) {
     let html = "<li><p>" + sentence + "</p></li>"
     $("#logTable").append(html);
 }
+
+function openNav() {
+    document.getElementById("mySidebar").style.width = "250px";
+    document.getElementById("container").style.marginLeft = "250px";
+    document.getElementById("myBottombar").style.left = "250px";
+    document.getElementById("opnsidebar").setAttribute("onclick", "closeNav()");
+    document.getElementById("opnsidebar").style.backgroundImage = 'url("../src/xmark.png")';
+}
+  
+function closeNav() {
+    document.getElementById("mySidebar").style.width = "0";
+    document.getElementById("container").style.marginLeft= "0";
+    document.getElementById("myBottombar").style.left = "0px";
+    document.getElementById("opnsidebar").setAttribute("onclick", "openNav()");
+    document.getElementById("opnsidebar").style.backgroundImage = 'url("../src/hamburger.png")';
+}
+
+function openDef() {
+    document.getElementById("myBottombar").style.height = "250px";
+    document.getElementById("main").style.marginBottom = "250px";
+}
+  
+function closeDef() {
+    document.getElementById("myBottombar").style.height = "0";
+    document.getElementById("main").style.marginBottom= "0";
+}
+
 
 $(".close-pop-up").on("click", function(){
     $("#cd-pop-up").css("display","none");
