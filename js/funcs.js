@@ -106,9 +106,22 @@ function newEntry(){
     document.getElementById("main").style.display = "none";
 }
 
-function toEntry(){
+function toEntry(mood){
     document.getElementById("temp").style.display = "none";
     document.getElementById("main").style.display = "block";
+
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    today = mm + '/' + dd;
+
+    if (mood == 'good') {
+        document.getElementById("title").innerHTML = "Good Entry " + today;
+    } else if (mood == 'bad') {
+        document.getElementById("title").innerHTML = "Bad Entry " + today;
+    } else if (mood == 'neutral') {
+        document.getElementById("title").innerHTML = "Neutral Entry " + today;
+    }
 }
 
 function openNav() {
