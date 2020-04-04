@@ -60,13 +60,13 @@ function closeDef() {
 
 
 $(".close-pop-up").on("click", function(){
-    $("#cd-pop-up").css("display","none");
+    $(".pop-up").css("display","none");
 });
 
 $(".pop-up-selection").one("click", function(){
     let id = this.id;
     console.log(id);
-    $("#cd-pop-up").css("display","none");
+    $(".pop-up").css("display","none");
 });
 
 $(function() {
@@ -129,7 +129,7 @@ $(function() {
                     "cd":{
                         name: "Cognitive Distortion",
                         callback: function(itemKey, opt, rootMenu, originalEvent) {
-                            $("#cd-pop-up").css("display","block");
+                            $(".pop-up").css("display","block");
                         }
                     },
                     "highlight":{
