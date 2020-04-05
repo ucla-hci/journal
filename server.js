@@ -69,8 +69,8 @@ io.on('connection', function(socket) {
     io.emit("feedback", start, end, sentence);
   });
 
-  socket.on("operation", command => {
-    console.log("operation:", command);
-    io.emit("operation", command);
+  socket.on("utility", command => {
+    console.log("utility:", command);
+    io.emit("utility", command);
   });
 });

@@ -264,8 +264,8 @@ socket.on("feedback", (start, end, sentence) => {
     handleFeedback(start, end, sentence)
 });
 
-socket.on("operation", (command) => {
-    console.log("operation:", command);
+socket.on("utility", (command) => {
+    console.log("utility:", command);
     handleFeedback(command)
 });
 

@@ -138,8 +138,15 @@ $(function() {
                             let sel_start;
                             let sel_end;
                             let sentence = prompt("Please type your prompt below:","...");
+                            let sentence_back = sentence;
                             if(sentence){
-                                if (compareCoord(start,end)) {
+                                sentence = " "+sentence;
+                                if (!checkStartCoord(start, end)) {
+                                    let tmp = start;
+                                    start = end;
+                                    end = tmp;
+                                }
+                                if (compareCoord(start, end)) {
                                     cm.replaceRange(sentence, end);
                                     end = cm.getCursor("to");
                                     socket.emit("prompt1", start, end, sentence.length);
@@ -147,18 +154,25 @@ $(function() {
                                     log("prompt1:("+e.l+","+e.c+"),"+sentence);
                                 }
                                 else {
-                                    if (!checkStartCoord(start, end)) {
-                                        let tmp = start;
-                                        start = end;
-                                        end = tmp;
-                                    }
                                     cm.markText(start, end, {className: "autosuggest-background"});
-                                    sentence = "("+sentence+")";
-                                    cm.replaceRange(sentence, end);
                                     sel_start = start;
                                     sel_end = end;
-                                    start = end; // TODO: fix real start.
-                                    end = cm.getCursor("to");
+                                    let q = /\.|\?|\!/;
+                                    let cursor = cm.getSearchCursor(q, end);  // Find the nearest end of sentence from selection word
+                                    if (cursor.findNext()){
+                                        start = cursor.to();
+                                        console.log("found!", start);
+                                        cm.replaceRange(sentence, start);
+                                        cursor = cm.getSearchCursor(sentence, start);   // Now find where does the new insertion textend
+                                        cursor.findNext();
+                                        end = cursor.to();
+                                    }
+                                    else {  // Not sure about sentences ending, add prompt alternativly
+                                        sentence = "("+sentence_back+")";
+                                        start = end;
+                                        cm.replaceRange(sentence, start);
+                                        end = cm.getCursor("to");
+                                    }
                                     socket.emit("prompt2", sel_start, sel_end, start, end, sentence.length);
                                     let ss = analysisCoord(sel_start)
                                     let se = analysisCoord(sel_end)
@@ -266,7 +280,7 @@ $(function() {
                         name: "Undo",
                         callback: function(itemKey, opt, rootMenu, originalEvent) {
                             cm.undo()
-                            socket.emit("operation", "undo");
+                            socket.emit("utility", "undo");
                             log("undo");
                         }
                     },
@@ -274,7 +288,7 @@ $(function() {
                         name: "Redo",
                         callback: function(itemKey, opt, rootMenu, originalEvent) {
                             cm.redo()
-                            socket.emit("operation", "redo");
+                            socket.emit("utility", "redo");
                             log("redo");
                         }
                     },
@@ -283,7 +297,7 @@ $(function() {
                         callback: function(itemKey, opt, rootMenu, originalEvent) {
                             console.log("clear all")
                             console.log(cm.setValue(""));
-                            socket.emit("operation", "clear");
+                            socket.emit("utility", "clear");
                             log("clear");
                         }
                     }
