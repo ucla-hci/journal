@@ -1,0 +1,8 @@
+/* This css file will be shared by both expert.html and index.html */
+/*.CodeMirror {border-top: 1px solid black; border-bottom: 1px solid black;}
+.CodeMirror-selectedtext { color: white; }*/
+.highlight-background { background-color: #ff7; }
+.autosuggest-background { background-color: #d6e9f8; }
+.autosuggest-font { color: #BEBDBE; }
+.replacement-font { color: #b2d9c3; }
+.cognitive-distortion {background-color: #f8e4e4; }

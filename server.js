@@ -38,4 +38,34 @@ io.on('connection', function(socket) {
     console.log("Command Receive:", command);
     io.emit("sendToClient", {command});
   });
+
+  socket.on("prompt1", (start, end, length) => {
+    console.log("Prompt-Insert:", start, end, length);
+    io.emit("prompt1", start, end, length);
+  });
+
+  socket.on("prompt2", (sel_start, sel_end, start, end, length) => {
+    console.log("Prompt-Select:", sel_start, sel_end, start, end, length);
+    io.emit("prompt2", sel_start, sel_end, start, end, length);
+  });
+
+  socket.on("replace", (start, end, length) => {
+    console.log("Replace:", start, end, length);
+    io.emit("replace", start, end, length);
+  });
+
+  socket.on("highlight", (start, end) => {
+    console.log("Highlight:", start, end);
+    io.emit("highlight", start, end);
+  });
+
+  socket.on("cd", (start, end, id) => {
+    console.log("CD:", start, end, id);
+    io.emit("cd", start, end, id);
+  });
+
+  socket.on("feedback", (start, end, sentence) => {
+    console.log("Feedback:", start, end, sentence);
+    io.emit("feedback", start, end, sentence);
+  });
 });

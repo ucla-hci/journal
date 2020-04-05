@@ -186,15 +186,6 @@ function loader() {
     document.getElementById("alltypes").style.maxHeight = document.getElementById("alltypes").scrollHeight + "px";
 }
 
-var socket = io();
-socket.on('doc', function(data) {
-    console.log(data);
-    entry.setValue(data.str);
-    var serverAdapter = new ot.SocketIOAdapter(socket);
-    var editorAdapter = new ot.CodeMirrorAdapter(entry);
-    var client = new ot.EditorClient(data.revision, data.clients, serverAdapter, editorAdapter);
-})
-
 function getFirstCoor(command, tag) {
     let bias = tag.length + 1;
     let start = bias+1;
@@ -235,10 +226,45 @@ function handleCommand(command){
     reportMouseLog();
     }
 }
+
+// Socket & ot.js initialization
+var socket = io();
+socket.on('doc', function(data) {
+    console.log(data);
+    entry.setValue(data.str);
+    var serverAdapter = new ot.SocketIOAdapter(socket);
+    var editorAdapter = new ot.CodeMirrorAdapter(entry);
+    var client = new ot.EditorClient(data.revision, data.clients, serverAdapter, editorAdapter);
+})
+
 // Receive Expert Command from Server
-socket.on("sendToClient", command => {
+socket.on("sendToClient", (command) => {
     console.log(command);
     handleCommand(command.command);
+});
+
+socket.on("prompt1", (start, end, l) => {
+    console.log("Prompt-Insert:", start, end, l);
+});
+
+socket.on("prompt2", (sel_start, sel_end, start, end, l) => {
+    console.log("Prompt-Select:", sel_start, sel_end, start, end, l);
+});
+
+socket.on("replace", (start, end, l) => {
+    console.log("Replace:", start, end, l);
+});
+
+socket.on("highlight", (start, end) => {
+    console.log("Highlight:", start, end);
+});
+
+socket.on("cd", (start, end, id) => {
+    console.log("CD:", start, end, id);
+});
+
+socket.on("feedback", (start, end, sentence) => {
+    console.log("Feedback:", start, end, sentence);
 });
 
 // Demo: How to get text from CodeMirror
