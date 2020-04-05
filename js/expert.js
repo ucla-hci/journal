@@ -266,12 +266,16 @@ $(function() {
                         name: "Undo",
                         callback: function(itemKey, opt, rootMenu, originalEvent) {
                             cm.undo()
+                            socket.emit("operation", "undo");
+                            log("undo");
                         }
                     },
                     "redo": {
                         name: "Redo",
                         callback: function(itemKey, opt, rootMenu, originalEvent) {
                             cm.redo()
+                            socket.emit("operation", "redo");
+                            log("redo");
                         }
                     },
                     "clear":  {
@@ -279,6 +283,8 @@ $(function() {
                         callback: function(itemKey, opt, rootMenu, originalEvent) {
                             console.log("clear all")
                             console.log(cm.setValue(""));
+                            socket.emit("operation", "clear");
+                            log("clear");
                         }
                     }
                 }

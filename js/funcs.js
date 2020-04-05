@@ -186,44 +186,36 @@ function loader() {
     document.getElementById("alltypes").style.maxHeight = document.getElementById("alltypes").scrollHeight + "px";
 }
 
-function getFirstCoor(command, tag) {
-    let bias = tag.length + 1;
-    let start = bias+1;
-    let comma = command.indexOf(",",start);
-    let end = command.indexOf(")",comma)
-    let _line = parseInt(command.substring(start,comma+1));
-    let _char = parseInt(command.substring(comma+1,end));
-    return {line: _line, ch: _char}
+// CodeMirro Decoration Functions
+
+function handlePrompt(start, end, sel_start=null, sel_end=null){
+    entry.markText(start, end, {className: "autosuggest-font"})
+    if ((sel_start != null) && (sel_end != null)) {
+        entry.markText(start, end, {className: "autosuggest-background"});
+    }
 }
 
-function getSecondCoor(command, tag) {
-    let bias = tag.length + 1;
-    let start = command.indexOf(")",bias) + 3;
-    let comma = command.indexOf(",",start);
-    let end = command.indexOf(")",comma)
-    let _line = parseInt(command.substring(start,comma));
-    let _char = parseInt(command.substring(comma+1,end));
-    console.log("2nd:", start, comma, end)
-    return {line: _line, ch: _char}
+function handleReplace(start, end){
+    entry.markText(start, end, {className: "replacement-font"});
 }
 
-function handleCommand(command){
-    console.log(command)
-    if (command.indexOf("HighLt:") == 0){
-    let from = getFirstCoor(command, "HighLt")
-    let to = getSecondCoor(command, "HighLt")
-    entry.markText(from, to, {className: "styled-background"})
-    }
-    else if (command.indexOf("AutoSug:") == 0) {
-    let start = getFirstCoor(command, "AutoSug");
-    let end = getSecondCoor(command, "AutoSug");
-    entry.markText(start, end, {className: "AutoSuggest-font"})
-    }
-    else if (command.indexOf("On:Keyboard") == 0) {
-    $('#keyboardlog').trigger("click");
-    }
-    else if (command.indexOf("On:Mouse") == 0) {
-    reportMouseLog();
+function handleHighlight(start, end){
+    entry.markText(start, end, {className: "highlight-background"});
+}
+
+function handleCognDistortion(start, end, id){
+    entry.markText(start, end, {className: "cognitive-distortion"});
+}
+
+function handleFeedback(start, end, sentence){
+    //
+}
+
+function handleOperation(command){
+    switch (command){
+        case 'undo': entry.undo(); break;
+        case 'redo': entry.redo(); break;
+        case 'clear': entry.clear(); break;
     }
 }
 
@@ -240,31 +232,41 @@ socket.on('doc', function(data) {
 // Receive Expert Command from Server
 socket.on("sendToClient", (command) => {
     console.log(command);
-    handleCommand(command.command);
 });
 
 socket.on("prompt1", (start, end, l) => {
     console.log("Prompt-Insert:", start, end, l);
+    handlePrompt(start, end);
 });
 
 socket.on("prompt2", (sel_start, sel_end, start, end, l) => {
     console.log("Prompt-Select:", sel_start, sel_end, start, end, l);
+    handlePrompt(start, end, sel_start, sel_end);
 });
 
 socket.on("replace", (start, end, l) => {
     console.log("Replace:", start, end, l);
+    handleReplace(start, end)
 });
 
 socket.on("highlight", (start, end) => {
     console.log("Highlight:", start, end);
+    handleHighlight(start, end)
 });
 
 socket.on("cd", (start, end, id) => {
     console.log("CD:", start, end, id);
+    handleCognDistortion(start, end)
 });
 
 socket.on("feedback", (start, end, sentence) => {
     console.log("Feedback:", start, end, sentence);
+    handleFeedback(start, end, sentence)
+});
+
+socket.on("operation", (command) => {
+    console.log("operation:", command);
+    handleFeedback(command)
 });
 
 // Demo: How to get text from CodeMirror

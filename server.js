@@ -34,7 +34,7 @@ var server = new EditorSocketIOServer("", [], 1);
 io.on('connection', function(socket) {
   server.addClient(socket);
   // Handle commands from expert, send them to all clients
-  socket.on("sentToServer", command => {
+  socket.on("sentToServer", command => {  // Demo
     console.log("Command Receive:", command);
     io.emit("sendToClient", {command});
   });
@@ -67,5 +67,10 @@ io.on('connection', function(socket) {
   socket.on("feedback", (start, end, sentence) => {
     console.log("Feedback:", start, end, sentence);
     io.emit("feedback", start, end, sentence);
+  });
+
+  socket.on("operation", command => {
+    console.log("operation:", command);
+    io.emit("operation", command);
   });
 });
