@@ -161,6 +161,7 @@ $(".pop-up-selection").one("click", function(){
 function handelPrompt(sentence) {
     let start = cm.getCursor("from")
     let end = cm.getCursor("to");
+    var selectedText = cm.getRange(start, end);
     let sel_start;
     let sel_end;
     let sentence_back = sentence;
@@ -176,6 +177,7 @@ function handelPrompt(sentence) {
         socket.emit("prompt1", start, end, sentence.length);
         let e = analysisCoord(end)
         log("prompt1:("+e.l+","+e.c+"),"+sentence);
+        
     }
     else {
         cm.markText(start, end, {className: "autosuggest-background"});
@@ -205,12 +207,16 @@ function handelPrompt(sentence) {
         log("prompt2:("+ss.l+","+ss.c+"),("+se.l+","+se.c+"),("+s.l+","+s.c+"),("+e.l+","+e.c+"),"+sentence);
     } 
     cm.markText(start, end, {className: "autosuggest-font"});
+    var toAppend = document.createElement("change");
+    toAppend.innerHTML = "<b>Prompt:</b> "+sentence+"<br> On: "+selectedText;
+    document.getElementById("changetracker").appendChild(toAppend);
 }
 
 function handelReplace(sentence) {
     if (cm.somethingSelected()) {
         let start = cm.getCursor("from")
         let end = cm.getCursor("to")
+        var selectedText = cm.getRange(start, end);
         if (!checkStartCoord(start, end)) {
             let tmp = start;
             start = end;
@@ -224,12 +230,16 @@ function handelReplace(sentence) {
         let s = analysisCoord(start)
         let e = analysisCoord(end)
         log("replace:("+s.l+","+s.c+"),("+e.l+","+e.c+"),"+sentence);
+        var toAppend = document.createElement("change");
+        toAppend.innerHTML = "<b>Replacement:</b> "+sentence+"<br> On: "+selectedText;
+        document.getElementById("changetracker").appendChild(toAppend);
     }
 }
 
 function handelFeedback(sentence) {
     let start = cm.getCursor("from")
     let end = cm.getCursor("to")
+    var selectedText = cm.getRange(start, end);
     if (!checkStartCoord(start, end)) {
         let tmp = start;
         start = end;
@@ -239,6 +249,9 @@ function handelFeedback(sentence) {
     let s = analysisCoord(start)
     let e = analysisCoord(end)
     log("feedback:("+s.l+","+s.c+"),("+e.l+","+e.c+"),"+sentence);
+    var toAppend = document.createElement("change");
+    toAppend.innerHTML = "<b>Feedback:</b> "+sentence+"<br> On: "+selectedText;
+    document.getElementById("changetracker").appendChild(toAppend);
 }
 
 // ContextMenu
