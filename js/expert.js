@@ -2,6 +2,8 @@ var socket = io();
 var cm;
 var current_sel_from = null;
 var current_sel_to = null;
+var last_menu_selection = 0;
+var savedDoc = null;
 
 function openNav() {
     document.getElementById("mySidebar").style.width = "250px";
@@ -29,10 +31,6 @@ function closeDef() {
     document.getElementById("main").style.marginBottom= "0";
 }
 
-$(".close-pop-up").on("click", function(){
-    $(".pop-up").css("display","none");
-});
-
 // Socket & ot.js initialization
 socket.on('doc', function(data) {
     cm = CodeMirror.fromTextArea(document.getElementById('write'), {lineNumbers: false, styleSelectedText: true});
@@ -49,15 +47,14 @@ function Test(){
 }
 
 function control(i){
-    let command = "On:"
-
+    let command = ""
     switch (i) {
-        case 1: command += "AutoSug"; break;
+        case 1: command += "Autosuggestion"; break;
         case 3: command += "Keyboard"; break;
         case 4: command += "Mouse"; break;
     }
     log(command);
-    socket.emit("sentToServer", command);
+    socket.emit("TurnOn", command);
 }
 
 function analysisCoord(coord) {
@@ -93,18 +90,6 @@ function compareCoord(start, end) {
     }
 }
 
-$(".pop-up-selection").one("click", function(){
-    let id = this.id;
-    if ((current_sel_from!=null) && (current_sel_to!=null)) {
-        console.log(current_sel_from, current_sel_to, id)
-        socket.emit("cd", current_sel_from, current_sel_to, id);
-        let from = analysisCoord(current_sel_from);
-        let to = analysisCoord(current_sel_to);
-        let command = "CD:(" + from.l + "," + from.c + '),(' + to.l + ',' + to.c + '),'+id;
-        log(command);
-    }
-    $(".pop-up").css("display","none");
-});
 
 function updateSelect(from=null, to=null) {
     current_sel_from = from;
@@ -116,6 +101,144 @@ function log(sentence) {
     let html = "<li><p>" + sentence + "</p></li>"
     $("#logTable").append(html);*/
     console.log(sentence);
+}
+
+function callTextPrompt(type) {
+    if (type == 1) {
+        last_menu_selection = 1;
+        $("#pop-up-title-text").text("Type Your Suggestion Below:");
+    }
+    else if (type == 2) {
+        last_menu_selection = 2;
+        $("#pop-up-title-text").text("Replace with:");
+    }
+    else if (type == 3){
+        last_menu_selection = 3;
+        $("#pop-up-title-text").text("Your feedback:");
+    }
+    else{
+        console.log("Prompt Error Occured!");
+    }
+    $("#textmanipulation").css("display","block");
+}
+
+
+$("#close-cogndistortion").on("click", function(){
+    $("#cogndistortion").css("display","none");
+});
+
+$("#close-textmanipulation").on("click", function(){
+    $("#textmanipulation").css("display","none");
+});
+
+$(".confirm-pop-up").on("click", function(){
+    sentence = $(".pop-up-textarea").val();
+    if ((sentence==undefined) || (sentence=="")) {
+        alert("No text found.")
+        return;
+    }
+    switch (last_menu_selection) {
+        case 1: handelPrompt(sentence); break;
+        case 2: handelReplace(sentence); break;
+        case 3: handelFeedback(sentence); break;
+    }
+    $("#textmanipulation").css("display","none");
+});
+
+$(".pop-up-selection").one("click", function(){
+    let id = this.id;
+    if ((current_sel_from!=null) && (current_sel_to!=null)) {
+        cm.markText(current_sel_from, current_sel_to, {className: "cognitive-distortion"})
+        socket.emit("cd", current_sel_from, current_sel_to, id);
+        let from = analysisCoord(current_sel_from);
+        let to = analysisCoord(current_sel_to);
+        let command = "CD:(" + from.l + "," + from.c + '),(' + to.l + ',' + to.c + '),'+id;
+        log(command);
+    }
+    $("#cogndistortion").css("display","none");
+});
+
+function handelPrompt(sentence) {
+    let start = cm.getCursor("from")
+    let end = cm.getCursor("to");
+    let sel_start;
+    let sel_end;
+    let sentence_back = sentence;
+    sentence = " "+sentence;
+    if (!checkStartCoord(start, end)) {
+        let tmp = start;
+        start = end;
+        end = tmp;
+    }
+    if (compareCoord(start, end)) {
+        cm.replaceRange(sentence, end);
+        end = cm.getCursor("to");
+        socket.emit("prompt1", start, end, sentence.length);
+        let e = analysisCoord(end)
+        log("prompt1:("+e.l+","+e.c+"),"+sentence);
+    }
+    else {
+        cm.markText(start, end, {className: "autosuggest-background"});
+        sel_start = start;
+        sel_end = end;
+        let q = /\.|\?|\!/;
+        let cursor = cm.getSearchCursor(q, end);  // Find the nearest end of sentence from selection word
+        if (cursor.findNext()){
+            start = cursor.to();
+            console.log("found!", start);
+            cm.replaceRange(sentence, start);
+            cursor = cm.getSearchCursor(sentence, start);   // Now find where does the new insertion textend
+            cursor.findNext();
+            end = cursor.to();
+        }
+        else {  // Not sure about sentences ending, add prompt alternativly
+            sentence = "("+sentence_back+")";
+            start = end;
+            cm.replaceRange(sentence, start);
+            end = cm.getCursor("to");
+        }
+        socket.emit("prompt2", sel_start, sel_end, start, end, sentence.length);
+        let ss = analysisCoord(sel_start)
+        let se = analysisCoord(sel_end)
+        let s = analysisCoord(start)
+        let e = analysisCoord(end)
+        log("prompt2:("+ss.l+","+ss.c+"),("+se.l+","+se.c+"),("+s.l+","+s.c+"),("+e.l+","+e.c+"),"+sentence);
+    } 
+    cm.markText(start, end, {className: "autosuggest-font"});
+}
+
+function handelReplace(sentence) {
+    if (cm.somethingSelected()) {
+        let start = cm.getCursor("from")
+        let end = cm.getCursor("to")
+        if (!checkStartCoord(start, end)) {
+            let tmp = start;
+            start = end;
+            end = tmp;
+        }
+        sentence = "("+cm.getRange(start,end)+")->" + sentence
+        cm.replaceRange(sentence, start, end);
+        end = cm.getCursor("to")
+        cm.markText(start, end, {className: "replacement-font"});
+        socket.emit("replace", start, end, sentence.length);
+        let s = analysisCoord(start)
+        let e = analysisCoord(end)
+        log("replace:("+s.l+","+s.c+"),("+e.l+","+e.c+"),"+sentence);
+    }
+}
+
+function handelFeedback(sentence) {
+    let start = cm.getCursor("from")
+    let end = cm.getCursor("to")
+    if (!checkStartCoord(start, end)) {
+        let tmp = start;
+        start = end;
+        end = tmp;
+    }
+    socket.emit("feedback", start, end, sentence);
+    let s = analysisCoord(start)
+    let e = analysisCoord(end)
+    log("feedback:("+s.l+","+s.c+"),("+e.l+","+e.c+"),"+sentence);
 }
 
 // ContextMenu
@@ -133,80 +256,14 @@ $(function() {
                     "prompt": {
                         name: "Prompt",
                         callback: function(itemKey, opt, rootMenu, originalEvent) {
-                            let start = cm.getCursor("from")
-                            let end = cm.getCursor("to");
-                            let sel_start;
-                            let sel_end;
-                            let sentence = prompt("Please type your prompt below:","...");
-                            let sentence_back = sentence;
-                            if(sentence){
-                                sentence = " "+sentence;
-                                if (!checkStartCoord(start, end)) {
-                                    let tmp = start;
-                                    start = end;
-                                    end = tmp;
-                                }
-                                if (compareCoord(start, end)) {
-                                    cm.replaceRange(sentence, end);
-                                    end = cm.getCursor("to");
-                                    socket.emit("prompt1", start, end, sentence.length);
-                                    let e = analysisCoord(end)
-                                    log("prompt1:("+e.l+","+e.c+"),"+sentence);
-                                }
-                                else {
-                                    cm.markText(start, end, {className: "autosuggest-background"});
-                                    sel_start = start;
-                                    sel_end = end;
-                                    let q = /\.|\?|\!/;
-                                    let cursor = cm.getSearchCursor(q, end);  // Find the nearest end of sentence from selection word
-                                    if (cursor.findNext()){
-                                        start = cursor.to();
-                                        console.log("found!", start);
-                                        cm.replaceRange(sentence, start);
-                                        cursor = cm.getSearchCursor(sentence, start);   // Now find where does the new insertion textend
-                                        cursor.findNext();
-                                        end = cursor.to();
-                                    }
-                                    else {  // Not sure about sentences ending, add prompt alternativly
-                                        sentence = "("+sentence_back+")";
-                                        start = end;
-                                        cm.replaceRange(sentence, start);
-                                        end = cm.getCursor("to");
-                                    }
-                                    socket.emit("prompt2", sel_start, sel_end, start, end, sentence.length);
-                                    let ss = analysisCoord(sel_start)
-                                    let se = analysisCoord(sel_end)
-                                    let s = analysisCoord(start)
-                                    let e = analysisCoord(end)
-                                    log("prompt2:("+ss.l+","+ss.c+"),("+se.l+","+se.c+"),("+s.l+","+s.c+"),("+e.l+","+e.c+"),"+sentence);
-                                } 
-                                cm.markText(start, end, {className: "autosuggest-font"});
-                            }
+                            //let sentence = prompt("Please type your prompt below:","...");
+                            callTextPrompt(1);
                         }
                     },
                     "replace":  {   // TODO: Float Design
                         name: "Replace",
                         callback: function(itemKey, opt, rootMenu, originalEvent) {
-                            if (cm.somethingSelected()) {
-                                let start = cm.getCursor("from")
-                                let end = cm.getCursor("to")
-                                if (!checkStartCoord(start, end)) {
-                                    let tmp = start;
-                                    start = end;
-                                    end = tmp;
-                                }
-                                let sentence = prompt("Replacement with:")
-                                if(sentence){
-                                    sentence = "("+cm.getRange(start,end)+")->" + sentence
-                                    cm.replaceRange(sentence, start, end);
-                                    end = cm.getCursor("to")
-                                    cm.markText(start, end, {className: "replacement-font"});
-                                    socket.emit("replace", start, end, sentence.length);
-                                    let s = analysisCoord(start)
-                                    let e = analysisCoord(end)
-                                    log("replace:("+s.l+","+s.c+"),("+e.l+","+e.c+"),"+sentence);
-                                }
-                            }
+                            callTextPrompt(2);
                         }
                     },
                     "others":  {name: "Others"}
@@ -226,9 +283,8 @@ $(function() {
                                 start = end;
                                 end = tmp;
                             }
-                            cm.markText(start, end, {className: "cognitive-distortion"})
                             updateSelect(start, end)
-                            $(".pop-up").css("display","block");
+                            $("#cogndistortion").css("display","block");
                         }
                     },
                     "highlight":{
@@ -256,20 +312,7 @@ $(function() {
                 name: "Feedback", 
                 icon: "fa-commenting-o",
                 callback: function(itemKey, opt, rootMenu, originalEvent) {
-                    let start = cm.getCursor("from")
-                    let end = cm.getCursor("to")
-                    let sentence = prompt("Please type your feedback below:","...");
-                    if (!checkStartCoord(start, end)) {
-                        let tmp = start;
-                        start = end;
-                        end = tmp;
-                    }
-                    if(sentence){
-                        socket.emit("feedback", start, end, sentence);
-                        let s = analysisCoord(start)
-                        let e = analysisCoord(end)
-                        log("feedback:("+s.l+","+s.c+"),("+e.l+","+e.c+"),"+sentence);
-                    }
+                    callTextPrompt(3);
                 }
             },
             "utility": {
@@ -299,6 +342,22 @@ $(function() {
                             console.log(cm.setValue(""));
                             socket.emit("utility", "clear");
                             log("clear");
+                        }
+                    },
+                    "save":  {
+                        name: "Save",
+                        callback: function(itemKey, opt, rootMenu, originalEvent) {
+                            savedDoc = cm.getDoc(); 
+                            console.log("All saved!", savedDoc);
+                        }
+                    },
+                    "load":  {
+                        name: "Load",
+                        callback: function(itemKey, opt, rootMenu, originalEvent) {
+                            if (savedDoc!=null) {
+                                let a = cm.swapDoc(savedDoc);
+                                console.log("Swapped:",a);
+                            }
                         }
                     }
                 }

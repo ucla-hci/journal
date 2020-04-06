@@ -55,8 +55,9 @@
 			<textarea id="write" autofocus spellcheck="false"></textarea>
 
 			<div class="pop-up" id="cogndistortion">
-				<div class="close-pop-up"><span>x</span></div>
+				<div class="close-pop-up" id="close-cogndistortion"><div class="close-btn"></div></div>
 				<div class="pop-up-title">
+					<div class="pencil-btn"></div>
 					<span>Choose a Cognitive Distortion: </span>
 				</div>
 				<div class="pop-up-content"> 
@@ -70,6 +71,17 @@
 						<div class="pop-up-selection" id="Splitting"><span>Splitting</span></div>
 					</div>
 				</div>
+			</div>
+			<div class="pop-up" id="textmanipulation">
+				<div class="close-pop-up" id="close-textmanipulation"><div class="close-btn"></div></div>
+				<div class="pop-up-title">
+					<div class="pencil-btn"></div>
+					<span id="pop-up-title-text">Type Your Suggestion Below: </span>
+				</div>
+				<div class="pop-up-text">
+					<textarea type="text" class="pop-up-textarea" rows="4" cols="30"></textarea>
+				</div>
+				<div class="confirm-pop-up"><div class="okay-btn"></div></div>
 			</div>
 		</div>
 
