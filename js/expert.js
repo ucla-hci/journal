@@ -256,6 +256,14 @@ function handelFeedback(sentence) {
     document.getElementById("changetracker").appendChild(toAppend);
 }
 
+function findMargin(pageX, pageY) {
+    pageX -= 200;
+    pageY -= 60;
+    pageX = pageX < 10 ? 10 : pageX;
+    pageX = pageX < 20 ? 20 : pageX;
+    return {x: pageX, y: pageY}
+}
+
 // ContextMenu
 $(function() {
     $.contextMenu({
@@ -271,17 +279,23 @@ $(function() {
                     "prompt": {
                         name: "Prompt",
                         callback: function(itemKey, opt, rootMenu, originalEvent) {
-                            //let sentence = prompt("Please type your prompt below:","...");
+                            console.log(opt, rootMenu, originalEvent)
                             callTextPrompt(1);
+                            let mg = findMargin(rootMenu.pageX, rootMenu.pageY)
+                            $("#textmanipulation").css("margin-left", (mg.x)+"px");
+                            $("#textmanipulation").css("margin-top", (mg.y)+"px");
+                            
                         }
                     },
                     "replace":  {   // TODO: Float Design
                         name: "Replace",
                         callback: function(itemKey, opt, rootMenu, originalEvent) {
                             callTextPrompt(2);
+                            let mg = findMargin(rootMenu.pageX, rootMenu.pageY)
+                            $("#textmanipulation").css("margin-left", (mg.x)+"px");
+                            $("#textmanipulation").css("margin-top", (mg.y)+"px");
                         }
-                    },
-                    "others":  {name: "Others"}
+                    }
                 }	
             },
             "highlight": {
@@ -298,8 +312,11 @@ $(function() {
                                 start = end;
                                 end = tmp;
                             }
-                            updateSelect(start, end)
+                            updateSelect(start, end);
                             $("#cogndistortion").css("display","block");
+                            let mg = findMargin(rootMenu.pageX, rootMenu.pageY)
+                            $("#cogndistortion").css("margin-left", (mg.x)+"px");
+                            $("#cogndistortion").css("margin-top", (mg.y)+"px");
                         }
                     },
                     "highlight":{
@@ -315,8 +332,8 @@ $(function() {
                                 }
                                 cm.markText(start, end, {className: "highlight-background"})
                                 socket.emit("highlight", start, end);
-                                let s = analysisCoord(start)
-                                let e = analysisCoord(end)
+                                let s = analysisCoord(start);
+                                let e = analysisCoord(end);
                                 log("highlight:("+s.l+","+s.c+"),("+e.l+","+e.c+")");
                             }
                         }
@@ -328,6 +345,9 @@ $(function() {
                 icon: "fa-commenting-o",
                 callback: function(itemKey, opt, rootMenu, originalEvent) {
                     callTextPrompt(3);
+                    let mg = findMargin(rootMenu.pageX, rootMenu.pageY)
+                    $("#textmanipulation").css("margin-left", (mg.x)+"px");
+                    $("#textmanipulation").css("margin-top", (mg.y)+"px");
                 }
             },
             "utility": {

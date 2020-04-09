@@ -3,7 +3,7 @@ body {
 }
 
 .context-menu-root { 
-    z-index:999 !important; 
+    z-index:99 !important; 
     background-color: #f5f5f5 !important;
 }
 
@@ -410,7 +410,7 @@ button {
         border-radius: 0;
         height: auto;
         width: auto;
-        z-index: 3;
+        z-index: 98;
         color: #242424;
         background-color: whitesmoke;
         box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
