@@ -40,6 +40,11 @@ socket.on('doc', function(data) {
     var client = new ot.EditorClient(data.revision, data.clients, serverAdapter, editorAdapter);
 })
 
+socket.on('title', (title) => {
+    console.log(title);
+    document.getElementById("title").textContent = title["title"];
+});
+
 function Test(){
     socket.emit("sentToServer", "Shakehand");
     console.log(command);

@@ -4,6 +4,8 @@ var entry = CodeMirror.fromTextArea(write, {
     lineWrapping: true, 
 });
 
+var socket = io();
+
 var entries;
 var key, prevKey, flag = 0;
 var suggestion, s_start, s_end;
@@ -118,10 +120,13 @@ function toEntry(mood){
 
     if (mood == 'good') {
         document.getElementById("title").innerHTML = "Good Entry";// + today;
+        socket.emit('title', "Good Entry");
     } else if (mood == 'bad') {
         document.getElementById("title").innerHTML = "Bad Entry";// + today;
+        socket.emit('title', "Bad Entry");
     } else if (mood == 'neutral') {
         document.getElementById("title").innerHTML = "Neutral Entry";// + today;
+        socket.emit('title', "Neutral Entry");
     }
 }
 
@@ -246,7 +251,6 @@ function handleOperation(command){
 }
 
 // Socket & ot.js initialization
-var socket = io();
 socket.on('doc', function(data) {
     console.log(data);
     entry.setValue(data.str);

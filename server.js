@@ -34,6 +34,11 @@ var server = new EditorSocketIOServer("", [], 1);
 io.on('connection', function(socket) {
   server.addClient(socket);
   // Handle commands from expert, send them to all clients
+  socket.on("title", (title) => {  // Demo
+    console.log("Title Receive:", title);
+    io.emit("title", title);
+  });
+
   socket.on("sentToServer", command => {  // Demo
     console.log("Command Receive:", command);
     io.emit("sendToClient", {command});
