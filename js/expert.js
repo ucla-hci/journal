@@ -222,11 +222,13 @@ function handelReplace(sentence) {
             start = end;
             end = tmp;
         }
+        /*
         sentence = "("+cm.getRange(start,end)+")->" + sentence
         cm.replaceRange(sentence, start, end);
         end = cm.getCursor("to")
+        */
         cm.markText(start, end, {className: "replacement-font"});
-        socket.emit("replace", start, end, sentence.length);
+        socket.emit("replace", start, end, sentence.length, sentence);
         let s = analysisCoord(start)
         let e = analysisCoord(end)
         log("replace:("+s.l+","+s.c+"),("+e.l+","+e.c+"),"+sentence);

@@ -49,9 +49,9 @@ io.on('connection', function(socket) {
     io.emit("prompt2", sel_start, sel_end, start, end, length);
   });
 
-  socket.on("replace", (start, end, length) => {
-    console.log("Replace:", start, end, length);
-    io.emit("replace", start, end, length);
+  socket.on("replace", (start, end, length, sentence) => {
+    console.log("Replace:", start, end, length, sentence);
+    io.emit("replace", start, end, length, sentence);
   });
 
   socket.on("highlight", (start, end) => {

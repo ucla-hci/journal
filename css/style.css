@@ -363,3 +363,54 @@ button {
     }
         
 
+/* Pop UP */
+.pop-up {
+    border-radius: 15px;
+    font: 20px Helvetica, sans-serif;
+    top: 0px;
+    left: 0px;
+    font-weight: 100;
+    display: none;
+    position: absolute;
+    height: 30px;
+    width: auto;
+    z-index: 3;
+    color: #242424;
+    background-color: whitesmoke;
+}
+
+.pop-up-title{
+    margin: 3px 5px 3px 5px;
+    color: #6c6c6c;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.close-btn {
+    margin-top: 4px;
+    background-image: url("../src/close.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: transparent;
+    height: 15px;
+    width: 15px;
+    border-style: none;
+}
+
+.okay-btn {
+    margin-top: 2px;
+    background-image: url("../src/okay.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: transparent;
+    height: 20px;
+    width: 20px;
+    border-style: none;
+}
+
+textarea:focus {
+    outline: none;
+}

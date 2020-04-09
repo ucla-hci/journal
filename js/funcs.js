@@ -6,6 +6,7 @@ var entry = CodeMirror.fromTextArea(write, {
 
 var entries;
 var key, prevKey, flag = 0;
+var suggestion, s_start, s_end;
 
 function loadJSON(){
     var jqXHR = $.ajax({
@@ -116,11 +117,11 @@ function toEntry(mood){
     today = mm + '/' + dd;
 
     if (mood == 'good') {
-        document.getElementById("title").innerHTML = "Good Entry " + today;
+        document.getElementById("title").innerHTML = "Good Entry";// + today;
     } else if (mood == 'bad') {
-        document.getElementById("title").innerHTML = "Bad Entry " + today;
+        document.getElementById("title").innerHTML = "Bad Entry";// + today;
     } else if (mood == 'neutral') {
-        document.getElementById("title").innerHTML = "Neutral Entry " + today;
+        document.getElementById("title").innerHTML = "Neutral Entry";// + today;
     }
 }
 
@@ -186,6 +187,15 @@ function loader() {
     document.getElementById("alltypes").style.maxHeight = document.getElementById("alltypes").scrollHeight + "px";
 }
 
+function acceptChange() {
+    entry.replaceRange(suggestion, s_start, s_end);
+    $("#textmanipulation").css("display","none");
+}
+
+function rejectChange() {
+    $("#textmanipulation").css("display","none");
+}
+
 // CodeMirro Decoration Functions
 
 function handlePrompt(start, end, sel_start=null, sel_end=null){
@@ -195,8 +205,22 @@ function handlePrompt(start, end, sel_start=null, sel_end=null){
     }
 }
 
-function handleReplace(start, end){
+function handleReplace(start, end, s){
     entry.markText(start, end, {className: "replacement-font"});
+    console.log(entry.charCoords(start));
+    console.log(entry.charCoords(start)["left"]);
+    console.log(entry.charCoords(start)["top"]);
+    var newLeft = entry.charCoords(start)["left"].toString() + "px";
+    var newTop = (entry.charCoords(start)["top"]+30).toString() + "px"
+
+    $("#textmanipulation").css("display","block");
+    $("#textmanipulation").css("margin-left", newLeft);
+    $("#textmanipulation").css("margin-top", newTop);
+    document.getElementById("pop-up-title-text").textContent = s;
+
+    suggestion = s;
+    s_start = start;
+    s_end = end;
 }
 
 function handleHighlight(start, end){
@@ -208,7 +232,9 @@ function handleCognDistortion(start, end, id){
 }
 
 function handleFeedback(start, end, sentence){
-    //
+    document.getElementById("deftitle").innerHTML = "Expert Feedback";
+    document.getElementById("defbody").innerHTML = sentence;
+    openDef();
 }
 
 function handleOperation(command){
@@ -244,9 +270,9 @@ socket.on("prompt2", (sel_start, sel_end, start, end, l) => {
     handlePrompt(start, end, sel_start, sel_end);
 });
 
-socket.on("replace", (start, end, l) => {
-    console.log("Replace:", start, end, l);
-    handleReplace(start, end)
+socket.on("replace", (start, end, l, s) => {
+    console.log("Replace:", start, end, l, s);
+    handleReplace(start, end, s)
 });
 
 socket.on("highlight", (start, end) => {

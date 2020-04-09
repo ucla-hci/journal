@@ -83,12 +83,20 @@
     <div id="main">
       <h1 id="title">Entry Title</h1>
       <textarea id="write" autofocus spellcheck="false"></textarea>
-    </div>
 
     <div id="myBottombar" class="bottombar">
-        <a href="javascript:void(0)" class="closedef" onclick="closeDef()">Distortion Name</a>
-        <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque in ornare nulla. Curabitur augue velit, sodales ut congue a, aliquam non arcu. Aliquam sed erat non turpis pretium finibus. Integer rhoncus nisl ac augue egestas, id vestibulum erat accumsan. Donec efficitur commodo nisl in molestie. Nunc molestie quam ut augue cursus, ac blandit nisi cursus. Nam malesuada erat nec mauris interdum, in ultrices arcu gravida.</a>
+        <a href="javascript:void(0)" class="closedef" onclick="closeDef()" id="deftitle">Distortion Name</a>
+        <a href="#" id="defbody">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque in ornare nulla. Curabitur augue velit, sodales ut congue a, aliquam non arcu. Aliquam sed erat non turpis pretium finibus. Integer rhoncus nisl ac augue egestas, id vestibulum erat accumsan. Donec efficitur commodo nisl in molestie. Nunc molestie quam ut augue cursus, ac blandit nisi cursus. Nam malesuada erat nec mauris interdum, in ultrices arcu gravida.</a>
     </div>
+
+    <div class="pop-up" id="textmanipulation">
+      <div class="pop-up-title">
+        <div class="close-btn" onclick="rejectChange()"></div>
+        <span id="pop-up-title-text"></span>
+        <div class="okay-btn" onclick="acceptChange()"></div>
+      </div>
+    </div>
+  </div>
 </div>
 </body>
 
