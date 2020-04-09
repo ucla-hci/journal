@@ -2,7 +2,22 @@ body {
   font-family: "Lato", sans-serif;
 }
 
-.context-menu-root { z-index:999 !important; }
+.context-menu-root { 
+    z-index:99 !important; 
+    background-color: #f5f5f5 !important;
+}
+
+.context-menu-item {
+    background-color: #f5f5f5 !important;
+}
+
+.context-menu-list {
+    background-color: #f5f5f5 !important;
+}
+
+.context-menu-hover {
+    background-color: #2980b9 !important;
+}
 
 .container{
     border: none;
@@ -395,9 +410,10 @@ button {
         border-radius: 0;
         height: auto;
         width: auto;
-        z-index: 3;
+        z-index: 98;
         color: #242424;
         background-color: whitesmoke;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
     }
     
     .close-pop-up{
