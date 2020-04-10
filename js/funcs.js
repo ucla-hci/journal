@@ -206,8 +206,25 @@ function rejectChange() {
     $("#textmanipulation").css("display","none");
 }
 
-// CodeMirro Decoration Functions
+// CodeMirror Coordinates Utilities
+function analysisCoord(coord) {
+    if (coord != null) {
+        return {l:parseInt(coord["line"]), c:parseInt(coord["ch"])}
+    }
+}
 
+function compareCoord(start, end) {
+    if ((start == null) || (end == null)) {return false;}
+    else {
+        let st = analysisCoord(start)
+        let ed = analysisCoord(end)
+        if (st.l != ed.l) {return false;}
+        else if (st.c != ed.c) {return false;}
+        return true;
+    }
+}
+
+// CodeMirro Decoration Functions
 function handlePrompt(start, end, sel_start=null, sel_end=null){
     entry.markText(start, end, {className: "autosuggest-font"})
     if ((sel_start != null) && (sel_end != null)) {
@@ -243,9 +260,12 @@ function handleCognDistortion(start, end, id){
 
 function handleFeedback(start, end, sentence){
     document.getElementById("deftitle").innerHTML = "Expert Feedback";
-    feedbackMsg += "\n" + "(" + start["line"] + "," + start["ch"] + ")->(" + + end["line"] + "," + end["ch"] + "): " + sentence
-    console.log(feedbackMsg);
-    document.getElementById("defbody").innerHTML == feedbackMsg;
+    feedbackMsg += "<br>" + "(" + start["line"] + "," + start["ch"] + ")";
+    if (!compareCoord(start, end)) {
+        feedbackMsg += "->(" + + end["line"] + "," + end["ch"] + ")";
+    }
+    feedbackMsg += ": "+ sentence;
+    document.getElementById("defbody").innerHTML = feedbackMsg;
     openDef();
 }
 
@@ -306,10 +326,29 @@ socket.on("utility", (command) => {
     handleFeedback(command)
 });
 
-socket.on("turnon", functions => {
-    console.log("turnon:", functions);
-    //
-  });
+socket.on("download", functions => {
+    console.log("download:", functions);
+    if (functions == "Keyboard") {
+        reportKeyboardLog();
+    }
+    else if (functions == "Mouse") {
+        reportMouseLog();
+    }
+});
+
+socket.on("get", functions => {
+    console.log("get:", functions);
+    if (functions == "Keyboard") {
+        if (UnixZero != -1) {
+            socket.emit('Log', 1, keyboardlog);
+        }
+    }
+    else if (functions == "Mouse") {
+        if (UnixZero != -1) {
+            socket.emit('Log', 2, mouselog);
+        }
+    }
+});
 
 socket.on("display", functions => {
     console.log("display:", functions);

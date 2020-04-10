@@ -4,6 +4,8 @@ var current_sel_from = null;
 var current_sel_to = null;
 var last_menu_selection = 0;
 var savedDoc = null;
+var mouseLog = [];
+var KeyboardLog = [];
 
 function openNav() {
     document.getElementById("mySidebar").style.width = "250px";
@@ -42,10 +44,22 @@ socket.on('doc', function(data) {
 
 socket.on('title', (title) => {
     console.log(title);
-    document.getElementById("title").textContent = title["title"];
+    document.getElementById("title").textContent = title;
 });
 
-function Test(){
+socket.on("Log", (type, array) => {
+    console.log("Receive Log:", type);
+    if (type == 1) {
+        keyboardLog = array;
+        console.log(keyboardLog);
+    }
+    else if (type == 2) {
+        mouseLog = array;
+        console.log(mouseLog);
+    }
+});
+
+function Test(){    // Demo
     socket.emit("sentToServer", "Shakehand");
     console.log(command);
     log(command);
@@ -57,8 +71,10 @@ function control(i){
     switch (i) {
         case 1: functions = "Feedback"; break;
         case 2: functions = "Highlight"; break;
-        case 3: functions = "Keyboard"; command = "turnon"; break;
-        case 4: functions = "Mouse"; command = "turnon"; break;
+        case 3: functions = "Keyboard"; command = "download"; break;
+        case 4: functions = "Mouse"; command = "download"; break;
+        case 5: functions = "Keyboard"; command = "get"; break;
+        case 6: functions = "Mouse"; command = "get"; break;
     }
     log(command+":"+functions);
     socket.emit(command, functions);

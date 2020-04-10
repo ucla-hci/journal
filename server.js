@@ -32,18 +32,25 @@ var EditorSocketIOServer = require('./lib/ot.js/editor-socketio-server.js');
 var server = new EditorSocketIOServer("", [], 1);
 
 io.on('connection', function(socket) {
-  server.addClient(socket);
-  // Handle commands from expert, send them to all clients
-  socket.on("title", (title) => {  // Demo
-    console.log("Title Receive:", title);
-    io.emit("title", title);
-  });
 
+  server.addClient(socket);
   socket.on("sentToServer", command => {  // Demo
     console.log("Command Receive:", command);
     io.emit("sendToClient", {command});
   });
 
+  // Handle commands from user, send them to expert
+  socket.on("title", (title) => {  
+    console.log("Title Receive:", title);
+    io.emit("title", title);
+  });
+
+  socket.on("Log", (type, array) => {
+    console.log("Log:", type);
+    io.emit("Log", type, array);
+  });
+
+  // Handle commands from expert, send them to all clients
   socket.on("prompt1", (start, end, length) => {
     console.log("Prompt-Insert:", start, end, length);
     io.emit("prompt1", start, end, length);
@@ -79,13 +86,23 @@ io.on('connection', function(socket) {
     io.emit("utility", command);
   });
 
-  socket.on("turnon", functions => {
-    console.log("turnon:", functions);
-    io.emit("turnon", functions);
-  });
-
   socket.on("display", functions => {
     console.log("display:", functions);
     io.emit("display", functions);
+  });
+
+  socket.on("download", functions => {
+    console.log("download:", functions);
+    io.emit("download", functions);
+  });
+
+  socket.on("get", functions => {
+    console.log("get:", functions);
+    io.emit("get", functions);
+  });
+
+  socket.on("get", functions => {
+    console.log("get:", functions);
+    io.emit("get", functions);
   });
 });

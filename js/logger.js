@@ -1,60 +1,64 @@
-var tZero = 0;
+var UnixZero = -1;
 var mouselog = new Array();
 var keyboardlog = new Array();
 
+function startTimer(){
+    let dateTime = Date.now();
+    UnixZero = dateTime;
+    console.log("restart:", dateTime)
+}
+
+function initialization(){
+    startTimer();
+    mouselog = new Array();
+    keyboardlog = new Array();
+    keyboardlog.push({"timestamp": UnixZero, "type": "start"});
+    mouselog.push({"timestamp": UnixZero, "type": "start"});
+}
+
 // Keyboard Operations logger
 $(document).keyup(function(evt) {
-    t = evt.timeStamp;
-    if (tZero == 0) {
-        tZero = t;
-        keyboardlog.push({"timestamp":t-tZero, "keycode":"Start", "type":"ini"})
+    if (UnixZero == -1) {
+        initialization();
     }
-    keyboardlog.push({"timestamp":t-tZero, "keycode":evt.which, "type":"click"})
+    t = evt.timeStamp;
+    console.log(t);
+    keyboardlog.push({"timestamp": t-UnixZero, "type":"type", "keycode": evt.which })
 });
 
 // Mouse Movement logger
 $(document).mousemove(function(evt) {
-    t = evt.timeStamp;
-    if (tZero == 0) {
-        tZero = t;
-        mouselog.push({"timestamp":t-tZero, "x":"Start", "y":"Start", "type":"ini"})
+    if (UnixZero == -1) {
+        initialization();
     }
-    mouselog.push({"timestamp":t-tZero, "x":evt.pageX, "y":evt.pageY, "type":"move"});
+    t = evt.timeStamp;
+    mouselog.push({"timestamp":t-UnixZero, "type":"move", "x":evt.pageX, "y":evt.pageY});
 });
 
 $(document).mousedown(function(evt) {
-    t = evt.timeStamp;
-    if (tZero == 0) {
-        tZero = t;
-        mouselog.push({"timestamp":t-tZero, "x":"Start", "y":"Start", "type":"ini"})
+    if (UnixZero == -1) {
+        initialization();
     }
-    mouselog.push({"timestamp":t-tZero, "x":evt.pageX, "y":evt.pageY, "type":"down"});
+    t = evt.timeStamp;
+    mouselog.push({"timestamp":t-UnixZero, "type":"click", "x":evt.pageX, "y":evt.pageY});
 });
 
-var write = document.getElementById('keyboardlog');
-write.onclick = function(evt){
-    console.log("keyboard click")
-    var log = "";
+function reportKeyboardLog() {
+    if (UnixZero == -1) {return}
+    let now = Date.now();
     if (keyboardlog.length > 0){
-        for(var i = 0; i < keyboardlog.length - 1; i++) {
-            let line = "t=" + (keyboardlog[i].timestamp/1000).toFixed(2) + ":" + keyboardlog[i].keycode;
-            log += line + "\r";
-        }
-        fps = (keyboardlog.length)/(evt.timeStamp-tZero)*1000;
+        output = JSON.stringify(keyboardlog)
+        fps = (keyboardlog.length)/((now-UnixZero) / 1000); // ms -> s
         console.log("Type Speed ≈" + fps.toFixed(2) + " letters per second");
     }
-    download(log,"keyboard.txt");
+    download(output,"keyboard.json");
 }
 
 function reportMouseLog() {
-    var log = "";
+    if (UnixZero == -1) {return}
     if (mouselog.length > 0){
-        for(var i = 0; i < mouselog.length - 1; i++) {
-            let line = "t=" + mouselog[i].timestamp.toFixed(5) + " : (" + mouselog[i].x + "," + mouselog[i].y+"), " + mouselog[i].type;
-            log += line + "\r";
-        }
-        download(log,"mouse.txt");
-        mouseHeatmap(mouselog);
+        output = JSON.stringify(mouselog)
+        download(output,"mouse.json");
     }
 }
 
@@ -93,7 +97,6 @@ function mouseHeatmap(mouseCoor){
         }
     }
 }
-
 
 // Save Textarea Contents to .txt File
 // Ref: https://stackoverflow.com/questions/21479107/saving-html5-textarea-contents-to-file/30740104
