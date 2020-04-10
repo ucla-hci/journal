@@ -171,7 +171,7 @@ $(".confirm-pop-up").on("click", function(){
 $(".pop-up-selection").one("click", function(){
     let id = this.id;
     if ((current_sel_from!=null) && (current_sel_to!=null)) {
-        cm.markText(current_sel_from, current_sel_to, {className: "cognitive-distortion"})
+        cm.markText(current_sel_from, current_sel_to, {className: id.replace(/\s/g,'')})
         socket.emit("cd", current_sel_from, current_sel_to, id);
         let from = analysisCoord(current_sel_from);
         let to = analysisCoord(current_sel_to);
