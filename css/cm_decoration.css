@@ -1,6 +1,7 @@
 /* This css file will be shared by both expert.html and index.html */
 /*.CodeMirror {border-top: 1px solid black; border-bottom: 1px solid black;}
 .CodeMirror-selectedtext { color: white; }*/
+.CodeMirror-selectedtext{ background-color: #BEBDBE; }
 .highlight-background { background-color: #ff7; }
 .autosuggest-background { background-color: #d6e9f8; }
 .autosuggest-font { color: #BEBDBE; }

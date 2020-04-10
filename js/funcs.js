@@ -2,7 +2,12 @@ var num = 0;
 var write = document.getElementById('write');
 var entry = CodeMirror.fromTextArea(write, {
     lineWrapping: true, 
+    lineNumbers: false, 
+    styleSelectedText: true,
+    cursorHeight: 0.85
 });
+
+var feedbackMsg = ""
 
 var socket = io();
 
@@ -238,7 +243,9 @@ function handleCognDistortion(start, end, id){
 
 function handleFeedback(start, end, sentence){
     document.getElementById("deftitle").innerHTML = "Expert Feedback";
-    document.getElementById("defbody").innerHTML = sentence;
+    feedbackMsg += "\n" + "(" + start["line"] + "," + start["ch"] + ")->(" + + end["line"] + "," + end["ch"] + "): " + sentence
+    console.log(feedbackMsg);
+    document.getElementById("defbody").innerHTML == feedbackMsg;
     openDef();
 }
 
@@ -297,6 +304,18 @@ socket.on("feedback", (start, end, sentence) => {
 socket.on("utility", (command) => {
     console.log("utility:", command);
     handleFeedback(command)
+});
+
+socket.on("turnon", functions => {
+    console.log("turnon:", functions);
+    //
+  });
+
+socket.on("display", functions => {
+    console.log("display:", functions);
+    if (functions == "Feedback") {
+        openDef();
+    }
 });
 
 // Demo: How to get text from CodeMirror

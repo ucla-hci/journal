@@ -78,4 +78,14 @@ io.on('connection', function(socket) {
     console.log("utility:", command);
     io.emit("utility", command);
   });
+
+  socket.on("turnon", functions => {
+    console.log("turnon:", functions);
+    io.emit("turnon", functions);
+  });
+
+  socket.on("display", functions => {
+    console.log("display:", functions);
+    io.emit("display", functions);
+  });
 });

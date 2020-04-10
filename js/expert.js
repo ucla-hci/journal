@@ -33,7 +33,7 @@ function closeDef() {
 
 // Socket & ot.js initialization
 socket.on('doc', function(data) {
-    cm = CodeMirror.fromTextArea(document.getElementById('write'), {lineNumbers: false, styleSelectedText: true});
+    cm = CodeMirror.fromTextArea(document.getElementById('write'), {lineWrapping: true, lineNumbers: false, styleSelectedText: true, cursorHeight: 0.85});
     cm.setValue(data.str);
     var serverAdapter = new ot.SocketIOAdapter(socket);
     var editorAdapter = new ot.CodeMirrorAdapter(cm);
@@ -52,14 +52,16 @@ function Test(){
 }
 
 function control(i){
-    let command = ""
+    let functions = ""
+    let command = "display"
     switch (i) {
-        case 1: command += "Autosuggestion"; break;
-        case 3: command += "Keyboard"; break;
-        case 4: command += "Mouse"; break;
+        case 1: functions = "Feedback"; break;
+        case 2: functions = "Highlight"; break;
+        case 3: functions = "Keyboard"; command = "turnon"; break;
+        case 4: functions = "Mouse"; command = "turnon"; break;
     }
-    log(command);
-    socket.emit("TurnOn", command);
+    log(command+":"+functions);
+    socket.emit(command, functions);
 }
 
 function analysisCoord(coord) {
