@@ -18,7 +18,7 @@ var suggestion, s_start, s_end;
 function loadJSON(){
     var jqXHR = $.ajax({
         type: "POST",
-        url: "http://localhost:5000/load",
+        url: "http://192.168.128.15:5000/load",
         async: false,
         data: { }
     });
@@ -27,9 +27,10 @@ function loadJSON(){
 }
 
 function runPyScript(input){
+    console.log("trying to run python");
     var jqXHR = $.ajax({
         type: "POST",
-        url: "http://localhost:5000/login",
+        url: "http://192.168.128.15:5000/login",
         async: false,
         data: { mydata: input }
     });
@@ -61,8 +62,16 @@ entry.on("cursorActivity", function () {
             closeDef();
             //branch based on whether a highlight was clicked here
             if(entry.findMarksAt(entry.getCursor()).length != 0) {
-                if(entry.findMarksAt(entry.getCursor())[0]["className"] == "markneg") 
-                    openDef();
+                if(entry.findMarksAt(entry.getCursor())[0]["className"] == "BeingRight") 
+                    populateDistortion("BeingRight");
+                if(entry.findMarksAt(entry.getCursor())[0]["className"] == "Blaming") 
+                    populateDistortion("Blaming");
+                if(entry.findMarksAt(entry.getCursor())[0]["className"] == "Catastrophizing") 
+                    populateDistortion("Catastrophizing"); 
+		if(entry.findMarksAt(entry.getCursor())[0]["className"] == "MindReading") 
+                    populateDistortion("MindReading");
+		if(entry.findMarksAt(entry.getCursor())[0]["className"] == "Splitting") 
+                    populateDistortion("Splitting");
             }
         }
     }
@@ -76,16 +85,16 @@ entry.on("keydown", function () {
         movedByMouse = false;
     }
 
-    if(key == 190 || prevKey == 16 && key == 49 || prevKey == 16 && key == 191) {
-        entry.getAllMarks().forEach(mark => mark.clear());
-        var result = runPyScript(entry.doc.getValue());
-        var resparse = JSON.parse(result);
+   // if(key == 190 || prevKey == 16 && key == 49 || prevKey == 16 && key == 191) {
+   //     entry.getAllMarks().forEach(mark => mark.clear());
+   //     var result = runPyScript(entry.doc.getValue());
+   //     var resparse = JSON.parse(result);
 
-        for(i = 0; i < resparse["valence"].length; i++) {
-            if(resparse["valence"][i] == "negative")
-                entry.markText(entry.doc.posFromIndex(resparse["starts"][i]), entry.doc.posFromIndex(resparse["ends"][i]), {className: "markneg"});
-        } 
-    }
+   //     for(i = 0; i < resparse["valence"].length; i++) {
+   //         if(resparse["valence"][i] == "negative")
+   //             entry.markText(entry.doc.posFromIndex(resparse["starts"][i]), entry.doc.posFromIndex(resparse["ends"][i]), {className: "markneg"});
+   //     } 
+   // }
 });
 
 entry.on("beforeChange", function () {
@@ -165,9 +174,9 @@ function loader() {
     document.getElementById("main").style.display = "none";
     document.getElementById("temp").style.display = "block";
 
-    var temp = loadJSON();
-    var parsed = JSON.parse(temp);
-    entries = parsed["content"]["entries"];
+    //var temp = loadJSON();
+    //var parsed = JSON.parse(temp);
+    //entries = parsed["content"]["entries"];
 
     var coll = document.getElementsByClassName("collapsible");
     var i;
@@ -255,7 +264,8 @@ function handleHighlight(start, end){
 }
 
 function handleCognDistortion(start, end, id){
-    entry.markText(start, end, {className: "cognitive-distortion"});
+    console.log(id.replace(/\s/g,''));
+    entry.markText(start, end, {className: id.replace(/\s/g,'')});
 }
 
 function handleFeedback(start, end, sentence){
@@ -265,8 +275,27 @@ function handleFeedback(start, end, sentence){
         feedbackMsg += "->(" + + end["line"] + "," + end["ch"] + ")";
     }
     feedbackMsg += ": "+ sentence;
-    document.getElementById("defbody").innerHTML = feedbackMsg;
+    document.getElementById("defbody").innerHTML = sentence;
     openDef();
+}
+
+function populateDistortion(name) {
+	if(name == "BeingRight") {
+                document.getElementById("deftitle").innerHTML = "Being Right";
+                document.getElementById("defbody").innerHTML = "Being right distortion demo text";  }
+        if(name == "Blaming") {
+                document.getElementById("deftitle").innerHTML = "Blaming";
+                document.getElementById("defbody").innerHTML = "Blaming distortion sample text";  }
+	if(name == "Catastrophizing") {
+                document.getElementById("deftitle").innerHTML = "Catastrophizing";
+                document.getElementById("defbody").innerHTML = "Catastrophizing distortion sample text";  }
+        if(name == "MindReading") { 
+                document.getElementById("deftitle").innerHTML = "Mind Reading";
+                document.getElementById("defbody").innerHTML = "Mind reading distortion sample text";  }
+        if(name == "Splitting") { 
+     		document.getElementById("deftitle").innerHTML = "Splitting";
+		document.getElementById("defbody").innerHTML = "Splitting distortion sample text"; }
+	openDef();
 }
 
 function handleOperation(command){
@@ -313,7 +342,7 @@ socket.on("highlight", (start, end) => {
 
 socket.on("cd", (start, end, id) => {
     console.log("CD:", start, end, id);
-    handleCognDistortion(start, end)
+    handleCognDistortion(start, end, id);
 });
 
 socket.on("feedback", (start, end, sentence) => {
