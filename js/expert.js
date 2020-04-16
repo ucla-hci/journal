@@ -130,14 +130,17 @@ function callTextPrompt(type) {
     if (type == 1) {
         last_menu_selection = 1;
         $("#pop-up-title-text").text("Type Your Suggestion Below:");
+        $("#pop-up-content-text").val("");
     }
     else if (type == 2) {
         last_menu_selection = 2;
         $("#pop-up-title-text").text("Replace with:");
+        $("#pop-up-content-text").val("");
     }
     else if (type == 3){
         last_menu_selection = 3;
         $("#pop-up-title-text").text("Your feedback:");
+        $("#pop-up-content-text").val("");
     }
     else{
         console.log("Prompt Error Occured!");
@@ -168,7 +171,7 @@ $(".confirm-pop-up").on("click", function(){
     $("#textmanipulation").css("display","none");
 });
 
-$(".pop-up-selection").one("click", function(){
+$(".pop-up-selection").on("click", function(){
     let id = this.id;
     if ((current_sel_from!=null) && (current_sel_to!=null)) {
         cm.markText(current_sel_from, current_sel_to, {className: id.replace(/\s/g,'')})
