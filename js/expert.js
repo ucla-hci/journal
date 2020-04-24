@@ -191,7 +191,7 @@ function handelPrompt(sentence) {
     let sel_start;
     let sel_end;
     let sentence_back = sentence;
-    sentence = " "+sentence;
+    //sentence = " "+sentence;
     if (!checkStartCoord(start, end)) {
         let tmp = start;
         start = end;

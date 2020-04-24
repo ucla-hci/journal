@@ -15,6 +15,8 @@ var entries;
 var key, prevKey, flag = 0;
 var suggestion, s_start, s_end;
 
+var promptObjects = new Array()
+
 function loadJSON(){
     var jqXHR = $.ajax({
         type: "POST",
@@ -77,7 +79,7 @@ entry.on("cursorActivity", function () {
     }
 });
 
-entry.on("keydown", function () {
+entry.on("keydown", function() {
     prevKey = key;
     key = event.keyCode;
 
@@ -101,9 +103,57 @@ entry.on("beforeChange", function () {
     movedByMouse = false;
 });
 
+entry.on("change", function (cm, changeObj) {
+    let input = changeObj.text;
+    if ((promptObjects!=undefined) && (promptObjects.length>=1)){
+        let cStart = changeObj.from;
+        let cEnd = changeObj.to;
+        let delIndex = -1;
+
+        promptObjects.some(function(obj, index){    // Find, and break.
+            let mtLocation = obj.find()
+            let start = mtLocation.from;
+            let end = mtLocation.to;
+            console.log("check:", cStart, cEnd, start, end)
+            if (checkInRange(cStart, start, end, -1) || checkInRange(cEnd, start, end)) {
+                console.log("Auto Fade Away, del:", start, end);
+                cm.replaceRange(input, start, end)
+                delIndex = index;
+                return true;
+            }
+        });
+
+        console.log("before del:", promptObjects)
+        if (delIndex > -1) {
+            promptObjects.splice(delIndex, 1)
+        }
+        console.log("after del:", promptObjects)
+        //let first = checkInRange(cStart, start, end, -2)
+        //let second = checkInRange(cEnd, start, end)
+        //console.log(first, second)
+    }
+});
+
+function checkInRange(target, start, end, offset=0) {
+    // Offset > 1 need special handle, otherwise document may lose contents
+    if (offset > 0) {
+        end.ch += offset;
+    }
+    else {
+        start.ch += offset;
+    }
+    if ((target.line >= start.line) && (target.ch >= start.ch) && (target.line <= end.line) && (target.ch <= end.ch)) {
+        return true;
+    }
+    else {
+        console.log((target.line >= start.line),(target.ch >= start.ch),(target.line <= start.line),(target.ch <= start.ch))
+        return false;
+    }
+}
+
 function isMovementKey(keyCode) {
     return 33 <= keyCode && keyCode <= 40;
-};
+}
 
 function openEntry(date) {
     for(var i = 0; i < entries.length; ++i) {
@@ -235,9 +285,11 @@ function compareCoord(start, end) {
 
 // CodeMirro Decoration Functions
 function handlePrompt(start, end, sel_start=null, sel_end=null){
-    entry.markText(start, end, {className: "autosuggest-font"})
+    //console.log("add prompt, start:", start, "end:", end, "sel_start:", sel_start, "sel_end:", sel_end)
+    let promptObject = entry.markText(start, end, {className: "autosuggest-font"})
+    promptObjects.push(promptObject)
     if ((sel_start != null) && (sel_end != null)) {
-        entry.markText(start, end, {className: "autosuggest-background"});
+        entry.markText(sel_start, sel_end, {className: "autosuggest-background"});
     }
 }
 
@@ -308,7 +360,6 @@ function handleOperation(command){
 
 // Socket & ot.js initialization
 socket.on('doc', function(data) {
-    console.log(data);
     entry.setValue(data.str);
     var serverAdapter = new ot.SocketIOAdapter(socket);
     var editorAdapter = new ot.CodeMirrorAdapter(entry);
