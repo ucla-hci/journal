@@ -103,9 +103,11 @@ entry.on("beforeChange", function () {
     movedByMouse = false;
 });
 
+// +input -> user type; undefined -> expert type
 entry.on("change", function (cm, changeObj) {
     let input = changeObj.text;
-    if ((promptObjects!=undefined) && (promptObjects.length>=1)){
+    let origin = changeObj.origin ? true : false    
+    if (origin && (promptObjects != undefined) && (promptObjects.length>=1)){
         let cStart = changeObj.from;
         let cEnd = changeObj.to;
         let delIndex = -1;
