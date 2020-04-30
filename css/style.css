@@ -221,8 +221,8 @@ button {
 
 .markneg {
     border-radius: 3px;
-    color: #6c6c6c;
-    background-color: #e2c0c0;
+    color: #e2c0c0;
+    /* background-color: #e2c0c0; */
     z-index: 15;
 }
 

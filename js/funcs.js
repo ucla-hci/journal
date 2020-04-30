@@ -32,7 +32,7 @@ function runPyScript(input){
     console.log("trying to run python");
     var jqXHR = $.ajax({
         type: "POST",
-        url: "http://192.168.128.15:5000/login",
+        url: "http://192.168.128.15:5000/login", //192.168.128.15
         async: false,
         data: { mydata: input }
     });
@@ -43,7 +43,7 @@ function runPyScript(input){
 function runPyScript_check(input){
     var jqXHR = $.ajax({
         type: "POST",
-        url: "http://127.0.0.1:5000/check",
+        url: "http://192.168.128.15:5000/check",
         async: false,
         data: { mydata: input }
     });
@@ -87,16 +87,16 @@ entry.on("keydown", function() {
         movedByMouse = false;
     }
 
-   // if(key == 190 || prevKey == 16 && key == 49 || prevKey == 16 && key == 191) {
-   //     entry.getAllMarks().forEach(mark => mark.clear());
-   //     var result = runPyScript(entry.doc.getValue());
-   //     var resparse = JSON.parse(result);
+    if(key == 190 || prevKey == 16 && key == 49 || prevKey == 16 && key == 191) {
+        entry.getAllMarks().forEach(mark => mark.clear());
+        var result = runPyScript(entry.doc.getValue());
+        var resparse = JSON.parse(result);
 
-   //     for(i = 0; i < resparse["valence"].length; i++) {
-   //         if(resparse["valence"][i] == "negative")
-   //             entry.markText(entry.doc.posFromIndex(resparse["starts"][i]), entry.doc.posFromIndex(resparse["ends"][i]), {className: "markneg"});
-   //     } 
-   // }
+        for(i = 0; i < resparse["valence"].length; i++) {
+            if(resparse["valence"][i] == "negative")
+                entry.markText(entry.doc.posFromIndex(resparse["starts"][i]), entry.doc.posFromIndex(resparse["ends"][i]), {className: "markneg"});
+        } 
+    }
 });
 
 entry.on("beforeChange", function () {
@@ -226,9 +226,9 @@ function loader() {
     document.getElementById("main").style.display = "none";
     document.getElementById("temp").style.display = "block";
 
-    //var temp = loadJSON();
-    //var parsed = JSON.parse(temp);
-    //entries = parsed["content"]["entries"];
+    var temp = loadJSON();
+    var parsed = JSON.parse(temp);
+    entries = parsed["content"]["entries"];
 
     var coll = document.getElementsByClassName("collapsible");
     var i;
