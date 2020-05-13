@@ -6,6 +6,7 @@ var last_menu_selection = 0;
 var savedDoc = null;
 var mouseLog = [];
 var KeyboardLog = [];
+var lightMode = true;
 
 function openNav() {
     document.getElementById("mySidebar").style.width = "250px";
@@ -75,6 +76,17 @@ function control(i){
         case 4: functions = "Mouse"; command = "download"; break;
         case 5: functions = "Keyboard"; command = "get"; break;
         case 6: functions = "Mouse"; command = "get"; break;
+        case 7: {
+            if (lightMode){
+                document.getElementById("theme").setAttribute("href","css/theme_dark.css");
+                lightMode = false;
+            }
+            else {
+                document.getElementById("theme").setAttribute("href","css/theme_light.css");
+                lightMode = true;
+            }
+            break;
+        }
     }
     log(command+":"+functions);
     socket.emit(command, functions);

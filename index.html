@@ -27,15 +27,15 @@
   <script src="node_modules/socket.io-client/dist/socket.io.js"></script>
 
   <link rel="stylesheet" type="text/css" href="css/style.css" />
-  <link rel="stylesheet" type="text/css" href="css/cm_decoration.css" />
+  <link rel="stylesheet" id="theme" type="text/css" href="css/theme_light.css" />
 </head>
 
 <body onload="loader()">
 <div id="mySidebar" class="sidebar">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">Settings</a>
-  <a href="" class="greeting">Good afternoon, Sam.</a>
-  <a href="">Drafts</a>
-  <a href="" onclick = "newEntry()">New Journal</a>
+  <a href="javascript:void(0)" class="greeting">Good afternoon, Sam.</a>
+  <a href="javascript:void(0)">Drafts</a>
+  <a href="javascript:void(0)" onclick = "newEntry()">New Journal</a>
   <button type="button" class="collapsible">Recent Journals</button>
   <div class="content" id="alltypes">
     <button type="button" id="gooddays" class="collapsible">Good Days</button>
@@ -45,7 +45,7 @@
     <button type="button" class="collapsible">Bad Days</button>
     <div class="content" id="baddays"></div>
   </div>
-
+  <a href="javascript:void(0)" onclick=darkMode()>Change Theme</a>
 </div>
 
 <div id="container">
@@ -85,8 +85,9 @@
       <textarea id="write" autofocus spellcheck="false"></textarea>
 
     <div id="myBottombar" class="bottombar">
+      <!--
         <a href="javascript:void(0)" class="closedef" onclick="closeDef()" id="deftitle">Distortion Name</a>
-        <a href="#" id="defbody">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque in ornare nulla. Curabitur augue velit, sodales ut congue a, aliquam non arcu. Aliquam sed erat non turpis pretium finibus. Integer rhoncus nisl ac augue egestas, id vestibulum erat accumsan. Donec efficitur commodo nisl in molestie. Nunc molestie quam ut augue cursus, ac blandit nisi cursus. Nam malesuada erat nec mauris interdum, in ultrices arcu gravida.</a>
+        <a href="#" id="defbody">Distortion Sample</a> -->
     </div>
 
     <div class="pop-up" id="textmanipulation">

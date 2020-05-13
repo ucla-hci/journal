@@ -1,0 +1,105 @@
+/* This css file will be shared by both expert.html and index.html */
+body {
+    font-family: "Lato", sans-serif;
+    background-color: #fafafa;
+    color: #828282;
+}
+
+.CodeMirror {
+    background-color: #fafafa;
+    color: #828282;
+}
+
+.CodeMirror-cursor{
+    border-left: 1px solid #828282;
+}
+
+#title {
+    color: #434343;
+}
+
+a {
+    color: #434343;
+}
+
+.onedeftitle{
+    color: #6c6c6c;
+}
+
+.onedefbody{
+    color: #6c6c6c;
+}
+
+.sidebar{
+    background-color: #fafafa;
+}
+
+.sidebar a:hover {
+    color: #000000;
+}
+
+.bottombar {
+    background-color: #fafafa;
+}
+
+.markneg {
+    color: #fa9a9a;
+}
+
+.pop-up {
+    color: #828282;
+    background-color: #fafafa;
+}
+
+.pop-up-title span{
+    color: #828282;
+}
+
+.pop-up-selection{
+    color: #828282;
+}
+
+.pop-up-selection:hover{
+    color: #828282;
+    background-color: #e9e9e9;
+}
+
+.pop-up-text textarea{
+    color:#828282;
+}
+
+.context-menu-root { 
+    z-index:99 !important; 
+    color: #434343;
+    background-color: #fafafa !important;
+}
+
+.context-menu-item {
+    color: #434343;
+    background-color: #fafafa !important;
+}
+
+.context-menu-list {
+    color: #434343;
+    background-color: #fafafa !important;
+}
+
+.context-menu-hover {
+    color: #434343;
+    background-color: #2980b9 !important;
+}
+
+.selection-ot{ background-color: #F3F3F3 !important; }  /* Can also set to be no background color */
+.CodeMirror-selected { background-color: #e9e9e9 !important; }
+
+.highlight-background { background-color: #ff7; }
+.autosuggest-background { background-color: #e2eff9; }
+.autosuggest-font { color: #bdbdbd; }
+.replacement-font { color: #8ac8a4; }
+
+.cognitive-distortion {background-color: #f8e4e4; }
+.BeingRight { background-color: #f8e4e4; }
+.Blaming { background-color: #f8e4e4; }
+.Catastrophizing { background-color: #f8e4e4; }
+.MindReading { background-color: #f8e4e4; }
+.Splitting { background-color: #f8e4e4; }

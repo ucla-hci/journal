@@ -15,7 +15,21 @@ var entries;
 var key, prevKey, flag = 0;
 var suggestion, s_start, s_end;
 
-var promptObjects = new Array()
+var promptObjects = new Array();
+//var globalFeedBackMessage = new Map();
+
+var lightMode = false;
+
+function darkMode(){
+    if (lightMode){
+        document.getElementById("theme").setAttribute("href","css/theme_dark.css");
+        lightMode = false;
+    }
+    else {
+        document.getElementById("theme").setAttribute("href","css/theme_light.css");
+        lightMode = true;
+    }
+}
 
 function loadJSON(){
     var jqXHR = $.ajax({
@@ -63,17 +77,21 @@ entry.on("cursorActivity", function () {
         if (!entry.getSelection()) {
             closeDef();
             //branch based on whether a highlight was clicked here
-            if(entry.findMarksAt(entry.getCursor()).length != 0) {
-                if(entry.findMarksAt(entry.getCursor())[0]["className"] == "BeingRight") 
-                    populateDistortion("BeingRight");
-                if(entry.findMarksAt(entry.getCursor())[0]["className"] == "Blaming") 
-                    populateDistortion("Blaming");
-                if(entry.findMarksAt(entry.getCursor())[0]["className"] == "Catastrophizing") 
-                    populateDistortion("Catastrophizing"); 
-		if(entry.findMarksAt(entry.getCursor())[0]["className"] == "MindReading") 
-                    populateDistortion("MindReading");
-		if(entry.findMarksAt(entry.getCursor())[0]["className"] == "Splitting") 
-                    populateDistortion("Splitting");
+            let marks = entry.findMarksAt(entry.getCursor())
+            let len = marks.length
+            if(len != 0) {
+                clearBottomBarElement();
+                for (let mark of marks){
+                    console.log(entry.getCursor());
+                    let tag = mark["className"];
+                    switch(tag) {
+                        case "BeingRight" : populateDistortion("BeingRight"); break;
+                        case "Blaming" : populateDistortion("Blaming"); break;
+                        case "Catastrophizing" : populateDistortion("Catastrophizing"); break;
+                        case "MindReading" : populateDistortion("MindReading"); break;
+                        case "Splitting" : populateDistortion("Splitting"); break;
+                    }
+                }
             }
         }
     }
@@ -213,12 +231,14 @@ function closeNav() {
 }
 
 function openDef() {
-    document.getElementById("myBottombar").style.height = "250px";
+    document.getElementById("myBottombar").style.height = "auto";
+    document.getElementById("myBottombar").style.minHeight = "200px";
     document.getElementById("main").style.marginBottom = "250px";
 }
   
 function closeDef() {
     document.getElementById("myBottombar").style.height = "0";
+    document.getElementById("myBottombar").style.minHeight = "0";
     document.getElementById("main").style.marginBottom= "0";
 }
 
@@ -323,32 +343,39 @@ function handleCognDistortion(start, end, id){
 }
 
 function handleFeedback(start, end, sentence){
-    document.getElementById("deftitle").innerHTML = "Expert Feedback";
     feedbackMsg += "<br>" + "(" + start["line"] + "," + start["ch"] + ")";
     if (!compareCoord(start, end)) {
         feedbackMsg += "->(" + + end["line"] + "," + end["ch"] + ")";
     }
     feedbackMsg += ": "+ sentence;
-    document.getElementById("defbody").innerHTML = sentence;
+    feedbackKey = start["line"] + "," + start["ch"] + "," + end["line"] + "," + end["ch"];
+
+    clearBottomBarElement();
+    newBottomBarElement("Expert Feedback", sentence);
     openDef();
 }
 
+function clearBottomBarElement(){
+    document.getElementById("myBottombar").innerHTML = "";
+}
+
+function newBottomBarElement(title, body) {
+    let newDiv = "<div><a href=\"javascript:void(0)\" class=\"closedef onedeftitle\" onclick=\"closeDef()\">" + title + "</a>";
+    newDiv += "<a href=\"#\" class=\"onedefbody\">" + body + "</a></div>"
+    document.getElementById("myBottombar").innerHTML += newDiv;
+}
+
 function populateDistortion(name) {
-	if(name == "BeingRight") {
-                document.getElementById("deftitle").innerHTML = "Being Right";
-                document.getElementById("defbody").innerHTML = "Being right distortion demo text";  }
-        if(name == "Blaming") {
-                document.getElementById("deftitle").innerHTML = "Blaming";
-                document.getElementById("defbody").innerHTML = "Blaming distortion sample text";  }
-	if(name == "Catastrophizing") {
-                document.getElementById("deftitle").innerHTML = "Catastrophizing";
-                document.getElementById("defbody").innerHTML = "Catastrophizing distortion sample text";  }
-        if(name == "MindReading") { 
-                document.getElementById("deftitle").innerHTML = "Mind Reading";
-                document.getElementById("defbody").innerHTML = "Mind reading distortion sample text";  }
-        if(name == "Splitting") { 
-     		document.getElementById("deftitle").innerHTML = "Splitting";
-		document.getElementById("defbody").innerHTML = "Splitting distortion sample text"; }
+    if(name == "BeingRight") {
+        newBottomBarElement("Being Right", "Being right distortion demo text"); }
+    else if(name == "Blaming") {
+        newBottomBarElement("Blaming", "Blaming distortion demo text"); }
+    else if(name == "Catastrophizing") {
+        newBottomBarElement("Catastrophizing", "Catastrophizing distortion demo text"); }
+    else if(name == "MindReading") { 
+        newBottomBarElement("MindReading", "MindReading distortion demo text"); }
+    else if(name == "Splitting") { 
+        newBottomBarElement("Splitting", "Splitting distortion demo text"); }
 	openDef();
 }
 
