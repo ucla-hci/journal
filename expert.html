@@ -45,12 +45,14 @@
 				<a href="javascript:void(0)" onclick="control(4)">Report Mouse</a>
 				<a href="javascript:void(0)" onclick="control(5)">Get Keyboard Log</a>
 				<a href="javascript:void(0)" onclick="control(6)">Get Mouse Log</a>
-				<a href="javascript:void(0)" onclick="control(7)">Change Theme</a>
 			</div>
 		<h6> </h6>
 		<a href="javascript:void(0)">Tracked Changes</a>
 		<div class="scrollmenu" id="changetracker">
-
+			<!-- trackers -->
+		</div>
+		<div class="switch-wrapper">
+			<input class="switch switch-anim" type="checkbox" onclick=darkMode()>
 		</div>
 	</div>
 
@@ -75,7 +77,9 @@
 				</div>
 			</div>
 			<div class="pop-up" id="textmanipulation">
-				<div class="close-pop-up" id="close-textmanipulation"><div class="close-btn"></div></div>
+				<div class="close-pop-up" id="close-textmanipulation">
+					<div class="close-btn"></div>
+				</div>
 				<div class="pop-up-title">
 					<div class="pencil-btn"></div>
 					<span id="pop-up-title-text">Type Your Suggestion Below: </span>
@@ -83,7 +87,9 @@
 				<div class="pop-up-text">
 					<textarea type="text" id="pop-up-content-text" class="pop-up-textarea" rows="4" cols="30"></textarea>
 				</div>
-				<div class="confirm-pop-up"><div class="okay-btn"></div></div>
+				<div class="confirm-pop-up">
+					<div class="okay-btn"></div>
+				</div>
 			</div>
 		</div>
 

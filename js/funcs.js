@@ -18,16 +18,11 @@ var suggestion, s_start, s_end;
 var promptObjects = new Array();
 //var globalFeedBackMessage = new Map();
 
-var lightMode = false;
-
 function darkMode(){
-    if (lightMode){
+    if($('.switch-anim').prop('checked')){
         document.getElementById("theme").setAttribute("href","css/theme_dark.css");
-        lightMode = false;
-    }
-    else {
+    }else{
         document.getElementById("theme").setAttribute("href","css/theme_light.css");
-        lightMode = true;
     }
 }
 
@@ -245,7 +240,7 @@ function closeDef() {
 function loader() {
     document.getElementById("main").style.display = "none";
     document.getElementById("temp").style.display = "block";
-
+    /*
     var temp = loadJSON();
     var parsed = JSON.parse(temp);
     entries = parsed["content"]["entries"];
@@ -275,7 +270,7 @@ function loader() {
         });
     }
 
-    document.getElementById("alltypes").style.maxHeight = document.getElementById("alltypes").scrollHeight + "px";
+    document.getElementById("alltypes").style.maxHeight = document.getElementById("alltypes").scrollHeight + "px";*/
 }
 
 function acceptChange() {
