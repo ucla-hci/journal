@@ -26,10 +26,50 @@ function darkMode(){
     }
 }
 
+function fetch(){
+    var text = entry.getValue();
+    console.log("Current Textarea:",text);
+    return text;
+}
+
+function testNLP() {
+    let text = fetch();
+    let sentiment = checkKeywordsSentiment(text);
+    for (s in sentiment){
+        findKeyword(s, sentiment[s]);
+    }
+}
+
+function testNLP2() {
+    let text = fetch();
+    let sentiment = checkKeywordsSentiment(text);
+    let keywords = [];
+    for (s in sentiment){
+        keywords.push(s);
+    }
+    console.log(keywords);
+    let emotion = checkKeywordsEmotion(JSON.stringify({"text":text, "keywords": keywords}));
+    for (e in emotion){
+        findKeyword(e, emotion[e]);
+    }
+}
+
+function findKeyword(keyword, type){
+    let cursor = entry.getSearchCursor(keyword);
+    if (type === "netural") {
+        return;
+    }
+
+    while (cursor.findNext()){
+        console.log(cursor.from(), cursor.to());
+        entry.markText(cursor.from(), cursor.to(), {className: type+"-font"});
+    }
+}
+
 function loadJSON(){
     var jqXHR = $.ajax({
         type: "POST",
-        url: "http://192.168.128.15:5000/load",
+        url: "http://127.0.0.1:5000/load",
         async: false,
         data: { }
     });
@@ -37,22 +77,60 @@ function loadJSON(){
     return jqXHR.responseText;
 }
 
-function runPyScript(input){
-    console.log("trying to run python");
+function checkKeywordsEmotion(input){
+    console.log("Calling backend");
     var jqXHR = $.ajax({
         type: "POST",
-        url: "http://192.168.128.15:5000/login", //192.168.128.15
+        url: "http://127.0.0.1:5000/emotions",
+        async: false,
+        data: { mydata: input }
+    });
+    
+    let json = JSON.parse(jqXHR.responseText);
+    let keywords = json["emotion"]["targets"]
+    let output = {}
+    for (k of keywords){
+        let text = k["text"];
+        let emotion = k["emotion"];
+        let tag = "";
+        let max = 0;
+        for (e in emotion){
+            if (emotion[e] >= max){
+                tag = e;
+                max = emotion[e];
+            }
+        }
+        output[text]=tag;
+    }
+    console.log(output);
+    return output;
+}
+
+function checkKeywordsSentiment(input){
+    console.log("Calling backend");
+    var jqXHR = $.ajax({
+        type: "POST",
+        url: "http://127.0.0.1:5000/keywords",
         async: false,
         data: { mydata: input }
     });
 
-    return jqXHR.responseText;
+    let json = JSON.parse(jqXHR.responseText);
+    let keywords = json["keywords"]
+    let output = {}
+    for (k of keywords){
+        let text = k["text"];
+        let tag = k["sentiment"]["label"]
+        output[text]=tag;
+    }
+    console.log(output);
+    return output;
 }
 
 function runPyScript_check(input){
     var jqXHR = $.ajax({
         type: "POST",
-        url: "http://192.168.128.15:5000/check",
+        url: "http://127.0.0.1:5000/check",
         async: false,
         data: { mydata: input }
     });
@@ -460,9 +538,3 @@ socket.on("display", functions => {
         openDef();
     }
 });
-
-// Demo: How to get text from CodeMirror
-function fetch(){
-    var text = entry.getValue();
-    console.log("Socket:",text);
-}

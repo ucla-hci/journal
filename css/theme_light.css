@@ -7,6 +7,15 @@
 .autosuggest-font { color: #bdbdbd; }
 .replacement-font { color: #8ac8a4; }
 
+.positive-font{ color: #00BD4B;}
+.negative-font{ color: #BD0013;}
+.sadness-font{ color: #8fb3f1;}
+.fear-font{ color: #b3102e;}
+.disgust-font{ color: #673dc3;}
+.anger-font{ color: #FD7E00;}
+.joy-font{ color: #00BD4B;}
+
+
 .cognitive-distortion {background-color: #f8e4e4; }
 .BeingRight { background-color: #f8e4e4; }
 .Blaming { background-color: #f8e4e4; }
