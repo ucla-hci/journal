@@ -31,10 +31,20 @@ a {
     background-color: hsl(0,0%,100%);
   }
   
-  .page:target {
-    left: 0vw;
-    z-index: 1;
-  }
+.page:target {
+left: 0vw;
+z-index: 1;
+}
+
+#sentiment{
+    display: none;
+}
+#emotion{
+    display: none;
+}
+#category{
+    display: none;
+}
 
 #main {
     transition: margin-left .5s; /* If you want a transition effect */
@@ -90,11 +100,26 @@ a {
 }
 
 .sidebar a {
-  padding: 8px 8px 15px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  display: block;
-  transition: 0.3s;
+    padding: 8px 8px 15px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar p {
+    margin: 2px;
+    text-decoration: none;
+    font-size: 20px;
+    display: block;
+    transition: 0.3s;
+}
+
+.one-line{
+    padding: 2px 2px 2px 32px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .collapsible {
@@ -407,8 +432,14 @@ textarea:focus {
 .switch-wrapper{
     position: absolute;
     right: 8px;
-    top: 89%;
+    bottom: 6%;
 }
+
+.tag-wrapper{
+    position: absolute;
+    bottom: 8%;
+}
+
 .switch {
     width: 57px;
     height: 28px;

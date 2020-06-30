@@ -7,6 +7,7 @@ from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from flask import Flask, render_template, redirect, url_for,request
 from flask_cors import CORS
 from flask import make_response
+from auto_suggest import get_output
 
 app = Flask(__name__)
 CORS(app)
@@ -28,23 +29,43 @@ def hello_world():
 @app.route('/load', methods=['GET', 'POST'])
 def load():
     if request.method == 'POST':
-        with open('entries.json') as f:
-            data = json.load(f)
-            print(data)
-        resp = make_response('{"content": '+json.dumps(data)+'}')
-        resp.headers['Content-Type'] = "application/json"
-        return resp
+        filenm = request.form['filename']
+        with open(filenm+'.json', 'r') as file:
+            json = file.read()
+            print(json)
+            return json
+        return "Failed"
+
+@app.route('/save', methods=['GET', 'POST'])
+def save():
+    if request.method == 'POST':
+        entry = request.form['entry']
+        filenm = request.form['filename']
+        with open(filenm+'.json', 'w') as file:
+            print(entry)
+            file.write(entry)
+            return "Succeeded"
+        return "Failed"
 
 @app.route('/check', methods=['GET', 'POST'])
 def check():
     if request.method == 'POST':
         datafromjs = request.form['mydata']
         textobj = TextBlob(datafromjs)
+        total = len(textobj.sentences)
+        print("total:", total)
+        for sen in textobj.sentences:
+            result = get_output(str(sen))
+            print(result)
+        '''
+        textobj = TextBlob(datafromjs)
         total = len(textobj.words)
         freq = 0
         for i in range(0, len(words)):
             freq += textobj.words.count(words[i])
         return str(freq)
+        '''
+        return "Test"
 
 @app.route('/emotions', methods=['GET', 'POST'])
 def emotion():

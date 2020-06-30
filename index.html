@@ -13,7 +13,7 @@
   <script src="node_modules/codemirror/addon/search/searchcursor.js"></script>
   <script src="node_modules/codemirror/addon/selection/mark-selection.js"></script>
 
-  <!-- ot.js -->
+  <!-- ot.js 
   <script src="lib/ot.js/text-operation.js"></script>
   <script src="lib/ot.js/selection.js"></script>
   <script src="lib/ot.js/wrapped-operation.js"></script>
@@ -21,10 +21,10 @@
   <script src="lib/ot.js/client.js"></script>
   <script src="lib/ot.js/codemirror-adapter.js"></script>
   <script src="lib/ot.js/socketio-adapter.js"></script>
-  <script src="lib/ot.js/editor-client.js"></script>
+  <script src="lib/ot.js/editor-client.js"></script>-->
 
-  <!-- socket.io -->
-  <script src="node_modules/socket.io-client/dist/socket.io.js"></script>
+  <!-- socket.io 
+  <script src="node_modules/socket.io-client/dist/socket.io.js"></script>-->
 
   <link rel="stylesheet" type="text/css" href="css/style.css" />
   <link rel="stylesheet" id="theme" type="text/css" href="css/theme_light.css" />
@@ -33,9 +33,12 @@
 <body onload="loader()">
 <div id="mySidebar" class="sidebar">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">Settings</a>
-  <a href="javascript:void(0)" class="greeting">Good afternoon, Sam.</a>
-  <a href="javascript:void(0)" onclick = "testNLP()">Test</a>
-  <a href="javascript:void(0)" onclick = "testNLP2()">Test2</a>
+  <a href="javascript:void(0)" class="greeting">Good afternoon, Violynne.</a>
+  <a href="javascript:void(0)" onclick = "testNLP()">Sentiment</a>
+  <a href="javascript:void(0)" onclick = "testNLP2()">Emotion</a>
+  <a href="javascript:void(0)" onclick = "testNLP3()">Category</a>
+  <a href="javascript:void(0)" onclick = "saveContent()">Save</a>
+  <a href="javascript:void(0)" onclick = "loadContent()">Load</a>
   <a href="javascript:void(0)" onclick = "newEntry()">New Journal</a>
   <button type="button" class="collapsible">Recent Journals</button>
   <div class="content" id="alltypes">
@@ -46,6 +49,27 @@
     <button type="button" class="collapsible">Bad Days</button>
     <div class="content" id="baddays"></div>
   </div>
+
+  <div class="tag-wrapper" id="emotion">
+    <div class="one-line"><div class="sadness-block"></div><p>Sadness</p></div>
+    <div class="one-line"><div class="fear-block"></div><p>Fear</p></div>
+    <div class="one-line"><div class="disgust-block"></div><p>Disgust</p></div>
+    <div class="one-line"><div class="anger-block"></div><p>Anger</p></div>
+    <div class="one-line"><div class="joy-block"></div><p>Joy</p></div>
+  </div>
+
+  <div class="tag-wrapper" id="category">
+    <div class="one-line"><div class="constructive-block"></div><p>Constructive</p></div>
+    <div class="one-line"><div class="dysfunctional-block"></div><p>Dysfunctional</p></div>
+    <div class="one-line"><div class="trigger-block"></div><p>Trigger</p></div>
+    <div class="one-line"><div class="pronoun-block"></div><p>Pronoun</p></div>
+  </div>
+
+  <div class="tag-wrapper" id="sentiment">
+    <div class="one-line"><div class="positive-block"></div><p>Positive</p></div>
+    <div class="one-line"><div class="negative-block"></div><p>Negative</p></div>
+  </div>
+  
   <div class="switch-wrapper">
     <input class="switch switch-anim" type="checkbox" onclick=darkMode()>
   </div>

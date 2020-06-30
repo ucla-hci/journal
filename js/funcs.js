@@ -1,6 +1,6 @@
 var num = 0;
 var write = document.getElementById('write');
-var entry = CodeMirror.fromTextArea(write, {
+var cm = CodeMirror.fromTextArea(write, {
     lineWrapping: true, 
     lineNumbers: false, 
     styleSelectedText: true,
@@ -9,15 +9,16 @@ var entry = CodeMirror.fromTextArea(write, {
 
 var feedbackMsg = ""
 
-var socket = io();
-
 var entries;
 var key, prevKey, flag = 0;
 var suggestion, s_start, s_end;
 
-var promptObjects = new Array();
-//var globalFeedBackMessage = new Map();
+var constructive = ['help', 'better', 'improve', 'practice', 'workon', 'understand', 'analyze', 'plan', 'change', 'try']
+var dysfunctional = ['loser', 'suck', 'hate', 'lazy', 'theworst', 'useless', 'failure', 'pathetic', 'good-for-nothing', 'dumb', 'stupid']
+var trigger = ['cannot', 'ca', 'always', 'never', 'ever', 'must', 'mustnot', 'should', 'shouldnot', 'haveto', 'orelse', 'every', 'everything', 'nothing', 'anything', 'all', 'none', 'any', 'atall', 'everybody', 'nobody', 'anybody', 'noone', 'only']
+var pronoun = ['I', 'me', 'my', 'myself']
 
+// Styles Switching
 function darkMode(){
     if($('.switch-anim').prop('checked')){
         document.getElementById("theme").setAttribute("href","css/theme_dark.css");
@@ -26,22 +27,27 @@ function darkMode(){
     }
 }
 
-function fetch(){
-    var text = entry.getValue();
-    console.log("Current Textarea:",text);
-    return text;
-}
 
+// Color keywords by sentiments
 function testNLP() {
-    let text = fetch();
+    cleanMarks();
+    $('#sentiment').css("display","block");
+    $('#emotion').css("display","none");
+    $('#category').css("display","none");
+    let text = fetchContent();
     let sentiment = checkKeywordsSentiment(text);
     for (s in sentiment){
-        findKeyword(s, sentiment[s]);
+        markKeywords(s, sentiment[s]);
     }
 }
 
+// Color keywords by emotions
 function testNLP2() {
-    let text = fetch();
+    cleanMarks();
+    $('#sentiment').css("display","none");
+    $('#emotion').css("display","block");
+    $('#category').css("display","none");
+    let text = fetchContent();
     let sentiment = checkKeywordsSentiment(text);
     let keywords = [];
     for (s in sentiment){
@@ -50,30 +56,132 @@ function testNLP2() {
     console.log(keywords);
     let emotion = checkKeywordsEmotion(JSON.stringify({"text":text, "keywords": keywords}));
     for (e in emotion){
-        findKeyword(e, emotion[e]);
+        markKeywords(e, emotion[e]);
     }
 }
 
-function findKeyword(keyword, type){
-    let cursor = entry.getSearchCursor(keyword);
-    if (type === "netural") {
+// Color keywords by categories
+function testNLP3() {
+    $('#sentiment').css("display","none");
+    $('#emotion').css("display","none");
+    $('#category').css("display","block");
+    cleanMarks();
+    for (kw of constructive){
+        markKeywords(kw, "constructive");
+    }
+    for (kw of dysfunctional){
+        markKeywords(kw, "dysfunctional");
+    }
+    for (kw of trigger){
+        markKeywords(kw, "trigger");
+    }
+    for (kw of pronoun){
+        markKeywords(kw, "pronoun");
+    }
+}
+
+
+// CodeMirror Utilities
+var markTextCollections = new Array();  // Save all markText result
+
+function saveContent() {
+    let content = fetchContent();
+    let marks = fetchMarks();
+    let jString = JSON.stringify({"content":content, "marks":marks});
+    saveJSON(jString, "test");
+}
+
+function loadContent() {
+    let jString = loadJSON("test");
+    let data = JSON.parse(jString);
+    let text = data["content"];
+    cm.setValue(text);
+    let marks = data["marks"];
+    for (m of marks) {
+        tag = m["tag"];
+        from = m["from"];
+        to = m["to"];
+        cm.markText(from, to, {className: tag});
+    }
+}
+
+function handleOperation(command){
+    switch (command){
+        case 'undo': cm.undo(); break;
+        case 'redo': cm.redo(); break;
+        case 'clear': cm.clear(); break;
+    }
+}
+
+function fetchContent(){
+    var text = cm.getValue();
+    console.log("Current Textarea:",text);
+    return text;
+}
+
+function cleanMarks() {
+    cm.getAllMarks().forEach(mark => {
+        mark.clear();
+    });
+}
+
+function fetchMarks() {
+    var marksOutput = new Array();
+    cm.getAllMarks().forEach(mark => {
+        console.log(mark, mark.find());
+        marksOutput.push({"tag": mark.className, "from": {"line":mark.find().from.line, "ch":mark.find().from.ch}, "to": {"line":mark.find().to.line, "ch":mark.find().to.ch}})
+    });
+    return marksOutput;
+}
+
+function markKeywords(keyword, type){
+    let cursor = cm.getSearchCursor(keyword);
+    if (type === "netural") {   // Do not color netural keywords
         return;
     }
 
     while (cursor.findNext()){
-        console.log(cursor.from(), cursor.to());
-        entry.markText(cursor.from(), cursor.to(), {className: type+"-font"});
+        let from = cursor.from();
+        let to = cursor.to();
+        let word = cm.findWordAt(from);
+        if ((word.anchor.line === from.line) && (word.anchor.ch === from.ch) && (word.head.line === to.line) && (word.head.ch === to.ch)){
+            cm.markText(cursor.from(), cursor.to(), {className: type+"-font"});
+        }
+        //let marker = 
+        //markTextCollections.push(marker);
     }
 }
 
-function loadJSON(){
+
+// Watson APIs: Client-Server Comunications
+function loadJSON(name){
     var jqXHR = $.ajax({
         type: "POST",
         url: "http://127.0.0.1:5000/load",
         async: false,
-        data: { }
+        data: { filename: name}
     });
+    //console.log(jqXHR.responseText);
+    return jqXHR.responseText;
+}
 
+function saveJSON(input, name){
+    var jqXHR = $.ajax({
+        type: "POST",
+        url: "http://127.0.0.1:5000/save",
+        async: false,
+        data: { entry: input, filename: name}
+    });
+    console.log(jqXHR.responseText);
+}
+
+function checkKeywordsCats(input){
+    var jqXHR = $.ajax({
+        type: "POST",
+        url: "http://127.0.0.1:5000/check",
+        async: false,
+        data: { mydata: input }
+    });
     return jqXHR.responseText;
 }
 
@@ -127,35 +235,25 @@ function checkKeywordsSentiment(input){
     return output;
 }
 
-function runPyScript_check(input){
-    var jqXHR = $.ajax({
-        type: "POST",
-        url: "http://127.0.0.1:5000/check",
-        async: false,
-        data: { mydata: input }
-    });
-    return jqXHR.responseText;
-}
 
-//handling mouse clicks... 
-//jesus, that was a whole thing to track down
+//Handling mouse activities
 var movedByMouse = false;
-entry.on("mousedown", function () {
+cm.on("mousedown", function () {
     movedByMouse = true;
 });
 
-entry.on("cursorActivity", function () {
+cm.on("cursorActivity", function () {
     if (movedByMouse) {
         movedByMouse = false;
-        if (!entry.getSelection()) {
+        if (!cm.getSelection()) {
             closeDef();
             //branch based on whether a highlight was clicked here
-            let marks = entry.findMarksAt(entry.getCursor())
+            let marks = cm.findMarksAt(cm.getCursor())
             let len = marks.length
             if(len != 0) {
                 clearBottomBarElement();
                 for (let mark of marks){
-                    console.log(entry.getCursor());
+                    console.log(cm.getCursor());
                     let tag = mark["className"];
                     switch(tag) {
                         case "BeingRight" : populateDistortion("BeingRight"); break;
@@ -170,7 +268,7 @@ entry.on("cursorActivity", function () {
     }
 });
 
-entry.on("keydown", function() {
+cm.on("keydown", function() {
     prevKey = key;
     key = event.keyCode;
 
@@ -178,32 +276,34 @@ entry.on("keydown", function() {
         movedByMouse = false;
     }
 
+    /*
     if(key == 190 || prevKey == 16 && key == 49 || prevKey == 16 && key == 191) {
-        entry.getAllMarks().forEach(mark => mark.clear());
-        var result = runPyScript(entry.doc.getValue());
+        cm.getAllMarks().forEach(mark => mark.clear());
+        var result = runPyScript(cm.doc.getValue());
         var resparse = JSON.parse(result);
 
         for(i = 0; i < resparse["valence"].length; i++) {
             if(resparse["valence"][i] == "negative")
-                entry.markText(entry.doc.posFromIndex(resparse["starts"][i]), entry.doc.posFromIndex(resparse["ends"][i]), {className: "markneg"});
+                cm.markText(cm.doc.posFromIndex(resparse["starts"][i]), cm.doc.posFromIndex(resparse["ends"][i]), {className: "markneg"});
         } 
-    }
+    }*/
 });
 
-entry.on("beforeChange", function () {
+cm.on("beforeChange", function () {
     movedByMouse = false;
 });
 
+/*
 // +input -> user type; undefined -> expert type
-entry.on("change", function (cm, changeObj) {
+cm.on("change", function (cm, changeObj) {
     let input = changeObj.text;
     let origin = changeObj.origin ? true : false    
-    if (origin && (promptObjects != undefined) && (promptObjects.length>=1)){
+    if (origin && (markTextCollections != undefined) && (markTextCollections.length>=1)){
         let cStart = changeObj.from;
         let cEnd = changeObj.to;
         let delIndex = -1;
 
-        promptObjects.some(function(obj, index){    // Find, and break.
+        markTextCollections.some(function(obj, index){    // Find, and break.
             let mtLocation = obj.find()
             let start = mtLocation.from;
             let end = mtLocation.to;
@@ -216,17 +316,17 @@ entry.on("change", function (cm, changeObj) {
             }
         });
 
-        console.log("before del:", promptObjects)
+        console.log("before del:", markTextCollections)
         if (delIndex > -1) {
-            promptObjects.splice(delIndex, 1)
+            markTextCollections.splice(delIndex, 1)
         }
-        console.log("after del:", promptObjects)
+        console.log("after del:", markTextCollections)
         //let first = checkInRange(cStart, start, end, -2)
         //let second = checkInRange(cEnd, start, end)
         //console.log(first, second)
     }
 });
-
+*/
 function checkInRange(target, start, end, offset=0) {
     // Offset > 1 need special handle, otherwise document may lose contents
     if (offset > 0) {
@@ -255,7 +355,7 @@ function openEntry(date) {
             document.getElementById("main").style.display = "block";
 
             document.getElementById("title").innerHTML = "Bad Day :(";
-            entry.setValue(entries[i]["content"]);
+            cm.setValue(entries[i]["content"]);
             console.log(entries[i]["content"]);
         }
     }
@@ -277,13 +377,13 @@ function toEntry(mood){
 
     if (mood == 'good') {
         document.getElementById("title").innerHTML = "Good Entry";// + today;
-        socket.emit('title', "Good Entry");
+        //socket.emit('title', "Good Entry");
     } else if (mood == 'bad') {
         document.getElementById("title").innerHTML = "Bad Entry";// + today;
-        socket.emit('title', "Bad Entry");
+        //socket.emit('title', "Bad Entry");
     } else if (mood == 'neutral') {
         document.getElementById("title").innerHTML = "Neutral Entry";// + today;
-        socket.emit('title', "Neutral Entry");
+        //socket.emit('title', "Neutral Entry");
     }
 }
 
@@ -328,11 +428,11 @@ function loader() {
 
     for(i = 0; i < entries.length; i++) {
         if(entries[i]["mood"] == "bad") {
-            var entry = document.createElement("div");
-            entry.innerHTML = entries[i]["date"];
-            entry.className = "entryList";
-            entry.setAttribute("onclick", "openEntry('"+entries[i]["date"]+"')");
-            document.getElementById("baddays").appendChild(entry);
+            var cm = document.createElement("div");
+            cm.innerHTML = entries[i]["date"];
+            cm.className = "cmList";
+            cm.setAttribute("onclick", "opencm('"+entries[i]["date"]+"')");
+            document.getElementById("baddays").appendChild(cm);
         }
     }
 
@@ -352,7 +452,7 @@ function loader() {
 }
 
 function acceptChange() {
-    entry.replaceRange(suggestion, s_start, s_end);
+    cm.replaceRange(suggestion, s_start, s_end);
     $("#textmanipulation").css("display","none");
 }
 
@@ -378,23 +478,25 @@ function compareCoord(start, end) {
     }
 }
 
-// CodeMirro Decoration Functions
+// CodeMirror Decoration Functions
 function handlePrompt(start, end, sel_start=null, sel_end=null){
     //console.log("add prompt, start:", start, "end:", end, "sel_start:", sel_start, "sel_end:", sel_end)
-    let promptObject = entry.markText(start, end, {className: "autosuggest-font"})
-    promptObjects.push(promptObject)
+    let promptObject = cm.markText(start, end, {className: "autosuggest-font"})
+    //markTextCollections.push(promptObject)
     if ((sel_start != null) && (sel_end != null)) {
-        entry.markText(sel_start, sel_end, {className: "autosuggest-background"});
+        promptObject = cm.markText(sel_start, sel_end, {className: "autosuggest-background"});
+        //markTextCollections.push(promptObject);
     }
 }
 
 function handleReplace(start, end, s){
-    entry.markText(start, end, {className: "replacement-font"});
-    console.log(entry.charCoords(start));
-    console.log(entry.charCoords(start)["left"]);
-    console.log(entry.charCoords(start)["top"]);
-    var newLeft = entry.charCoords(start)["left"].toString() + "px";
-    var newTop = (entry.charCoords(start)["top"]+30).toString() + "px"
+    let marker = cm.markText(start, end, {className: "replacement-font"});
+    //markTextCollections.push(marker);
+    console.log(cm.charCoords(start));
+    console.log(cm.charCoords(start)["left"]);
+    console.log(cm.charCoords(start)["top"]);
+    var newLeft = cm.charCoords(start)["left"].toString() + "px";
+    var newTop = (cm.charCoords(start)["top"]+30).toString() + "px"
 
     $("#textmanipulation").css("display","block");
     $("#textmanipulation").css("margin-left", newLeft);
@@ -407,12 +509,14 @@ function handleReplace(start, end, s){
 }
 
 function handleHighlight(start, end){
-    entry.markText(start, end, {className: "highlight-background"});
+    let marker = cm.markText(start, end, {className: "highlight-background"});
+    //markTextCollections.push(marker);
 }
 
 function handleCognDistortion(start, end, id){
     console.log(id.replace(/\s/g,''));
-    entry.markText(start, end, {className: id.replace(/\s/g,'')});
+    let marker = cm.markText(start, end, {className: id.replace(/\s/g,'')});
+    //markTextCollections.push(marker);
 }
 
 function handleFeedback(start, end, sentence){
@@ -452,19 +556,13 @@ function populateDistortion(name) {
 	openDef();
 }
 
-function handleOperation(command){
-    switch (command){
-        case 'undo': entry.undo(); break;
-        case 'redo': entry.redo(); break;
-        case 'clear': entry.clear(); break;
-    }
-}
-
+/*
+var socket = io();
 // Socket & ot.js initialization
 socket.on('doc', function(data) {
-    entry.setValue(data.str);
+    cm.setValue(data.str);
     var serverAdapter = new ot.SocketIOAdapter(socket);
-    var editorAdapter = new ot.CodeMirrorAdapter(entry);
+    var editorAdapter = new ot.CodeMirrorAdapter(cm);
     var client = new ot.EditorClient(data.revision, data.clients, serverAdapter, editorAdapter);
 })
 
@@ -537,4 +635,4 @@ socket.on("display", functions => {
     if (functions == "Feedback") {
         openDef();
     }
-});
+});*/

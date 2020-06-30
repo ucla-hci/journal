@@ -12,8 +12,69 @@
 .sadness-font{ color: #8fb3f1;}
 .fear-font{ color: #b3102e;}
 .disgust-font{ color: #673dc3;}
-.anger-font{ color: #FD7E00;}
+.anger-font{ color: #BD4B00;}
 .joy-font{ color: #00BD4B;}
+
+.constructive-font{ text-decoration: underline dotted #00BD4B;}
+.dysfunctional-font{ text-decoration: underline dotted #b3102e;}
+.trigger-font{ text-decoration: underline dotted #673dc3;}
+.pronoun-font{ text-decoration: underline dotted #8fb3f1;}
+
+.positive-block {
+    width: 20px;
+    height: 12px;
+    background-color: #00BD4B;
+}
+.negative-block {
+    width: 20px;
+    height: 12px;
+    background-color: #BD0013;
+}
+.sadness-block {
+    width: 20px;
+    height: 12px;
+    background-color: #8fb3f1;
+}
+.fear-block {
+    width: 20px;
+    height: 12px;
+    background-color: #b3102e;
+}
+.disgust-block {
+    width: 20px;
+    height: 12px;
+    background-color: #673dc3;
+}
+.anger-block {
+    width: 20px;
+    height: 12px;
+    background-color: #BD4B00;
+}
+.joy-block {
+    width: 20px;
+    height: 12px;
+    background-color: #00BD4B;
+}
+.constructive-block {
+    width: 20px;
+    height: 12px;
+    background-color: #00BD4B;
+}
+.dysfunctional-block {
+    width: 20px;
+    height: 12px;
+    background-color: #b3102e;
+}
+.trigger-block {
+    width: 20px;
+    height: 12px;
+    background-color: #673dc3;
+}
+.pronoun-block {
+    width: 20px;
+    height: 12px;
+    background-color: #8fb3f1;
+}
 
 
 .cognitive-distortion {background-color: #f8e4e4; }
