@@ -9,6 +9,12 @@ var cm = CodeMirror.fromTextArea(write, {
 
 var feedbackMsg = ""
 
+var maxID = 0;
+var currentID = 0;
+var entryTitle = {};
+
+var entryFold = true;
+
 var entries;
 var key, prevKey, flag = 0;
 var suggestion, s_start, s_end;
@@ -17,6 +23,44 @@ var constructive = ['help', 'better', 'improve', 'practice', 'workon', 'understa
 var dysfunctional = ['loser', 'suck', 'hate', 'lazy', 'theworst', 'useless', 'failure', 'pathetic', 'good-for-nothing', 'dumb', 'stupid']
 var trigger = ['cannot', 'ca', 'always', 'never', 'ever', 'must', 'mustnot', 'should', 'shouldnot', 'haveto', 'orelse', 'every', 'everything', 'nothing', 'anything', 'all', 'none', 'any', 'atall', 'everybody', 'nobody', 'anybody', 'noone', 'only']
 var pronoun = ['I', 'me', 'my', 'myself']
+
+// Onload
+function loader() {
+    document.getElementById("main").style.display = "none";
+    document.getElementById("temp").style.display = "block";
+    createMenu();
+    /*
+    var temp = loadJSON();
+    var parsed = JSON.parse(temp);
+    entries = parsed["content"]["entries"];
+
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for(i = 0; i < entries.length; i++) {
+        if(entries[i]["mood"] == "bad") {
+            var cm = document.createElement("div");
+            cm.innerHTML = entries[i]["date"];
+            cm.className = "cmList";
+            cm.setAttribute("onclick", "opencm('"+entries[i]["date"]+"')");
+            document.getElementById("baddays").appendChild(cm);
+        }
+    }
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight){
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            } 
+        });
+    }
+
+    document.getElementById("alltypes").style.maxHeight = document.getElementById("alltypes").scrollHeight + "px";*/
+}
 
 // Styles Switching
 function darkMode(){
@@ -27,6 +71,88 @@ function darkMode(){
     }
 }
 
+// System Functions
+function createMenu(){
+    $('#entryTitles').empty();
+    let menuData = getMenu();
+    if (menuData === "Get menu Failed"){  // No saved entry
+        maxID = 0;
+        currentID = 0;
+        entryTitle = {};
+    }
+    else {
+        let menu = JSON.parse(menuData);
+        console.log(menu);
+        maxID = parseInt(menu["maxID"]);
+        entryTitle = menu["entries"];
+        for (id in entryTitle) {
+            title = entryTitle[id];
+            console.log(id, title);
+            $('#entryTitles').append('<a href="javascript:void(0)" onclick="openEntry('+id+')">'+title+'</a>');
+        }
+    }
+}
+
+function openEntry(id) {
+    if (id <= maxID) {
+        currentID = id;
+        document.getElementById("temp").style.display = "none";
+        document.getElementById("main").style.display = "block";
+        loadContent(id);
+    }
+}
+
+function toEntry(mood){
+    document.getElementById("temp").style.display = "none";
+    document.getElementById("main").style.display = "block";
+
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    today = mm + '/' + dd;
+
+    if (mood == 'good') {
+        document.getElementById("title").innerHTML = "Good Entry";// + today;
+        //socket.emit('title', "Good Entry");
+    } else if (mood == 'bad') {
+        document.getElementById("title").innerHTML = "Bad Entry";// + today;
+        //socket.emit('title', "Bad Entry");
+    } else if (mood == 'neutral') {
+        document.getElementById("title").innerHTML = "Neutral Entry";// + today;
+        //socket.emit('title', "Neutral Entry");
+    }
+}
+
+function showEntries(){
+    if (entryFold){
+        $('#entryTitles').css("max-height", "200px");
+        entryFold = false;
+    }
+    else {
+        $('#entryTitles').css("max-height", "0px");
+        entryFold = true;
+    }
+}
+
+function newEntry(){
+    // Save and update current entry
+    cleanMarks();
+    cm.setValue("");
+    currentID = maxID + 1;
+    document.getElementById("temp").style.display = "block";
+    document.getElementById("main").style.display = "none";
+}
+
+function saveEntry(){
+    saveContent();
+    if (currentID > maxID) {
+        maxID = currentID;
+    }
+    let title = "Entry Test " + currentID;
+    entryTitle[currentID] = title;
+    updateMenu(JSON.stringify({maxID: maxID, entries: entryTitle}));
+    createMenu();
+}
 
 // Color keywords by sentiments
 function testNLP() {
@@ -87,12 +213,18 @@ var markTextCollections = new Array();  // Save all markText result
 function saveContent() {
     let content = fetchContent();
     let marks = fetchMarks();
+    let id = currentID;
     let jString = JSON.stringify({"content":content, "marks":marks});
-    saveJSON(jString, "test");
+    if (isNaN(id)) {
+        saveJSON(jString, "error_recovery");
+    }
+    else {
+        saveJSON(jString, id.toString());
+    }
 }
 
-function loadContent() {
-    let jString = loadJSON("test");
+function loadContent(id) {
+    let jString = loadJSON(id);
     let data = JSON.parse(jString);
     let text = data["content"];
     cm.setValue(text);
@@ -135,7 +267,7 @@ function fetchMarks() {
 }
 
 function markKeywords(keyword, type){
-    let cursor = cm.getSearchCursor(keyword);
+    let cursor = cm.getSearchCursor(keyword, null, {caseFold: true});
     if (type === "netural") {   // Do not color netural keywords
         return;
     }
@@ -154,6 +286,26 @@ function markKeywords(keyword, type){
 
 
 // Watson APIs: Client-Server Comunications
+function getMenu() {
+    var jqXHR = $.ajax({
+        type: "GET",
+        url: "http://127.0.0.1:5000/menu",
+        async: false,
+        data: {}
+    });
+    return jqXHR.responseText;
+}
+
+function updateMenu(input) {
+    var jqXHR = $.ajax({
+        type: "POST",
+        url: "http://127.0.0.1:5000/menu",
+        async: false,
+        data: {menu: input}
+    });
+    return jqXHR.responseText;
+}
+
 function loadJSON(name){
     var jqXHR = $.ajax({
         type: "POST",
@@ -173,6 +325,26 @@ function saveJSON(input, name){
         data: { entry: input, filename: name}
     });
     console.log(jqXHR.responseText);
+}
+
+function getID() {
+    var jqXHR = $.ajax({
+        type: "GET",
+        url: "http://127.0.0.1:5000/id",
+        async: false,
+        data: {}
+    });
+    return jqXHR.responseText;
+}
+
+function updateID(input) {
+    var jqXHR = $.ajax({
+        type: "POST",
+        url: "http://127.0.0.1:5000/id",
+        async: false,
+        data: {id: input}
+    });
+    return jqXHR.responseText;
 }
 
 function checkKeywordsCats(input){
@@ -348,44 +520,6 @@ function isMovementKey(keyCode) {
     return 33 <= keyCode && keyCode <= 40;
 }
 
-function openEntry(date) {
-    for(var i = 0; i < entries.length; ++i) {
-        if (entries[i]["date"] == date) {
-            document.getElementById("temp").style.display = "none";
-            document.getElementById("main").style.display = "block";
-
-            document.getElementById("title").innerHTML = "Bad Day :(";
-            cm.setValue(entries[i]["content"]);
-            console.log(entries[i]["content"]);
-        }
-    }
-}
-
-function newEntry(){
-    document.getElementById("temp").style.display = "block";
-    document.getElementById("main").style.display = "none";
-}
-
-function toEntry(mood){
-    document.getElementById("temp").style.display = "none";
-    document.getElementById("main").style.display = "block";
-
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0');
-    today = mm + '/' + dd;
-
-    if (mood == 'good') {
-        document.getElementById("title").innerHTML = "Good Entry";// + today;
-        //socket.emit('title', "Good Entry");
-    } else if (mood == 'bad') {
-        document.getElementById("title").innerHTML = "Bad Entry";// + today;
-        //socket.emit('title', "Bad Entry");
-    } else if (mood == 'neutral') {
-        document.getElementById("title").innerHTML = "Neutral Entry";// + today;
-        //socket.emit('title', "Neutral Entry");
-    }
-}
 
 function openNav() {
     document.getElementById("mySidebar").style.width = "250px";
@@ -415,41 +549,6 @@ function closeDef() {
     document.getElementById("main").style.marginBottom= "0";
 }
 
-function loader() {
-    document.getElementById("main").style.display = "none";
-    document.getElementById("temp").style.display = "block";
-    /*
-    var temp = loadJSON();
-    var parsed = JSON.parse(temp);
-    entries = parsed["content"]["entries"];
-
-    var coll = document.getElementsByClassName("collapsible");
-    var i;
-
-    for(i = 0; i < entries.length; i++) {
-        if(entries[i]["mood"] == "bad") {
-            var cm = document.createElement("div");
-            cm.innerHTML = entries[i]["date"];
-            cm.className = "cmList";
-            cm.setAttribute("onclick", "opencm('"+entries[i]["date"]+"')");
-            document.getElementById("baddays").appendChild(cm);
-        }
-    }
-
-    for (i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var content = this.nextElementSibling;
-            if (content.style.maxHeight){
-                content.style.maxHeight = null;
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-            } 
-        });
-    }
-
-    document.getElementById("alltypes").style.maxHeight = document.getElementById("alltypes").scrollHeight + "px";*/
-}
 
 function acceptChange() {
     cm.replaceRange(suggestion, s_start, s_end);

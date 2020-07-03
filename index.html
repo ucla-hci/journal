@@ -34,21 +34,20 @@
 <div id="mySidebar" class="sidebar">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">Settings</a>
   <a href="javascript:void(0)" class="greeting">Good afternoon, Violynne.</a>
-  <a href="javascript:void(0)" onclick = "testNLP()">Sentiment</a>
-  <a href="javascript:void(0)" onclick = "testNLP2()">Emotion</a>
-  <a href="javascript:void(0)" onclick = "testNLP3()">Category</a>
-  <a href="javascript:void(0)" onclick = "saveContent()">Save</a>
-  <a href="javascript:void(0)" onclick = "loadContent()">Load</a>
+  <a href="javascript:void(0)" onclick = "saveEntry()">Save</a>
   <a href="javascript:void(0)" onclick = "newEntry()">New Journal</a>
-  <button type="button" class="collapsible">Recent Journals</button>
-  <div class="content" id="alltypes">
-    <button type="button" id="gooddays" class="collapsible">Good Days</button>
+  <button type="button" class="collapsible" onclick = "showEntries()">Recent Journals</button>
+  <div class="content" id="entryTitles">
+    <!--<button type="button" id="gooddays" class="collapsible">Good Days</button>
     <div class="content"></div>
     <button type="button" id="neutraldays" class="collapsible">Neutral Days</button>
     <div class="content"></div>
     <button type="button" class="collapsible">Bad Days</button>
-    <div class="content" id="baddays"></div>
+    <div class="content" id="baddays"></div>-->
   </div>
+  <a href="javascript:void(0)" onclick = "testNLP()">Sentiment</a>
+  <a href="javascript:void(0)" onclick = "testNLP2()">Emotion</a>
+  <a href="javascript:void(0)" onclick = "testNLP3()">Category</a>
 
   <div class="tag-wrapper" id="emotion">
     <div class="one-line"><div class="sadness-block"></div><p>Sadness</p></div>

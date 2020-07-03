@@ -22,6 +22,7 @@ natural_language_understanding.set_service_url('https://api.us-south.natural-lan
 def home():
     return ""
 
+# Testing APIs
 @app.route("/index")
 def hello_world():
     return 'Hello, World!'
@@ -32,9 +33,9 @@ def load():
         filenm = request.form['filename']
         with open(filenm+'.json', 'r') as file:
             json = file.read()
-            print(json)
+            #print(json)
             return json
-        return "Failed"
+        return "Load Failed"
 
 @app.route('/save', methods=['GET', 'POST'])
 def save():
@@ -44,9 +45,42 @@ def save():
         with open(filenm+'.json', 'w') as file:
             print(entry)
             file.write(entry)
-            return "Succeeded"
-        return "Failed"
+            return "Save Succeeded"
+        return "Save Failed"
 
+@app.route('/id', methods=['GET', 'POST'])
+def ids():
+    if request.method == 'GET':
+        with open('id.json', 'r') as file:
+            currentID = file.read()
+            return str(currentID)
+        return "Get ID Failed"
+
+    elif request.method == 'POST':
+        id = request.form['id']
+        with open('id.json', 'w') as file:
+            file.write(id)
+            return "Update ID Succeeded"
+        return "Update ID Failed"
+
+@app.route('/menu', methods=['GET', 'POST'])
+def menu():
+    if request.method == 'GET':
+        with open('menu.json', 'r') as file:
+            json = file.read()
+            print(json)
+            return json
+        return "Get menu Failed"
+
+    elif request.method == 'POST':
+        newMenu = request.form['menu']
+        with open('menu.json', 'w') as file:
+            print(newMenu)
+            file.write(newMenu)
+            return "Update menu Succeeded"
+        return "Update menu Failed"
+
+# Watson APIS
 @app.route('/check', methods=['GET', 'POST'])
 def check():
     if request.method == 'POST':
