@@ -1,5 +1,6 @@
 from textblob import TextBlob
 import settings, json #a py file containing api access information
+import os
 from ibm_watson import NaturalLanguageUnderstandingV1
 from ibm_watson.natural_language_understanding_v1 import Features, SentimentOptions, ConceptsOptions, KeywordsOptions, CategoriesOptions, EmotionOptions
 from ibm_cloud_sdk_core.authenticators import BasicAuthenticator
@@ -22,7 +23,7 @@ natural_language_understanding.set_service_url('https://api.us-south.natural-lan
 def home():
     return ""
 
-# Testing APIs
+# System APIs
 @app.route("/index")
 def hello_world():
     return 'Hello, World!'
@@ -80,7 +81,17 @@ def menu():
             return "Update menu Succeeded"
         return "Update menu Failed"
 
-# Watson APIS
+@app.route('/del', methods=['GET', 'POST'])
+def delete():
+    if request.method == 'POST':
+        filenm = request.form['filename']
+        if os.path.exists(filenm+'.json'):
+            os.remove(filenm+'.json')
+            return "Delete entry Succeeded"
+        else:
+            return "Delete entry Failed"
+
+# Watson APIs
 @app.route('/check', methods=['GET', 'POST'])
 def check():
     if request.method == 'POST':

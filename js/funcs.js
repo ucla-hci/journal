@@ -11,8 +11,12 @@ var feedbackMsg = ""
 
 var maxID = 0;
 var currentID = 0;
-var entryTitle = {};
 
+var currentFlag = 0;
+var currentDate = "";
+
+var entryTitle = {};
+var entryFlag = {};
 var entryFold = true;
 
 var entries;
@@ -85,10 +89,16 @@ function createMenu(){
         console.log(menu);
         maxID = parseInt(menu["maxID"]);
         entryTitle = menu["entries"];
+        entryFlag = menu["flags"]
         for (id in entryTitle) {
             title = entryTitle[id];
-            console.log(id, title);
-            $('#entryTitles').append('<a href="javascript:void(0)" onclick="openEntry('+id+')">'+title+'</a>');
+            flag = entryFlag[id];
+            console.log(id, title); // null is deleted entry
+            if (title != null){
+                flag = '<div class="circle' + flag + '"></div>'
+                short = '<p onclick="openEntry('+id+')">'+title+'</p>';
+                $('#entryTitles').append('<div class="oneEntry">' + flag + short + '</div>');
+            }
         }
     }
 }
@@ -102,30 +112,46 @@ function openEntry(id) {
     }
 }
 
+function deleteEntryPopUp() {
+    $('#doubleConfirm').css("display","block");
+}
+
+function deleteEntryGiveUp() {
+    $('#doubleConfirm').css("display","none");
+}
+
+function deleteEntry() {
+    if ((currentID > 0) && (currentID <= maxID)) {
+        delJSON(currentID.toString());
+        entryTitle[currentID] = null;
+        entryFlag[currentID] = null;
+        updateMenu(JSON.stringify({"maxID": maxID, "entries": entryTitle, "flags": entryFlag}));
+        createMenu();
+        newEntry();
+    }
+}
+
 function toEntry(mood){
+    currentID = maxID + 1;
     document.getElementById("temp").style.display = "none";
     document.getElementById("main").style.display = "block";
-
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0');
-    today = mm + '/' + dd;
+    currentDate = getTime();
 
     if (mood == 'good') {
-        document.getElementById("title").innerHTML = "Good Entry";// + today;
-        //socket.emit('title', "Good Entry");
+        document.getElementById("title").innerHTML = "Good Entry";
+        currentFlag = 1;
     } else if (mood == 'bad') {
-        document.getElementById("title").innerHTML = "Bad Entry";// + today;
-        //socket.emit('title', "Bad Entry");
+        document.getElementById("title").innerHTML = "Bad Entry";
+        currentFlag = 3;
     } else if (mood == 'neutral') {
-        document.getElementById("title").innerHTML = "Neutral Entry";// + today;
-        //socket.emit('title', "Neutral Entry");
+        document.getElementById("title").innerHTML = "Neutral Entry";
+        currentFlag = 2;
     }
 }
 
 function showEntries(){
     if (entryFold){
-        $('#entryTitles').css("max-height", "200px");
+        $('#entryTitles').css("max-height", "300px");
         entryFold = false;
     }
     else {
@@ -138,20 +164,39 @@ function newEntry(){
     // Save and update current entry
     cleanMarks();
     cm.setValue("");
-    currentID = maxID + 1;
     document.getElementById("temp").style.display = "block";
     document.getElementById("main").style.display = "none";
 }
 
 function saveEntry(){
+    currentDate = getTime();
     saveContent();
     if (currentID > maxID) {
         maxID = currentID;
     }
-    let title = "Entry Test " + currentID;
+
+    let title = fetchTitle();
+    if (title.length > 10) {
+        title = title.slice(0,10)+"...";
+    }
     entryTitle[currentID] = title;
-    updateMenu(JSON.stringify({maxID: maxID, entries: entryTitle}));
+    console.log(entryFlag, currentFlag);
+    entryFlag[currentID] = currentFlag;
+    updateMenu(JSON.stringify({"maxID": maxID, "entries": entryTitle, "flags": entryFlag}));
     createMenu();
+}
+
+function getTime(){
+    let today = new Date();
+    let yy = String(today.getFullYear());
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
+    let hh = String(today.getHours());
+    let mn = String(today.getMinutes());
+
+    if (mn.length < 2) { mn = '0'+mn;}
+    currentDate = mm + '/' + dd + '/' + yy + ' ' + hh + ':' + mn;
+    return currentDate;
 }
 
 // Color keywords by sentiments
@@ -211,23 +256,35 @@ function testNLP3() {
 var markTextCollections = new Array();  // Save all markText result
 
 function saveContent() {
+    let title = fetchTitle();
     let content = fetchContent();
     let marks = fetchMarks();
     let id = currentID;
-    let jString = JSON.stringify({"content":content, "marks":marks});
+    let jString = JSON.stringify({"title":title, "content":content, "date": currentDate, "flag": currentFlag, "marks":marks});
     if (isNaN(id)) {
         saveJSON(jString, "error_recovery");
     }
     else {
         saveJSON(jString, id.toString());
     }
+    loadContent(id);
 }
 
 function loadContent(id) {
     let jString = loadJSON(id);
     let data = JSON.parse(jString);
+    let title = data["title"];
     let text = data["content"];
+    let date = data["date"];
+    let flag = data["flag"];
+    currentFlag = flag;
     cm.setValue(text);
+    if (title != null) {
+        $("#title").text(title);
+    }
+    if (date != null) {
+        $("#entrydate").text(date);
+    }
     let marks = data["marks"];
     for (m of marks) {
         tag = m["tag"];
@@ -243,6 +300,12 @@ function handleOperation(command){
         case 'redo': cm.redo(); break;
         case 'clear': cm.clear(); break;
     }
+}
+
+function fetchTitle(){
+    var text = $("#title").text()
+    console.log("Current Title:",text);
+    return text;
 }
 
 function fetchContent(){
@@ -327,24 +390,14 @@ function saveJSON(input, name){
     console.log(jqXHR.responseText);
 }
 
-function getID() {
-    var jqXHR = $.ajax({
-        type: "GET",
-        url: "http://127.0.0.1:5000/id",
-        async: false,
-        data: {}
-    });
-    return jqXHR.responseText;
-}
-
-function updateID(input) {
+function delJSON(name){
     var jqXHR = $.ajax({
         type: "POST",
-        url: "http://127.0.0.1:5000/id",
+        url: "http://127.0.0.1:5000/del",
         async: false,
-        data: {id: input}
+        data: {filename: name}
     });
-    return jqXHR.responseText;
+    console.log(jqXHR.responseText);
 }
 
 function checkKeywordsCats(input){
@@ -526,7 +579,7 @@ function openNav() {
     document.getElementById("container").style.marginLeft = "250px";
     document.getElementById("myBottombar").style.left = "250px";
     document.getElementById("opnsidebar").setAttribute("onclick", "closeNav()");
-    document.getElementById("opnsidebar").style.backgroundImage = 'url("../src/xmark.png")';
+    document.getElementById("opnsidebar").style.backgroundImage = 'url("./src/xmark.png")';
 }
   
 function closeNav() {
@@ -534,7 +587,7 @@ function closeNav() {
     document.getElementById("container").style.marginLeft= "0";
     document.getElementById("myBottombar").style.left = "0px";
     document.getElementById("opnsidebar").setAttribute("onclick", "openNav()");
-    document.getElementById("opnsidebar").style.backgroundImage = 'url("../src/hamburger.png")';
+    document.getElementById("opnsidebar").style.backgroundImage = 'url("./src/hamburger.png")';
 }
 
 function openDef() {
