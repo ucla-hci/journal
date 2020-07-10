@@ -108,7 +108,10 @@
     </div>
 
     <div id="main">
-      <div id="title" contenteditable="true"></div>
+      <div class="title_in_line">
+        <div class="circleCurrnetFlag" onclick="circleFlag()"></div>
+        <div id="title" contenteditable="true"></div>
+      </div>
       <hr>
       <div id="entrydate"></div>
       <textarea id="write" autofocus spellcheck="false"></textarea>
@@ -127,17 +130,31 @@
       </div>
     </div>
 
-    <div class="pop-up2" id="doubleConfirm">
+    <div class="pop-up2" id="deleteConfirm">
       <div class="close-pop-up" id="close-textmanipulation">
         <div class="close-btn" onclick="deleteEntryGiveUp()"></div>
       </div>
       <div class="pop-up-title2">
         <div class="pencil-btn"></div>
-        <span id="pop-up-title-text">Are you sure to delete this entry? </span>
+        <span>Are you sure to delete this entry? </span>
       </div>
       <div class="confirm-pop-up">
         <button onclick="deleteEntry()">Yes</button>
         <button onclick="deleteEntryGiveUp()">No</button>
+      </div>
+    </div>
+
+    <div class="pop-up2" id="saveConfirm">
+      <div class="close-pop-up" id="close-textmanipulation">
+        <div class="close-btn" onclick="beforeSaveGiveUp()"></div>
+      </div>
+      <div class="pop-up-title2">
+        <div class="pencil-btn"></div>
+        <span>Do you want to discard current content without saving? </span>
+      </div>
+      <div class="confirm-pop-up">
+        <button onclick="saveConfirm()">Yes</button>
+        <button onclick="beforeSaveGiveUp()">No</button>
       </div>
     </div>
   </div>

@@ -120,6 +120,16 @@ z-index: 1;
     transition: 0.3s;
 }
 
+.circleCurrnetFlag {
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    margin: 0px;
+    padding: 0px;
+    display: inline-block;
+    background-color: #8ac8a4;
+}
+
 .circle1 {
     border-radius: 50%;
     width: 20px;
@@ -245,7 +255,7 @@ button {
 }
 
 #title {
-    width: 92vw;
+    width: auto;
     height: 1.8vh;
 
     padding: 10px;
@@ -258,7 +268,7 @@ button {
     padding-left: 1px;
     padding-bottom: 14px;
 
-    margin-bottom: 13px;
+    margin-bottom: 0px;
 
     color: #000000;
     background-color: transparent;
@@ -271,6 +281,7 @@ button {
     justify-content: center;
     opacity: 0.7;
     pointer-events: auto;
+    display: inline-block;
 }
 
 #entrydate {
@@ -283,7 +294,7 @@ button {
 }
 
 .CodeMirror-wrap {
-    margin-top: 2.5vh;
+    margin-top: 1.8vh;
 }
 
 #write {

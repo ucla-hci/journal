@@ -17,7 +17,11 @@ var currentDate = "";
 
 var entryTitle = {};
 var entryFlag = {};
+
 var entryFold = true;
+var saveAfterChange = false;
+var pausedOperation = null;
+var pausedOperationId = 0;
 
 var entries;
 var key, prevKey, flag = 0;
@@ -28,45 +32,14 @@ var dysfunctional = ['loser', 'suck', 'hate', 'lazy', 'theworst', 'useless', 'fa
 var trigger = ['cannot', 'ca', 'always', 'never', 'ever', 'must', 'mustnot', 'should', 'shouldnot', 'haveto', 'orelse', 'every', 'everything', 'nothing', 'anything', 'all', 'none', 'any', 'atall', 'everybody', 'nobody', 'anybody', 'noone', 'only']
 var pronoun = ['I', 'me', 'my', 'myself']
 
-// Onload
+// Journey Onload
 function loader() {
     document.getElementById("main").style.display = "none";
     document.getElementById("temp").style.display = "block";
     createMenu();
-    /*
-    var temp = loadJSON();
-    var parsed = JSON.parse(temp);
-    entries = parsed["content"]["entries"];
-
-    var coll = document.getElementsByClassName("collapsible");
-    var i;
-
-    for(i = 0; i < entries.length; i++) {
-        if(entries[i]["mood"] == "bad") {
-            var cm = document.createElement("div");
-            cm.innerHTML = entries[i]["date"];
-            cm.className = "cmList";
-            cm.setAttribute("onclick", "opencm('"+entries[i]["date"]+"')");
-            document.getElementById("baddays").appendChild(cm);
-        }
-    }
-
-    for (i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var content = this.nextElementSibling;
-            if (content.style.maxHeight){
-                content.style.maxHeight = null;
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-            } 
-        });
-    }
-
-    document.getElementById("alltypes").style.maxHeight = document.getElementById("alltypes").scrollHeight + "px";*/
 }
 
-// Styles Switching
+// Themes Switching
 function darkMode(){
     if($('.switch-anim').prop('checked')){
         document.getElementById("theme").setAttribute("href","css/theme_dark.css");
@@ -76,6 +49,7 @@ function darkMode(){
 }
 
 // System Functions
+    // Menu Build-up
 function createMenu(){
     $('#entryTitles').empty();
     let menuData = getMenu();
@@ -103,6 +77,74 @@ function createMenu(){
     }
 }
 
+function showEntries(){
+    if (entryFold){
+        $('#entryTitles').css("max-height", "300px");
+        entryFold = false;
+    }
+    else {
+        $('#entryTitles').css("max-height", "0px");
+        entryFold = true;
+    }
+}
+
+function deleteEntryPopUp() {
+    $('#deleteConfirm').css("display","block");
+}
+
+function deleteEntryGiveUp() {
+    $('#deleteConfirm').css("display","none");
+}
+
+function beforeSavePopUp() {
+    $('#saveConfirm').css("display","block");
+}
+
+function beforeSaveGiveUp() {
+    $('#saveConfirm').css("display","none");
+}
+
+function openNav() {
+    document.getElementById("mySidebar").style.width = "250px";
+    document.getElementById("container").style.marginLeft = "250px";
+    document.getElementById("myBottombar").style.left = "250px";
+    document.getElementById("opnsidebar").setAttribute("onclick", "closeNav()");
+    document.getElementById("opnsidebar").style.backgroundImage = 'url("./src/xmark.png")';
+}
+  
+function closeNav() {
+    document.getElementById("mySidebar").style.width = "0";
+    document.getElementById("container").style.marginLeft= "0";
+    document.getElementById("myBottombar").style.left = "0px";
+    document.getElementById("opnsidebar").setAttribute("onclick", "openNav()");
+    document.getElementById("opnsidebar").style.backgroundImage = 'url("./src/hamburger.png")';
+}
+
+function openDef() {
+    document.getElementById("myBottombar").style.height = "auto";
+    document.getElementById("myBottombar").style.minHeight = "200px";
+    document.getElementById("main").style.marginBottom = "250px";
+}
+  
+function closeDef() {
+    document.getElementById("myBottombar").style.height = "0";
+    document.getElementById("myBottombar").style.minHeight = "0";
+    document.getElementById("main").style.marginBottom= "0";
+}
+
+function saveConfirm() {
+    saveAfterChange = true;
+    if (pausedOperation == "new") {
+        newEntry();
+    }
+    else if (pausedOperation == "load") {
+        loadContent(pausedOperationId);
+    }
+    beforeSaveGiveUp();
+    pausedOperation = null;
+}
+
+    // Entry Manipulation
 function openEntry(id) {
     if (id <= maxID) {
         currentID = id;
@@ -110,14 +152,6 @@ function openEntry(id) {
         document.getElementById("main").style.display = "block";
         loadContent(id);
     }
-}
-
-function deleteEntryPopUp() {
-    $('#doubleConfirm').css("display","block");
-}
-
-function deleteEntryGiveUp() {
-    $('#doubleConfirm').css("display","none");
 }
 
 function deleteEntry() {
@@ -131,41 +165,40 @@ function deleteEntry() {
     }
 }
 
+function newEntry(){
+    // Save and update current entry
+    if (saveAfterChange) {
+        cleanMarks();
+        cm.setValue("");
+        currentDate = getTime();
+        currentFlag = 0;
+        document.getElementById("temp").style.display = "block";
+        document.getElementById("main").style.display = "none";
+    }
+    else {
+        beforeSavePopUp();
+        pausedOperation = "new";
+    }
+    
+}
+
 function toEntry(mood){
     currentID = maxID + 1;
     document.getElementById("temp").style.display = "none";
     document.getElementById("main").style.display = "block";
     currentDate = getTime();
+    $("#entrydate").text(currentDate);
 
     if (mood == 'good') {
-        document.getElementById("title").innerHTML = "Good Entry";
+        document.getElementById("title").innerHTML = "What a good Day";
         currentFlag = 1;
     } else if (mood == 'bad') {
-        document.getElementById("title").innerHTML = "Bad Entry";
+        document.getElementById("title").innerHTML = "Not a good Day";
         currentFlag = 3;
     } else if (mood == 'neutral') {
-        document.getElementById("title").innerHTML = "Neutral Entry";
+        document.getElementById("title").innerHTML = "Just so so";
         currentFlag = 2;
     }
-}
-
-function showEntries(){
-    if (entryFold){
-        $('#entryTitles').css("max-height", "300px");
-        entryFold = false;
-    }
-    else {
-        $('#entryTitles').css("max-height", "0px");
-        entryFold = true;
-    }
-}
-
-function newEntry(){
-    // Save and update current entry
-    cleanMarks();
-    cm.setValue("");
-    document.getElementById("temp").style.display = "block";
-    document.getElementById("main").style.display = "none";
 }
 
 function saveEntry(){
@@ -184,6 +217,7 @@ function saveEntry(){
     entryFlag[currentID] = currentFlag;
     updateMenu(JSON.stringify({"maxID": maxID, "entries": entryTitle, "flags": entryFlag}));
     createMenu();
+    saveAfterChange = true;
 }
 
 function getTime(){
@@ -197,6 +231,30 @@ function getTime(){
     if (mn.length < 2) { mn = '0'+mn;}
     currentDate = mm + '/' + dd + '/' + yy + ' ' + hh + ':' + mn;
     return currentDate;
+}
+
+function circleFlag() {
+    console.log(currentFlag);
+    currentFlag += 1;
+    if (currentFlag > 3) {
+        currentFlag = 1;
+    }
+    refreshFlagColor();
+}
+
+function refreshFlagColor() {
+    console.log(currentFlag);
+    if (currentFlag != 0) {
+        if (currentFlag === 1) {
+            $('.circleCurrnetFlag').css("background-color","#8ac8a4");
+        }
+        else if (currentFlag === 2) {
+            $('.circleCurrnetFlag').css("background-color","#2f7fed");
+        }
+        else if (currentFlag === 3) {
+            $('.circleCurrnetFlag').css("background-color","#fa9a9a");
+        }
+    }
 }
 
 // Color keywords by sentiments
@@ -271,26 +329,34 @@ function saveContent() {
 }
 
 function loadContent(id) {
-    let jString = loadJSON(id);
-    let data = JSON.parse(jString);
-    let title = data["title"];
-    let text = data["content"];
-    let date = data["date"];
-    let flag = data["flag"];
-    currentFlag = flag;
-    cm.setValue(text);
-    if (title != null) {
-        $("#title").text(title);
+    if (saveAfterChange){
+        let jString = loadJSON(id);
+        let data = JSON.parse(jString);
+        let title = data["title"];
+        let text = data["content"];
+        let date = data["date"];
+        let flag = data["flag"];
+        currentFlag = flag;
+        refreshFlagColor();
+        cm.setValue(text);
+        if (title != null) {
+            $("#title").text(title);
+        }
+        if (date != null) {
+            $("#entrydate").text(date);
+        }
+        let marks = data["marks"];
+        for (m of marks) {
+            tag = m["tag"];
+            from = m["from"];
+            to = m["to"];
+            cm.markText(from, to, {className: tag});
+        }
     }
-    if (date != null) {
-        $("#entrydate").text(date);
-    }
-    let marks = data["marks"];
-    for (m of marks) {
-        tag = m["tag"];
-        from = m["from"];
-        to = m["to"];
-        cm.markText(from, to, {className: tag});
+    else {
+        beforeSavePopUp();
+        pausedOperation = "load";
+        pausedOperationId = id;
     }
 }
 
@@ -496,22 +562,19 @@ cm.on("cursorActivity", function () {
 cm.on("keydown", function() {
     prevKey = key;
     key = event.keyCode;
+    console.log("k",key);
 
     if (isMovementKey(event.which)) {
         movedByMouse = false;
     }
 
-    /*
     if(key == 190 || prevKey == 16 && key == 49 || prevKey == 16 && key == 191) {
-        cm.getAllMarks().forEach(mark => mark.clear());
-        var result = runPyScript(cm.doc.getValue());
-        var resparse = JSON.parse(result);
+        testNLP3();
+    }
 
-        for(i = 0; i < resparse["valence"].length; i++) {
-            if(resparse["valence"][i] == "negative")
-                cm.markText(cm.doc.posFromIndex(resparse["starts"][i]), cm.doc.posFromIndex(resparse["ends"][i]), {className: "markneg"});
-        } 
-    }*/
+    if (saveAfterChange) {
+        saveAfterChange = false;
+    }
 });
 
 cm.on("beforeChange", function () {
@@ -572,36 +635,6 @@ function checkInRange(target, start, end, offset=0) {
 function isMovementKey(keyCode) {
     return 33 <= keyCode && keyCode <= 40;
 }
-
-
-function openNav() {
-    document.getElementById("mySidebar").style.width = "250px";
-    document.getElementById("container").style.marginLeft = "250px";
-    document.getElementById("myBottombar").style.left = "250px";
-    document.getElementById("opnsidebar").setAttribute("onclick", "closeNav()");
-    document.getElementById("opnsidebar").style.backgroundImage = 'url("./src/xmark.png")';
-}
-  
-function closeNav() {
-    document.getElementById("mySidebar").style.width = "0";
-    document.getElementById("container").style.marginLeft= "0";
-    document.getElementById("myBottombar").style.left = "0px";
-    document.getElementById("opnsidebar").setAttribute("onclick", "openNav()");
-    document.getElementById("opnsidebar").style.backgroundImage = 'url("./src/hamburger.png")';
-}
-
-function openDef() {
-    document.getElementById("myBottombar").style.height = "auto";
-    document.getElementById("myBottombar").style.minHeight = "200px";
-    document.getElementById("main").style.marginBottom = "250px";
-}
-  
-function closeDef() {
-    document.getElementById("myBottombar").style.height = "0";
-    document.getElementById("myBottombar").style.minHeight = "0";
-    document.getElementById("main").style.marginBottom= "0";
-}
-
 
 function acceptChange() {
     cm.replaceRange(suggestion, s_start, s_end);
