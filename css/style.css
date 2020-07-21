@@ -50,8 +50,11 @@ z-index: 1;
     transition: margin-left .5s; /* If you want a transition effect */
     color: #6c6c6c;
     /*background-color: transparent;*/
-  }
+}
 
+#entryTitles{
+    max-height: 50vh;
+}
 
 .bottombar {
     border-top-style: solid;
@@ -115,9 +118,19 @@ z-index: 1;
 }
 
 .oneEntry {
-    margin: 2px;
-    padding: 8px 8px 2px 32px;
+    margin-bottom: 10px;
+    padding: 0px 8px 0px 16px;
     transition: 0.3s;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+}
+
+.oneEntry p {
+    max-width: 150px;
+    max-height: 30px;
+    overflow: hidden;
 }
 
 .circleCurrnetFlag {
@@ -212,17 +225,47 @@ z-index: 1;
   display: block;
 }
 
+.btbar {
+    height: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .openbtn {
     background-image: url("../src/hamburger.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
     background-color: transparent;
-    left: 24px;
     width: 23px;
-    top: 24px;
     height: 20px;
     border-style: none;
+}
+
+.newbtn {
+    background-image: url("../src/add.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: transparent;
+    width: 23px;
+    height: 23px;
+    border-style: none;
+}
+
+.delbt {
+    background-image: url("../src/xmark.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: transparent;
+    width: 13px;
+    height: 15px;
+    border-style: none;
+    display: inline-block;
+    margin-right: 5px;
 }
 
 .openbottombtn {
@@ -295,6 +338,11 @@ button {
 
 .CodeMirror-wrap {
     margin-top: 1.8vh;
+}
+
+.CodeMirror-scroll {
+    overflow-y: hidden;
+    height: auto;
 }
 
 #write {
@@ -494,9 +542,9 @@ button {
     font-weight: 100;
     display: none;
     position: absolute;
-    margin-left: 35vw;
-    margin-top: 5vh;
-    border-radius: 0;
+    left: 35%;
+    top: 25vh;
+    border-radius: 3px;
     height: auto;
     width: auto;
     z-index: 98;
@@ -505,10 +553,17 @@ button {
     box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
 }
 
+#textExplanation {
+    width: 20vw;
+    border-width: 4px 0 0 0;
+    border-color: #8ac8a4;
+    border-style: solid;
+}
+
 .close-pop-up{
     position: absolute;
-    right: 12px;
-    top: 12px;
+    right: 9px;
+    top: 6px;
 }
 
 .confirm-pop-up {
@@ -528,6 +583,14 @@ button {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+}
+
+.pop-up-title3{
+    margin-top: 25px;
+    margin-left: 30px;
+    margin-right: 40px;
+    margin-bottom: 20px;
+    color: #6c6c6c;
 }
 
 .close-btn {

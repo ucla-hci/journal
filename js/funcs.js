@@ -18,10 +18,13 @@ var currentDate = "";
 var entryTitle = {};
 var entryFlag = {};
 
-var entryFold = true;
-var saveAfterChange = false;
+var entryFold = false;
 var pausedOperation = null;
 var pausedOperationId = 0;
+var promptInstance = null;
+
+var docStart = null;
+var docEnd = null;
 
 var entries;
 var key, prevKey, flag = 0;
@@ -55,23 +58,24 @@ function createMenu(){
     let menuData = getMenu();
     if (menuData === "Get menu Failed"){  // No saved entry
         maxID = 0;
-        currentID = 0;
+        currentID = 1;
         entryTitle = {};
     }
     else {
         let menu = JSON.parse(menuData);
-        console.log(menu);
         maxID = parseInt(menu["maxID"]);
         entryTitle = menu["entries"];
         entryFlag = menu["flags"]
         for (id in entryTitle) {
-            title = entryTitle[id];
-            flag = entryFlag[id];
-            console.log(id, title); // null is deleted entry
+            let title = entryTitle[id];
+            let flag = entryFlag[id];
+            console.log(id, title, flag); // null is deleted entry
+            //flag = (flag === 0) ? 1 : flag; // new entry with no flag assigned
             if (title != null){
-                flag = '<div class="circle' + flag + '"></div>'
-                short = '<p onclick="openEntry('+id+')">'+title+'</p>';
-                $('#entryTitles').append('<div class="oneEntry">' + flag + short + '</div>');
+                let del = '<div class="delbt" onclick="deleteEntry('+ id +')"></div>'
+                let fg = '<div class="circle' + flag + '"></div>'
+                let short = '<p onclick="openEntry('+id+')">'+title+'</p>';
+                $('#entryTitles').append('<div class="oneEntry">' + del + fg + short + '</div>');
             }
         }
     }
@@ -79,13 +83,21 @@ function createMenu(){
 
 function showEntries(){
     if (entryFold){
-        $('#entryTitles').css("max-height", "300px");
+        $('#entryTitles').css("max-height", "50vh");
         entryFold = false;
     }
     else {
         $('#entryTitles').css("max-height", "0px");
         entryFold = true;
     }
+}
+
+function explanationPopUp() {
+    $('#textExplanation').css("display","block");
+}
+
+function explanationHide() {
+    $('#textExplanation').css("display","none");
 }
 
 function deleteEntryPopUp() {
@@ -132,6 +144,7 @@ function closeDef() {
     document.getElementById("main").style.marginBottom= "0";
 }
 
+/*
 function saveConfirm() {
     saveAfterChange = true;
     if (pausedOperation == "new") {
@@ -142,7 +155,7 @@ function saveConfirm() {
     }
     beforeSaveGiveUp();
     pausedOperation = null;
-}
+}*/
 
     // Entry Manipulation
 function openEntry(id) {
@@ -154,8 +167,16 @@ function openEntry(id) {
     }
 }
 
-function deleteEntry() {
-    if ((currentID > 0) && (currentID <= maxID)) {
+function deleteEntry(id) {
+    if (id != null) {
+        console.log("del "+id);
+        delJSON(id.toString());
+        entryTitle[id] = null;
+        entryFlag[id] = null;
+        updateMenu(JSON.stringify({"maxID": maxID, "entries": entryTitle, "flags": entryFlag}));
+        createMenu();
+    }
+    else if ((currentID > 0) && (currentID <= maxID)) {
         delJSON(currentID.toString());
         entryTitle[currentID] = null;
         entryFlag[currentID] = null;
@@ -166,20 +187,14 @@ function deleteEntry() {
 }
 
 function newEntry(){
-    // Save and update current entry
-    if (saveAfterChange) {
-        cleanMarks();
-        cm.setValue("");
-        currentDate = getTime();
-        currentFlag = 0;
-        document.getElementById("temp").style.display = "block";
-        document.getElementById("main").style.display = "none";
-    }
-    else {
-        beforeSavePopUp();
-        pausedOperation = "new";
-    }
-    
+    saveEntry();
+    cleanMarks();
+    closeDef();
+    cm.setValue("");
+    currentDate = getTime();
+    currentFlag = 1;
+    document.getElementById("temp").style.display = "block";
+    document.getElementById("main").style.display = "none";
 }
 
 function toEntry(mood){
@@ -190,34 +205,36 @@ function toEntry(mood){
     $("#entrydate").text(currentDate);
 
     if (mood == 'good') {
-        document.getElementById("title").innerHTML = "What a good Day";
         currentFlag = 1;
+        document.getElementById("title").innerHTML = "What a good day";
     } else if (mood == 'bad') {
-        document.getElementById("title").innerHTML = "Not a good Day";
         currentFlag = 3;
+        document.getElementById("title").innerHTML = "Not a good day";
     } else if (mood == 'neutral') {
-        document.getElementById("title").innerHTML = "Just so so";
         currentFlag = 2;
+        document.getElementById("title").innerHTML = "Just so so";
     }
+    refreshFlagColor();
 }
 
 function saveEntry(){
     currentDate = getTime();
+    
     saveContent();
     if (currentID > maxID) {
         maxID = currentID;
     }
 
     let title = fetchTitle();
+    /*
     if (title.length > 10) {
         title = title.slice(0,10)+"...";
-    }
+    }*/
     entryTitle[currentID] = title;
     console.log(entryFlag, currentFlag);
     entryFlag[currentID] = currentFlag;
     updateMenu(JSON.stringify({"maxID": maxID, "entries": entryTitle, "flags": entryFlag}));
     createMenu();
-    saveAfterChange = true;
 }
 
 function getTime(){
@@ -240,6 +257,7 @@ function circleFlag() {
         currentFlag = 1;
     }
     refreshFlagColor();
+    saveEntry();
 }
 
 function refreshFlagColor() {
@@ -258,8 +276,8 @@ function refreshFlagColor() {
 }
 
 // Color keywords by sentiments
-function testNLP() {
-    cleanMarks();
+function checkSentiment() {
+    //cleanMarks();
     $('#sentiment').css("display","block");
     $('#emotion').css("display","none");
     $('#category').css("display","none");
@@ -271,8 +289,8 @@ function testNLP() {
 }
 
 // Color keywords by emotions
-function testNLP2() {
-    cleanMarks();
+function checkEmotion() {
+    //cleanMarks();
     $('#sentiment').css("display","none");
     $('#emotion').css("display","block");
     $('#category').css("display","none");
@@ -290,11 +308,10 @@ function testNLP2() {
 }
 
 // Color keywords by categories
-function testNLP3() {
+function checkCat() {
     $('#sentiment').css("display","none");
     $('#emotion').css("display","none");
     $('#category').css("display","block");
-    cleanMarks();
     for (kw of constructive){
         markKeywords(kw, "constructive");
     }
@@ -306,6 +323,43 @@ function testNLP3() {
     }
     for (kw of pronoun){
         markKeywords(kw, "pronoun");
+    }
+}
+
+function checkCD() {
+    let result = JSON.parse(checkCognDistortion(fetchContent()));
+    let cursor = setCursorEnd();
+    cm.replaceRange(" ", cursor);
+    let end = setCursorEnd();
+    console.log(cursor, end)
+    if (result.class === "spl") {
+        cm.markText(cursor, end, {className: "Splitting"});
+    }
+    else if (result.class === "sld") {
+        cm.markText(cursor, end, {className: "Should"});
+    }
+    else if (result.class === "frt") {
+        cm.markText(cursor, end, {className: "FortuneTelling"});
+    }
+    else if (result.class === "blm") {
+        cm.markText(cursor, end, {className: "Blaming"});
+    }
+    else { //nan
+        return;
+    }
+}
+
+// Color keywords by categories
+function addPrompt() {
+    let text = fetchContent();
+    let result = autoComplete(text);
+    console.log(result);
+    if (result !== 'None') {
+        let start = cm.getCursor("to");
+        cm.replaceRange(" "+result, start);
+        let end = cm.getCursor();
+        console.log(start, end)
+        promptInstance = cm.markText(start, end, {className: "autosuggest-font"})
     }
 }
 
@@ -325,39 +379,43 @@ function saveContent() {
     else {
         saveJSON(jString, id.toString());
     }
-    loadContent(id);
+    //loadContent(id); only use to refresh date/time?
 }
 
 function loadContent(id) {
-    if (saveAfterChange){
-        let jString = loadJSON(id);
-        let data = JSON.parse(jString);
-        let title = data["title"];
-        let text = data["content"];
-        let date = data["date"];
-        let flag = data["flag"];
-        currentFlag = flag;
-        refreshFlagColor();
-        cm.setValue(text);
-        if (title != null) {
-            $("#title").text(title);
+    console.log("Load "+id);
+    let jString = loadJSON(id);
+    let data = JSON.parse(jString);
+    let title = data["title"];
+    let text = data["content"];
+    let date = data["date"];
+    let flag = data["flag"];
+    currentFlag = flag;
+    refreshFlagColor();
+    cm.setValue(text);
+    if (title != null) {
+        $("#title").text(title);
+    }
+    if (date != null) {
+        $("#entrydate").text(date);
+    }
+    let marks = data["marks"];
+    console.log("Load new!");
+    console.log(title);
+    console.log(marks);
+    for (m of marks) {
+        tag = m["tag"];
+        from = m["from"];
+        to = m["to"];
+        if (tag === 'autosuggest-font') {
+            promptInstance = cm.markText(from, to, {className: tag});
         }
-        if (date != null) {
-            $("#entrydate").text(date);
-        }
-        let marks = data["marks"];
-        for (m of marks) {
-            tag = m["tag"];
-            from = m["from"];
-            to = m["to"];
+        else {
             cm.markText(from, to, {className: tag});
         }
     }
-    else {
-        beforeSavePopUp();
-        pausedOperation = "load";
-        pausedOperationId = id;
-    }
+    setCursorEnd();
+    saveEntry();
 }
 
 function handleOperation(command){
@@ -370,13 +428,11 @@ function handleOperation(command){
 
 function fetchTitle(){
     var text = $("#title").text()
-    console.log("Current Title:",text);
     return text;
 }
 
 function fetchContent(){
     var text = cm.getValue();
-    console.log("Current Textarea:",text);
     return text;
 }
 
@@ -466,6 +522,16 @@ function delJSON(name){
     console.log(jqXHR.responseText);
 }
 
+function autoComplete(text){
+    var jqXHR = $.ajax({
+        type: "POST",
+        url: "http://127.0.0.1:5000/check",
+        async: false,
+        data: {sentence: text}
+    });
+    return jqXHR.responseText;
+}
+
 function checkKeywordsCats(input){
     var jqXHR = $.ajax({
         type: "POST",
@@ -526,6 +592,17 @@ function checkKeywordsSentiment(input){
     return output;
 }
 
+function checkCognDistortion(input){
+    console.log("trying to run python");
+    var jqXHR = $.ajax({
+        type: "POST",
+        url: "http://127.0.0.1:5000/cd",
+        async: false,
+        data: { mydata: input }
+    });
+    console.log(jqXHR.responseText);
+    return jqXHR.responseText;
+}
 
 //Handling mouse activities
 var movedByMouse = false;
@@ -542,24 +619,41 @@ cm.on("cursorActivity", function () {
             let marks = cm.findMarksAt(cm.getCursor())
             let len = marks.length
             if(len != 0) {
-                clearBottomBarElement();
                 for (let mark of marks){
-                    console.log(cm.getCursor());
                     let tag = mark["className"];
+                    openDef();
+                    explanationHide();
+                    clearBottomBarElement();
                     switch(tag) {
                         case "BeingRight" : populateDistortion("BeingRight"); break;
                         case "Blaming" : populateDistortion("Blaming"); break;
                         case "Catastrophizing" : populateDistortion("Catastrophizing"); break;
                         case "MindReading" : populateDistortion("MindReading"); break;
                         case "Splitting" : populateDistortion("Splitting"); break;
+                        case "Should" : populateDistortion("Should"); break;
+                        case "FortuneTelling" : populateDistortion("FortuneTelling"); break;
+                        case "autosuggest-font" : {
+                            let place = promptInstance.find();
+                            promptInstance.clear();
+                            cm.replaceRange(" ", place.from, place.to);
+                            closeDef();
+                            break;
+                        }
+                        default: {
+                            newPopUpElement(tag, "Test Message that will display all related info", cm.getCursor());
+                            closeDef();
+                        }
                     }
                 }
+            }
+            else{
+                explanationHide();
             }
         }
     }
 });
 
-cm.on("keydown", function() {
+cm.on("keyup", function() {
     prevKey = key;
     key = event.keyCode;
     console.log("k",key);
@@ -568,17 +662,30 @@ cm.on("keydown", function() {
         movedByMouse = false;
     }
 
-    if(key == 190 || prevKey == 16 && key == 49 || prevKey == 16 && key == 191) {
-        testNLP3();
-    }
-
-    if (saveAfterChange) {
-        saveAfterChange = false;
+    if (key == 190 || key == 110 || key == 13 || (prevKey == 16 && key == 49) || (prevKey == 16 && key == 191)) {
+        //checkEmotion();
+        addPrompt();
+        checkCD();
+        saveEntry();
     }
 });
 
 cm.on("beforeChange", function () {
     movedByMouse = false;
+});
+
+cm.on("changes", function (ins, changes) {
+    //console.log(changes);
+    if (changes[0].origin == "setValue") {  // Load entry, no need to save again
+        return;
+    }
+    console.log("Auto Save:"+currentID);
+    saveEntry();
+});
+
+$("body").on('DOMSubtreeModified', '.title_in_line', function(){
+    console.log("Auto Save:"+currentID);
+    saveEntry();
 });
 
 /*
@@ -615,6 +722,13 @@ cm.on("change", function (cm, changeObj) {
     }
 });
 */
+
+function setCursorEnd() {
+    cm.focus();// Set the cursor at the end of existing content
+    cm.setCursor(cm.lineCount(), 0);
+    return cm.getCursor();
+}
+
 function checkInRange(target, start, end, offset=0) {
     // Offset > 1 need special handle, otherwise document may lose contents
     if (offset > 0) {
@@ -638,11 +752,11 @@ function isMovementKey(keyCode) {
 
 function acceptChange() {
     cm.replaceRange(suggestion, s_start, s_end);
-    $("#textmanipulation").css("display","none");
+    $("#textManipulation").css("display","none");
 }
 
 function rejectChange() {
-    $("#textmanipulation").css("display","none");
+    $("#textManipulation").css("display","none");
 }
 
 // CodeMirror Coordinates Utilities
@@ -683,9 +797,9 @@ function handleReplace(start, end, s){
     var newLeft = cm.charCoords(start)["left"].toString() + "px";
     var newTop = (cm.charCoords(start)["top"]+30).toString() + "px"
 
-    $("#textmanipulation").css("display","block");
-    $("#textmanipulation").css("margin-left", newLeft);
-    $("#textmanipulation").css("margin-top", newTop);
+    $("#textManipulation").css("display","block");
+    $("#textManipulation").css("margin-left", newLeft);
+    $("#textManipulation").css("margin-top", newTop);
     document.getElementById("pop-up-title-text").textContent = s;
 
     suggestion = s;
@@ -727,17 +841,45 @@ function newBottomBarElement(title, body) {
     document.getElementById("myBottombar").innerHTML += newDiv;
 }
 
+function newPopUpElement(title, body, cmTextMaker) {
+    let start = cmTextMaker;
+    console.log(cm.charCoords(start));
+    console.log(cm.charCoords(start)["left"]);
+    console.log(cm.charCoords(start)["top"]);
+    var newLeft = cm.charCoords(start)["left"].toString() + "px";
+    var newTop = (cm.charCoords(start)["top"]+30).toString() + "px"
+
+    $("#textExplanation").css("display","block");
+    $("#textExplanation").css("left", newLeft);
+    $("#textExplanation").css("top", newTop);
+    $("#textExplanation").css("border-color", "var(--"+title+")");
+    document.getElementById("pop-up-element-title").textContent = title;
+    document.getElementById("pop-up-element-content").textContent = body;
+}
+
 function populateDistortion(name) {
+    console.log("+"+name);
     if(name == "BeingRight") {
-        newBottomBarElement("Being Right", "Being right distortion demo text"); }
+        newBottomBarElement("Being Right", "Being right distortion demo text"); 
+    }
     else if(name == "Blaming") {
-        newBottomBarElement("Blaming", "Blaming distortion demo text"); }
+        newBottomBarElement("Blaming", "Blaming distortion demo text"); 
+    }
     else if(name == "Catastrophizing") {
-        newBottomBarElement("Catastrophizing", "Catastrophizing distortion demo text"); }
+        newBottomBarElement("Catastrophizing", "Catastrophizing distortion demo text"); 
+    }
     else if(name == "MindReading") { 
-        newBottomBarElement("MindReading", "MindReading distortion demo text"); }
+        newBottomBarElement("MindReading", "MindReading distortion demo text"); 
+    }
     else if(name == "Splitting") { 
-        newBottomBarElement("Splitting", "Splitting distortion demo text"); }
+        newBottomBarElement("Splitting", "Splitting distortion demo text"); 
+    }
+    else if(name == "Should") { 
+        newBottomBarElement("Should", "Should distortion demo text"); 
+    }
+    else if(name == "FortuneTelling") { 
+        newBottomBarElement("FortuneTelling", "FortuneTelling distortion demo text"); 
+    }
 	openDef();
 }
 

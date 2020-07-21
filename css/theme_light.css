@@ -1,4 +1,12 @@
 /* This css file will be shared by both expert.html and index.html */
+body {
+    --postive-font: #00BD4B;
+    --negative-font: #BD0013;
+    --sadness-font: #8fb3f1;
+    --fear-font: #b3102e;
+    --disgust-font: #673dc3;
+    --joy-font: #00BD4B;
+}
 .selection-ot{ background-color: #F3F3F3 !important; }  /* Can also set to be no background color */
 .CodeMirror-selected { background-color: #e9e9e9 !important; }
 
@@ -76,13 +84,14 @@
     background-color: #8fb3f1;
 }
 
-
 .cognitive-distortion {background-color: #f8e4e4; }
 .BeingRight { background-color: #f8e4e4; }
-.Blaming { background-color: #f8e4e4; }
 .Catastrophizing { background-color: #f8e4e4; }
 .MindReading { background-color: #f8e4e4; }
-.Splitting { background-color: #f8e4e4; }
+.Blaming { background-color: #b09ae0; }
+.Splitting { background-color: #00BDAA; }
+.Should { background-color: #f8e4e4; }
+.FortuneTelling { background-color: #8fb3f1; }
 
 body {
     font-family: "Lato", sans-serif;
