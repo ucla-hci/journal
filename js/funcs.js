@@ -18,7 +18,10 @@ var currentDate = "";
 var entryTitle = {};
 var entryFlag = {};
 
+var allMarks = null;
+
 var entryFold = false;
+var markDisplay = true;
 var pausedOperation = null;
 var pausedOperationId = 0;
 var promptInstance = null;
@@ -326,6 +329,7 @@ function checkCat() {
     }
 }
 
+// Color sentences by cognitive distortion
 function checkCD() {
     let result = JSON.parse(checkCognDistortion(fetchContent()));
     let cursor = setCursorEnd();
@@ -366,6 +370,18 @@ function addPrompt() {
 
 // CodeMirror Utilities
 var markTextCollections = new Array();  // Save all markText result
+
+function displayMarks() {
+    if (markDisplay) {
+        allMarks = fetchMarks();
+        cleanMarks();
+        markDisplay = false;
+    }
+    else {
+        markDisplay = true;
+        applyMarks(allMarks);
+    }
+}
 
 function saveContent() {
     let title = fetchTitle();
@@ -449,6 +465,22 @@ function fetchMarks() {
         marksOutput.push({"tag": mark.className, "from": {"line":mark.find().from.line, "ch":mark.find().from.ch}, "to": {"line":mark.find().to.line, "ch":mark.find().to.ch}})
     });
     return marksOutput;
+}
+
+function applyMarks(marks) {
+    console.log("applyMarks");
+    console.log(marks);
+    for (m of marks) {
+        tag = m["tag"];
+        from = m["from"];
+        to = m["to"];
+        if (tag === 'autosuggest-font') {
+            promptInstance = cm.markText(from, to, {className: tag});
+        }
+        else {
+            cm.markText(from, to, {className: tag});
+        }
+    }
 }
 
 function markKeywords(keyword, type){

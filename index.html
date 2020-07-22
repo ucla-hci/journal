@@ -32,11 +32,16 @@
 
 <body onload="loader()">
 <div id="mySidebar" class="sidebar">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">Settings</a>
-  <!--<a href="javascript:void(0)" class="greeting">Good afternoon, Violynne.</a>-->
+  <!--<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">Settings</a>
+  <a href="javascript:void(0)" class="greeting">Good afternoon, Violynne.</a>
   <a href="javascript:void(0)" onclick = "saveEntry()">Save</a>
-  <!--<a href="javascript:void(0)" onclick = "deleteEntryPopUp()">Delete</a>
+  <a href="javascript:void(0)" onclick = "deleteEntryPopUp()">Delete</a>
   <a href="javascript:void(0)" onclick = "newEntry()">New Journal</a>-->
+  <a href="javascript:void(0)" onclick = "checkSentiment()">Sentiment</a>
+  <a href="javascript:void(0)" onclick = "checkEmotion()">Emotion</a>
+  <a href="javascript:void(0)" onclick = "checkCat()">Category</a>
+  <a href="javascript:void(0)" onclick = "setCursorEnd()">Cursor</a>
+
   <button type="button" class="collapsible" onclick = "showEntries()">Recent Journals</button>
   <div class="content" id="entryTitles">
     <!--<button type="button" id="gooddays" class="collapsible">Good Days</button>
@@ -46,10 +51,6 @@
     <button type="button" class="collapsible">Bad Days</button>
     <div class="content" id="baddays"></div>-->
   </div>
-  <a href="javascript:void(0)" onclick = "checkSentiment()">Sentiment</a>
-  <a href="javascript:void(0)" onclick = "checkEmotion()">Emotion</a>
-  <a href="javascript:void(0)" onclick = "checkCat()">Category</a>
-  <a href="javascript:void(0)" onclick = "setCursorEnd()">Cursor</a>
 
   <div class="tag-wrapper" id="emotion">
     <div class="one-line"><div class="sadness-block"></div><p>Sadness</p></div>
@@ -79,7 +80,10 @@
 <div id="container">
   <div class="btbar">
     <button class="openbtn" id="opnsidebar" onclick="openNav()"></button>
-    <button class="newbtn" id="newentry" onclick="newEntry()"></button>
+    <div>
+      <button class="swtbtn" id="markswitch" onclick="displayMarks()"></button>
+      <button class="newbtn" id="newentry" onclick="newEntry()"></button>
+    </div>
   </div>
   <div class="onboard" id="temp">
     <!-- Welcome to Journal! -->
