@@ -1,4 +1,12 @@
 /* This css file will be shared by both expert.html and index.html */
+body {
+    --postive-font: #00BD4B;
+    --negative-font: #BD0013;
+    --sadness-font: #8fb3f1;
+    --fear-font: #b3102e;
+    --disgust-font: #673dc3;
+    --joy-font: #00BD4B;
+}
 .selection-ot{ background-color: #F3F3F3 !important; }  /* Can also set to be no background color */
 .CodeMirror-selected { background-color: #e9e9e9 !important; }
 
@@ -7,12 +15,89 @@
 .autosuggest-font { color: #bdbdbd; }
 .replacement-font { color: #8ac8a4; }
 
+.positive-font{ color: #00BD4B;}
+.negative-font{ color: #BD0013;}
+.sadness-font{ color: #8fb3f1;}
+.fear-font{ color: #b3102e;}
+.disgust-font{ color: #673dc3;}
+.anger-font{ color: #BD4B00;}
+.joy-font{ color: #00BD4B;}
+
+.pause-hl{ color: #BD4B00;}
+.fluent-hl{ color: #8ac8a4;}
+.excellent-hl { background-color: #ff7;}
+.expansion-hl { background-color: #8fb3f1;}
+.modification-hl{ background-color: #f8e4e4;}
+
+.constructive-font{ text-decoration: underline dotted #00BD4B;}
+.dysfunctional-font{ text-decoration: underline dotted #b3102e;}
+.trigger-font{ text-decoration: underline dotted #673dc3;}
+.pronoun-font{ text-decoration: underline dotted #8fb3f1;}
+
+.positive-block {
+    width: 20px;
+    height: 12px;
+    background-color: #00BD4B;
+}
+.negative-block {
+    width: 20px;
+    height: 12px;
+    background-color: #BD0013;
+}
+.sadness-block {
+    width: 20px;
+    height: 12px;
+    background-color: #8fb3f1;
+}
+.fear-block {
+    width: 20px;
+    height: 12px;
+    background-color: #b3102e;
+}
+.disgust-block {
+    width: 20px;
+    height: 12px;
+    background-color: #673dc3;
+}
+.anger-block {
+    width: 20px;
+    height: 12px;
+    background-color: #BD4B00;
+}
+.joy-block {
+    width: 20px;
+    height: 12px;
+    background-color: #00BD4B;
+}
+.constructive-block {
+    width: 20px;
+    height: 12px;
+    background-color: #00BD4B;
+}
+.dysfunctional-block {
+    width: 20px;
+    height: 12px;
+    background-color: #b3102e;
+}
+.trigger-block {
+    width: 20px;
+    height: 12px;
+    background-color: #673dc3;
+}
+.pronoun-block {
+    width: 20px;
+    height: 12px;
+    background-color: #8fb3f1;
+}
+
 .cognitive-distortion {background-color: #f8e4e4; }
 .BeingRight { background-color: #f8e4e4; }
-.Blaming { background-color: #f8e4e4; }
 .Catastrophizing { background-color: #f8e4e4; }
 .MindReading { background-color: #f8e4e4; }
-.Splitting { background-color: #f8e4e4; }
+.Blaming { background-color: #b09ae0; }
+.Splitting { background-color: #00BDAA; }
+.Should { background-color: #f8e4e4; }
+.FortuneTelling { background-color: #8fb3f1; }
 
 body {
     font-family: "Lato", sans-serif;

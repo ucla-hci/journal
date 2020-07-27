@@ -21,14 +21,32 @@ app.use('/src', express.static('src'));
 app.use('/lib/contextMenu', express.static('lib/contextMenu'));
 app.use('/node_modules', express.static('node_modules'));
 
-http.listen(80, function(){
-  console.log('Server listening on http://localhost:80');
-  console.log('Access Patient Page on http://localhost:80');
-  console.log('Access Expert Page on http://localhost:80/exp');
+http.listen(3000, function(){
+  console.log('Server listening on http://localhost:3000');
+  console.log('Access Patient Page on http://localhost:3000');
+  console.log('Access Expert Page on http://localhost:3000/exp');
 });
 
 var EditorSocketIOServer = require('./lib/ot.js/editor-socketio-server.js');
 var server = new EditorSocketIOServer("", [], 1);
+
+var fs = require("fs")
+
+function record(content, fn) {
+    let text = JSON.stringify(content);
+    let filename = './logdata/' + fn + '.txt';
+    fs.writeFile(filename, text,  function(err) {
+        if (err) {
+            return console.error(err);
+        }
+        fs.readFile('./logdata/filename.txt', function (err, data) {
+            if (err) {
+                return console.error(err);
+            }
+            console.log("Written Data: " + data.toString());
+        });
+    });
+}
 
 io.on('connection', function(socket) {
 
@@ -65,9 +83,9 @@ io.on('connection', function(socket) {
     io.emit("replace", start, end, length, sentence);
   });
 
-  socket.on("highlight", (start, end) => {
-    console.log("Highlight:", start, end);
-    io.emit("highlight", start, end);
+  socket.on("highlight", (start, end, type) => {
+    console.log("Highlight:", start, end, type);
+    io.emit("highlight", start, end, type);
   });
 
   socket.on("cd", (start, end, id) => {
@@ -80,9 +98,9 @@ io.on('connection', function(socket) {
     io.emit("feedback", start, end, sentence);
   });
 
-  socket.on("utility", command => {
-    console.log("utility:", command);
-    io.emit("utility", command);
+  socket.on("utility", (command, cursor) => {
+    console.log("utility:", command, cursor);
+    io.emit("utility", command, cursor);
   });
 
   socket.on("display", functions => {
@@ -103,5 +121,13 @@ io.on('connection', function(socket) {
   socket.on("get", functions => {
     console.log("get:", functions);
     io.emit("get", functions);
+  });
+
+  socket.on("file", (filename, package) => {
+    record("comments", package, filename);
+  });
+
+  socket.on("entry", (text, marks) => {
+    io.emit("entry", text, marks);
   });
 });

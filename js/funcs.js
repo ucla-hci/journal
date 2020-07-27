@@ -1,6 +1,6 @@
 var num = 0;
 var write = document.getElementById('write');
-var entry = CodeMirror.fromTextArea(write, {
+var cm = CodeMirror.fromTextArea(write, {
     lineWrapping: true, 
     lineNumbers: false, 
     styleSelectedText: true,
@@ -26,58 +26,283 @@ function darkMode(){
     }
 }
 
-function loadJSON(){
-    var jqXHR = $.ajax({
-        type: "POST",
-        url: "http://192.168.128.15:5000/load",
-        async: false,
-        data: { }
-    });
+function loader() {
+    document.getElementById("main").style.display = "none";
+    document.getElementById("temp").style.display = "block";
+    createMenu();
+}
 
+// Backend Communication APIs
+function createMenu(){
+    console.log("createMenu");
+    $('#entryTitles').empty();
+    let menuData = getMenu();
+    if (menuData === "Get menu Failed"){  // No saved entry
+        maxID = 0;
+        currentID = 1;
+        entryTitle = {};
+    }
+    else {
+        let menu = JSON.parse(menuData);
+        maxID = parseInt(menu["maxID"]);
+        entryTitle = menu["entries"];
+        entryFlag = menu["flags"]
+        for (id in entryTitle) {
+            let title = entryTitle[id];
+            let flag = entryFlag[id];
+            console.log(id, title, flag); // null is deleted entry
+            //flag = (flag === 0) ? 1 : flag; // new entry with no flag assigned
+            if (title != null){
+                let del = '<div class="delbt" onclick="deleteEntry('+ id +')"></div>'
+                let fg = '<div class="circle' + flag + '"></div>'
+                let short = '<p onclick="openEntry('+id+')">'+title+'</p>';
+                $('#entryTitles').append('<div class="oneEntry">' + del + fg + short + '</div>');
+            }
+        }
+    }
+}
+
+// Entry Manipulation
+function openEntry(id) {
+    if (id <= maxID) {
+        currentID = id;
+        document.getElementById("temp").style.display = "none";
+        document.getElementById("main").style.display = "block";
+        loadContent(id);
+    }
+}
+
+function deleteEntry(id) {
+    if (id != null) {
+        console.log("del "+id);
+        delJSON(id.toString());
+        entryTitle[id] = null;
+        entryFlag[id] = null;
+        updateMenu(JSON.stringify({"maxID": maxID, "entries": entryTitle, "flags": entryFlag}));
+        createMenu();
+    }
+    else if ((currentID > 0) && (currentID <= maxID)) {
+        delJSON(currentID.toString());
+        entryTitle[currentID] = null;
+        entryFlag[currentID] = null;
+        updateMenu(JSON.stringify({"maxID": maxID, "entries": entryTitle, "flags": entryFlag}));
+        createMenu();
+        newEntry();
+    }
+}
+
+function newEntry(){
+    saveEntry();
+    cleanMarks();
+    closeDef();
+    cm.setValue("");
+    currentDate = getTime();
+    currentFlag = 1;
+    document.getElementById("temp").style.display = "block";
+    document.getElementById("main").style.display = "none";
+}
+
+function saveEntry(){
+    currentDate = getTime();
+    
+    saveContent();
+    if (currentID > maxID) {
+        maxID = currentID;
+    }
+
+    let title = fetchTitle();
+    /*
+    if (title.length > 10) {
+        title = title.slice(0,10)+"...";
+    }*/
+    entryTitle[currentID] = title;
+    console.log(entryFlag, currentFlag);
+    entryFlag[currentID] = currentFlag;
+    updateMenu(JSON.stringify({"maxID": maxID, "entries": entryTitle, "flags": entryFlag}));
+    createMenu();
+}
+
+function toEntry(mood){
+    document.getElementById("temp").style.display = "none";
+    document.getElementById("main").style.display = "block";
+
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    today = mm + '/' + dd;
+
+    if (mood == 'good') {
+        document.getElementById("title").innerHTML = "Good Entry";// + today;
+        socket.emit('title', "Good Entry");
+    } else if (mood == 'bad') {
+        document.getElementById("title").innerHTML = "Bad Entry";// + today;
+        socket.emit('title', "Bad Entry");
+    } else if (mood == 'neutral') {
+        document.getElementById("title").innerHTML = "Neutral Entry";// + today;
+        socket.emit('title', "Neutral Entry");
+    }
+}
+
+function getTime(){
+    let today = new Date();
+    let yy = String(today.getFullYear());
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
+    let hh = String(today.getHours());
+    let mn = String(today.getMinutes());
+
+    if (mn.length < 2) { mn = '0'+mn;}
+    currentDate = mm + '/' + dd + '/' + yy + ' ' + hh + ':' + mn;
+    return currentDate;
+}
+
+function circleFlag() {
+    console.log(currentFlag);
+    currentFlag += 1;
+    if (currentFlag > 3) {
+        currentFlag = 1;
+    }
+    refreshFlagColor();
+    saveEntry();
+}
+
+function refreshFlagColor() {
+    console.log(currentFlag);
+    if (currentFlag != 0) {
+        if (currentFlag === 1) {
+            $('.circleCurrnetFlag').css("background-color","#8ac8a4");
+        }
+        else if (currentFlag === 2) {
+            $('.circleCurrnetFlag').css("background-color","#2f7fed");
+        }
+        else if (currentFlag === 3) {
+            $('.circleCurrnetFlag').css("background-color","#fa9a9a");
+        }
+    }
+}
+
+function saveContent() {
+    let title = fetchTitle();
+    let content = fetchContent();
+    let marks = fetchMarks();
+    let id = currentID;
+    let jString = JSON.stringify({"title":title, "content":content, "date": currentDate, "flag": currentFlag, "marks":marks});
+    if (isNaN(id)) {
+        saveJSON(jString, "error_recovery");
+    }
+    else {
+        saveJSON(jString, id.toString());
+    }
+    //loadContent(id); only use to refresh date/time?
+}
+
+function loadContent(id) {
+    console.log("Load "+id);
+    let jString = loadJSON(id);
+    let data = JSON.parse(jString);
+    let title = data["title"];
+    let text = data["content"];
+    let date = data["date"];
+    let flag = data["flag"];
+    currentFlag = flag;
+    refreshFlagColor();
+    cm.setValue(text);
+    if (title != null) {
+        $("#title").text(title);
+    }
+    if (date != null) {
+        $("#entrydate").text(date);
+    }
+    let marks = data["marks"];
+    socket.emit("entry", text, marks);
+    console.log("Load new!");
+    console.log(title);
+    console.log(marks);
+    for (m of marks) {
+        tag = m["tag"];
+        from = m["from"];
+        to = m["to"];
+        if (tag === 'autosuggest-font') {
+            promptInstance = cm.markText(from, to, {className: tag});
+        }
+        else {
+            cm.markText(from, to, {className: tag});
+        }
+    }
+    saveEntry();
+}
+
+// Watson APIs: Client-Server Comunications
+function getMenu() {
+    var jqXHR = $.ajax({
+        type: "GET",
+        url: "http://127.0.0.1:5000/menu",
+        async: false,
+        data: {}
+    });
     return jqXHR.responseText;
 }
 
-function runPyScript(input){
-    console.log("trying to run python");
+function updateMenu(input) {
     var jqXHR = $.ajax({
         type: "POST",
-        url: "http://192.168.128.15:5000/login", //192.168.128.15
+        url: "http://127.0.0.1:5000/menu",
         async: false,
-        data: { mydata: input }
+        data: {menu: input}
     });
-
     return jqXHR.responseText;
 }
 
-function runPyScript_check(input){
+function loadJSON(name){
     var jqXHR = $.ajax({
         type: "POST",
-        url: "http://192.168.128.15:5000/check",
+        url: "http://127.0.0.1:5000/load",
         async: false,
-        data: { mydata: input }
+        data: { filename: name}
     });
+    //console.log(jqXHR.responseText);
     return jqXHR.responseText;
+}
+
+function saveJSON(input, name){
+    var jqXHR = $.ajax({
+        type: "POST",
+        url: "http://127.0.0.1:5000/save",
+        async: false,
+        data: { entry: input, filename: name}
+    });
+    console.log(jqXHR.responseText);
+}
+
+function delJSON(name){
+    var jqXHR = $.ajax({
+        type: "POST",
+        url: "http://127.0.0.1:5000/del",
+        async: false,
+        data: {filename: name}
+    });
+    console.log(jqXHR.responseText);
 }
 
 //handling mouse clicks... 
 //jesus, that was a whole thing to track down
 var movedByMouse = false;
-entry.on("mousedown", function () {
+cm.on("mousedown", function () {
     movedByMouse = true;
 });
 
-entry.on("cursorActivity", function () {
+cm.on("cursorActivity", function () {
     if (movedByMouse) {
         movedByMouse = false;
-        if (!entry.getSelection()) {
+        if (!cm.getSelection()) {
             closeDef();
             //branch based on whether a highlight was clicked here
-            let marks = entry.findMarksAt(entry.getCursor())
+            let marks = cm.findMarksAt(cm.getCursor())
             let len = marks.length
             if(len != 0) {
                 clearBottomBarElement();
                 for (let mark of marks){
-                    console.log(entry.getCursor());
+                    console.log(cm.getCursor());
                     let tag = mark["className"];
                     switch(tag) {
                         case "BeingRight" : populateDistortion("BeingRight"); break;
@@ -92,7 +317,7 @@ entry.on("cursorActivity", function () {
     }
 });
 
-entry.on("keydown", function() {
+cm.on("keydown", function() {
     prevKey = key;
     key = event.keyCode;
 
@@ -100,24 +325,25 @@ entry.on("keydown", function() {
         movedByMouse = false;
     }
 
+    /*
     if(key == 190 || prevKey == 16 && key == 49 || prevKey == 16 && key == 191) {
-        entry.getAllMarks().forEach(mark => mark.clear());
-        var result = runPyScript(entry.doc.getValue());
+        cm.getAllMarks().forEach(mark => mark.clear());
+        var result = runPyScript(cm.doc.getValue());
         var resparse = JSON.parse(result);
 
         for(i = 0; i < resparse["valence"].length; i++) {
             if(resparse["valence"][i] == "negative")
-                entry.markText(entry.doc.posFromIndex(resparse["starts"][i]), entry.doc.posFromIndex(resparse["ends"][i]), {className: "markneg"});
+                cm.markText(cm.doc.posFromIndex(resparse["starts"][i]), cm.doc.posFromIndex(resparse["ends"][i]), {className: "markneg"});
         } 
-    }
+    }*/
 });
 
-entry.on("beforeChange", function () {
+cm.on("beforeChange", function () {
     movedByMouse = false;
 });
 
 // +input -> user type; undefined -> expert type
-entry.on("change", function (cm, changeObj) {
+cm.on("change", function (cm, changeObj) {
     let input = changeObj.text;
     let origin = changeObj.origin ? true : false    
     if (origin && (promptObjects != undefined) && (promptObjects.length>=1)){
@@ -170,45 +396,6 @@ function isMovementKey(keyCode) {
     return 33 <= keyCode && keyCode <= 40;
 }
 
-function openEntry(date) {
-    for(var i = 0; i < entries.length; ++i) {
-        if (entries[i]["date"] == date) {
-            document.getElementById("temp").style.display = "none";
-            document.getElementById("main").style.display = "block";
-
-            document.getElementById("title").innerHTML = "Bad Day :(";
-            entry.setValue(entries[i]["content"]);
-            console.log(entries[i]["content"]);
-        }
-    }
-}
-
-function newEntry(){
-    document.getElementById("temp").style.display = "block";
-    document.getElementById("main").style.display = "none";
-}
-
-function toEntry(mood){
-    document.getElementById("temp").style.display = "none";
-    document.getElementById("main").style.display = "block";
-
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0');
-    today = mm + '/' + dd;
-
-    if (mood == 'good') {
-        document.getElementById("title").innerHTML = "Good Entry";// + today;
-        socket.emit('title', "Good Entry");
-    } else if (mood == 'bad') {
-        document.getElementById("title").innerHTML = "Bad Entry";// + today;
-        socket.emit('title', "Bad Entry");
-    } else if (mood == 'neutral') {
-        document.getElementById("title").innerHTML = "Neutral Entry";// + today;
-        socket.emit('title', "Neutral Entry");
-    }
-}
-
 function openNav() {
     document.getElementById("mySidebar").style.width = "250px";
     document.getElementById("container").style.marginLeft = "250px";
@@ -237,44 +424,9 @@ function closeDef() {
     document.getElementById("main").style.marginBottom= "0";
 }
 
-function loader() {
-    document.getElementById("main").style.display = "none";
-    document.getElementById("temp").style.display = "block";
-    /*
-    var temp = loadJSON();
-    var parsed = JSON.parse(temp);
-    entries = parsed["content"]["entries"];
-
-    var coll = document.getElementsByClassName("collapsible");
-    var i;
-
-    for(i = 0; i < entries.length; i++) {
-        if(entries[i]["mood"] == "bad") {
-            var entry = document.createElement("div");
-            entry.innerHTML = entries[i]["date"];
-            entry.className = "entryList";
-            entry.setAttribute("onclick", "openEntry('"+entries[i]["date"]+"')");
-            document.getElementById("baddays").appendChild(entry);
-        }
-    }
-
-    for (i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var content = this.nextElementSibling;
-            if (content.style.maxHeight){
-                content.style.maxHeight = null;
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-            } 
-        });
-    }
-
-    document.getElementById("alltypes").style.maxHeight = document.getElementById("alltypes").scrollHeight + "px";*/
-}
 
 function acceptChange() {
-    entry.replaceRange(suggestion, s_start, s_end);
+    cm.replaceRange(suggestion, s_start, s_end);
     $("#textmanipulation").css("display","none");
 }
 
@@ -300,23 +452,23 @@ function compareCoord(start, end) {
     }
 }
 
-// CodeMirro Decoration Functions
+// CodeMirror Decoration Functions
 function handlePrompt(start, end, sel_start=null, sel_end=null){
     //console.log("add prompt, start:", start, "end:", end, "sel_start:", sel_start, "sel_end:", sel_end)
-    let promptObject = entry.markText(start, end, {className: "autosuggest-font"})
+    let promptObject = cm.markText(start, end, {className: "autosuggest-font"})
     promptObjects.push(promptObject)
     if ((sel_start != null) && (sel_end != null)) {
-        entry.markText(sel_start, sel_end, {className: "autosuggest-background"});
+        cm.markText(sel_start, sel_end, {className: "autosuggest-background"});
     }
 }
 
 function handleReplace(start, end, s){
-    entry.markText(start, end, {className: "replacement-font"});
-    console.log(entry.charCoords(start));
-    console.log(entry.charCoords(start)["left"]);
-    console.log(entry.charCoords(start)["top"]);
-    var newLeft = entry.charCoords(start)["left"].toString() + "px";
-    var newTop = (entry.charCoords(start)["top"]+30).toString() + "px"
+    cm.markText(start, end, {className: "replacement-font"});
+    console.log(cm.charCoords(start));
+    console.log(cm.charCoords(start)["left"]);
+    console.log(cm.charCoords(start)["top"]);
+    var newLeft = cm.charCoords(start)["left"].toString() + "px";
+    var newTop = (cm.charCoords(start)["top"]+30).toString() + "px"
 
     $("#textmanipulation").css("display","block");
     $("#textmanipulation").css("margin-left", newLeft);
@@ -328,13 +480,13 @@ function handleReplace(start, end, s){
     s_end = end;
 }
 
-function handleHighlight(start, end){
-    entry.markText(start, end, {className: "highlight-background"});
+function handleHighlight(start, end, type){
+    cm.markText(start, end, {className: type});
 }
 
 function handleCognDistortion(start, end, id){
     console.log(id.replace(/\s/g,''));
-    entry.markText(start, end, {className: id.replace(/\s/g,'')});
+    cm.markText(start, end, {className: id.replace(/\s/g,'')});
 }
 
 function handleFeedback(start, end, sentence){
@@ -376,17 +528,45 @@ function populateDistortion(name) {
 
 function handleOperation(command){
     switch (command){
-        case 'undo': entry.undo(); break;
-        case 'redo': entry.redo(); break;
-        case 'clear': entry.clear(); break;
+        case 'undo': cm.undo(); break;
+        case 'redo': cm.redo(); break;
+        case 'clear': cm.clear(); break;
     }
+}
+
+function fetchTitle(){
+    var text = $("#title").text()
+    return text;
+}
+
+function fetchContent(){
+    var text = cm.getValue();
+    return text;
+}
+
+function cleanMarks() {
+    cm.getAllMarks().forEach(mark => {
+        mark.clear();
+    });
+}
+
+function fetchMarks() {
+    console.log("fetchMarks");
+    var marksOutput = new Array();
+    cm.getAllMarks().forEach(mark => {
+        console.log(mark, mark.find());
+        if (mark.find().to) {
+            marksOutput.push({"tag": mark.className, "from": {"line":mark.find().from.line, "ch":mark.find().from.ch}, "to": {"line":mark.find().to.line, "ch":mark.find().to.ch}})
+        }
+    });
+    return marksOutput;
 }
 
 // Socket & ot.js initialization
 socket.on('doc', function(data) {
-    entry.setValue(data.str);
+    cm.setValue(data.str);
     var serverAdapter = new ot.SocketIOAdapter(socket);
-    var editorAdapter = new ot.CodeMirrorAdapter(entry);
+    var editorAdapter = new ot.CodeMirrorAdapter(cm);
     var client = new ot.EditorClient(data.revision, data.clients, serverAdapter, editorAdapter);
 })
 
@@ -410,9 +590,9 @@ socket.on("replace", (start, end, l, s) => {
     handleReplace(start, end, s)
 });
 
-socket.on("highlight", (start, end) => {
-    console.log("Highlight:", start, end);
-    handleHighlight(start, end)
+socket.on("highlight", (start, end, type) => {
+    console.log("Highlight:", start, end, type);
+    handleHighlight(start, end, type)
 });
 
 socket.on("cd", (start, end, id) => {
@@ -425,9 +605,11 @@ socket.on("feedback", (start, end, sentence) => {
     handleFeedback(start, end, sentence)
 });
 
-socket.on("utility", (command) => {
-    console.log("utility:", command);
-    handleFeedback(command)
+socket.on("utility", (command, cursor) => {
+    console.log("utility:", command, cursor);
+    if (command === "clear") {
+        cm.findMarksAt(cursor).forEach(mark => mark.clear());
+    }
 });
 
 socket.on("download", functions => {
@@ -463,6 +645,6 @@ socket.on("display", functions => {
 
 // Demo: How to get text from CodeMirror
 function fetch(){
-    var text = entry.getValue();
+    var text = cm.getValue();
     console.log("Socket:",text);
 }
