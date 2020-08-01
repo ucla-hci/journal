@@ -5,7 +5,7 @@ var keyboardlog = new Array();
 function startTimer(){
     let dateTime = Date.now();
     UnixZero = dateTime;
-    console.log("restart:", dateTime);
+    console.log("logger restart:", dateTime);
 }
 
 function initialization(){
@@ -22,8 +22,9 @@ $(document).keyup(function(evt) {
         initialization();
     }
     t = evt.timeStamp;
-    //console.log(t);
-    keyboardlog.push({"timestamp": t-UnixZero, "type":"type", "keycode": evt.which })
+    text = fetchContent();
+    cursor = cm.getCursor();
+    keyboardlog.push({"timestamp": t-UnixZero, "type":"type", "keycode": evt.which, "cursor": cursor, "text": text})
 });
 
 // Mouse Movement logger

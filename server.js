@@ -32,14 +32,15 @@ var server = new EditorSocketIOServer("", [], 1);
 
 var fs = require("fs")
 
-function record(content, fn) {
+function record(fn, content) {
     let text = JSON.stringify(content);
     let filename = './logdata/' + fn + '.txt';
-    fs.writeFile(filename, text,  function(err) {
+    console.log(filename, text);
+    fs.writeFile(filename, text, function(err) {
         if (err) {
             return console.error(err);
         }
-        fs.readFile('./logdata/filename.txt', function (err, data) {
+        fs.readFile(filename, function (err, data) {
             if (err) {
                 return console.error(err);
             }
@@ -124,10 +125,10 @@ io.on('connection', function(socket) {
   });
 
   socket.on("file", (filename, package) => {
-    record("comments", package, filename);
+    record(filename, package);
   });
 
-  socket.on("entry", (text, marks) => {
-    io.emit("entry", text, marks);
+  socket.on("entry", (title, text, marks, id) => {
+    io.emit("entry", title, text, marks, id);
   });
 });

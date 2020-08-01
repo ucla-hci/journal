@@ -1,5 +1,11 @@
 var socket = io();
-var cm;
+var write = document.getElementById('write');
+var cm = CodeMirror.fromTextArea(write, {
+    lineWrapping: true, 
+    lineNumbers: false, 
+    styleSelectedText: true,
+    cursorHeight: 0.85
+});
 
 var current_sel_from = null;
 var current_sel_to = null;
@@ -7,14 +13,20 @@ var last_menu_selection = 0;
 var assigned_tag = null;
 var selected_text = '';
 
-var mouseLog = [];
-var KeyboardLog = [];
 var commentLog = {};
-
-var entryCount = 1;
-var tagCount = 0;
 var commentSet = [];
+var tagCount = 0;
+var lastTagObj = null;
+
 var movedByMouse = false;
+
+var maxID = 0;
+var currentID = 0;
+
+var currentFlag = 0;
+var currentDate = "";
+var entryTitle = {};
+var entryFlag = {};
 
 
 function darkMode(){
@@ -26,9 +38,10 @@ function darkMode(){
 }
 
 function openNav() {
-    document.getElementById("mySidebar").style.width = "250px";
-    document.getElementById("container").style.marginLeft = "250px";
-    document.getElementById("myBottombar").style.left = "250px";
+    document.getElementById("mySidebar").style.width = '16%';
+    document.getElementById("container").style.marginLeft = '16%';
+    document.getElementById("myBottombar").style.left = '16%';
+    document.getElementById("myBottombar").style.width = '84%';
     document.getElementById("opnsidebar").setAttribute("onclick", "closeNav()");
     document.getElementById("opnsidebar").style.backgroundImage = 'url("../src/xmark.png")';
 }
@@ -37,13 +50,14 @@ function closeNav() {
     document.getElementById("mySidebar").style.width = "0";
     document.getElementById("container").style.marginLeft= "0";
     document.getElementById("myBottombar").style.left = "0px";
+    document.getElementById("myBottombar").style.width = '100%';
     document.getElementById("opnsidebar").setAttribute("onclick", "openNav()");
     document.getElementById("opnsidebar").style.backgroundImage = 'url("../src/hamburger.png")';
 }
 
 function openDef() {
     document.getElementById("myBottombar").style.height = "auto";
-    document.getElementById("myBottombar").style.minHeight = "200px";
+    document.getElementById("myBottombar").style.minHeight = "100px";
     //document.getElementById("main").style.marginBottom = "250px";
 }
   
@@ -53,37 +67,141 @@ function closeDef() {
     //document.getElementById("main").style.marginBottom= "0";
 }
 
-// Socket & ot.js initialization
-socket.on('doc', function(data) {
-    cm = CodeMirror.fromTextArea(document.getElementById('write'), {lineWrapping: true, lineNumbers: false, styleSelectedText: true, cursorHeight: 0.85});
-    afterCMCreated();
-    cm.setValue(data.str);
-    var serverAdapter = new ot.SocketIOAdapter(socket);
-    var editorAdapter = new ot.CodeMirrorAdapter(cm);
-    var client = new ot.EditorClient(data.revision, data.clients, serverAdapter, editorAdapter);
-})
+function loader() {
+    createMenu();
+}
 
-socket.on('title', (title) => {
-    console.log(title);
-    document.getElementById("title").textContent = title;
-});
-
-socket.on("Log", (type, array) => {
-    console.log("Receive Log:", type);
-    if (type == 1) {
-        keyboardLog = array;
-        console.log(keyboardLog);
+// Backend Communication APIs
+function createMenu(){
+    console.log("createMenu");
+    $('#entryTitles').empty();
+    let menuData = getMenu();
+    if (menuData === "Get menu Failed"){  // No saved entry
+        maxID = 0;
+        currentID = 1;
+        entryTitle = {};
     }
-    else if (type == 2) {
-        mouseLog = array;
-        console.log(mouseLog);
+    else {
+        let menu = JSON.parse(menuData);
+        maxID = parseInt(menu["maxID"]);
+        entryTitle = menu["entries"];
+        entryFlag = menu["flags"]
+        for (id in entryTitle) {
+            let title = entryTitle[id];
+            let flag = entryFlag[id];
+            console.log(id, title, flag); // null is deleted entry
+            //flag = (flag === 0) ? 1 : flag; // new entry with no flag assigned
+            if (title != null){
+                let del = '<div class="delbt" onclick="deleteEntry('+ id +')"></div>'
+                let fg = '<div class="circle' + flag + '"></div>'
+                let short = '<p onclick="openEntry('+id+')">'+title+'</p>';
+                $('#entryTitles').append('<div class="oneEntry">' + del + fg + short + '</div>');
+            }
+        }
     }
-});
+}
 
-socket.on("entry", (text, marks) => {
-    entryCount++;
+// Entry Manipulation
+function openEntry(id) {
+    if (id <= maxID) {
+        currentID = id;
+        loadContent(id);
+    }
+}
+
+function saveEntry(){
+    currentDate = getTime();
+    
+    saveContent();
+    if (currentID > maxID) {
+        maxID = currentID;
+    }
+
+    let title = fetchTitle();
+    /*
+    if (title.length > 10) {
+        title = title.slice(0,10)+"...";
+    }*/
+    entryTitle[currentID] = title;
+    console.log(entryFlag, currentFlag);
+    entryFlag[currentID] = currentFlag;
+    updateMenu(JSON.stringify({"maxID": maxID, "entries": entryTitle, "flags": entryFlag}));
+    createMenu();
+}
+
+function getTime(){
+    let today = new Date();
+    let yy = String(today.getFullYear());
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
+    let hh = String(today.getHours());
+    let mn = String(today.getMinutes());
+
+    if (mn.length < 2) { mn = '0'+mn;}
+    currentDate = mm + '/' + dd + '/' + yy + ' ' + hh + ':' + mn;
+    return currentDate;
+}
+
+function refreshFlagColor() {
+    console.log(currentFlag);
+    if (currentFlag != 0) {
+        if (currentFlag === 1) {
+            $('.circleCurrnetFlag').css("background-color","#8ac8a4");
+        }
+        else if (currentFlag === 2) {
+            $('.circleCurrnetFlag').css("background-color","#2f7fed");
+        }
+        else if (currentFlag === 3) {
+            $('.circleCurrnetFlag').css("background-color","#fa9a9a");
+        }
+    }
+}
+
+function saveContent() {
+    let title = fetchTitle();
+    let content = fetchContent();
+    let marks = fetchMarks();
+    let id = currentID;
+    let jString = JSON.stringify({"title":title, "content":content, "date": currentDate, "flag": currentFlag, "marks":marks});
+    if (isNaN(id)) {
+        saveJSON(jString, "error_recovery");
+    }
+    else {
+        saveJSON(jString, id.toString());
+    }
+    //loadContent(id); only use to refresh date/time?
+}
+
+function manualSave() {
+    saveEntry();
+    let content = cm.getValue();
+    let package = {text: content, log: commentLog};
+    socket.emit("file", currentID, package);
+    jString = JSON.stringify({log: commentLog, comment: commentSet, count: tagCount});
+    saveJSON(jString, currentID.toString()+'_mark');
+}
+
+function loadContent(id) {
+    console.log("Load "+id);
+    let jString = loadJSON(id);
+    let data = JSON.parse(jString);
+    let title = data["title"];
+    let text = data["content"];
+    let date = data["date"];
+    let flag = data["flag"];
+    currentFlag = flag;
+    refreshFlagColor();
     cm.setValue(text);
-    tagCount = 0;
+    if (title != null) {
+        $("#title").text(title);
+    }
+    if (date != null) {
+        $("#entrydate").text(date);
+    }
+    let marks = data["marks"];
+    console.log("Load new!");
+    console.log(title);
+    console.log(marks);
     for (m of marks) {
         tag = m["tag"];
         from = m["from"];
@@ -95,12 +213,86 @@ socket.on("entry", (text, marks) => {
             cm.markText(from, to, {className: tag});
         }
     }
-});
+    saveEntry();
+    
+    jString = loadJSON(currentID+'_mark');
+    if (jString !== "Load Failed") {
+        data = JSON.parse(jString);
+        commentLog = data["log"];
+        commentSet = data["comment"];
+        tagCount = data["count"];
+    }
+}
 
-function Test(){    // Demo
-    socket.emit("sentToServer", "Shakehand");
-    console.log(command);
-    log(command);
+function fetchTitle(){
+    var text = $("#title").text()
+    return text;
+}
+
+function fetchContent(){
+    var text = cm.getValue();
+    return text;
+}
+
+function cleanMarks() {
+    cm.getAllMarks().forEach(mark => {
+        mark.clear();
+    });
+}
+
+function fetchMarks() {
+    console.log("fetchMarks");
+    var marksOutput = new Array();
+    cm.getAllMarks().forEach(mark => {
+        console.log(mark, mark.find());
+        if (mark.find().to) {
+            marksOutput.push({"tag": mark.className, "from": {"line":mark.find().from.line, "ch":mark.find().from.ch}, "to": {"line":mark.find().to.line, "ch":mark.find().to.ch}})
+        }
+    });
+    return marksOutput;
+}
+
+
+// Watson APIs: Client-Server Comunications
+function getMenu() {
+    var jqXHR = $.ajax({
+        type: "GET",
+        url: "http://127.0.0.1:5000/menu",
+        async: false,
+        data: {}
+    });
+    return jqXHR.responseText;
+}
+
+function updateMenu(input) {
+    var jqXHR = $.ajax({
+        type: "POST",
+        url: "http://127.0.0.1:5000/menu",
+        async: false,
+        data: {menu: input}
+    });
+    return jqXHR.responseText;
+}
+
+function loadJSON(name){
+    var jqXHR = $.ajax({
+        type: "POST",
+        url: "http://127.0.0.1:5000/load",
+        async: false,
+        data: { filename: name}
+    });
+    //console.log(jqXHR.responseText);
+    return jqXHR.responseText;
+}
+
+function saveJSON(input, name){
+    var jqXHR = $.ajax({
+        type: "POST",
+        url: "http://127.0.0.1:5000/save",
+        async: false,
+        data: { entry: input, filename: name}
+    });
+    console.log(jqXHR.responseText);
 }
 
 function control(i){
@@ -177,7 +369,10 @@ function callTextPrompt(type) {
     }
     else if (type == 3){
         last_menu_selection = 3;
-        $("#pop-up-title-text").text("Comment:");
+        $("#pop-up-content-text").val("");
+    }
+    else if (type == 4){
+        last_menu_selection = 4;
         $("#pop-up-content-text").val("");
     }
     else{
@@ -193,6 +388,7 @@ $("#close-cogndistortion").on("click", function(){
 
 $("#close-textmanipulation").on("click", function(){
     $("#textmanipulation").css("display","none");
+    lastTagObj.clear();
 });
 
 $(".confirm-pop-up").on("click", function(){
@@ -208,6 +404,12 @@ $(".confirm-pop-up").on("click", function(){
             commentSet[tagCount] = sentence;
             tagCount++;
             commentLog[tagCount] = {content: selected_text, tag: assigned_tag, comment: sentence, from: current_sel_from, to: current_sel_to};
+            break;
+        }
+        case 4: {
+            commentSet[tagCount] = sentence;
+            tagCount++;
+            commentLog[tagCount] = {tag: assigned_tag, comment: sentence};
             break;
         }
     }
@@ -326,11 +528,21 @@ function handelFeedback(sentence) {
 }
 
 function findMargin(pageX, pageY) {
-    pageX -= 200;
-    pageY -= 60;
+    console.log(pageX, pageY);
+    pageX -= 480;
+    pageY -= 20;
     pageX = pageX < 10 ? 10 : pageX;
     pageX = pageX < 20 ? 20 : pageX;
     return {x: pageX, y: pageY}
+}
+
+function changePopUpPrompt(text){
+    if (text === '' || text === null || text === undefined){
+        document.getElementById("pop-up-title-text").innerHTML = 'Comment:';
+    }
+    else {
+        document.getElementById("pop-up-title-text").innerHTML = text;
+    }
 }
 
 // ContextMenu
@@ -342,7 +554,7 @@ $(function() {
         },
         items: {
             "Behaviors": {
-                name: "Behaviors", 
+                name: "Behavior", 
                 icon: "fa-flag",
                 items: {
                     "pause": {
@@ -361,7 +573,11 @@ $(function() {
                                 assigned_tag = 'pause';
                                 selected_text = cm.getSelection();
                                 callTextPrompt(3);
-                                cm.markText(start, end, {className: "pause-hl " + tagCount});
+                                changePopUpPrompt('Why did you pause here? <br> What AI feedback may help you write fluently?');
+                                let mg = findMargin(rootMenu.pageX, rootMenu.pageY)
+                                $("#textmanipulation").css("margin-left", (mg.x)+"px");
+                                $("#textmanipulation").css("margin-top", (mg.y)+"px");
+                                lastTagObj = cm.markText(start, end, {className: "pause-hl " + tagCount});
                                 //socket.emit("highlight", start, end, "pause-hl");
                                 let s = analysisCoord(start);
                                 let e = analysisCoord(end);
@@ -386,7 +602,11 @@ $(function() {
                                 assigned_tag = 'fluent';
                                 selected_text = cm.getSelection();
                                 callTextPrompt(3);
-                                cm.markText(start, end, {className: "fluent-hl " + tagCount});
+                                changePopUpPrompt('How did you write fluently here?');
+                                let mg = findMargin(rootMenu.pageX, rootMenu.pageY)
+                                $("#textmanipulation").css("margin-left", (mg.x)+"px");
+                                $("#textmanipulation").css("margin-top", (mg.y)+"px");
+                                lastTagObj = cm.markText(start, end, {className: "fluent-hl " + tagCount});
                                 //socket.emit("highlight", start, end, "fluent-hl");
                                 let s = analysisCoord(start);
                                 let e = analysisCoord(end);
@@ -400,8 +620,8 @@ $(function() {
                 name: "Content", 
                 icon: "edit",
                 items: {
-                    "excellent": {
-                        name: "Excellent Work",
+                    "keyword": {
+                        name: "Label Keywords",
                         callback: function(itemKey, opt, rootMenu, originalEvent) {
                             if (cm.somethingSelected()) {
                                 let start = cm.getCursor("from")
@@ -416,7 +636,11 @@ $(function() {
                                 assigned_tag = 'excellent';
                                 selected_text = cm.getSelection();
                                 callTextPrompt(3);
-                                cm.markText(start, end, {className: "excellent-hl " + tagCount});
+                                changePopUpPrompt('Why this term is meaningful? <br> Can you provide more details as expansion?');
+                                let mg = findMargin(rootMenu.pageX, rootMenu.pageY)
+                                $("#textmanipulation").css("margin-left", (mg.x)+"px");
+                                $("#textmanipulation").css("margin-top", (mg.y)+"px");
+                                lastTagObj = cm.markText(start, end, {className: "keyword-hl " + tagCount});
                                 //socket.emit("highlight", start, end, "excellent-hl");
                                 let s = analysisCoord(start);
                                 let e = analysisCoord(end);
@@ -425,8 +649,8 @@ $(function() {
                             }
                         }
                     },
-                    "expansion": {
-                        name: "Need Expansion",
+                    "summary": {
+                        name: "Give Summary",
                         callback: function(itemKey, opt, rootMenu, originalEvent) {
                             if (cm.somethingSelected()) {
                                 let start = cm.getCursor("from")
@@ -441,7 +665,11 @@ $(function() {
                                 assigned_tag = 'expansion';
                                 selected_text = cm.getSelection();
                                 callTextPrompt(3);
-                                cm.markText(start, end, {className: "expansion-hl " + tagCount});
+                                changePopUpPrompt('Summary the topic idea in short terms:');
+                                let mg = findMargin(rootMenu.pageX, rootMenu.pageY)
+                                $("#textmanipulation").css("margin-left", (mg.x)+"px");
+                                $("#textmanipulation").css("margin-top", (mg.y)+"px");
+                                lastTagObj = cm.markText(start, end, {className: "summary-hl " + tagCount});
                                 //socket.emit("highlight", start, end, "expansion-hl");
                                 let s = analysisCoord(start);
                                 let e = analysisCoord(end);
@@ -449,57 +677,29 @@ $(function() {
                             }
                         }
                     },
-                    "modification": {
-                        name: "Need Modifaication",
-                        callback: function(itemKey, opt, rootMenu, originalEvent) {
-                            if (cm.somethingSelected()) {
-                                let start = cm.getCursor("from")
-                                let end = cm.getCursor("to")
-                                if (!checkStartCoord(start, end)) {
-                                    let tmp = start;
-                                    start = end;
-                                    end = tmp;
-                                }
-                                current_sel_from = start;
-                                current_sel_to = end;
-                                assigned_tag = 'modification';
-                                selected_text = cm.getSelection();
-                                callTextPrompt(3);
-                                cm.markText(start, end, {className: "modification-hl " + tagCount});
-                                //socket.emit("highlight", start, end, "modification-hl");
-                                let s = analysisCoord(start);
-                                let e = analysisCoord(end); 
-                                log("pause:("+s.l+","+s.c+"),("+e.l+","+e.c+")");
-                            }
-                        }
-                    },
-                    "cd":{
-                        name: "Cognitive Distortion",
-                        callback: function(itemKey, opt, rootMenu, originalEvent) {
-                            let start = cm.getCursor("from")
-                            let end = cm.getCursor("to")
-                            if (!checkStartCoord(start, end)) {
-                                let tmp = start;
-                                start = end;
-                                end = tmp;
-                            }
-                            updateSelect(start, end);
-                            $("#cogndistortion").css("display","block");
-                            let mg = findMargin(rootMenu.pageX, rootMenu.pageY)
-                            $("#cogndistortion").css("margin-left", (mg.x)+"px");
-                            $("#cogndistortion").css("margin-top", (mg.y)+"px");
-                        }
-                    },
                 }
             },
+            "feedback": {
+                name: "Comment", 
+                icon: "fa-commenting-o",
+                callback: function(itemKey, opt, rootMenu, originalEvent) {
+                    assigned_tag = 'others';
+                    callTextPrompt(4);
+                    let mg = findMargin(rootMenu.pageX, rootMenu.pageY)
+                    $("#textmanipulation").css("margin-left", (mg.x)+"px");
+                    $("#textmanipulation").css("margin-top", (mg.y)+"px");
+                }
+            },
+            /*
             "reflection": {
                 name: "Reflection", 
-                icon: "fa-commenting-o",
+                icon: "fa-lightbulb-o",
                 items: {
                     "reflection": {
                         name: "Reflection",
                         callback: function(itemKey, opt, rootMenu, originalEvent) {
-                            callTextPrompt(3);
+                            assigned_tag = 'reflection';
+                            callTextPrompt(4);
                             let mg = findMargin(rootMenu.pageX, rootMenu.pageY)
                             $("#textmanipulation").css("margin-left", (mg.x)+"px");
                             $("#textmanipulation").css("margin-top", (mg.y)+"px");
@@ -508,7 +708,8 @@ $(function() {
                     "liwc": {
                         name: "LIWC",
                         callback: function(itemKey, opt, rootMenu, originalEvent) {
-                            callTextPrompt(3);
+                            assigned_tag = 'liwc';
+                            callTextPrompt(4);
                             let mg = findMargin(rootMenu.pageX, rootMenu.pageY)
                             $("#textmanipulation").css("margin-left", (mg.x)+"px");
                             $("#textmanipulation").css("margin-top", (mg.y)+"px");
@@ -517,50 +718,15 @@ $(function() {
                     "watson": {
                         name: "Watson",
                         callback: function(itemKey, opt, rootMenu, originalEvent) {
-                            callTextPrompt(3);
+                            assigned_tag = 'watson';
+                            callTextPrompt(4);
                             let mg = findMargin(rootMenu.pageX, rootMenu.pageY)
                             $("#textmanipulation").css("margin-left", (mg.x)+"px");
                             $("#textmanipulation").css("margin-top", (mg.y)+"px");
                         }
                     }
                 }
-            },
-            "suggest": {
-                name: "Suggest", 
-                icon: "edit",
-                items: {
-                    "prompt": {
-                        name: "Prompt",
-                        callback: function(itemKey, opt, rootMenu, originalEvent) {
-                            console.log(opt, rootMenu, originalEvent)
-                            callTextPrompt(1);
-                            let mg = findMargin(rootMenu.pageX, rootMenu.pageY)
-                            $("#textmanipulation").css("margin-left", (mg.x)+"px");
-                            $("#textmanipulation").css("margin-top", (mg.y)+"px");
-                            
-                        }
-                    },
-                    "replace":  {
-                        name: "Replace",
-                        callback: function(itemKey, opt, rootMenu, originalEvent) {
-                            callTextPrompt(2);
-                            let mg = findMargin(rootMenu.pageX, rootMenu.pageY)
-                            $("#textmanipulation").css("margin-left", (mg.x)+"px");
-                            $("#textmanipulation").css("margin-top", (mg.y)+"px");
-                        }
-                    }
-                }	
-            },
-            "feedback": {
-                name: "Feedback", 
-                icon: "fa-commenting-o",
-                callback: function(itemKey, opt, rootMenu, originalEvent) {
-                    callTextPrompt(3);
-                    let mg = findMargin(rootMenu.pageX, rootMenu.pageY)
-                    $("#textmanipulation").css("margin-left", (mg.x)+"px");
-                    $("#textmanipulation").css("margin-top", (mg.y)+"px");
-                }
-            },
+            },*/
             "utility": {
                 name: "Utility",
                 icon: "fa-cog",
@@ -585,18 +751,17 @@ $(function() {
                         name: "Clear",
                         callback: function(itemKey, opt, rootMenu, originalEvent) {
                             cursor = cm.getCursor();
-                            cm.findMarksAt(cursor).forEach(mark => mark.clear());
+                            cm.findMarksAt(cursor).forEach(mark => {
+                                let tags = mark["className"];
+                                if (tags[1]) {
+                                    let tagid = parseInt(tags[1]);
+                                    commentSet[tagid] = -1;
+                                    commentLog[tagid] = null;
+                                }
+                                mark.clear()
+                            });
                             console.log("clear marks", cursor);
-                            socket.emit("utility", "clear", cursor);
                             log("clear");
-                        }
-                    },
-                    "save":  {
-                        name: "Save",
-                        callback: function(itemKey, opt, rootMenu, originalEvent) {
-                            let content = cm.getValue();
-                            let package = {text: content, log: commentLog, mouse: mouseLog, key: keyboardLog};
-                            socket.emit("file", entryCount, package);
                         }
                     }
                 }
@@ -609,56 +774,53 @@ function clearBottomBarElement(){
     document.getElementById("myBottombar").innerHTML = "";
 }
 
-function newBottomBarElement(title, body) {
-    let newDiv = "<div><a href=\"javascript:void(0)\" class=\"closedef onedeftitle\" onclick=\"closeDef()\">" + title + "</a>";
-    newDiv += "<a href=\"#\" class=\"onedefbody\">" + body + "</a></div>"
-    document.getElementById("myBottombar").innerHTML += newDiv;
+function newBottomBarElement(pair) {
+    for (let v of pair){
+        title = v[0];
+        body = v[1];
+        if (body !== -1 && body !== '-1') {
+            let newDiv = "<div><a href=\"javascript:void(0)\" class=\"closedef onedeftitle\" onclick=\"closeDef()\">" + title + "</a>";
+            newDiv += "<a href=\"#\" class=\"onedefbody\">" + body + "</a></div>"
+            document.getElementById("myBottombar").innerHTML += newDiv;
+        }
+    }
 }
 
 // Mouse Click Activities
-function afterCMCreated() {
-    cm.on("mousedown", function () {
-        movedByMouse = true;
-    });
+cm.on("mousedown", function () {
+    movedByMouse = true;
+});
 
-    cm.on("cursorActivity", function () {
-        if (movedByMouse) {
-            movedByMouse = false;
-            if (!cm.getSelection()) {
-                closeDef();
-                //branch based on whether a highlight was clicked here
-                let marks = cm.findMarksAt(cm.getCursor())
-                let len = marks.length
-                if(len != 0) {
-                    for (let mark of marks){
-                        let tag = mark["className"];
-                        let tags = tag.split(" ");
-                        let id = -1;
-                        if (tags[1]) {
-                            id = parseInt(tags[1]);
-                        }
-                        openDef();
-                        clearBottomBarElement();
-                        switch(tags[0]) {
-                            case "BeingRight" : populateDistortion("BeingRight"); break;
-                            case "Blaming" : populateDistortion("Blaming"); break;
-                            case "Catastrophizing" : populateDistortion("Catastrophizing"); break;
-                            case "MindReading" : populateDistortion("MindReading"); break;
-                            case "Splitting" : populateDistortion("Splitting"); break;
-                            case "Should" : populateDistortion("Should"); break;
-                            case "FortuneTelling" : populateDistortion("FortuneTelling"); break;
-                            default: {
-                                newBottomBarElement(tags[0], commentSet[id]);
-                                //closeDef();
-                            }
-                        }
+cm.on("cursorActivity", function () {
+    if (movedByMouse) {
+        movedByMouse = false;
+        if (!cm.getSelection()) {
+            closeDef();
+            //branch based on whether a highlight was clicked here
+            let marks = cm.findMarksAt(cm.getCursor())
+            let len = marks.length;
+            if(len != 0) {
+                let pair = [];
+                for (let mark of marks){
+                    let tag = mark["className"];
+                    if (tag === undefined) {
+                        continue;
+                    }
+                    let tags = tag.split(" ");
+                    if (tags[1]) {
+                        let id = parseInt(tags[1]);
+                        pair.push([tags[0], commentSet[id]]);
                     }
                 }
+                openDef();
+                clearBottomBarElement();
+                newBottomBarElement(pair);
             }
         }
-    });
+    }
+});
 
-    cm.on("beforeChange", function () {
-        movedByMouse = false;
-    });
-}
+cm.on("beforeChange", function () {
+    movedByMouse = false;
+});
+

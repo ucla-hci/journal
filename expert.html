@@ -36,21 +36,22 @@
 	<link rel="stylesheet" id="theme" type="text/css" href="css/theme_light.css" />
 </head>
 
-<body>
+<body onload="loader()">
 	<div id="mySidebar" class="sidebar">
 		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">Settings</a>
-			<div class="buttons">
-				<a href="javascript:void(0)" onclick="control(1)">Display Feedback</a>
-				<a href="javascript:void(0)" onclick="control(3)">Report Keyboard</a>
-				<a href="javascript:void(0)" onclick="control(4)">Report Mouse</a>
-				<a href="javascript:void(0)" onclick="control(5)">Get Keyboard Log</a>
-				<a href="javascript:void(0)" onclick="control(6)">Get Mouse Log</a>
-			</div>
-		<h6> </h6>
-		<a href="javascript:void(0)">Tracked Changes</a>
-		<div class="scrollmenu" id="changetracker">
-			<!-- trackers -->
+		<a href="javascript:void(0)" class="greeting">Good afternoon, X.</a>
+		<a href="javascript:void(0)" onclick = "manualSave()">Save</a>
+
+		<button type="button" class="collapsible" onclick = "createMenu()">Recent Journals</button>
+		<div class="content" id="entryTitles">
+			<!--<button type="button" id="gooddays" class="collapsible">Good Days</button>
+			<div class="content"></div>
+			<button type="button" id="neutraldays" class="collapsible">Neutral Days</button>
+			<div class="content"></div>
+			<button type="button" class="collapsible">Bad Days</button>
+			<div class="content" id="baddays"></div>-->
 		</div>
+
 		<div class="switch-wrapper">
 			<input class="switch switch-anim" type="checkbox" onclick=darkMode()>
 		</div>
@@ -85,7 +86,7 @@
 					<span id="pop-up-title-text">Type Your Suggestion Below: </span>
 				</div>
 				<div class="pop-up-text">
-					<textarea type="text" id="pop-up-content-text" class="pop-up-textarea" rows="4" cols="30"></textarea>
+					<textarea type="text" id="pop-up-content-text" class="pop-up-textarea" rows="11" cols="34"></textarea>
 				</div>
 				<div class="confirm-pop-up">
 					<div class="okay-btn"></div>

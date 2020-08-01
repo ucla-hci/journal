@@ -25,9 +25,8 @@ body {
 
 .pause-hl{ color: #BD4B00;}
 .fluent-hl{ color: #8ac8a4;}
-.excellent-hl { background-color: #ff7;}
-.expansion-hl { background-color: #8fb3f1;}
-.modification-hl{ background-color: #f8e4e4;}
+.summary-hl { background-color: #ff7;}
+.keyword-hl { text-decoration: underline dotted #8fb3f1;}
 
 .constructive-font{ text-decoration: underline dotted #00BD4B;}
 .dysfunctional-font{ text-decoration: underline dotted #b3102e;}

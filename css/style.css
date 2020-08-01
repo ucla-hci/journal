@@ -86,6 +86,7 @@ z-index: 1;
     font-size: 22px;
     display: block;
     transition: 0.3s;
+    word-wrap:break-word;
 }
 
 .sidebar {
@@ -186,22 +187,11 @@ z-index: 1;
     padding: 8px 8px 15px 32px;
     text-decoration: none;
     font-size: 25px;
-    color: #6c6c6c;
+    color: #000000;
     display: block;
     transition: 0.3s;
 }
 
-.collapsible:hover {
-    color: #000000;
-}
-
-.collapsible:after {
-    content: '\002B';
-    font-weight: lighter;
-    float: right;
-    margin-left: 10px;
-}
-  
 .active:after {
     content: "\2212";
 }

@@ -33,9 +33,9 @@
 <body onload="loader()">
 <div id="mySidebar" class="sidebar">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">Settings</a>
-  <a href="javascript:void(0)" class="greeting">Good afternoon, Sam.</a>
+  <a href="javascript:void(0)" class="greeting">Good afternoon, X.</a>
   <a href="javascript:void(0)" onclick = "newEntry()">New Journal</a>
-  <a href="javascript:void(0)" onclick = "saveEntry()">Save</a>
+  <a href="javascript:void(0)" onclick = "manualSave()">Save</a>
 
   <button type="button" class="collapsible" onclick = "createMenu()">Recent Journals</button>
   <div class="content" id="entryTitles">
@@ -54,44 +54,44 @@
 
 <div id="container">
   <button class="openbtn" id="opnsidebar" onclick="openNav()"></button> 
-    <div class="onboard" id="temp">
-      <!-- Welcome to Journal! -->
-      <div id="welcome">Welcome to Journal!</div>
-      <!-- How is your day today? -->
-      <div id="query" onclick="toEntry()">How is your day today?</div>
+  <div class="onboard" id="temp">
+    <!-- Welcome to Journal! -->
+    <div id="welcome">Welcome to Journal!</div>
+    <!-- How is your day today? -->
+    <div id="query" onclick="toEntry()">How is your day today?</div>
 
-      <div class="parent">
-        <div class="good">
-          <!-- Good Day image -->
-          <div class="left top rectangle" id="n21_29"></div>
-          <!-- Good Day -->
-          <div class="left top text" id="n21_30" onclick="toEntry('good')">Good Day</div>
-        </div>
+    <div class="parent">
+      <div class="good">
+        <!-- Good Day image -->
+        <div class="left top rectangle" id="n21_29"></div>
+        <!-- Good Day -->
+        <div class="left top text" id="n21_30" onclick="toEntry('good')">Good Day</div>
+      </div>
 
-        <div class="neutral">
-          <!-- Neutral Day image -->
-          <div class="left top rectangle" id="n21_32"></div>
-          <!-- Neutral Day -->
-          <div class="left top text" id="n21_31" onclick="toEntry('neutral')">Neutral Day</div>
-        </div>
-        
-        <div class="bad">
-          <!-- image 19 -->
-          <div class="left top rectangle" id="n21_34"></div>
-          <!-- Bad Day -->
-          <div class="left top text" id="n21_33" onclick="toEntry('bad')">Bad Day</div>
-        </div>
+      <div class="neutral">
+        <!-- Neutral Day image -->
+        <div class="left top rectangle" id="n21_32"></div>
+        <!-- Neutral Day -->
+        <div class="left top text" id="n21_31" onclick="toEntry('neutral')">Neutral Day</div>
+      </div>
+      
+      <div class="bad">
+        <!-- image 19 -->
+        <div class="left top rectangle" id="n21_34"></div>
+        <!-- Bad Day -->
+        <div class="left top text" id="n21_33" onclick="toEntry('bad')">Bad Day</div>
       </div>
     </div>
+  </div>
 
-    <div id="main">
-      <div class="title_in_line">
-        <div class="circleCurrnetFlag" onclick="circleFlag()"></div>
-        <div id="title" contenteditable="true"></div>
-      </div>
-      <hr>
-      <div id="entrydate"></div>
-      <textarea id="write" autofocus spellcheck="false"></textarea>
+  <div id="main">
+    <div class="title_in_line">
+      <div class="circleCurrnetFlag" onclick="circleFlag()"></div>
+      <div id="title" contenteditable="true"></div>
+    </div>
+    <hr>
+    <div id="entrydate"></div>
+    <textarea id="write" autofocus spellcheck="false"></textarea>
 
     <div id="myBottombar" class="bottombar">
       <!--

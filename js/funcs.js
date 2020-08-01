@@ -15,6 +15,14 @@ var entries;
 var key, prevKey, flag = 0;
 var suggestion, s_start, s_end;
 
+var maxID = 0;
+var currentID = 0;
+
+var currentFlag = 0;
+var currentDate = "";
+var entryTitle = {};
+var entryFlag = {};
+
 var promptObjects = new Array();
 //var globalFeedBackMessage = new Map();
 
@@ -123,25 +131,58 @@ function saveEntry(){
 }
 
 function toEntry(mood){
+    currentID = maxID + 1;
     document.getElementById("temp").style.display = "none";
     document.getElementById("main").style.display = "block";
-
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0');
-    today = mm + '/' + dd;
+    currentDate = getTime();
+    $("#entrydate").text(currentDate);
 
     if (mood == 'good') {
+        currentFlag = 1;
         document.getElementById("title").innerHTML = "Good Entry";// + today;
         socket.emit('title', "Good Entry");
     } else if (mood == 'bad') {
+        currentFlag = 3;
         document.getElementById("title").innerHTML = "Bad Entry";// + today;
         socket.emit('title', "Bad Entry");
     } else if (mood == 'neutral') {
+        currentFlag = 2;
         document.getElementById("title").innerHTML = "Neutral Entry";// + today;
         socket.emit('title', "Neutral Entry");
     }
+    refreshFlagColor();
+    initialization();
+    socket.emit("entry", null, null, currentID);
 }
+
+function fetchTitle(){
+    var text = $("#title").text()
+    return text;
+}
+
+function fetchContent(){
+    var text = cm.getValue();
+    return text;
+}
+
+function cleanMarks() {
+    cm.getAllMarks().forEach(mark => {
+        mark.clear();
+    });
+}
+
+function fetchMarks() {
+    console.log("fetchMarks");
+    var marksOutput = new Array();
+    cm.getAllMarks().forEach(mark => {
+        console.log(mark, mark.find());
+        if (mark.find().to) {
+            marksOutput.push({"tag": mark.className, "from": {"line":mark.find().from.line, "ch":mark.find().from.ch}, "to": {"line":mark.find().to.line, "ch":mark.find().to.ch}})
+        }
+    });
+    return marksOutput;
+}
+
 
 function getTime(){
     let today = new Date();
@@ -196,6 +237,17 @@ function saveContent() {
     //loadContent(id); only use to refresh date/time?
 }
 
+function manualSave() {
+    saveEntry();
+    saveLogtoFile();
+}
+
+function saveLogtoFile() {
+    let id = currentID.toString();
+    socket.emit("file", id + "_mlog", mouselog);
+    socket.emit("file", id + "_klog", keyboardlog);
+}
+
 function loadContent(id) {
     console.log("Load "+id);
     let jString = loadJSON(id);
@@ -209,12 +261,13 @@ function loadContent(id) {
     cm.setValue(text);
     if (title != null) {
         $("#title").text(title);
+        socket.emit('title', title);
     }
     if (date != null) {
         $("#entrydate").text(date);
     }
     let marks = data["marks"];
-    socket.emit("entry", text, marks);
+    socket.emit("entry", title, text, marks, currentID);
     console.log("Load new!");
     console.log(title);
     console.log(marks);
@@ -297,8 +350,8 @@ cm.on("cursorActivity", function () {
         if (!cm.getSelection()) {
             closeDef();
             //branch based on whether a highlight was clicked here
-            let marks = cm.findMarksAt(cm.getCursor())
-            let len = marks.length
+            let marks = cm.findMarksAt(cm.getCursor());
+            let len = marks.length;
             if(len != 0) {
                 clearBottomBarElement();
                 for (let mark of marks){
@@ -533,42 +586,6 @@ function handleOperation(command){
         case 'clear': cm.clear(); break;
     }
 }
-
-function fetchTitle(){
-    var text = $("#title").text()
-    return text;
-}
-
-function fetchContent(){
-    var text = cm.getValue();
-    return text;
-}
-
-function cleanMarks() {
-    cm.getAllMarks().forEach(mark => {
-        mark.clear();
-    });
-}
-
-function fetchMarks() {
-    console.log("fetchMarks");
-    var marksOutput = new Array();
-    cm.getAllMarks().forEach(mark => {
-        console.log(mark, mark.find());
-        if (mark.find().to) {
-            marksOutput.push({"tag": mark.className, "from": {"line":mark.find().from.line, "ch":mark.find().from.ch}, "to": {"line":mark.find().to.line, "ch":mark.find().to.ch}})
-        }
-    });
-    return marksOutput;
-}
-
-// Socket & ot.js initialization
-socket.on('doc', function(data) {
-    cm.setValue(data.str);
-    var serverAdapter = new ot.SocketIOAdapter(socket);
-    var editorAdapter = new ot.CodeMirrorAdapter(cm);
-    var client = new ot.EditorClient(data.revision, data.clients, serverAdapter, editorAdapter);
-})
 
 // Receive Expert Command from Server
 socket.on("sendToClient", (command) => {
