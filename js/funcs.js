@@ -240,6 +240,7 @@ function saveContent() {
 function manualSave() {
     saveEntry();
     saveLogtoFile();
+    window.alert("All Secured!");
 }
 
 function saveLogtoFile() {

@@ -175,10 +175,12 @@ function saveContent() {
 function manualSave() {
     saveEntry();
     let content = cm.getValue();
-    let package = {text: content, log: commentLog};
+    let title = fetchTitle();
+    let package = {text: content, title: title, log: commentLog};
     socket.emit("file", currentID, package);
     jString = JSON.stringify({log: commentLog, comment: commentSet, count: tagCount});
     saveJSON(jString, currentID.toString()+'_mark');
+    window.alert("All Secured!");
 }
 
 function loadContent(id) {
@@ -685,9 +687,25 @@ $(function() {
                 callback: function(itemKey, opt, rootMenu, originalEvent) {
                     assigned_tag = 'others';
                     callTextPrompt(4);
+                    changePopUpPrompt();
                     let mg = findMargin(rootMenu.pageX, rootMenu.pageY)
                     $("#textmanipulation").css("margin-left", (mg.x)+"px");
                     $("#textmanipulation").css("margin-top", (mg.y)+"px");
+                    if (cm.somethingSelected()) {
+                        let start = cm.getCursor("from")
+                        let end = cm.getCursor("to")
+                        if (!checkStartCoord(start, end)) {
+                            let tmp = start;
+                            start = end;
+                            end = tmp;
+                        }
+                        current_sel_from = start;
+                        current_sel_to = end;
+                        lastTagObj = cm.markText(start, end, {className: "comment-hl " + tagCount});
+                        let s = analysisCoord(start);
+                        let e = analysisCoord(end);
+                        log("pause:("+s.l+","+s.c+"),("+e.l+","+e.c+")");
+                    }
                 }
             },
             /*
@@ -727,43 +745,22 @@ $(function() {
                     }
                 }
             },*/
-            "utility": {
-                name: "Utility",
+            "claeer": {
+                name: "Clear Mark",
                 icon: "fa-cog",
-                items: {
-                    "undo": {
-                        name: "Undo",
-                        callback: function(itemKey, opt, rootMenu, originalEvent) {
-                            cm.undo()
-                            socket.emit("utility", "undo");
-                            log("undo");
+                callback: function(itemKey, opt, rootMenu, originalEvent) {
+                    cursor = cm.getCursor();
+                    cm.findMarksAt(cursor).forEach(mark => {
+                        let tags = mark["className"];
+                        if (tags[1]) {
+                            let tagid = parseInt(tags[1]);
+                            commentSet[tagid] = -1;
+                            commentLog[tagid] = null;
                         }
-                    },
-                    "redo": {
-                        name: "Redo",
-                        callback: function(itemKey, opt, rootMenu, originalEvent) {
-                            cm.redo()
-                            socket.emit("utility", "redo");
-                            log("redo");
-                        }
-                    },
-                    "clear":  {
-                        name: "Clear",
-                        callback: function(itemKey, opt, rootMenu, originalEvent) {
-                            cursor = cm.getCursor();
-                            cm.findMarksAt(cursor).forEach(mark => {
-                                let tags = mark["className"];
-                                if (tags[1]) {
-                                    let tagid = parseInt(tags[1]);
-                                    commentSet[tagid] = -1;
-                                    commentLog[tagid] = null;
-                                }
-                                mark.clear()
-                            });
-                            console.log("clear marks", cursor);
-                            log("clear");
-                        }
-                    }
+                        mark.clear()
+                    });
+                    console.log("clear marks", cursor);
+                    log("clear");
                 }
             }
         }
@@ -789,6 +786,7 @@ function newBottomBarElement(pair) {
 // Mouse Click Activities
 cm.on("mousedown", function () {
     movedByMouse = true;
+    $('.context-menu-list').trigger('contextmenu:hide');
 });
 
 cm.on("cursorActivity", function () {

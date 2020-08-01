@@ -1,4 +1,13 @@
 /* This css file will be shared by both expert.html and index.html */
+body {
+    --postive-font: #00BD4B;
+    --negative-font: #BD0013;
+    --sadness-font: #8fb3f1;
+    --fear-font: #b3102e;
+    --disgust-font: #673dc3;
+    --joy-font: #00BD4B;
+}
+
 .selection-ot{ background-color: #49494b !important; }  /* Can also set to be no background color */
 .CodeMirror-selected { background-color: #515151 !important; }
 
@@ -14,6 +23,12 @@
 .disgust-font{ color: #673dc3;}
 .anger-font{ color: #565656;}
 .joy-font{ color: #64866a;}
+
+.pause-hl{ color: #BD4B00;}
+.fluent-hl{ color: #8ac8a4;}
+.summary-hl { background-color: #8ee4f1;}
+.keyword-hl { text-decoration: underline dotted #673dc3;}
+.comment-hl { background-color: #ff7;}
 
 .constructive-font{ text-decoration: underline dotted #00BD4B;}
 .dysfunctional-font{ text-decoration: underline dotted #b3102e;}
