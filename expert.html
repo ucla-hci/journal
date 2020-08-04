@@ -19,19 +19,6 @@
 	<link href="lib/contextMenu/jquery.contextMenu.css" rel="stylesheet" type="text/css" />
 	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
-	<!-- ot.js -->
-	<script src="lib/ot.js/text-operation.js"></script>
-	<script src="lib/ot.js/selection.js"></script>
-	<script src="lib/ot.js/wrapped-operation.js"></script>
-	<script src="lib/ot.js/undo-manager.js"></script>
-	<script src="lib/ot.js/client.js"></script>
-	<script src="lib/ot.js/codemirror-adapter.js"></script>
-	<script src="lib/ot.js/socketio-adapter.js"></script>
-	<script src="lib/ot.js/editor-client.js"></script>
-
-	<!-- socket.io -->
-	<script src="node_modules/socket.io-client/dist/socket.io.js"></script>
-
 	<link rel="stylesheet" type="text/css" href="css/exp_style.css" />
 	<link rel="stylesheet" id="theme" type="text/css" href="css/theme_light.css" />
 </head>
@@ -41,6 +28,7 @@
 		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">Settings</a>
 		<a href="javascript:void(0)" class="greeting">Good afternoon, X.</a>
 		<a href="javascript:void(0)" onclick = "manualSave()">Save</a>
+		<a href="javascript:void(0)" onclick = "generateFile()">Generate File</a>
 
 		<button type="button" class="collapsible" onclick = "createMenu()">Recent Journals</button>
 		<div class="content" id="entryTitles">
@@ -58,7 +46,14 @@
 	</div>
 
 	<div id="container">
-	<button class="openbtn" id="opnsidebar" onclick="openNav()"></button> 
+		<div class="btbar">
+			<button class="openbtn" id="opnsidebar" onclick="openNav()"></button>
+			<div>
+			  <!--<button class="swtbtn" id="markswitch" onclick="displayMarks()"></button>-->
+			  <button class="savebtn" id="manualsave" onclick="manualSave()"></button>
+			  <!--<button class="newbtn" id="newentry" onclick="newEntry()"></button>-->
+			</div>
+		</div>
 
 		<div id="main">
 			<div class="pop-up" id="cogndistortion">
@@ -104,5 +99,8 @@
 	</div>
 </body>
 
+<!-- Espresso.js -->
+<script type="text/javascript" src="js/indexDB.js"></script>
 <script type="text/javascript" src="js/expert.js"></script>
+
 </html> 

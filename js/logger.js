@@ -98,18 +98,3 @@ function mouseHeatmap(mouseCoor){
         }
     }
 }
-
-// Save Textarea Contents to .txt File
-// Ref: https://stackoverflow.com/questions/21479107/saving-html5-textarea-contents-to-file/30740104
-function download(text, filename){
-    text = text.replace(/\n/g, "\r\n"); // To retain the Line breaks.
-    var blob = new Blob([text], { type: "text/plain"});
-    var anchor = document.createElement("a");
-    anchor.download = filename;
-    anchor.href = window.URL.createObjectURL(blob);
-    anchor.target ="_blank";
-    anchor.style.display = "none"; // just to be safe!
-    document.body.appendChild(anchor);
-    anchor.click();
-    document.body.removeChild(anchor);
-  }

@@ -2,6 +2,16 @@ body {
   font-family: "Lato", sans-serif;
 }
 
+.CodeMirror-wrap {
+    margin-top: 1.8vh;
+    height: auto;
+}
+
+.CodeMirror-scroll {
+    overflow-y: hidden;
+    height: auto;
+}
+
 #entryTitles{
     max-height: 50vh;
 }
@@ -235,6 +245,60 @@ change {
   text-decoration: none;
   font-size: 36px;
   display: block;
+}
+
+.btbar {
+    height: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.newbtn {
+    background-image: url("../src/add.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: transparent;
+    width: 23px;
+    height: 23px;
+    border-style: none;
+}
+
+.swtbtn {
+    background-image: url("../src/check.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: transparent;
+    width: 23px;
+    height: 23px;
+    border-style: none;
+}
+
+.savebtn {
+    background-image: url("../src/save.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: transparent;
+    width: 23px;
+    height: 23px;
+    border-style: none;
+}
+
+.delbt {
+    background-image: url("../src/xmark.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: transparent;
+    width: 13px;
+    height: 15px;
+    border-style: none;
+    display: inline-block;
+    margin-right: 5px;
 }
 
 .openbtn {

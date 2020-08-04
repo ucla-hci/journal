@@ -256,6 +256,17 @@ z-index: 1;
     border-style: none;
 }
 
+.savebtn {
+    background-image: url("../src/save.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: transparent;
+    width: 23px;
+    height: 23px;
+    border-style: none;
+}
+
 .delbt {
     background-image: url("../src/xmark.png");
     background-size: cover;

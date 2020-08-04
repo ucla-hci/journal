@@ -9,8 +9,6 @@ var cm = CodeMirror.fromTextArea(write, {
 
 var feedbackMsg = ""
 
-var socket = io();
-
 var entries;
 var key, prevKey, flag = 0;
 var suggestion, s_start, s_end;
@@ -24,42 +22,34 @@ var entryTitle = {};
 var entryFlag = {};
 
 var promptObjects = new Array();
-//var globalFeedBackMessage = new Map();
-
-function darkMode(){
-    if($('.switch-anim').prop('checked')){
-        document.getElementById("theme").setAttribute("href","css/theme_dark.css");
-    }else{
-        document.getElementById("theme").setAttribute("href","css/theme_light.css");
-    }
-}
 
 function loader() {
     document.getElementById("main").style.display = "none";
     document.getElementById("temp").style.display = "block";
-    createMenu();
 }
 
-// Backend Communication APIs
+// IndexedDB Communication APIs
+// Menu Operations
 function createMenu(){
     console.log("createMenu");
+    menuData();
+}
+
+function buildMenu(menu, _maxID) {
+    console.log("buildMenu");
+    console.log(menu);
     $('#entryTitles').empty();
-    let menuData = getMenu();
-    if (menuData === "Get menu Failed"){  // No saved entry
+    if (menu === "menuFailed"){  // No saved entry
         maxID = 0;
         currentID = 1;
         entryTitle = {};
     }
     else {
-        let menu = JSON.parse(menuData);
-        maxID = parseInt(menu["maxID"]);
-        entryTitle = menu["entries"];
-        entryFlag = menu["flags"]
-        for (id in entryTitle) {
-            let title = entryTitle[id];
-            let flag = entryFlag[id];
-            console.log(id, title, flag); // null is deleted entry
-            //flag = (flag === 0) ? 1 : flag; // new entry with no flag assigned
+        maxID = _maxID;
+        for (id in menu) {
+            if (id === 0) { continue;}
+            let title = menu[id]["title"];
+            let flag = menu[id]["flag"];
             if (title != null){
                 let del = '<div class="delbt" onclick="deleteEntry('+ id +')"></div>'
                 let fg = '<div class="circle' + flag + '"></div>'
@@ -70,37 +60,9 @@ function createMenu(){
     }
 }
 
-// Entry Manipulation
-function openEntry(id) {
-    if (id <= maxID) {
-        currentID = id;
-        document.getElementById("temp").style.display = "none";
-        document.getElementById("main").style.display = "block";
-        loadContent(id);
-    }
-}
-
-function deleteEntry(id) {
-    if (id != null) {
-        console.log("del "+id);
-        delJSON(id.toString());
-        entryTitle[id] = null;
-        entryFlag[id] = null;
-        updateMenu(JSON.stringify({"maxID": maxID, "entries": entryTitle, "flags": entryFlag}));
-        createMenu();
-    }
-    else if ((currentID > 0) && (currentID <= maxID)) {
-        delJSON(currentID.toString());
-        entryTitle[currentID] = null;
-        entryFlag[currentID] = null;
-        updateMenu(JSON.stringify({"maxID": maxID, "entries": entryTitle, "flags": entryFlag}));
-        createMenu();
-        newEntry();
-    }
-}
-
+// Entry Manipulations
 function newEntry(){
-    saveEntry();
+    //saveEntry();
     cleanMarks();
     closeDef();
     cm.setValue("");
@@ -108,26 +70,6 @@ function newEntry(){
     currentFlag = 1;
     document.getElementById("temp").style.display = "block";
     document.getElementById("main").style.display = "none";
-}
-
-function saveEntry(){
-    currentDate = getTime();
-    
-    saveContent();
-    if (currentID > maxID) {
-        maxID = currentID;
-    }
-
-    let title = fetchTitle();
-    /*
-    if (title.length > 10) {
-        title = title.slice(0,10)+"...";
-    }*/
-    entryTitle[currentID] = title;
-    console.log(entryFlag, currentFlag);
-    entryFlag[currentID] = currentFlag;
-    updateMenu(JSON.stringify({"maxID": maxID, "entries": entryTitle, "flags": entryFlag}));
-    createMenu();
 }
 
 function toEntry(mood){
@@ -140,21 +82,86 @@ function toEntry(mood){
     if (mood == 'good') {
         currentFlag = 1;
         document.getElementById("title").innerHTML = "Good Entry";// + today;
-        socket.emit('title', "Good Entry");
     } else if (mood == 'bad') {
         currentFlag = 3;
         document.getElementById("title").innerHTML = "Bad Entry";// + today;
-        socket.emit('title', "Bad Entry");
     } else if (mood == 'neutral') {
         currentFlag = 2;
         document.getElementById("title").innerHTML = "Neutral Entry";// + today;
-        socket.emit('title', "Neutral Entry");
     }
     refreshFlagColor();
     initialization();
-    socket.emit("entry", null, null, currentID);
 }
 
+function deleteEntry(id) {
+    console.log("deleting entry #"+id);
+    removeData(id);
+    newEntry();
+}
+
+function openEntry(id) {
+    console.log("Open entry #"+id);
+    if (id <= maxID) {
+        currentID = id;
+        document.getElementById("temp").style.display = "none";
+        document.getElementById("main").style.display = "block";
+        loadContent(id);
+    }
+}
+
+function saveEntry() {
+    let title = fetchTitle();
+    let content = fetchContent();
+    let marks = fetchMarks();
+    currentDate = getTime();
+    let id = currentID;
+    let flag = currentFlag;
+    let date = currentDate;
+    if (isNaN(id)) {
+        addData(0, flag, title, content, date, marks, mouselog, keyboardlog);
+    }
+    else {
+        addData(id, flag, title, content, date, marks, mouselog, keyboardlog);
+    }
+}
+
+function loadContent(id) {
+    console.log("Loading entry #"+id);
+    readData(id);
+}
+
+function loadContentRecall(id, data) {
+    let title = data["title"];
+    let text = data["content"];
+    let date = data["date"];
+    let flag = data["flag"];
+    mouselog = data["mouseLog"];
+    keyboardlog = data["keyLog"];
+    currentFlag = flag;
+    refreshFlagColor();
+    cm.setValue(text);
+    if (title != null) {
+        $("#title").text(title);
+    }
+    if (date != null) {
+        $("#entrydate").text(date);
+    }
+    let marks = data["marks"];
+    for (m of marks) {
+        tag = m["tag"];
+        from = m["from"];
+        to = m["to"];
+        if (tag === 'autosuggest-font') {
+            promptInstance = cm.markText(from, to, {className: tag});
+        }
+        else {
+            cm.markText(from, to, {className: tag});
+        }
+    }
+    //saveEntry();
+}
+
+// CodeMirror Utilities
 function fetchTitle(){
     var text = $("#title").text()
     return text;
@@ -183,7 +190,7 @@ function fetchMarks() {
     return marksOutput;
 }
 
-
+// Other Utilities
 function getTime(){
     let today = new Date();
     let yy = String(today.getFullYear());
@@ -198,7 +205,6 @@ function getTime(){
 }
 
 function circleFlag() {
-    console.log(currentFlag);
     currentFlag += 1;
     if (currentFlag > 3) {
         currentFlag = 1;
@@ -208,7 +214,6 @@ function circleFlag() {
 }
 
 function refreshFlagColor() {
-    console.log(currentFlag);
     if (currentFlag != 0) {
         if (currentFlag === 1) {
             $('.circleCurrnetFlag').css("background-color","#8ac8a4");
@@ -222,124 +227,15 @@ function refreshFlagColor() {
     }
 }
 
-function saveContent() {
-    let title = fetchTitle();
-    let content = fetchContent();
-    let marks = fetchMarks();
-    let id = currentID;
-    let jString = JSON.stringify({"title":title, "content":content, "date": currentDate, "flag": currentFlag, "marks":marks});
-    if (isNaN(id)) {
-        saveJSON(jString, "error_recovery");
-    }
-    else {
-        saveJSON(jString, id.toString());
-    }
-    //loadContent(id); only use to refresh date/time?
-}
-
 function manualSave() {
-    saveEntry();
-    saveLogtoFile();
-    window.alert("All Secured!");
-}
-
-function saveLogtoFile() {
-    let id = currentID.toString();
-    socket.emit("file", id + "_mlog", mouselog);
-    socket.emit("file", id + "_klog", keyboardlog);
-}
-
-function loadContent(id) {
-    console.log("Load "+id);
-    let jString = loadJSON(id);
-    let data = JSON.parse(jString);
-    let title = data["title"];
-    let text = data["content"];
-    let date = data["date"];
-    let flag = data["flag"];
-    currentFlag = flag;
-    refreshFlagColor();
-    cm.setValue(text);
-    if (title != null) {
-        $("#title").text(title);
-        socket.emit('title', title);
+    if (currentID !== 0){
+        saveEntry();
+        window.alert("All Secured!");
     }
-    if (date != null) {
-        $("#entrydate").text(date);
-    }
-    let marks = data["marks"];
-    socket.emit("entry", title, text, marks, currentID);
-    console.log("Load new!");
-    console.log(title);
-    console.log(marks);
-    for (m of marks) {
-        tag = m["tag"];
-        from = m["from"];
-        to = m["to"];
-        if (tag === 'autosuggest-font') {
-            promptInstance = cm.markText(from, to, {className: tag});
-        }
-        else {
-            cm.markText(from, to, {className: tag});
-        }
-    }
-    saveEntry();
 }
 
-// Watson APIs: Client-Server Comunications
-function getMenu() {
-    var jqXHR = $.ajax({
-        type: "GET",
-        url: "http://127.0.0.1:5000/menu",
-        async: false,
-        data: {}
-    });
-    return jqXHR.responseText;
-}
-
-function updateMenu(input) {
-    var jqXHR = $.ajax({
-        type: "POST",
-        url: "http://127.0.0.1:5000/menu",
-        async: false,
-        data: {menu: input}
-    });
-    return jqXHR.responseText;
-}
-
-function loadJSON(name){
-    var jqXHR = $.ajax({
-        type: "POST",
-        url: "http://127.0.0.1:5000/load",
-        async: false,
-        data: { filename: name}
-    });
-    //console.log(jqXHR.responseText);
-    return jqXHR.responseText;
-}
-
-function saveJSON(input, name){
-    var jqXHR = $.ajax({
-        type: "POST",
-        url: "http://127.0.0.1:5000/save",
-        async: false,
-        data: { entry: input, filename: name}
-    });
-    console.log(jqXHR.responseText);
-}
-
-function delJSON(name){
-    var jqXHR = $.ajax({
-        type: "POST",
-        url: "http://127.0.0.1:5000/del",
-        async: false,
-        data: {filename: name}
-    });
-    console.log(jqXHR.responseText);
-}
-
-//handling mouse clicks... 
-//jesus, that was a whole thing to track down
+// CodeMirror Listener
+// Handling mouse activities 
 var movedByMouse = false;
 cm.on("mousedown", function () {
     movedByMouse = true;
@@ -396,7 +292,6 @@ cm.on("beforeChange", function () {
     movedByMouse = false;
 });
 
-// +input -> user type; undefined -> expert type
 cm.on("change", function (cm, changeObj) {
     let input = changeObj.text;
     let origin = changeObj.origin ? true : false    
@@ -429,6 +324,7 @@ cm.on("change", function (cm, changeObj) {
     }
 });
 
+// Related Utilities
 function checkInRange(target, start, end, offset=0) {
     // Offset > 1 need special handle, otherwise document may lose contents
     if (offset > 0) {
@@ -446,49 +342,6 @@ function checkInRange(target, start, end, offset=0) {
     }
 }
 
-function isMovementKey(keyCode) {
-    return 33 <= keyCode && keyCode <= 40;
-}
-
-function openNav() {
-    document.getElementById("mySidebar").style.width = "250px";
-    document.getElementById("container").style.marginLeft = "250px";
-    document.getElementById("myBottombar").style.left = "250px";
-    document.getElementById("opnsidebar").setAttribute("onclick", "closeNav()");
-    document.getElementById("opnsidebar").style.backgroundImage = 'url("../src/xmark.png")';
-}
-  
-function closeNav() {
-    document.getElementById("mySidebar").style.width = "0";
-    document.getElementById("container").style.marginLeft= "0";
-    document.getElementById("myBottombar").style.left = "0px";
-    document.getElementById("opnsidebar").setAttribute("onclick", "openNav()");
-    document.getElementById("opnsidebar").style.backgroundImage = 'url("../src/hamburger.png")';
-}
-
-function openDef() {
-    document.getElementById("myBottombar").style.height = "auto";
-    document.getElementById("myBottombar").style.minHeight = "200px";
-    document.getElementById("main").style.marginBottom = "250px";
-}
-  
-function closeDef() {
-    document.getElementById("myBottombar").style.height = "0";
-    document.getElementById("myBottombar").style.minHeight = "0";
-    document.getElementById("main").style.marginBottom= "0";
-}
-
-
-function acceptChange() {
-    cm.replaceRange(suggestion, s_start, s_end);
-    $("#textmanipulation").css("display","none");
-}
-
-function rejectChange() {
-    $("#textmanipulation").css("display","none");
-}
-
-// CodeMirror Coordinates Utilities
 function analysisCoord(coord) {
     if (coord != null) {
         return {l:parseInt(coord["line"]), c:parseInt(coord["ch"])}
@@ -506,7 +359,57 @@ function compareCoord(start, end) {
     }
 }
 
-// CodeMirror Decoration Functions
+function isMovementKey(keyCode) {
+    return 33 <= keyCode && keyCode <= 40;
+}
+
+// UI Operations
+function openNav() {
+    document.getElementById("mySidebar").style.width = "250px";
+    document.getElementById("container").style.marginLeft = "250px";
+    document.getElementById("myBottombar").style.left = "250px";
+    document.getElementById("opnsidebar").setAttribute("onclick", "closeNav()");
+    //document.getElementById("opnsidebar").style.backgroundImage = 'url("../src/xmark.png")';
+}
+  
+function closeNav() {
+    document.getElementById("mySidebar").style.width = "0";
+    document.getElementById("container").style.marginLeft= "0";
+    document.getElementById("myBottombar").style.left = "0px";
+    document.getElementById("opnsidebar").setAttribute("onclick", "openNav()");
+    //document.getElementById("opnsidebar").style.backgroundImage = 'url("../src/hamburger.png")';
+}
+
+function openDef() {
+    document.getElementById("myBottombar").style.height = "auto";
+    document.getElementById("myBottombar").style.minHeight = "200px";
+    document.getElementById("main").style.marginBottom = "250px";
+}
+  
+function closeDef() {
+    document.getElementById("myBottombar").style.height = "0";
+    document.getElementById("myBottombar").style.minHeight = "0";
+    document.getElementById("main").style.marginBottom= "0";
+}
+
+function darkMode(){
+    if($('.switch-anim').prop('checked')){
+        document.getElementById("theme").setAttribute("href","css/theme_dark.css");
+    }else{
+        document.getElementById("theme").setAttribute("href","css/theme_light.css");
+    }
+}
+
+function acceptChange() {
+    cm.replaceRange(suggestion, s_start, s_end);
+    $("#textmanipulation").css("display","none");
+}
+
+function rejectChange() {
+    $("#textmanipulation").css("display","none");
+}
+
+/* CodeMirror Decoration Functions
 function handlePrompt(start, end, sel_start=null, sel_end=null){
     //console.log("add prompt, start:", start, "end:", end, "sel_start:", sel_start, "sel_end:", sel_end)
     let promptObject = cm.markText(start, end, {className: "autosuggest-font"})
@@ -555,7 +458,7 @@ function handleFeedback(start, end, sentence){
     newBottomBarElement("Expert Feedback", sentence);
     openDef();
 }
-
+*/
 function clearBottomBarElement(){
     document.getElementById("myBottombar").innerHTML = "";
 }
@@ -586,83 +489,4 @@ function handleOperation(command){
         case 'redo': cm.redo(); break;
         case 'clear': cm.clear(); break;
     }
-}
-
-// Receive Expert Command from Server
-socket.on("sendToClient", (command) => {
-    console.log(command);
-});
-
-socket.on("prompt1", (start, end, l) => {
-    console.log("Prompt-Insert:", start, end, l);
-    handlePrompt(start, end);
-});
-
-socket.on("prompt2", (sel_start, sel_end, start, end, l) => {
-    console.log("Prompt-Select:", sel_start, sel_end, start, end, l);
-    handlePrompt(start, end, sel_start, sel_end);
-});
-
-socket.on("replace", (start, end, l, s) => {
-    console.log("Replace:", start, end, l, s);
-    handleReplace(start, end, s)
-});
-
-socket.on("highlight", (start, end, type) => {
-    console.log("Highlight:", start, end, type);
-    handleHighlight(start, end, type)
-});
-
-socket.on("cd", (start, end, id) => {
-    console.log("CD:", start, end, id);
-    handleCognDistortion(start, end, id);
-});
-
-socket.on("feedback", (start, end, sentence) => {
-    console.log("Feedback:", start, end, sentence);
-    handleFeedback(start, end, sentence)
-});
-
-socket.on("utility", (command, cursor) => {
-    console.log("utility:", command, cursor);
-    if (command === "clear") {
-        cm.findMarksAt(cursor).forEach(mark => mark.clear());
-    }
-});
-
-socket.on("download", functions => {
-    console.log("download:", functions);
-    if (functions == "Keyboard") {
-        reportKeyboardLog();
-    }
-    else if (functions == "Mouse") {
-        reportMouseLog();
-    }
-});
-
-socket.on("get", functions => {
-    console.log("get:", functions);
-    if (functions == "Keyboard") {
-        if (UnixZero != -1) {
-            socket.emit('Log', 1, keyboardlog);
-        }
-    }
-    else if (functions == "Mouse") {
-        if (UnixZero != -1) {
-            socket.emit('Log', 2, mouselog);
-        }
-    }
-});
-
-socket.on("display", functions => {
-    console.log("display:", functions);
-    if (functions == "Feedback") {
-        openDef();
-    }
-});
-
-// Demo: How to get text from CodeMirror
-function fetch(){
-    var text = cm.getValue();
-    console.log("Socket:",text);
 }

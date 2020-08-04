@@ -1,4 +1,3 @@
-var socket = io();
 var write = document.getElementById('write');
 var cm = CodeMirror.fromTextArea(write, {
     lineWrapping: true, 
@@ -24,73 +23,36 @@ var maxID = 0;
 var currentID = 0;
 
 var currentFlag = 0;
+var mouselog = null;
+var keyboardlog = null;
 var currentDate = "";
 var entryTitle = {};
 var entryFlag = {};
 
-
-function darkMode(){
-    if($('.switch-anim').prop('checked')){
-        document.getElementById("theme").setAttribute("href","css/theme_dark.css");
-    }else{
-        document.getElementById("theme").setAttribute("href","css/theme_light.css");
-    }
-}
-
-function openNav() {
-    document.getElementById("mySidebar").style.width = '16%';
-    document.getElementById("container").style.marginLeft = '16%';
-    document.getElementById("myBottombar").style.left = '16%';
-    document.getElementById("myBottombar").style.width = '84%';
-    document.getElementById("opnsidebar").setAttribute("onclick", "closeNav()");
-    document.getElementById("opnsidebar").style.backgroundImage = 'url("../src/xmark.png")';
-}
-  
-function closeNav() {
-    document.getElementById("mySidebar").style.width = "0";
-    document.getElementById("container").style.marginLeft= "0";
-    document.getElementById("myBottombar").style.left = "0px";
-    document.getElementById("myBottombar").style.width = '100%';
-    document.getElementById("opnsidebar").setAttribute("onclick", "openNav()");
-    document.getElementById("opnsidebar").style.backgroundImage = 'url("../src/hamburger.png")';
-}
-
-function openDef() {
-    document.getElementById("myBottombar").style.height = "auto";
-    document.getElementById("myBottombar").style.minHeight = "100px";
-    //document.getElementById("main").style.marginBottom = "250px";
-}
-  
-function closeDef() {
-    document.getElementById("myBottombar").style.height = "0";
-    document.getElementById("myBottombar").style.minHeight = "0";
-    //document.getElementById("main").style.marginBottom= "0";
-}
-
 function loader() {
-    createMenu();
+    //createMenu();
 }
 
 // Backend Communication APIs
 function createMenu(){
     console.log("createMenu");
+    menuData();
+}
+
+function buildMenu(menu, _maxID) {
+    console.log("buildMenu");
     $('#entryTitles').empty();
-    let menuData = getMenu();
-    if (menuData === "Get menu Failed"){  // No saved entry
+    if (menu === "menuFailed"){  // No saved entry
         maxID = 0;
-        currentID = 1;
-        entryTitle = {};
+        currentID = 0;
+        window.alert("No saved entry detected!")
     }
     else {
-        let menu = JSON.parse(menuData);
-        maxID = parseInt(menu["maxID"]);
-        entryTitle = menu["entries"];
-        entryFlag = menu["flags"]
-        for (id in entryTitle) {
-            let title = entryTitle[id];
-            let flag = entryFlag[id];
-            console.log(id, title, flag); // null is deleted entry
-            //flag = (flag === 0) ? 1 : flag; // new entry with no flag assigned
+        maxID = _maxID;
+        for (id in menu) {
+            if (id === 0) { continue;}  // Entry 0 is for error handling and backup recoverey
+            let title = menu[id]["title"];
+            let flag = menu[id]["flag"];
             if (title != null){
                 let del = '<div class="delbt" onclick="deleteEntry('+ id +')"></div>'
                 let fg = '<div class="circle' + flag + '"></div>'
@@ -101,97 +63,30 @@ function createMenu(){
     }
 }
 
-// Entry Manipulation
+// Entry Manipulations
 function openEntry(id) {
+    console.log("Open entry #"+id);
     if (id <= maxID) {
         currentID = id;
         loadContent(id);
     }
 }
 
-function saveEntry(){
-    currentDate = getTime();
-    
-    saveContent();
-    if (currentID > maxID) {
-        maxID = currentID;
-    }
-
-    let title = fetchTitle();
-    /*
-    if (title.length > 10) {
-        title = title.slice(0,10)+"...";
-    }*/
-    entryTitle[currentID] = title;
-    console.log(entryFlag, currentFlag);
-    entryFlag[currentID] = currentFlag;
-    updateMenu(JSON.stringify({"maxID": maxID, "entries": entryTitle, "flags": entryFlag}));
-    createMenu();
-}
-
-function getTime(){
-    let today = new Date();
-    let yy = String(today.getFullYear());
-    let dd = String(today.getDate()).padStart(2, '0');
-    let mm = String(today.getMonth() + 1).padStart(2, '0');
-    let hh = String(today.getHours());
-    let mn = String(today.getMinutes());
-
-    if (mn.length < 2) { mn = '0'+mn;}
-    currentDate = mm + '/' + dd + '/' + yy + ' ' + hh + ':' + mn;
-    return currentDate;
-}
-
-function refreshFlagColor() {
-    console.log(currentFlag);
-    if (currentFlag != 0) {
-        if (currentFlag === 1) {
-            $('.circleCurrnetFlag').css("background-color","#8ac8a4");
-        }
-        else if (currentFlag === 2) {
-            $('.circleCurrnetFlag').css("background-color","#2f7fed");
-        }
-        else if (currentFlag === 3) {
-            $('.circleCurrnetFlag').css("background-color","#fa9a9a");
-        }
-    }
-}
-
-function saveContent() {
-    let title = fetchTitle();
-    let content = fetchContent();
-    let marks = fetchMarks();
-    let id = currentID;
-    let jString = JSON.stringify({"title":title, "content":content, "date": currentDate, "flag": currentFlag, "marks":marks});
-    if (isNaN(id)) {
-        saveJSON(jString, "error_recovery");
-    }
-    else {
-        saveJSON(jString, id.toString());
-    }
-    //loadContent(id); only use to refresh date/time?
-}
-
-function manualSave() {
-    saveEntry();
-    let content = cm.getValue();
-    let title = fetchTitle();
-    let package = {text: content, title: title, log: commentLog};
-    socket.emit("file", currentID, package);
-    jString = JSON.stringify({log: commentLog, comment: commentSet, count: tagCount});
-    saveJSON(jString, currentID.toString()+'_mark');
-    window.alert("All Secured!");
-}
-
 function loadContent(id) {
-    console.log("Load "+id);
-    let jString = loadJSON(id);
-    let data = JSON.parse(jString);
+    console.log("Loading entry #"+id);
+    readData(id);
+    readMark(id);
+}
+
+function loadContentRecall(_id, data) {
     let title = data["title"];
     let text = data["content"];
     let date = data["date"];
     let flag = data["flag"];
+    currentID = _id;
     currentFlag = flag;
+    mouselog = data["mouseLog"];
+    keyboardlog = data["keyLog"];
     refreshFlagColor();
     cm.setValue(text);
     if (title != null) {
@@ -201,9 +96,6 @@ function loadContent(id) {
         $("#entrydate").text(date);
     }
     let marks = data["marks"];
-    console.log("Load new!");
-    console.log(title);
-    console.log(marks);
     for (m of marks) {
         tag = m["tag"];
         from = m["from"];
@@ -215,15 +107,88 @@ function loadContent(id) {
             cm.markText(from, to, {className: tag});
         }
     }
-    saveEntry();
     
+    /*
     jString = loadJSON(currentID+'_mark');
     if (jString !== "Load Failed") {
         data = JSON.parse(jString);
         commentLog = data["log"];
         commentSet = data["comment"];
         tagCount = data["count"];
+    }*/
+}
+
+function saveEntry() {
+    let title = fetchTitle();
+    let content = fetchContent();
+    let marks = fetchMarks();
+    currentDate = getTime();
+    let id = currentID;
+    let flag = currentFlag;
+    let date = currentDate;
+    if (isNaN(id)) {
+        addData(0, flag, title, content, date, marks, mouselog, keyboardlog);
     }
+    else {
+        addData(id, flag, title, content, date, marks, mouselog, keyboardlog);
+        addMark(id, commentLog, commentSet, tagCount);
+    }
+}
+
+function loadMarkRecall(_id, data) {
+    if (data && _id !== -1 && _id === currentID) {
+        commentLog = data["commentLog"];
+        commentSet = data["commentSet"];
+        tagCount = data["tagCount"];
+    }
+    else {
+        console.log(currentID, _id, 'no mark available');
+    }
+}
+
+function manualSave() {
+    if (currentID !== 0){
+        saveEntry();
+        window.alert("All Secured!");
+    }
+}
+
+function generateFile() {
+    generatePackOne();
+}
+
+function generatePackRecall(file){
+    console.log(file);
+    download(JSON.stringify(file), "report.json");
+}
+
+// Save JSON data to .txt File
+// Ref: https://stackoverflow.com/questions/21479107/saving-html5-textarea-contents-to-file/30740104
+function download(text, filename){
+    text = text.replace(/\n/g, "\r\n"); // To retain the Line breaks.
+    var blob = new Blob([text], { type: "text/plain"});
+    var anchor = document.createElement("a");
+    anchor.download = filename;
+    anchor.href = window.URL.createObjectURL(blob);
+    anchor.target ="_blank";
+    anchor.style.display = "none"; // just to be safe!
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
+}
+
+// CodeMirror Utilities
+function getTime(){
+    let today = new Date();
+    let yy = String(today.getFullYear());
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
+    let hh = String(today.getHours());
+    let mn = String(today.getMinutes());
+
+    if (mn.length < 2) { mn = '0'+mn;}
+    currentDate = mm + '/' + dd + '/' + yy + ' ' + hh + ':' + mn;
+    return currentDate;
 }
 
 function fetchTitle(){
@@ -254,8 +219,47 @@ function fetchMarks() {
     return marksOutput;
 }
 
+function analysisCoord(coord) {
+    if (coord != null) {
+        return {l:parseInt(coord["line"]), c:parseInt(coord["ch"])}
+    }
+}
 
-// Watson APIs: Client-Server Comunications
+function checkStartCoord(start, end) {
+    if ((start == null) && (end == null)) {return false;}
+    else if (start == null) {return false;}
+    else if (end == null) {return true;}
+    else {
+        let st = analysisCoord(start)
+        let ed = analysisCoord(end)
+        if (st.l > ed.l) {return false;}
+        else if (st.l < ed.l) {return true;}
+        else if (st.c > ed.c) {return false;}
+        else {
+            return true;
+        }
+    }
+}
+
+function compareCoord(start, end) {
+    if ((start == null) || (end == null)) {return false;}
+    else {
+        let st = analysisCoord(start)
+        let ed = analysisCoord(end)
+        if (st.l != ed.l) {return false;}
+        else if (st.c != ed.c) {return false;}
+        return true;
+    }
+}
+
+
+function updateSelect(from=null, to=null) {
+    current_sel_from = from;
+    current_sel_to = to;
+}
+
+
+/*/ Watson APIs: Client-Server Comunications
 function getMenu() {
     var jqXHR = $.ajax({
         type: "GET",
@@ -309,53 +313,57 @@ function control(i){
         case 6: functions = "Mouse"; command = "get"; break;
     }
     log(command+":"+functions);
-    socket.emit(command, functions);
-}
+}*/
 
-function analysisCoord(coord) {
-    if (coord != null) {
-        return {l:parseInt(coord["line"]), c:parseInt(coord["ch"])}
+// UI Operations
+function darkMode(){
+    if($('.switch-anim').prop('checked')){
+        document.getElementById("theme").setAttribute("href","css/theme_dark.css");
+    }else{
+        document.getElementById("theme").setAttribute("href","css/theme_light.css");
     }
 }
 
-function checkStartCoord(start, end) {
-    if ((start == null) && (end == null)) {return false;}
-    else if (start == null) {return false;}
-    else if (end == null) {return true;}
-    else {
-        let st = analysisCoord(start)
-        let ed = analysisCoord(end)
-        if (st.l > ed.l) {return false;}
-        else if (st.l < ed.l) {return true;}
-        else if (st.c > ed.c) {return false;}
-        else {
-            return true;
+function openNav() {
+    document.getElementById("mySidebar").style.width = '16%';
+    document.getElementById("container").style.marginLeft = '16%';
+    document.getElementById("myBottombar").style.left = '16%';
+    document.getElementById("myBottombar").style.width = '84%';
+    document.getElementById("opnsidebar").setAttribute("onclick", "closeNav()");
+    //document.getElementById("opnsidebar").style.backgroundImage = 'url("../src/xmark.png")';
+}
+  
+function closeNav() {
+    document.getElementById("mySidebar").style.width = "0";
+    document.getElementById("container").style.marginLeft= "0";
+    document.getElementById("myBottombar").style.left = "0px";
+    document.getElementById("myBottombar").style.width = '100%';
+    document.getElementById("opnsidebar").setAttribute("onclick", "openNav()");
+    //document.getElementById("opnsidebar").style.backgroundImage = 'url("../src/hamburger.png")';
+}
+
+function openDef() {
+    document.getElementById("myBottombar").style.height = "auto";
+    document.getElementById("myBottombar").style.minHeight = "100px";
+}
+  
+function closeDef() {
+    document.getElementById("myBottombar").style.height = "0";
+    document.getElementById("myBottombar").style.minHeight = "0";
+}
+
+function refreshFlagColor() {
+    if (currentFlag != 0) {
+        if (currentFlag === 1) {
+            $('.circleCurrnetFlag').css("background-color","#8ac8a4");
+        }
+        else if (currentFlag === 2) {
+            $('.circleCurrnetFlag').css("background-color","#2f7fed");
+        }
+        else if (currentFlag === 3) {
+            $('.circleCurrnetFlag').css("background-color","#fa9a9a");
         }
     }
-}
-
-function compareCoord(start, end) {
-    if ((start == null) || (end == null)) {return false;}
-    else {
-        let st = analysisCoord(start)
-        let ed = analysisCoord(end)
-        if (st.l != ed.l) {return false;}
-        else if (st.c != ed.c) {return false;}
-        return true;
-    }
-}
-
-
-function updateSelect(from=null, to=null) {
-    current_sel_from = from;
-    current_sel_to = to;
-}
-
-function log(sentence) {
-    /*
-    let html = "<li><p>" + sentence + "</p></li>"
-    $("#logTable").append(html);*/
-    console.log(sentence);
 }
 
 function callTextPrompt(type) {
@@ -422,7 +430,6 @@ $(".pop-up-selection").on("click", function(){
     let id = this.id;
     if ((current_sel_from!=null) && (current_sel_to!=null)) {
         cm.markText(current_sel_from, current_sel_to, {className: id.replace(/\s/g,'')})
-        socket.emit("cd", current_sel_from, current_sel_to, id);
         let from = analysisCoord(current_sel_from);
         let to = analysisCoord(current_sel_to);
         let command = "CD:(" + from.l + "," + from.c + '),(' + to.l + ',' + to.c + '),'+id;
@@ -431,6 +438,31 @@ $(".pop-up-selection").on("click", function(){
     $("#cogndistortion").css("display","none");
 });
 
+function clearBottomBarElement(){
+    document.getElementById("myBottombar").innerHTML = "";
+}
+
+function newBottomBarElement(pair) {
+    for (let v of pair){
+        title = v[0];
+        body = v[1];
+        if (body !== -1 && body !== '-1') {
+            let newDiv = "<div><a href=\"javascript:void(0)\" class=\"closedef onedeftitle\" onclick=\"closeDef()\">" + title + "</a>";
+            newDiv += "<a href=\"#\" class=\"onedefbody\">" + body + "</a></div>"
+            document.getElementById("myBottombar").innerHTML += newDiv;
+        }
+    }
+}
+
+// System Utilities
+function log(sentence) {
+    /*
+    let html = "<li><p>" + sentence + "</p></li>"
+    $("#logTable").append(html);*/
+    console.log(sentence);
+}
+
+    // Other Utlities
 function handelPrompt(sentence) {
     let start = cm.getCursor("from")
     let end = cm.getCursor("to");
@@ -447,7 +479,6 @@ function handelPrompt(sentence) {
     if (compareCoord(start, end)) {
         cm.replaceRange(sentence, end);
         end = cm.getCursor("to");
-        socket.emit("prompt1", start, end, sentence.length);
         let e = analysisCoord(end)
         log("prompt1:("+e.l+","+e.c+"),"+sentence);
         
@@ -472,7 +503,6 @@ function handelPrompt(sentence) {
             cm.replaceRange(sentence, start);
             end = cm.getCursor("to");
         }
-        socket.emit("prompt2", sel_start, sel_end, start, end, sentence.length);
         let ss = analysisCoord(sel_start)
         let se = analysisCoord(sel_end)
         let s = analysisCoord(start)
@@ -501,7 +531,6 @@ function handelReplace(sentence) {
         end = cm.getCursor("to")
         */
         cm.markText(start, end, {className: "replacement-font"});
-        socket.emit("replace", start, end, sentence.length, sentence);
         let s = analysisCoord(start)
         let e = analysisCoord(end)
         log("replace:("+s.l+","+s.c+"),("+e.l+","+e.c+"),"+sentence);
@@ -520,7 +549,6 @@ function handelFeedback(sentence) {
         start = end;
         end = tmp;
     }
-    socket.emit("feedback", start, end, sentence);
     let s = analysisCoord(start)
     let e = analysisCoord(end)
     log("feedback:("+s.l+","+s.c+"),("+e.l+","+e.c+"),"+sentence);
@@ -580,7 +608,6 @@ $(function() {
                                 $("#textmanipulation").css("margin-left", (mg.x)+"px");
                                 $("#textmanipulation").css("margin-top", (mg.y)+"px");
                                 lastTagObj = cm.markText(start, end, {className: "pause-hl " + tagCount});
-                                //socket.emit("highlight", start, end, "pause-hl");
                                 let s = analysisCoord(start);
                                 let e = analysisCoord(end);
                                 log("pause:("+s.l+","+s.c+"),("+e.l+","+e.c+")");
@@ -609,7 +636,6 @@ $(function() {
                                 $("#textmanipulation").css("margin-left", (mg.x)+"px");
                                 $("#textmanipulation").css("margin-top", (mg.y)+"px");
                                 lastTagObj = cm.markText(start, end, {className: "fluent-hl " + tagCount});
-                                //socket.emit("highlight", start, end, "fluent-hl");
                                 let s = analysisCoord(start);
                                 let e = analysisCoord(end);
                                 log("pause:("+s.l+","+s.c+"),("+e.l+","+e.c+")");
@@ -643,7 +669,6 @@ $(function() {
                                 $("#textmanipulation").css("margin-left", (mg.x)+"px");
                                 $("#textmanipulation").css("margin-top", (mg.y)+"px");
                                 lastTagObj = cm.markText(start, end, {className: "keyword-hl " + tagCount});
-                                //socket.emit("highlight", start, end, "excellent-hl");
                                 let s = analysisCoord(start);
                                 let e = analysisCoord(end);
                                 log("pause:("+s.l+","+s.c+"),("+e.l+","+e.c+")");
@@ -672,7 +697,6 @@ $(function() {
                                 $("#textmanipulation").css("margin-left", (mg.x)+"px");
                                 $("#textmanipulation").css("margin-top", (mg.y)+"px");
                                 lastTagObj = cm.markText(start, end, {className: "summary-hl " + tagCount});
-                                //socket.emit("highlight", start, end, "expansion-hl");
                                 let s = analysisCoord(start);
                                 let e = analysisCoord(end);
                                 log("pause:("+s.l+","+s.c+"),("+e.l+","+e.c+")");
@@ -767,23 +791,7 @@ $(function() {
     });
 });
 
-function clearBottomBarElement(){
-    document.getElementById("myBottombar").innerHTML = "";
-}
-
-function newBottomBarElement(pair) {
-    for (let v of pair){
-        title = v[0];
-        body = v[1];
-        if (body !== -1 && body !== '-1') {
-            let newDiv = "<div><a href=\"javascript:void(0)\" class=\"closedef onedeftitle\" onclick=\"closeDef()\">" + title + "</a>";
-            newDiv += "<a href=\"#\" class=\"onedefbody\">" + body + "</a></div>"
-            document.getElementById("myBottombar").innerHTML += newDiv;
-        }
-    }
-}
-
-// Mouse Click Activities
+// Mouse Activity Listener
 cm.on("mousedown", function () {
     movedByMouse = true;
     $('.context-menu-list').trigger('contextmenu:hide');
