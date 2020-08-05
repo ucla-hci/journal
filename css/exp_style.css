@@ -2,14 +2,14 @@ body {
   font-family: "Lato", sans-serif;
 }
 
-.CodeMirror-wrap {
-    margin-top: 1.8vh;
+.CodeMirror {
     height: auto;
 }
 
 .CodeMirror-scroll {
     overflow-y: hidden;
     height: auto;
+    position: initial;
 }
 
 #entryTitles{

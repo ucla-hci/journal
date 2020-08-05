@@ -3,7 +3,8 @@ var cm = CodeMirror.fromTextArea(write, {
     lineWrapping: true, 
     lineNumbers: false, 
     styleSelectedText: true,
-    cursorHeight: 0.85
+    cursorHeight: 0.85,
+    scrollbarStyle: null
 });
 
 var current_sel_from = null;
@@ -54,10 +55,9 @@ function buildMenu(menu, _maxID) {
             let title = menu[id]["title"];
             let flag = menu[id]["flag"];
             if (title != null){
-                let del = '<div class="delbt" onclick="deleteEntry('+ id +')"></div>'
-                let fg = '<div class="circle' + flag + '"></div>'
+                let fg = '<div class="circle' + flag + '"></div>';
                 let short = '<p onclick="openEntry('+id+')">'+title+'</p>';
-                $('#entryTitles').append('<div class="oneEntry">' + del + fg + short + '</div>');
+                $('#entryTitles').append('<div class="oneEntry">' + fg + short + '</div>');
             }
         }
     }
@@ -325,10 +325,10 @@ function darkMode(){
 }
 
 function openNav() {
-    document.getElementById("mySidebar").style.width = '16%';
-    document.getElementById("container").style.marginLeft = '16%';
-    document.getElementById("myBottombar").style.left = '16%';
-    document.getElementById("myBottombar").style.width = '84%';
+    document.getElementById("mySidebar").style.width = '250px';
+    document.getElementById("container").style.marginLeft = '250px';
+    document.getElementById("myBottombar").style.left = '250px';
+    document.getElementById("myBottombar").style.width = 'calc(100% - 250px)';
     document.getElementById("opnsidebar").setAttribute("onclick", "closeNav()");
     //document.getElementById("opnsidebar").style.backgroundImage = 'url("../src/xmark.png")';
 }

@@ -4,7 +4,8 @@ var cm = CodeMirror.fromTextArea(write, {
     lineWrapping: true, 
     lineNumbers: false, 
     styleSelectedText: true,
-    cursorHeight: 0.85
+    cursorHeight: 0.85,
+    scrollbarStyle: null
 });
 
 var feedbackMsg = ""

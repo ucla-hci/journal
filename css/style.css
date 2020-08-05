@@ -348,13 +348,14 @@ button {
     margin: 0px;
 }
 
-.CodeMirror-wrap {
-    margin-top: 1.8vh;
+.CodeMirror {
+    height: auto;
 }
 
 .CodeMirror-scroll {
     overflow-y: hidden;
     height: auto;
+    position: initial;
 }
 
 #write {

@@ -21,10 +21,10 @@ app.use('/src', express.static('src'));
 app.use('/lib/contextMenu', express.static('lib/contextMenu'));
 app.use('/node_modules', express.static('node_modules'));
 
-http.listen(80, function(){
-  console.log('Server listening on http://localhost:80');
-  console.log('Access Patient Page on http://localhost:80');
-  console.log('Access Expert Page on http://localhost:80/exp');
+http.listen(3000, function(){
+  console.log('Server listening on http://localhost:3000');
+  console.log('Access Patient Page on http://localhost:3000');
+  console.log('Access Expert Page on http://localhost:3000/exp');
 });
 
 var EditorSocketIOServer = require('./lib/ot.js/editor-socketio-server.js');
