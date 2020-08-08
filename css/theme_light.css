@@ -6,6 +6,8 @@ body {
     --fear-font: #b3102e;
     --disgust-font: #673dc3;
     --joy-font: #00BD4B;
+    --save-normal: #8A8A8A;
+    --save-confirm: #009966;
 }
 
 .selection-ot{ background-color: #F3F3F3 !important; }  /* Can also set to be no background color */
@@ -106,6 +108,16 @@ body {
     color: #828282;
 }
 
+#toast {
+    color: var(--save-normal);
+    display: none;
+    opacity: 50%
+}
+
+#toast:hover {
+    opacity: 100%;
+}
+
 .CodeMirror {
     background-color: #fafafa;
     color: #828282;
@@ -189,6 +201,7 @@ a {
     color: #434343;
     background-color: #2980b9 !important;
 }
+
 
 /* Scroll Style, ref: https://www.zntec.cn/archives/webkit-scrollbar.html */
 ::-webkit-scrollbar {

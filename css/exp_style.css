@@ -286,6 +286,11 @@ change {
     width: 23px;
     height: 23px;
     border-style: none;
+    opacity: 50%;
+}
+
+.savebtn:hover {
+    opacity: 80%;
 }
 
 .delbt {

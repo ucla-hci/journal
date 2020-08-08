@@ -20,10 +20,10 @@
 
 <body onload="loader()">
 <div id="mySidebar" class="sidebar">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">Settings</a>
-  <a href="javascript:void(0)" class="greeting">Good afternoon, X.</a>
-  <a href="javascript:void(0)" onclick = "newEntry()">New Journal</a>
-  <a href="javascript:void(0)" onclick = "manualSave()">Save</a>
+  <!--<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">Settings</a>
+  <a href="javascript:void(0)" class="greeting">Good afternoon, X.</a>-->
+  <a href="javascript:void(0)" onclick = "newEntry()">New +</a>
+  <!--<a href="javascript:void(0)" onclick = "manualSave()">Save</a>-->
 
   <button type="button" class="collapsible" onclick = "createMenu()">Recent Journals</button>
   <div class="content" id="entryTitles">
@@ -35,25 +35,26 @@
     <div class="content" id="baddays"></div>-->
   </div>
 
-  <div class="switch-wrapper">
+  <!--<div class="switch-wrapper">
     <input class="switch switch-anim" type="checkbox" onclick=darkMode()>
-  </div>
+  </div>-->
 </div>
 
 <div id="container">
   <div class="btbar">
     <button class="openbtn" id="opnsidebar" onclick="openNav()"></button>
+    <a id="toast" href="javascript:void(0)" onclick = "manualSave()">Save</a>
     <div>
-      <!--<button class="swtbtn" id="markswitch" onclick="displayMarks()"></button>-->
+      <!--<button class="swtbtn" id="markswitch" onclick="displayMarks()"></button>
       <button class="savebtn" id="manualsave" onclick="manualSave()"></button>
-      <button class="newbtn" id="newentry" onclick="newEntry()"></button>
+      <button class="newbtn" id="newentry" onclick="newEntry()"></button>-->
     </div>
   </div>
   <div class="onboard" id="temp">
     <!-- Welcome to Journal! -->
     <div id="welcome">Welcome to Journal!</div>
     <!-- How is your day today? -->
-    <div id="query" onclick="toEntry()">How is your day today?</div>
+    <div id="query" onclick="toEntry()">How is your day today? Choose your mood to begin: </div>
 
     <div class="parent">
       <div class="good">

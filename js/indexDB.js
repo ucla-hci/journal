@@ -123,7 +123,7 @@ function addMark(id, commentLog, commentSet, tagCount) {
 
     request.onerror = function (event) {
         console.log('mark add failed');
-        updateData(id, commentLog, commentSet, tagCount);
+        updateMark(id, commentLog, commentSet, tagCount);
     }
 }
 

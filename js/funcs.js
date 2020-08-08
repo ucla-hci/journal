@@ -29,6 +29,35 @@ function loader() {
     document.getElementById("temp").style.display = "block";
 }
 
+// Simple Toast System
+var timer = setInterval(function() {
+    if (currentID > 0) {
+        saveEntry();
+        let aObj = document.getElementById("toast");
+        aObj.innerText = "Auto Saving...";
+        setTimeout(autoSaveRec, 1000);
+    }
+}, 20000)
+
+function autoSaveRec(){
+    let aObj = document.getElementById("toast");
+    aObj.innerText = "Saved";
+    aObj.style.color = "var(--save-confirm)";
+    setTimeout(function(){
+        aObj.innerText = "Save";
+        aObj.style.color = "var(--save-normal)";
+    }, 1300);
+}
+
+function manualSave() {
+    if (currentID !== 0){
+        saveEntry();
+        let aObj = document.getElementById("toast");
+        aObj.innerText = "Saving...";
+        setTimeout(autoSaveRec, 1000);
+    }
+}
+
 // IndexedDB Communication APIs
 // Menu Operations
 function createMenu(){
@@ -69,12 +98,14 @@ function newEntry(){
     cm.setValue("");
     currentDate = getTime();
     currentFlag = 1;
+    document.getElementById("toast").style.display = "none";
     document.getElementById("temp").style.display = "block";
     document.getElementById("main").style.display = "none";
 }
 
 function toEntry(mood){
     currentID = maxID + 1;
+    document.getElementById("toast").style.display = "block";
     document.getElementById("temp").style.display = "none";
     document.getElementById("main").style.display = "block";
     currentDate = getTime();
@@ -82,14 +113,12 @@ function toEntry(mood){
 
     if (mood == 'good') {
         currentFlag = 1;
-        document.getElementById("title").innerHTML = "Good Entry";// + today;
     } else if (mood == 'bad') {
-        currentFlag = 3;
-        document.getElementById("title").innerHTML = "Bad Entry";// + today;
+        currentFlag = 3
     } else if (mood == 'neutral') {
         currentFlag = 2;
-        document.getElementById("title").innerHTML = "Neutral Entry";// + today;
     }
+    document.getElementById("title").innerHTML = "Enter the title here...";// + today;
     refreshFlagColor();
     initialization();
 }
@@ -101,6 +130,7 @@ function deleteEntry(id) {
 }
 
 function openEntry(id) {
+    document.getElementById("toast").style.display = "block";
     console.log("Open entry #"+id);
     if (id <= maxID) {
         currentID = id;
@@ -227,103 +257,6 @@ function refreshFlagColor() {
         }
     }
 }
-
-function manualSave() {
-    if (currentID !== 0){
-        saveEntry();
-        window.alert("All Secured!");
-    }
-}
-
-// CodeMirror Listener
-// Handling mouse activities 
-var movedByMouse = false;
-cm.on("mousedown", function () {
-    movedByMouse = true;
-});
-
-cm.on("cursorActivity", function () {
-    if (movedByMouse) {
-        movedByMouse = false;
-        if (!cm.getSelection()) {
-            closeDef();
-            //branch based on whether a highlight was clicked here
-            let marks = cm.findMarksAt(cm.getCursor());
-            let len = marks.length;
-            if(len != 0) {
-                clearBottomBarElement();
-                for (let mark of marks){
-                    console.log(cm.getCursor());
-                    let tag = mark["className"];
-                    switch(tag) {
-                        case "BeingRight" : populateDistortion("BeingRight"); break;
-                        case "Blaming" : populateDistortion("Blaming"); break;
-                        case "Catastrophizing" : populateDistortion("Catastrophizing"); break;
-                        case "MindReading" : populateDistortion("MindReading"); break;
-                        case "Splitting" : populateDistortion("Splitting"); break;
-                    }
-                }
-            }
-        }
-    }
-});
-
-cm.on("keydown", function() {
-    prevKey = key;
-    key = event.keyCode;
-
-    if (isMovementKey(event.which)) {
-        movedByMouse = false;
-    }
-
-    /*
-    if(key == 190 || prevKey == 16 && key == 49 || prevKey == 16 && key == 191) {
-        cm.getAllMarks().forEach(mark => mark.clear());
-        var result = runPyScript(cm.doc.getValue());
-        var resparse = JSON.parse(result);
-
-        for(i = 0; i < resparse["valence"].length; i++) {
-            if(resparse["valence"][i] == "negative")
-                cm.markText(cm.doc.posFromIndex(resparse["starts"][i]), cm.doc.posFromIndex(resparse["ends"][i]), {className: "markneg"});
-        } 
-    }*/
-});
-
-cm.on("beforeChange", function () {
-    movedByMouse = false;
-});
-
-cm.on("change", function (cm, changeObj) {
-    let input = changeObj.text;
-    let origin = changeObj.origin ? true : false    
-    if (origin && (promptObjects != undefined) && (promptObjects.length>=1)){
-        let cStart = changeObj.from;
-        let cEnd = changeObj.to;
-        let delIndex = -1;
-
-        promptObjects.some(function(obj, index){    // Find, and break.
-            let mtLocation = obj.find()
-            let start = mtLocation.from;
-            let end = mtLocation.to;
-            console.log("check:", cStart, cEnd, start, end)
-            if (checkInRange(cStart, start, end, -1) || checkInRange(cEnd, start, end)) {
-                console.log("Auto Fade Away, del:", start, end);
-                cm.replaceRange(input, start, end)
-                delIndex = index;
-                return true;
-            }
-        });
-
-        console.log("before del:", promptObjects)
-        if (delIndex > -1) {
-            promptObjects.splice(delIndex, 1)
-        }
-        console.log("after del:", promptObjects)
-        //let first = checkInRange(cStart, start, end, -2)
-        //let second = checkInRange(cEnd, start, end)
-        //console.log(first, second)
-    }
-});
 
 // Related Utilities
 function checkInRange(target, start, end, offset=0) {
@@ -491,3 +424,97 @@ function handleOperation(command){
         case 'clear': cm.clear(); break;
     }
 }
+
+// CodeMirror Listener
+// Handling mouse activities 
+var movedByMouse = false;
+cm.on("mousedown", function () {
+    movedByMouse = true;
+});
+
+cm.on("cursorActivity", function () {
+    if (movedByMouse) {
+        movedByMouse = false;
+        if (!cm.getSelection()) {
+            closeDef();
+            //branch based on whether a highlight was clicked here
+            let marks = cm.findMarksAt(cm.getCursor());
+            let len = marks.length;
+            if(len != 0) {
+                clearBottomBarElement();
+                for (let mark of marks){
+                    console.log(cm.getCursor());
+                    let tag = mark["className"];
+                    switch(tag) {
+                        case "BeingRight" : populateDistortion("BeingRight"); break;
+                        case "Blaming" : populateDistortion("Blaming"); break;
+                        case "Catastrophizing" : populateDistortion("Catastrophizing"); break;
+                        case "MindReading" : populateDistortion("MindReading"); break;
+                        case "Splitting" : populateDistortion("Splitting"); break;
+                    }
+                }
+            }
+        }
+    }
+});
+
+cm.on("keyup", function() {
+    prevKey = key;
+    key = event.keyCode;
+
+    if (isMovementKey(event.which)) {
+        movedByMouse = false;
+    }
+
+    if (key == 190 || key == 110 || key == 13 || key == 49 || key == 191) {
+        saveEntry();    //Autosave
+        let aObj = document.getElementById("toast");
+        aObj.innerText = "Auto Saving...";
+        setTimeout(autoSaveRec, 1000);
+        clearInterval(timer);
+        timer = setInterval(function() {
+            if (currentID > 0) {
+                saveEntry();
+                let aObj = document.getElementById("toast");
+                aObj.innerText = "Auto Saving...";
+                setTimeout(autoSaveRec, 1000);
+            }
+        }, 20000)        
+    }
+});
+
+cm.on("beforeChange", function () {
+    movedByMouse = false;
+});
+
+cm.on("change", function (cm, changeObj) {
+    let input = changeObj.text;
+    let origin = changeObj.origin ? true : false    
+    if (origin && (promptObjects != undefined) && (promptObjects.length>=1)){
+        let cStart = changeObj.from;
+        let cEnd = changeObj.to;
+        let delIndex = -1;
+
+        promptObjects.some(function(obj, index){    // Find, and break.
+            let mtLocation = obj.find()
+            let start = mtLocation.from;
+            let end = mtLocation.to;
+            console.log("check:", cStart, cEnd, start, end)
+            if (checkInRange(cStart, start, end, -1) || checkInRange(cEnd, start, end)) {
+                console.log("Auto Fade Away, del:", start, end);
+                cm.replaceRange(input, start, end)
+                delIndex = index;
+                return true;
+            }
+        });
+
+        console.log("before del:", promptObjects)
+        if (delIndex > -1) {
+            promptObjects.splice(delIndex, 1)
+        }
+        console.log("after del:", promptObjects)
+        //let first = checkInRange(cStart, start, end, -2)
+        //let second = checkInRange(cEnd, start, end)
+        //console.log(first, second)
+    }
+});

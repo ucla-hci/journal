@@ -30,8 +30,24 @@ var currentDate = "";
 var entryTitle = {};
 var entryFlag = {};
 
-function loader() {
-    //createMenu();
+// Simple Toast System
+function autoSaveRec(){
+    let aObj = document.getElementById("toast");
+    aObj.innerText = "Saved";
+    aObj.style.color = "var(--save-confirm)";
+    setTimeout(function(){
+        aObj.innerText = "Save";
+        aObj.style.color = "var(--save-normal)";
+    }, 1300);
+}
+
+function manualSave() {
+    if (currentID !== 0){
+        saveEntry();
+        let aObj = document.getElementById("toast");
+        aObj.innerText = "Saving...";
+        setTimeout(autoSaveRec, 1000);
+    }
 }
 
 // Backend Communication APIs
@@ -66,6 +82,7 @@ function buildMenu(menu, _maxID) {
 // Entry Manipulations
 function openEntry(id) {
     console.log("Open entry #"+id);
+    document.getElementById("toast").style.display = "block";
     if (id <= maxID) {
         currentID = id;
         loadContent(id);
@@ -126,6 +143,7 @@ function saveEntry() {
     let id = currentID;
     let flag = currentFlag;
     let date = currentDate;
+    console.log(id, flag, title, content, date, marks, mouselog, keyboardlog);
     if (isNaN(id)) {
         addData(0, flag, title, content, date, marks, mouselog, keyboardlog);
     }
@@ -143,13 +161,6 @@ function loadMarkRecall(_id, data) {
     }
     else {
         console.log(currentID, _id, 'no mark available');
-    }
-}
-
-function manualSave() {
-    if (currentID !== 0){
-        saveEntry();
-        window.alert("All Secured!");
     }
 }
 
@@ -424,6 +435,7 @@ $(".confirm-pop-up").on("click", function(){
         }
     }
     $("#textmanipulation").css("display","none");
+    saveEntry();    // Autosave
 });
 
 $(".pop-up-selection").on("click", function(){
@@ -611,7 +623,6 @@ $(function() {
                                 let s = analysisCoord(start);
                                 let e = analysisCoord(end);
                                 log("pause:("+s.l+","+s.c+"),("+e.l+","+e.c+")");
-                                
                             }
                         }
                     },
