@@ -6,12 +6,12 @@ var markTable = null;
 var openRequest = indexedDB.open('espresso', 1);
 openRequest.addEventListener('success', e => {
     inDB = openRequest.result;
-    console.log("db connected");
-    checkInitialDB();
+    console.log("db connected in pro mode");
+    _deleteAllfromDB();
 });
 
 openRequest.addEventListener('error', e => {
-    console.log("db failed");
+    console.log("db failed in pro mode");
 });
 
 openRequest.addEventListener('upgradeneeded', e => {
@@ -27,7 +27,7 @@ function addData(id, flag, title, content, date, mark, mouse, key) {
 
     request.onsuccess = function (event) {
         console.log('add succeed');
-        menuData();
+        //menuData();
     };
 
     request.onerror = function (event) {
@@ -43,7 +43,7 @@ function updateData(id, flag, title, content, date, mark, mouse, key) {
 
     request.onsuccess = function (event) {
         console.log('update succeed');
-        menuData();
+        //menuData();
     };
 
     request.onerror = function (event) {
@@ -101,13 +101,12 @@ function menuData() {
             cursor.continue();
         } else {
             console.log("DB traverse finished");
-            buildMenu(menu, maxID);
+            console.log(menu);
         }
     };
 
     request.onerror = function (event) {
         console.log("menu Cursor onError");
-        initMenu();
     };
 }
 
@@ -164,13 +163,46 @@ function removeMark(id) {
       .delete(id);
   
     request.onsuccess = function (event) {
-        console.log('delete succeed');
-        menuData();
+        console.log('delete mark succeed');
+        //menuData();
     };
 
     request.onerror = function (event) {
         console.log('delete mark failed');
     }
+}
+
+function _reInitializeDB() {
+    console.log("clean db");
+    var DBDeleteRequest = indexedDB.deleteDatabase("espresso");
+
+    DBDeleteRequest.onerror = function(event) {
+        console.log("Error deleting indexedDB");
+    };
+    
+    DBDeleteRequest.onsuccess = function(event) {
+        console.log("indexedDB deleted successfully");
+    };
+}
+
+function _deleteAllfromDB() {
+    console.log("cycleDelete");
+    var transaction = inDB.transaction(['data'], 'readwrite');
+    var objectStore = transaction.objectStore('data');
+    var request = objectStore.openCursor();
+  
+    request.onsuccess = function (event) {
+        let cursor = event.target.result;
+        
+        if (cursor) {
+            let id = cursor.value.id;
+            console.log(id);
+            removeData(id);
+            cursor.continue();
+        } else {
+            console.log("DB traverse finished, all clean now");
+        }
+    };
 }
 
 function checkInitialDB() {
@@ -180,13 +212,13 @@ function checkInitialDB() {
 
     request.onerror = function(event) {
         console.log('existing db detected');
-        menuData();
+        //menuData();
     };
  
     request.onsuccess = function(event) {
         console.log('new db detected');
         initEntry();
-        menuData();
+        //menuData();
         
     };
 }

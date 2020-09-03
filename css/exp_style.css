@@ -1,7 +1,3 @@
-body {
-  font-family: "Lato", sans-serif;
-}
-
 .CodeMirror {
     height: auto;
 }
@@ -13,7 +9,8 @@ body {
 }
 
 #entryTitles{
-    max-height: 50vh;
+    margin-top: 10px;
+    max-height: 60vh;
 }
 
 .container{
@@ -37,6 +34,11 @@ a {
     transition: margin-left .5s;
     padding-left: 16px;
     text-decoration: none;
+    cursor: pointer;
+}
+
+p {
+    cursor: pointer;
 }
 
 .page {
@@ -118,21 +120,35 @@ a {
     transition: 0.3s;
 }
 
+.sidebar a.support-btn {
+    font-size: 15px;
+}
+
 .sidebar p {
     text-decoration: none;
     font-size: 20px;
     display: inline-block;
     margin: 2px;
+    color: #434343;
+}
+
+.sidebar-title {
+    opacity: 65%;
+}
+
+.sidebar-title:hover {
+    opacity: 150%;
 }
 
 .oneEntry {
     margin-bottom: 10px;
-    padding: 0px 8px 0px 16px;
+    padding: 0px 0px 0px 16px;
     transition: 0.3s;
     display: flex;
     flex-direction: row;
     justify-content: start;
     align-items: center;
+    cursor: pointer;
 }
 
 .oneEntry p {
@@ -216,7 +232,7 @@ change {
 .collapsible {
     background: none;
     border: none;
-    padding: 8px 8px 15px 32px;
+    padding: 5px 5px 5px 22px;
     text-decoration: none;
     font-size: 25px;
     color: #000000;
@@ -283,10 +299,11 @@ change {
     background-repeat: no-repeat;
     background-position: center center;
     background-color: transparent;
-    width: 23px;
-    height: 23px;
+    width: 30px;
+    height: 30px;
     border-style: none;
     opacity: 50%;
+    cursor: pointer;
 }
 
 .savebtn:hover {
@@ -306,6 +323,11 @@ change {
     margin-right: 5px;
 }
 
+.delbt:hover {
+    opacity: 100%;
+}
+
+
 .openbtn {
     background-image: url("../src/hamburger.png");
     background-size: cover;
@@ -317,6 +339,7 @@ change {
     top: 24px;
     height: 20px;
     border-style: none;
+    cursor: pointer;
 }
 
 .openbottombtn {
@@ -331,6 +354,19 @@ change {
     border-style: none;
     position: absolute;
     bottom: 24px;
+}
+
+.mode-label {
+    opacity: 90%;
+    cursor: default;
+}
+
+.mode-button {
+    opacity: 50%;
+}
+
+.mode-button:hover {
+    opacity: 100%;
 }
 
 #container {
@@ -551,9 +587,8 @@ button {
     
     .pop-up-title{
         margin-top: 25px;
-        margin-left: 30px;
+        margin-left: 18px;
         margin-right: 40px;
-        margin-bottom: 20px;
         color: #6c6c6c;
         display: flex;
         flex-direction: row;
@@ -577,14 +612,7 @@ button {
         font-size: 15px;
     }
 
-    .pop-up-text {
-        position: relative;
-        min-height : 40px;
-        height: 300px; 
-        width: 400px;
-        margin-bottom: 10px;
-    }
-
+    /*
     .pop-up-text textarea{
         margin-left: 30px;
         margin-right: 30px;
@@ -592,17 +620,87 @@ button {
         resize:none;
         border-width: 0px;
         font-size: 20px;
+    }*/
+
+    .pop-up-text-wrap {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        min-height : 40px;
+        height: 300px; 
+        width: 300px;
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-bottom: 10px;
+    }
+
+    #pop-up-content-text {
+        width: 90%; 
+        height: 90%;
+        outline: 0;
+        font-size: 20px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-user-modify: read-write-plaintext-only;
+    }
+
+    .pop-up2 {
+        font: 20px Helvetica, sans-serif;
+        font-weight: 100;
+        display: none;
+        position: absolute;
+        left: 35%;
+        top: 25vh;
+        border-radius: 3px;
+        height: auto;
+        width: auto;
+        z-index: 101;
+        color: #242424;
+        background-color: whitesmoke;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
+    }
+
+    .close-pop-up2{
+        position: absolute;
+        right: 9px;
+        top: 6px;
+    }
+    
+    .confirm-pop-up2 {
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: row;
+        vertical-align: center;
+        padding-bottom: 20px;
+    }
+    
+    .pop-up-title2{
+        margin-top: 25px;
+        margin-left: 30px;
+        margin-right: 40px;
+        margin-bottom: 20px;
+        color: #6c6c6c;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
     }
     
     .close-btn {
-        background-image: url("../src/close.png");
+        background-image: url("data:image/png;base64,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");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center center;
         background-color: transparent;
+        opacity: 0.7;
         height: 18px;
         width: 18px;
         border-style: none;
+        opacity: 50%;
+        cursor: pointer;
+    }
+    
+    .close-btn:hover {
+        opacity: 100%;
     }
 
     .pencil-btn{
@@ -619,25 +717,32 @@ button {
     }
     
     .okay-btn {
-        background-image: url("../src/confirm.png");
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-color: transparent;
-        height: 30px;
-        width: 30px;
+        height: 25px;
+        width: auto;
         border-style: none;
+        opacity: 50%;
+        font-size: 18px;
+    }
+
+    .okay-btn:hover {
+        opacity: 80%;
     }
     
     textarea:focus {
         outline: none;
     }
 
-    /* Dark Mode Switcher Icon, ref: https://blog.csdn.net/qq_35909852/article/details/79079815 */
-.switch-wrapper{
+.float-wrapper{
+    display: flex;
+    flex-flow: row;
+    justify-content: start;
+    align-items: center;
+}
+
+.switch-wrapper{    /* Dark Mode Switcher Icon, ref: https://blog.csdn.net/qq_35909852/article/details/79079815 */
     position: absolute;
     right: 8px;
-    top: 89%;
+    bottom: 6%;
 }
 .switch {
     width: 57px;

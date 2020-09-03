@@ -18,6 +18,11 @@ a {
     transition: margin-left .5s;
     padding-left: 16px;
     text-decoration: none;
+    cursor: pointer;
+}
+
+p {
+    cursor: pointer;
 }
 
 .page {
@@ -32,8 +37,8 @@ a {
   }
   
 .page:target {
-left: 0vw;
-z-index: 1;
+    left: 0vw;
+    z-index: 1;
 }
 
 #sentiment{
@@ -111,21 +116,35 @@ z-index: 1;
     transition: 0.3s;
 }
 
+.sidebar a.support-btn {
+    font-size: 15px;
+}
+
+.newb {
+    opacity: 70%;
+}
+
+.newb:hover {
+    opacity: 100%;
+}
+
 .sidebar p {
     text-decoration: none;
     font-size: 20px;
     display: inline-block;
     margin: 2px;
+    color: #434343;
 }
 
 .oneEntry {
     margin-bottom: 10px;
-    padding: 0px 8px 0px 16px;
+    padding: 0px 0px 0px 16px;
     transition: 0.3s;
     display: flex;
     flex-direction: row;
     justify-content: start;
     align-items: center;
+    cursor: pointer;
 }
 
 .oneEntry p {
@@ -215,6 +234,14 @@ z-index: 1;
   display: block;
 }
 
+.sidebar-title {
+    opacity: 65%;
+}
+
+.sidebar-title:hover {
+    opacity: 150%;
+}
+
 .btbar {
     height: 25px;
     display: flex;
@@ -232,6 +259,7 @@ z-index: 1;
     width: 23px;
     height: 20px;
     border-style: none;
+    cursor: pointer;
 }
 
 .newbtn {
@@ -278,6 +306,40 @@ z-index: 1;
     border-style: none;
     display: inline-block;
     margin-right: 5px;
+    opacity: 50%;
+}
+
+.delbt:hover {
+    opacity: 100%;
+}
+
+.recordbtn{
+    background-image: url("../src/record.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: transparent;
+    width: 23px;
+    height: 23px;
+    border-style: none;
+    opacity: 50%;
+}
+
+.recordbtn:hover {
+    opacity: 80%;
+}
+
+.mode-label {
+    opacity: 90%;
+    cursor: default;
+}
+
+.mode-button {
+    opacity: 50%;
+}
+
+.mode-button:hover {
+    opacity: 100%;
 }
 
 .openbottombtn {
@@ -411,6 +473,14 @@ button {
     .neutral { grid-area: 1 / 2 / 2 / 3; } 
     .bad { grid-area: 1 / 3 / 2 / 4; } 
 
+    .embtn {
+        opacity: 50%
+    }
+    
+    .embtn:hover {
+        opacity: 100%;
+    }
+
 	/* Welcome to Journal! */
 	#welcome {
 		/*font-family: Poligon;*/
@@ -464,10 +534,10 @@ button {
 	/* Good Day */
 	#n21_30 {
 		font-size: 24px;
-		font-weight: 400;
+		font-weight: 500;
 		letter-spacing: 0px;
 		color: rgb(0, 0, 0);
-		opacity: 0.4;
+		opacity: 0.8;
 		vertical-align: middle;
 		justify-content: flex-start;
         margin-left: auto;
@@ -477,10 +547,10 @@ button {
 	/* Neutral Day */
 	#n21_31 {
 		font-size: 24px;
-		font-weight: 400;
+		font-weight: 500;
 		letter-spacing: 0px;
 		color: rgb(0, 0, 0);
-		opacity: 0.4;
+		opacity: 0.8;
 		vertical-align: middle;
 		justify-content: flex-start;
 		margin-left: auto;
@@ -504,10 +574,10 @@ button {
     /* Bad Day */
     #n21_33 {
         font-size: 24px;
-        font-weight: 400;
+        font-weight: 500;
         letter-spacing: 0px;
         color: rgb(0, 0, 0);
-        opacity: 0.4;
+        opacity: 0.8;
         vertical-align: middle;
         justify-content: flex-start;
         margin-left: auto;
@@ -560,7 +630,7 @@ button {
     border-radius: 3px;
     height: auto;
     width: auto;
-    z-index: 98;
+    z-index: 101;
     color: #242424;
     background-color: whitesmoke;
     box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
@@ -616,6 +686,11 @@ button {
     height: 18px;
     width: 18px;
     border-style: none;
+    opacity: 60%;
+}
+
+.close-btn:hover {
+    opacity: 100%;
 }
 
 .okay-btn {

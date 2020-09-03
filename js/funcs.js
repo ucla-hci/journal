@@ -23,10 +23,20 @@ var entryTitle = {};
 var entryFlag = {};
 
 var promptObjects = new Array();
+var _del_ID = 0;
 
 function loader() {
     document.getElementById("main").style.display = "none";
     document.getElementById("temp").style.display = "block";
+}
+
+window.addEventListener('beforeunload', async function (e) {
+    await manualSave();
+});
+
+async function changeMode() {
+    await manualSave();
+    window.open("http://67.158.54.10/exp", "_self");
 }
 
 // Simple Toast System
@@ -50,12 +60,16 @@ function autoSaveRec(){
 }
 
 function manualSave() {
-    if (currentID !== 0){
+    if (currentID > 0){
         saveEntry();
         let aObj = document.getElementById("toast");
         aObj.innerText = "Saving...";
         setTimeout(autoSaveRec, 1000);
     }
+}
+
+function startRecord() {
+    window.open("https://www.screencastify.com/");
 }
 
 // IndexedDB Communication APIs
@@ -65,25 +79,33 @@ function createMenu(){
     menuData();
 }
 
+function initMenu() {
+    maxID = 0;
+    currentID = 1;
+    entryTitle = {};
+}
+
 function buildMenu(menu, _maxID) {
     console.log("buildMenu");
     console.log(menu);
     $('#entryTitles').empty();
-    if (menu === "menuFailed"){  // No saved entry
-        maxID = 0;
-        currentID = 1;
-        entryTitle = {};
-    }
-    else {
+    if (menu && menu !== "menuFailed"){
         maxID = _maxID;
         for (id in menu) {
-            if (id === 0) { continue;}
             let title = menu[id]["title"];
+            console.log(title, title.length);
+            if (title.length > 14) {
+                title = title.slice(0, 12) + "...";
+            }
             let flag = menu[id]["flag"];
             if (title != null){
+                if (id === '0') {
+                    $('#entryTitles').append('<div class="oneEntry"><div class="delbt" style="opacity: 1%"></div><div class="circle1"></div><p class="sidebar-title" onclick="openEntry(0)">Prompts</p></div>');
+                    continue;
+                }
                 let del = '<div class="delbt" onclick="deleteEntry('+ id +')"></div>'
                 let fg = '<div class="circle' + flag + '"></div>'
-                let short = '<p onclick="openEntry('+id+')">'+title+'</p>';
+                let short = '<p class="sidebar-title" onclick="openEntry('+id+')">'+title+'</p>';
                 $('#entryTitles').append('<div class="oneEntry">' + del + fg + short + '</div>');
             }
         }
@@ -120,12 +142,17 @@ function toEntry(mood){
     }
     document.getElementById("title").innerHTML = "Enter the title here...";// + today;
     refreshFlagColor();
-    initialization();
 }
 
 function deleteEntry(id) {
-    console.log("deleting entry #"+id);
-    removeData(id);
+    _del_ID = id;
+    messagePopUp("Do you want to delete this entry?");
+}
+
+function deleteEntryRecall() {
+    console.log("deleting entry #"+_del_ID);
+    removeData(_del_ID);
+    _del_ID = 0;
     newEntry();
 }
 
@@ -179,6 +206,7 @@ function loadContentRecall(id, data) {
     }
     let marks = data["marks"];
     for (m of marks) {
+        console.log(m);
         tag = m["tag"];
         from = m["from"];
         to = m["to"];
@@ -241,7 +269,6 @@ function circleFlag() {
         currentFlag = 1;
     }
     refreshFlagColor();
-    saveEntry();
 }
 
 function refreshFlagColor() {
@@ -341,6 +368,25 @@ function acceptChange() {
 
 function rejectChange() {
     $("#textmanipulation").css("display","none");
+}
+
+function messagePopUp(text) {
+    $("#popUpMessage").text(text);
+    showPopUp();
+    console.log("show");
+}
+
+function showPopUp() {
+    $("#popUpWindow").css("display","block");
+}
+
+function hidePopUp() {
+    $("#popUpWindow").css("display","none");
+}
+
+function confirmDelete() {
+    hidePopUp();
+    deleteEntryRecall();
 }
 
 /* CodeMirror Decoration Functions
@@ -467,10 +513,12 @@ cm.on("keyup", function() {
     }
 
     if (key == 190 || key == 110 || key == 13 || key == 49 || key == 191) {
-        saveEntry();    //Autosave
-        let aObj = document.getElementById("toast");
-        aObj.innerText = "Auto Saving...";
-        setTimeout(autoSaveRec, 1000);
+        if (currentID > 0) {
+            saveEntry();    //Autosave
+            let aObj = document.getElementById("toast");
+            aObj.innerText = "Auto Saving...";
+            setTimeout(autoSaveRec, 1000);
+        }
         clearInterval(timer);
         timer = setInterval(function() {
             if (currentID > 0) {

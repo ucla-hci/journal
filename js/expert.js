@@ -30,6 +30,17 @@ var currentDate = "";
 var entryTitle = {};
 var entryFlag = {};
 
+var _currentEntry = null;
+
+window.addEventListener('beforeunload', async function (e) {
+    await manualSave();
+});
+
+async function changeMode() {
+    await manualSave();
+    window.open("http://67.158.54.10/", "_self");
+}
+
 // Simple Toast System
 function autoSaveRec(){
     let aObj = document.getElementById("toast");
@@ -42,7 +53,7 @@ function autoSaveRec(){
 }
 
 function manualSave() {
-    if (currentID !== 0){
+    if (currentID > 0){
         saveEntry();
         let aObj = document.getElementById("toast");
         aObj.innerText = "Saving...";
@@ -56,23 +67,26 @@ function createMenu(){
     menuData();
 }
 
+function initMenu() {
+    maxID = 0;
+    currentID = 1;
+    entryTitle = {};
+}
+
 function buildMenu(menu, _maxID) {
     console.log("buildMenu");
     $('#entryTitles').empty();
-    if (menu === "menuFailed"){  // No saved entry
-        maxID = 0;
-        currentID = 0;
-        window.alert("No saved entry detected!")
-    }
-    else {
+    if (menu && menu !== "menuFailed"){
         maxID = _maxID;
         for (id in menu) {
-            if (id === 0) { continue;}  // Entry 0 is for error handling and backup recoverey
             let title = menu[id]["title"];
+            if (title.length > 16) {
+                title = title.slice(0, 14) + "...";
+            }
             let flag = menu[id]["flag"];
             if (title != null){
                 let fg = '<div class="circle' + flag + '"></div>';
-                let short = '<p onclick="openEntry('+id+')">'+title+'</p>';
+                let short = '<p class="sidebar-title" onclick="openEntry('+id+')">'+title+'</p>';
                 $('#entryTitles').append('<div class="oneEntry">' + fg + short + '</div>');
             }
         }
@@ -81,11 +95,14 @@ function buildMenu(menu, _maxID) {
 
 // Entry Manipulations
 function openEntry(id) {
-    console.log("Open entry #"+id);
+    console.log("Opening entry #", id);
     document.getElementById("toast").style.display = "block";
     if (id <= maxID) {
         currentID = id;
         loadContent(id);
+    }
+    else {
+        console.log("Open failed, #", id)
     }
 }
 
@@ -113,6 +130,7 @@ function loadContentRecall(_id, data) {
         $("#entrydate").text(date);
     }
     let marks = data["marks"];
+    console.log(data);
     for (m of marks) {
         tag = m["tag"];
         from = m["from"];
@@ -143,7 +161,7 @@ function saveEntry() {
     let id = currentID;
     let flag = currentFlag;
     let date = currentDate;
-    console.log(id, flag, title, content, date, marks, mouselog, keyboardlog);
+    
     if (isNaN(id)) {
         addData(0, flag, title, content, date, marks, mouselog, keyboardlog);
     }
@@ -151,16 +169,28 @@ function saveEntry() {
         addData(id, flag, title, content, date, marks, mouselog, keyboardlog);
         addMark(id, commentLog, commentSet, tagCount);
     }
+    console.log(id, flag, title, content, date, marks, mouselog, keyboardlog);
+    console.log(id, commentLog, commentSet, tagCount);
+    _currentEntry = {data: {id, flag, title, content, date, marks, mouselog, keyboardlog}, mark: {id, commentLog, commentSet, tagCount}}
+}
+
+function _saveCurrent() {
+    generatePackRecall(_currentEntry);
 }
 
 function loadMarkRecall(_id, data) {
+    console.log(_id, data)
     if (data && _id !== -1 && _id === currentID) {
         commentLog = data["commentLog"];
         commentSet = data["commentSet"];
         tagCount = data["tagCount"];
+        console.log("mark data available:", tagCount);
     }
     else {
-        console.log(currentID, _id, 'no mark available');
+        commentLog = {};
+        commentSet = [];
+        tagCount = 0;
+        console.log(currentID, _id, 'no mark available, all initialized!');
     }
 }
 
@@ -223,7 +253,7 @@ function fetchMarks() {
     var marksOutput = new Array();
     cm.getAllMarks().forEach(mark => {
         console.log(mark, mark.find());
-        if (mark.find().to) {
+        if (mark.find().to && !mark.className.includes('CodeMirror')) {
             marksOutput.push({"tag": mark.className, "from": {"line":mark.find().from.line, "ch":mark.find().from.ch}, "to": {"line":mark.find().to.line, "ch":mark.find().to.ch}})
         }
     });
@@ -381,20 +411,20 @@ function callTextPrompt(type) {
     if (type == 1) {
         last_menu_selection = 1;
         $("#pop-up-title-text").text("Type Your Suggestion Below:");
-        $("#pop-up-content-text").val("");
+        $("#pop-up-content-text").text("");
     }
     else if (type == 2) {
         last_menu_selection = 2;
         $("#pop-up-title-text").text("Replace with:");
-        $("#pop-up-content-text").val("");
+        $("#pop-up-content-text").text("");
     }
     else if (type == 3){
         last_menu_selection = 3;
-        $("#pop-up-content-text").val("");
+        $("#pop-up-content-text").text("");
     }
     else if (type == 4){
         last_menu_selection = 4;
-        $("#pop-up-content-text").val("");
+        $("#pop-up-content-text").text("");
     }
     else{
         console.log("Prompt Error Occured!");
@@ -410,10 +440,25 @@ $("#close-cogndistortion").on("click", function(){
 $("#close-textmanipulation").on("click", function(){
     $("#textmanipulation").css("display","none");
     lastTagObj.clear();
+    $(".pop-up-text-wrap").css("width","300px");
 });
 
+function messagePopUp(text) {
+    $("#popUpMessage").text(text);
+    showPopUp();
+    console.log("show");
+}
+
+function showPopUp() {
+    $("#popUpWindow").css("display","block");
+}
+
+function hidePopUp() {
+    $("#popUpWindow").css("display","none");
+}
+
 $(".confirm-pop-up").on("click", function(){
-    sentence = $(".pop-up-textarea").val();
+    sentence = $("#pop-up-content-text").text();
     if ((sentence==undefined) || (sentence=="")) {
         alert("No text found.")
         return;
@@ -435,7 +480,7 @@ $(".confirm-pop-up").on("click", function(){
         }
     }
     $("#textmanipulation").css("display","none");
-    saveEntry();    // Autosave
+    manualSave();    // Autosave
 });
 
 $(".pop-up-selection").on("click", function(){
@@ -570,11 +615,19 @@ function handelFeedback(sentence) {
 }
 
 function findMargin(pageX, pageY) {
-    console.log(pageX, pageY);
+    let wMax = document.getElementById("title").offsetWidth;
+    let wrapSize = document.getElementById("textmanipulation").offsetWidth;
+    $(".pop-up-text-wrap").css("width",wrapSize+"px");
+    
     pageX -= 480;
     pageY -= 20;
     pageX = pageX < 10 ? 10 : pageX;
-    pageX = pageX < 20 ? 20 : pageX;
+    pageY = pageY < 20 ? 20 : pageY;
+    if ((pageX + wrapSize) > (wMax * 0.8)) {
+        pageX = wMax * 0.8 - wrapSize;
+    }
+
+    console.log(wMax, wrapSize, pageX);
     return {x: pageX, y: pageY}
 }
 
@@ -595,66 +648,81 @@ $(function() {
             console.log("Click at：" + key);
         },
         items: {
-            "Behaviors": {
-                name: "Behavior", 
-                icon: "fa-flag",
-                items: {
-                    "pause": {
-                        name: "Pause",
-                        callback: function(itemKey, opt, rootMenu, originalEvent) {
-                            if (cm.somethingSelected()) {
-                                let start = cm.getCursor("from")
-                                let end = cm.getCursor("to")
-                                if (!checkStartCoord(start, end)) {
-                                    let tmp = start;
-                                    start = end;
-                                    end = tmp;
-                                }
-                                current_sel_from = start;
-                                current_sel_to = end;
-                                assigned_tag = 'pause';
-                                selected_text = cm.getSelection();
-                                callTextPrompt(3);
-                                changePopUpPrompt('Why did you pause here? <br> What AI feedback may help you write fluently?');
-                                let mg = findMargin(rootMenu.pageX, rootMenu.pageY)
-                                $("#textmanipulation").css("margin-left", (mg.x)+"px");
-                                $("#textmanipulation").css("margin-top", (mg.y)+"px");
-                                lastTagObj = cm.markText(start, end, {className: "pause-hl " + tagCount});
-                                let s = analysisCoord(start);
-                                let e = analysisCoord(end);
-                                log("pause:("+s.l+","+s.c+"),("+e.l+","+e.c+")");
-                            }
+            "pause": {
+                name: "Pause",
+                icon: "fa-pause",
+                callback: function(itemKey, opt, rootMenu, originalEvent) {
+                    if (!cm.somethingSelected()) {
+                        messagePopUp("You need to select a part of writing first");
+                    }
+                    else{
+                        let start = cm.getCursor("from");
+                        let end = cm.getCursor("to");
+                        console.log(start, end);
+                        if (!checkStartCoord(start, end)) {
+                            let tmp = start;
+                            start = end;
+                            end = tmp;
                         }
-                    },
-                    "fluent": {
-                        name: "Fluent",
-                        callback: function(itemKey, opt, rootMenu, originalEvent) {
-                            if (cm.somethingSelected()) {
-                                let start = cm.getCursor("from")
-                                let end = cm.getCursor("to")
-                                if (!checkStartCoord(start, end)) {
-                                    let tmp = start;
-                                    start = end;
-                                    end = tmp;
-                                }
-                                current_sel_from = start;
-                                current_sel_to = end;
-                                assigned_tag = 'fluent';
-                                selected_text = cm.getSelection();
-                                callTextPrompt(3);
-                                changePopUpPrompt('How did you write fluently here?');
-                                let mg = findMargin(rootMenu.pageX, rootMenu.pageY)
-                                $("#textmanipulation").css("margin-left", (mg.x)+"px");
-                                $("#textmanipulation").css("margin-top", (mg.y)+"px");
-                                lastTagObj = cm.markText(start, end, {className: "fluent-hl " + tagCount});
-                                let s = analysisCoord(start);
-                                let e = analysisCoord(end);
-                                log("pause:("+s.l+","+s.c+"),("+e.l+","+e.c+")");
-                            }
-                        }
+                        current_sel_from = start;
+                        current_sel_to = end;
+                        assigned_tag = 'pause';
+                        selected_text = cm.getSelection();
+                        callTextPrompt(3);
+                        let innerHL = `<ul>
+                                        <li>Why do I pause here?</li>
+                                        <li>How do I feel when I pause?</li>
+                                        <li>What\'s going on in my mind in this moment? </li>
+                                        <li>What may hinder me from pouring these thoughts out?</li>
+                                    </ul>`
+                        changePopUpPrompt(innerHL);
+                        let mg = findMargin(rootMenu.pageX, rootMenu.pageY)
+                        $("#textmanipulation").css("margin-left", (mg.x)+"px");
+                        $("#textmanipulation").css("margin-top", (mg.y)+"px");
+                        lastTagObj = cm.markText(start, end, {className: "pause-hl " + tagCount});
+                        let s = analysisCoord(start);
+                        let e = analysisCoord(end);
+                        log("pause:("+s.l+","+s.c+"),("+e.l+","+e.c+")");
                     }
                 }
             },
+            "fluent": {
+                name: "Fluent",
+                icon: "fa-thumbs-up",
+                callback: function(itemKey, opt, rootMenu, originalEvent) {
+                    if (!cm.somethingSelected()) {
+                        messagePopUp("You need to select a part of writing first");
+                    }
+                    else{
+                        let start = cm.getCursor("from")
+                        let end = cm.getCursor("to")
+                        if (!checkStartCoord(start, end)) {
+                            let tmp = start;
+                            start = end;
+                            end = tmp;
+                        }
+                        current_sel_from = start;
+                        current_sel_to = end;
+                        assigned_tag = 'fluent';
+                        selected_text = cm.getSelection();
+                        callTextPrompt(3);
+                        let innerHL = `<ul>
+                                        <li>Why do I write so fluently here?</li>
+                                        <li>How do I feel when I am writing fluently?</li>
+                                        <li>Am I describing an important event, person or thought to me? </li>
+                                    </ul>`
+                        changePopUpPrompt(innerHL);
+                        let mg = findMargin(rootMenu.pageX, rootMenu.pageY)
+                        $("#textmanipulation").css("margin-left", (mg.x)+"px");
+                        $("#textmanipulation").css("margin-top", (mg.y)+"px");
+                        lastTagObj = cm.markText(start, end, {className: "fluent-hl " + tagCount});
+                        let s = analysisCoord(start);
+                        let e = analysisCoord(end);
+                        log("pause:("+s.l+","+s.c+"),("+e.l+","+e.c+")");
+                    }
+                }
+            },
+            /*
             "Content": {
                 name: "Content", 
                 icon: "edit",
@@ -715,14 +783,20 @@ $(function() {
                         }
                     },
                 }
-            },
+            },*/
             "feedback": {
                 name: "Comment", 
                 icon: "fa-commenting-o",
                 callback: function(itemKey, opt, rootMenu, originalEvent) {
                     assigned_tag = 'others';
                     callTextPrompt(4);
-                    changePopUpPrompt();
+                    let innerHL = `<ul>
+                                        <li>Label any other words or sentences that are meaningful or important.</li>
+                                        <li>If I am a good friend of myself, what I will say to comfort me at this moment?</li>
+                                        <li>If I write again based on the previous input, what I may want to modify or add now?</li>
+                                        <li>If I can send this writing to one therapist, what kind of feedback would be helpful to me?</li>
+                                    </ul>`
+                    changePopUpPrompt(innerHL);
                     let mg = findMargin(rootMenu.pageX, rootMenu.pageY)
                     $("#textmanipulation").css("margin-left", (mg.x)+"px");
                     $("#textmanipulation").css("margin-top", (mg.y)+"px");
@@ -782,7 +856,7 @@ $(function() {
             },*/
             "claeer": {
                 name: "Clear Mark",
-                icon: "fa-cog",
+                icon: "fa-eraser",
                 callback: function(itemKey, opt, rootMenu, originalEvent) {
                     cursor = cm.getCursor();
                     cm.findMarksAt(cursor).forEach(mark => {
@@ -794,7 +868,9 @@ $(function() {
                         }
                         mark.clear()
                     });
-                    console.log("clear marks", cursor);
+                    closeDef();
+                    manualSave();                
+                    console.log("all marks cleared at", cursor);
                     log("clear");
                 }
             }
@@ -826,7 +902,7 @@ cm.on("cursorActivity", function () {
                     let tags = tag.split(" ");
                     if (tags[1]) {
                         let id = parseInt(tags[1]);
-                        pair.push([tags[0], commentSet[id]]);
+                        pair.push(["Comment:", commentSet[id]]);
                     }
                 }
                 openDef();

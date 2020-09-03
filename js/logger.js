@@ -22,6 +22,7 @@ $(document).keyup(function(evt) {
         initialization();
     }
     t = evt.timeStamp;
+    //console.log(t, t-UnixZero, UnixZero); // TODO Need a fix here!
     text = fetchContent();
     cursor = cm.getCursor();
     keyboardlog.push({"timestamp": t-UnixZero, "type":"type", "keycode": evt.which, "cursor": cursor, "text": text})

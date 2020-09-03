@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Javascript -->
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
 
   <!-- Code mirror scripts -->
   <script src="lib/codemirror.js"></script>
@@ -22,7 +22,7 @@
 <div id="mySidebar" class="sidebar">
   <!--<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">Settings</a>
   <a href="javascript:void(0)" class="greeting">Good afternoon, X.</a>-->
-  <a href="javascript:void(0)" onclick = "newEntry()">New +</a>
+  <a href="javascript:void(0)" onclick = "newEntry()" class="newb">New +</a>
   <!--<a href="javascript:void(0)" onclick = "manualSave()">Save</a>-->
 
   <button type="button" class="collapsible" onclick = "createMenu()">Recent Journals</button>
@@ -35,9 +35,10 @@
     <div class="content" id="baddays"></div>-->
   </div>
 
-  <!--<div class="switch-wrapper">
-    <input class="switch switch-anim" type="checkbox" onclick=darkMode()>
-  </div>-->
+  <div class="switch-wrapper">
+    <a class="support-btn" href="mailto:sigchi@ucla.edu" target="_blank" title="Contact UCLA HCI if you need help about using Espresso">Tech Support</a>
+    <!--<input class="switch switch-anim" type="checkbox" onclick=darkMode()>-->
+  </div>
 </div>
 
 <div id="container">
@@ -47,35 +48,38 @@
     <div>
       <!--<button class="swtbtn" id="markswitch" onclick="displayMarks()"></button>
       <button class="savebtn" id="manualsave" onclick="manualSave()"></button>
-      <button class="newbtn" id="newentry" onclick="newEntry()"></button>-->
+      <button class="newbtn" id="newentry" onclick="newEntry()"></button>
+      <button class="recordbtn" id="record" onclick="startRecord()"></button>-->
+      <a href="javascript:void(0)" class="mode-label" title="Now in writing mode">Writing</a>
+      <a onclick="changeMode()" class="mode-button" title="Click to enter reflection mode">Reflection</a>
     </div>
   </div>
   <div class="onboard" id="temp">
     <!-- Welcome to Journal! -->
-    <div id="welcome">Welcome to Journal!</div>
+    <div id="welcome">Welcome to Espresso!</div>
     <!-- How is your day today? -->
     <div id="query" onclick="toEntry()">How is your day today? Choose your mood to begin: </div>
 
     <div class="parent">
-      <div class="good">
+      <div class="good embtn" onclick="toEntry('good')" style="cursor:pointer">
         <!-- Good Day image -->
         <div class="left top rectangle" id="n21_29"></div>
         <!-- Good Day -->
-        <div class="left top text" id="n21_30" onclick="toEntry('good')">Good Day</div>
+        <div class="left top text" id="n21_30">Good Day</div>
       </div>
 
-      <div class="neutral">
+      <div class="neutral embtn" onclick="toEntry('neutral')" style="cursor:pointer">
         <!-- Neutral Day image -->
         <div class="left top rectangle" id="n21_32"></div>
         <!-- Neutral Day -->
-        <div class="left top text" id="n21_31" onclick="toEntry('neutral')">Neutral Day</div>
+        <div class="left top text" id="n21_31" >Neutral Day</div>
       </div>
       
-      <div class="bad">
+      <div class="bad embtn" onclick="toEntry('bad')" style="cursor:pointer">
         <!-- image 19 -->
         <div class="left top rectangle" id="n21_34"></div>
         <!-- Bad Day -->
-        <div class="left top text" id="n21_33" onclick="toEntry('bad')">Bad Day</div>
+        <div class="left top text" id="n21_33">Bad Day</div>
       </div>
     </div>
   </div>
@@ -95,20 +99,34 @@
         <a href="#" id="defbody">Distortion Sample</a> -->
     </div>
 
-    <div class="pop-up" id="textmanipulation">
+    <!--<div class="pop-up" id="textmanipulation">
       <div class="pop-up-title">
         <div class="close-btn" onclick="rejectChange()"></div>
-        <span id="pop-up-title-text"></span>
+        <span id="pop-up-title-text">Entry Deleted!</span>
         <div class="okay-btn" onclick="acceptChange()"></div>
       </div>
+    </div>-->
+
+  </div>
+
+  <div class="pop-up2" id="popUpWindow">
+    <div class="close-pop-up">
+      <div class="close-btn" onclick="hidePopUp()"></div>
+    </div>
+    <div class="pop-up-title2">
+      <span id="popUpMessage">Do you want to delete this entry?</span>
+    </div>
+    <div class="confirm-pop-up">
+      <button onclick="confirmDelete()">Yes</button>
+      <button onclick="hidePopUp()">No</button>
     </div>
   </div>
 </div>
 </body>
 
 <!-- Espresso.js -->
-<script type="text/javascript" src="js/indexDB.js"></script>
 <script type="text/javascript" src="js/funcs.js"></script>
+<script type="text/javascript" src="js/indexDB.js"></script>
 <script type="text/javascript" src="js/logger.js"></script>
 
 </html> 

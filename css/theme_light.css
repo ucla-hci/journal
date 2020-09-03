@@ -8,6 +8,12 @@ body {
     --joy-font: #00BD4B;
     --save-normal: #8A8A8A;
     --save-confirm: #009966;
+
+    font-family: "Lato", sans-serif;
+    background-color: #fafafa;
+    color: #828282;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .selection-ot{ background-color: #F3F3F3 !important; }  /* Can also set to be no background color */
@@ -26,8 +32,8 @@ body {
 .anger-font{ color: #BD4B00;}
 .joy-font{ color: #00BD4B;}
 
-.pause-hl{ color: #BD4B00;}
-.fluent-hl{ color: #8ac8a4;}
+.pause-hl{ text-decoration: underline solid #BD4B00;}
+.fluent-hl{ text-decoration: underline solid #8ac8a4;}
 .summary-hl { background-color: #8ee4f1;}
 .keyword-hl { text-decoration: underline dotted #673dc3;}
 .comment-hl { background-color: #ff7;}
@@ -101,12 +107,6 @@ body {
 .Splitting { background-color: #00BDAA; }
 .Should { background-color: #f8e4e4; }
 .FortuneTelling { background-color: #8fb3f1; }
-
-body {
-    font-family: "Lato", sans-serif;
-    background-color: #fafafa;
-    color: #828282;
-}
 
 #toast {
     color: var(--save-normal);
