@@ -179,7 +179,6 @@ function _saveCurrent() {
 }
 
 function loadMarkRecall(_id, data) {
-    console.log(_id, data)
     if (data && _id !== -1 && _id === currentID) {
         commentLog = data["commentLog"];
         commentSet = data["commentSet"];

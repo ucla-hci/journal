@@ -173,6 +173,18 @@ function removeMark(id) {
     }
 }
 
+function _reInitializeDB() {
+    var DBDeleteRequest = indexedDB.deleteDatabase("espresso");
+
+    DBDeleteRequest.onerror = function(event) {
+        console.log("Error deleting indexedDB");
+    };
+    
+    DBDeleteRequest.onsuccess = function(event) {
+        console.log("indexedDB deleted successfully");
+    };
+}
+
 function checkInitialDB() {
     let request = inDB.transaction(['data'], 'readwrite')
         .objectStore('data')
@@ -252,7 +264,7 @@ function generatePackOne() {
             console.log(cursor);
             let id = cursor.value.id;
             if (!(id === 0 || id === '0')) {
-                let data = {title: cursor.value.title, content: cursor.value.content, date: cursor.value.date, flag: cursor.value.flag, mouse: cursor.value.mouseLog, key: cursor.value.keyLog}
+                let data = {title: cursor.value.title, content: cursor.value.content, date: cursor.value.date, flag: cursor.value.flag, marks: cursor.value.marks, mouse: cursor.value.mouseLog, key: cursor.value.keyLog}
                 returnPack[id] = {data: data, mark: null};
             }
             cursor.continue();

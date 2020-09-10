@@ -22,10 +22,9 @@ $(document).keyup(function(evt) {
         initialization();
     }
     t = evt.timeStamp;
-    //console.log(t, t-UnixZero, UnixZero); // TODO Need a fix here!
     text = fetchContent();
     cursor = cm.getCursor();
-    keyboardlog.push({"timestamp": t-UnixZero, "type":"type", "keycode": evt.which, "cursor": cursor, "text": text})
+    keyboardlog.push({"timestamp":t, "type":"type", "keycode": evt.which, "cursor": cursor, "text": text})
 });
 
 // Mouse Movement logger
@@ -34,7 +33,7 @@ $(document).mousemove(function(evt) {
         initialization();
     }
     t = evt.timeStamp;
-    mouselog.push({"timestamp":t-UnixZero, "type":"move", "x":evt.pageX, "y":evt.pageY});
+    mouselog.push({"timestamp":t, "type":"move", "x":evt.pageX, "y":evt.pageY});
 });
 
 $(document).mousedown(function(evt) {
@@ -42,7 +41,7 @@ $(document).mousedown(function(evt) {
         initialization();
     }
     t = evt.timeStamp;
-    mouselog.push({"timestamp":t-UnixZero, "type":"click", "x":evt.pageX, "y":evt.pageY});
+    mouselog.push({"timestamp":t, "type":"click", "x":evt.pageX, "y":evt.pageY});
 });
 
 function reportKeyboardLog() {

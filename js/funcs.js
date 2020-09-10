@@ -206,7 +206,6 @@ function loadContentRecall(id, data) {
     }
     let marks = data["marks"];
     for (m of marks) {
-        console.log(m);
         tag = m["tag"];
         from = m["from"];
         to = m["to"];
