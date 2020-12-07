@@ -1,7 +1,7 @@
 # ot.js-demo
 simple demo for ot.js
 
-## Development
+## Demo Set Up
 ```
 npm install
 npm start
