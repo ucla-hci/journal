@@ -16,6 +16,19 @@ import operator
 import eliza_util
 from empath import Empath
 
+# LIWC
+import liwc
+import re
+from collections import Counter
+
+parse, category_names = liwc.load_token_parser('LIWC2015_English.dic')
+
+def tokenize(text):
+    # you may want to use a smarter tokenizer
+    for match in re.finditer(r'\w+', text, re.UNICODE):
+        yield match.group(0)
+
+## Flask
 app = Flask(__name__)
 CORS(app)
 authenticator = IAMAuthenticator('CgNIbRG8SxkoCqqbiDNIbt-DsA4uKCsNHT2ZFqnAb2JY')
@@ -38,6 +51,7 @@ def home():
 # System APIs
 @app.route("/index")
 def hello_world():
+
     return 'Hello, World!'
 
 @app.route('/load', methods=['GET', 'POST'])
@@ -353,6 +367,20 @@ def keyword():
         return resp
         '''
         return watson_response
+
+@app.route('/liwc', methods=['GET', 'POST'])
+def liwc():
+    if request.method == 'POST':
+        content = request.form['mydata']
+        text = str(content).lower()
+        gettysburg_tokens = tokenize(text)
+        # now flatmap over all the categories in all of the tokens using a generator:
+        gettysburg_counts = Counter(category for token in gettysburg_tokens for category in parse(token))
+        # and print the results:
+        print(gettysburg_counts)
+    
+    return "Finished!"
+        
 
 if __name__ == "__main__":
     app.run(debug = False, host = '0.0.0.0', port=5000, threaded=True)

@@ -310,6 +310,13 @@ function checkEmotion() {
     }
 }
 
+
+// Check LIWC
+function checkLIWC() {
+    let text = fetchContent();
+    checkLIWCAPIs(text);
+}
+
 // Color keywords by categories
 function checkCat() {
     $('#sentiment').css("display","none");
@@ -629,6 +636,18 @@ function checkCognDistortion(input){
     var jqXHR = $.ajax({
         type: "POST",
         url: "http://127.0.0.1:5000/cd",
+        async: false,
+        data: { mydata: input }
+    });
+    console.log(jqXHR.responseText);
+    return jqXHR.responseText;
+}
+
+function checkLIWCAPIs(input){
+    console.log("trying to run python");
+    var jqXHR = $.ajax({
+        type: "POST",
+        url: "http://127.0.0.1:5000/liwc",
         async: false,
         data: { mydata: input }
     });

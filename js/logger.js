@@ -2,10 +2,13 @@ var UnixZero = -1;
 var mouselog = new Array();
 var keyboardlog = new Array();
 
+var fs = require("fs")
+
 function startTimer(){
     let dateTime = Date.now();
     UnixZero = dateTime;
-    console.log("restart:", dateTime)
+    console.log("restart:", dateTime);
+    record("test", "test");
 }
 
 function initialization(){
@@ -96,6 +99,24 @@ function mouseHeatmap(mouseCoor){
             d.style.top = yCoor  + "px";
         }
     }
+}
+
+function record(text, filename) {
+    console.log("准备写入文件");
+    fs.writeFile('filename.txt', '我是通 过fs.writeFile 写入文件的内容',  function(err) {
+        if (err) {
+            return console.error(err);
+        }
+        console.log("数据写入成功！");
+        console.log("--------我是分割线-------------")
+        console.log("读取写入的数据！");
+        fs.readFile('input.txt', function (err, data) {
+            if (err) {
+                return console.error(err);
+            }
+            console.log("异步读取文件数据: " + data.toString());
+        });
+    });
 }
 
 // Save Textarea Contents to .txt File
