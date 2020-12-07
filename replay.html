@@ -27,18 +27,24 @@
 
 <body>
 	<div id="mySidebar" class="sidebar">
-		<div class="float-wrapper">
-			<button type="button" class="collapsible" onclick = "createMenu()">Recent Journals</button>
-			<!--<button class="savebtn" onclick = "generateFile()" title="Click to generate the file for reporting"></button>-->
+		<button type="button" class="collapsible btnhover" onclick="changeMode()" id="changeModeBtn">Preview Mode</button>
+		<button type="button" class="collapsible btnhover" onclick="stopAnimation()">Manual Stop</button>
+		<button type="button" class="collapsible abtn">Delay Threshold:</button>
+		<div class="float-wrapper-mid">
+			<textarea id="delayThreshold" rows="1" cols="10"></textarea>
+			<button onclick="setThreshold()">Change</button>
 		</div>
-		<button type="button" class="collapsible" onclick = "loadData()">Test</button>
+
+		<HR>
+		<button type="button" class="collapsible">Load Data:</button>
 		<input type="file" id="files" name="files[]" multiple/>
+		<HR>
+		
 		<div class="content" id="entryTitles">
 		</div>
 
 		<div class="switch-wrapper">
-			<!--<input class="switch switch-anim" type="checkbox" onclick=darkMode()>-->
-			<a class="support-btn" href="mailto:sigchi@ucla.edu" target="_blank" title="Contact UCLA HCI if you need help about using Espresso">Tech Support</a>
+			<div class="timer-wrapper">Time: <p id="timer_display">0</p> sec</div>
 		</div>
 	</div>
 

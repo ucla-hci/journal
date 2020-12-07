@@ -1,3 +1,26 @@
 input {
     margin-left: 16px;
 }
+
+.float-wrapper-mid {
+    margin-left: 25px;
+    display:flex;
+    align-items:flex-end;
+}
+
+#delayThreshold {
+    margin-right: 20px;
+    resize: none;
+}
+
+.btnhover:hover {
+    color: brown;
+}
+
+.btnhover {
+    cursor: pointer;
+}
+
+#files {
+    padding-left: 6px;
+}

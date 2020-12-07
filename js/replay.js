@@ -8,6 +8,12 @@ var cm = CodeMirror.fromTextArea(write, {
     scrollbarStyle: null
 });
 var loadedEntry = [];
+var pauseCursor = [];
+var lengthControl = 0;
+var globalDisplayTimer = 0;
+var replyModeBool = false;
+
+openNav();
 
 document.getElementById("files").addEventListener("change", handleFileSelect, false);
 
@@ -32,10 +38,30 @@ function closeNav() {
     //document.getElementById("opnsidebar").style.backgroundImage = 'url("../src/hamburger.png")';
 }
 
+function openDef() {
+    document.getElementById("myBottombar").style.height = "auto";
+    document.getElementById("myBottombar").style.minHeight = "100px";
+}
+
 function closeDef() {
     document.getElementById("myBottombar").style.height = "0";
     document.getElementById("myBottombar").style.minHeight = "0";
-    document.getElementById("main").style.marginBottom= "0";
+}
+
+function clearBottomBarElement(){
+    document.getElementById("myBottombar").innerHTML = "";
+}
+
+function newBottomBarElement(pair) {
+    for (let v of pair){
+        title = v[0];
+        body = v[1];
+        if (body !== -1 && body !== '-1') {
+            let newDiv = "<div><a href=\"javascript:void(0)\" class=\"closedef onedeftitle\" onclick=\"closeDef()\">" + title + "</a>";
+            newDiv += "<a href=\"#\" class=\"onedefbody\">" + body + "</a></div>"
+            document.getElementById("myBottombar").innerHTML += newDiv;
+        }
+    }
 }
 
 function showPopUp() {
@@ -49,11 +75,29 @@ function hidePopUp() {
 
 var globalActCounter = 0;
 var lastTime = -1;
-var startTime = -1;
+var animationStartTimeStamp = 0;
 var nextInterval = 0;
-var keyboardRawData = demo_data_hw['data']['keyboardlog'];// In format of array
+var keyboardRawData = demo_data_hw['data']['keyboardlog'];// In format of array, demo data for test only
 var maxActIndex = keyboardRawData.length;
 var prevFrameObject = null;
+var currentDelayThreshold = 5000;
+var animationStartTimeStamp = 0;
+var delayDataRecord = [];
+document.getElementById("delayThreshold").value = "5000";
+
+
+function setThreshold() {
+    let tmp = parseInt(document.getElementById("delayThreshold").value);
+    if (isNaN(tmp)) {
+        currentDelayThreshold = 5000;
+        document.getElementById("delayThreshold").value = "5000";
+        console.log("delay threshold reset to default:", currentDelayThreshold);
+    }
+    else {
+        currentDelayThreshold = tmp;
+        console.log("new delay threshold set:", currentDelayThreshold);
+    }
+}
 
 function checkData() {
     let prev = keyboardRawData[globalActCounter]['timestamp'];
@@ -66,6 +110,39 @@ function checkData() {
         console.log(diff, text);
         globalActCounter++;
     }
+}
+
+function changeMode() {
+    if (replyModeBool) {
+        document.getElementById("changeModeBtn").innerHTML = "Preview Mode";
+        replyModeBool = false;
+    }
+    else {
+        document.getElementById("changeModeBtn").innerHTML = "Reply Mode";
+        replyModeBool = true;
+    }
+}
+
+function stopAnimation() {
+    globalActCounter = 9999999999;
+    console.log("Terminated!");
+}
+
+// Click on the menu, trigger reply/preview showing
+function openEntry(key) {
+    let id = +key;
+    console.log(loadedEntry[id]);
+    keyboardRawData = loadedEntry[id]['data']['key'];// In format of array
+    maxActIndex = keyboardRawData.length;
+    prevFrameObject = null;
+    title = loadedEntry[id]['data']['title'];
+    document.getElementById("title").innerHTML = title;
+    // Clear Timer Display
+    globalDisplayTimer = 0;
+    document.getElementById("timer_display").innerHTML = "0";
+    // Clear Previous delay data
+    delayDataRecord = [];
+    loadData();
 }
 
 function loadData() {
@@ -84,47 +161,105 @@ function loadData() {
         i += 1;
     }
     console.log("start");
-    //checkData();
-    //console.log(globalActCounter, nextInterval, startTime, lastTime);
-    prevFrameObject = requestAnimationFrame(nextFrame);
+    nextInterval = 0;
+    if (replyModeBool) {
+        animationStartTimeStamp = 0;
+        lastTime = -1;
+        prevFrameObject = requestAnimationFrame(nextFrame);
+    }
+    else {
+        console.log("reply mode placeholder");
+        keepLoad();
+    }
 }
 
+// Preview Mode
+function keepLoad() {
+    let text = "";
+    while (globalActCounter < maxActIndex) {
+        text = keyboardRawData[globalActCounter]['text'];
+
+        if (text.length <= lengthControl*0.2) { // 发生了清空
+            pauseCursor = [];
+        }
+        else{
+            lengthControl = text.length;
+        }
+
+        if (keyboardRawData[globalActCounter+1] === undefined) {
+            break;
+        }
+
+        nextInterval = keyboardRawData[globalActCounter+1]['timestamp'] - keyboardRawData[globalActCounter]['timestamp']
+        if (nextInterval > currentDelayThreshold) {  // 检测到一个delay
+            let cursor = keyboardRawData[globalActCounter]['cursor'];
+            pauseCursor.push([cursor, nextInterval]);
+        }
+        console.log(nextInterval);
+        globalActCounter += 1;
+    }
+    cm.setValue(text);
+    applyPauseUnderline();
+}
+
+// Reply Mode(Animation)
 function nextFrame(currentTime){
-    if (globalActCounter === maxActIndex) {
+    if (globalActCounter >= maxActIndex) {
         cancelAnimationFrame(prevFrameObject);
         return;
     }
-    else if (lastTime === -1) {
+    else if (lastTime === -1) { // timer initialization
         lastTime = currentTime;
+        animationStartTimeStamp = currentTime;
     }
     else {
         if ((currentTime - lastTime)>= nextInterval) {
             let text = keyboardRawData[globalActCounter]['text'];
             //console.log(globalActCounter, text);
             cm.setValue(text);
+            if (text.length <= lengthControl*0.2) { // 发生了清空
+                pauseCursor = [];
+            }
+            else{
+                lengthControl = text.length;
+            }
             if (keyboardRawData[globalActCounter+1] === undefined) {
                 cancelAnimationFrame(prevFrameObject);
                 return;
             }
             nextInterval = keyboardRawData[globalActCounter+1]['timestamp'] - keyboardRawData[globalActCounter]['timestamp']
+
+            if (nextInterval > currentDelayThreshold) {  // 检测到一个delay
+                let cursor = keyboardRawData[globalActCounter]['cursor'];
+                pauseCursor.push([cursor, nextInterval]);
+            }
+            console.log(nextInterval);
             lastTime = currentTime; // New Interval is awaiting
             globalActCounter += 1;
         }
+        // Refresh Timer Display
+        globalDisplayTimer = currentTime-animationStartTimeStamp;
+        document.getElementById("timer_display").innerHTML = Math.round(globalDisplayTimer/1000);
     }
     prevFrameObject = requestAnimationFrame(nextFrame);
 }
 
-function openEntry(key) {
-    let id = +key;
-    console.log(loadedEntry[id]);
-    keyboardRawData = loadedEntry[id]['data']['key'];// In format of array
-    maxActIndex = keyboardRawData.length;
-    prevFrameObject = null;
-    title = loadedEntry[id]['data']['title'];
-    document.getElementById("title").innerHTML = title;
-    loadData();
+// Apply Red Underline to the complete document
+function applyPauseUnderline() {
+    var counter = 0;
+    for (mark of pauseCursor) {
+        let cursor = mark[0];
+        let cursorFrom = {"line":cursor.line,"ch":cursor.ch-2,"sticky":null}
+        let cursorTo = {"line":cursor.line,"ch":cursor.ch+2,"sticky":null}
+        console.log(cursorFrom, cursorTo, mark[1]);
+        // Save delay number(ms) to the tmp data storage
+        delayDataRecord[counter] = mark[1];
+        cm.markText(cursorFrom, cursorTo, {className: "pause-hl " + counter});
+        counter++;
+    }
 }
 
+// File System IO
 function handleFileSelect(evt) {
     const reader = new FileReader();
     reader.onload = onReaderLoad;
@@ -173,3 +308,40 @@ function rebuildData(data) {
         }
     }
 }
+
+// Handle bottombar generation & display
+var movedByMouse = false;
+cm.on("mousedown", function () {
+    movedByMouse = true;
+});
+
+cm.on("cursorActivity", function () {
+    if (movedByMouse) {
+        movedByMouse = false;
+        if (!cm.getSelection()) {
+            closeDef();
+            //branch based on whether a highlight was clicked here
+            let marks = cm.findMarksAt(cm.getCursor())
+            let len = marks.length;
+            if(len != 0) {  // means there is a tag associated with current cursor in the document
+                let pair = [];
+                for (let mark of marks){
+                    let tag = mark["className"];
+                    console.log(tag);
+                    if (tag === undefined) {
+                        continue;
+                    }
+                    //else
+                    let tags = tag.split(" ");
+                    if (tags[1]) {  // tag with index, handle index
+                        let id = parseInt(tags[1]);
+                        pair.push(["Pause time(ms):", delayDataRecord[id]]);
+                    }
+                }
+                openDef();
+                clearBottomBarElement();
+                newBottomBarElement(pair);
+            }
+        }
+    }
+});
