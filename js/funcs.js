@@ -91,7 +91,7 @@ function initMenu() {
     entryTitle = {};
 }
 
-// 回调函数，会被indexDB_Pro.js中的方法调用。入参menu即使entry的摘要信息
+// 回调函数，会被indexDB.js中的方法调用。入参menu即使entry的摘要信息
 function buildMenu(menu, _maxID) {
     console.log("buildMenu");
     console.log(menu);
