@@ -4,6 +4,7 @@ from collections import Counter
 
 parse, category_names = liwc.load_token_parser('LIWC2015_English.dic')
 
+# a simple test of LIWC with hard code test
 def tokenize(text):
     # you may want to use a smarter tokenizer
     for match in re.finditer(r'\w+', text, re.UNICODE):

@@ -54,6 +54,7 @@ def hello_world():
 
     return 'Hello, World!'
 
+# I/O 读取部分
 @app.route('/load', methods=['GET', 'POST'])
 def load():
     if request.method == 'POST':
@@ -70,6 +71,7 @@ def load():
         except FileNotFoundError:
             return "Load Failed"
 
+# I/O 写入部分，js无操作文件权限，故需借助python后端才能实现本地存储
 @app.route('/save', methods=['GET', 'POST'])
 def save():
     if request.method == 'POST':
