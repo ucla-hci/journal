@@ -173,7 +173,7 @@ function openEntry(id) {
 function deleteEntry(id) {
     if (id != null) {
         console.log("del "+id);
-        delJSON(id.toString());
+        delJSON(id.toString()); // 调用python后端处理服务器存储的json文件，这里没有用到indexedDB
         entryTitle[id] = null;
         entryFlag[id] = null;
         updateMenu(JSON.stringify({"maxID": maxID, "entries": entryTitle, "flags": entryFlag}));
@@ -193,9 +193,9 @@ function newEntry(){
     saveEntry();
     cleanMarks();
     closeDef();
-    cm.setValue("");
-    currentDate = getTime();
-    currentFlag = 1;
+    cm.setValue("");    // 清空codeMirror文档区
+    currentDate = getTime();    // 获取当前时间戳
+    currentFlag = 1;    // 默认为natural
     document.getElementById("temp").style.display = "block";
     document.getElementById("main").style.display = "none";
 }
@@ -285,7 +285,7 @@ function checkSentiment() {
     $('#emotion').css("display","none");
     $('#category').css("display","none");
     let text = fetchContent();
-    let sentiment = checkKeywordsSentiment(text);
+    let sentiment = checkKeywordsSentiment(text);   // Watson APIs
     for (s in sentiment){
         markKeywords(s, sentiment[s]);
     }
@@ -298,7 +298,7 @@ function checkEmotion() {
     $('#emotion').css("display","block");
     $('#category').css("display","none");
     let text = fetchContent();
-    let sentiment = checkKeywordsSentiment(text);
+    let sentiment = checkKeywordsSentiment(text);   // Watson APIs
     let keywords = [];
     for (s in sentiment){
         keywords.push(s);
@@ -314,7 +314,7 @@ function checkEmotion() {
 // Check LIWC
 function checkLIWC() {
     let text = fetchContent();
-    checkLIWCAPIs(text);
+    checkLIWCAPIs(text);    // 从python后端获取结果
 }
 
 // Color keywords by categories
@@ -338,7 +338,7 @@ function checkCat() {
 
 // Color sentences by cognitive distortion
 function checkCD() {
-    let result = JSON.parse(checkCognDistortion(fetchContent()));
+    let result = JSON.parse(checkCognDistortion(fetchContent()));   // Grace's API
     let cursor = setCursorEnd();
     cm.replaceRange(" ", cursor);
     let end = setCursorEnd();
@@ -397,7 +397,7 @@ function saveContent() {
     let id = currentID;
     let jString = JSON.stringify({"title":title, "content":content, "date": currentDate, "flag": currentFlag, "marks":marks});
     if (isNaN(id)) {
-        saveJSON(jString, "error_recovery");
+        saveJSON(jString, "error_recovery");    // 调用python后端，操作文件
     }
     else {
         saveJSON(jString, id.toString());
@@ -509,11 +509,11 @@ function markKeywords(keyword, type){
 }
 
 
-// Watson APIs: Client-Server Comunications
+// Watson APIs: Client-Server Comunications ajax操作
 function getMenu() {
     var jqXHR = $.ajax({
         type: "GET",
-        url: "http://127.0.0.1:5000/menu",
+        url: "http://127.0.0.1:5000/menu",  // 后端本地地址，如果上服务器，要改成服务器地址
         async: false,
         data: {}
     });
@@ -780,6 +780,7 @@ function setCursorEnd() {
     return cm.getCursor();
 }
 
+// 检查target这个location坐标，是否处在在start和end这个区间内
 function checkInRange(target, start, end, offset=0) {
     // Offset > 1 need special handle, otherwise document may lose contents
     if (offset > 0) {
@@ -934,7 +935,7 @@ function populateDistortion(name) {
 	openDef();
 }
 
-/*
+/* ot.js的应用，有关ot.js的具体应用和演示去请见ot分支，本分支主要演示watson和LIWC的api
 var socket = io();
 // Socket & ot.js initialization
 socket.on('doc', function(data) {

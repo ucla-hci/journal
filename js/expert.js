@@ -33,6 +33,7 @@ function closeDef() {
     document.getElementById("main").style.marginBottom= "0";
 }
 
+// simple-app主要用于测试watson api和LIWC，expert端和ot.js比基本没有改动。与后端的通信，数据的保存都在user端完成
 // Socket & ot.js initialization
 socket.on('doc', function(data) {
     cm = CodeMirror.fromTextArea(document.getElementById('write'), {lineWrapping: true, lineNumbers: false, styleSelectedText: true, cursorHeight: 0.85});

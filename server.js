@@ -21,19 +21,21 @@ app.use('/src', express.static('src'));
 app.use('/lib/contextMenu', express.static('lib/contextMenu'));
 app.use('/node_modules', express.static('node_modules'));
 
+// 在服务器测试的时候，请修改端口为web默认的80
 http.listen(3000, function(){
   console.log('Server listening on http://localhost:3000');
   console.log('Access Patient Page on http://localhost:3000');
   console.log('Access Expert Page on http://localhost:3000/exp');
 });
 
+// expert-user通信和协同通过ot.js实现, 演示具体可以参考pilot分支
 var EditorSocketIOServer = require('./lib/ot.js/editor-socketio-server.js');
 var server = new EditorSocketIOServer("", [], 1);
 
 io.on('connection', function(socket) {
-
+  // initial socket communication
   server.addClient(socket);
-  socket.on("sentToServer", command => {  // Demo
+  socket.on("sentToServer", command => {  // Demo command, test only
     console.log("Command Receive:", command);
     io.emit("sendToClient", {command});
   });
@@ -44,7 +46,7 @@ io.on('connection', function(socket) {
     io.emit("title", title);
   });
 
-  socket.on("Log", (type, array) => {
+  socket.on("Log", (type, array) => { // Save to log
     console.log("Log:", type);
     io.emit("Log", type, array);
   });
@@ -70,6 +72,7 @@ io.on('connection', function(socket) {
     io.emit("highlight", start, end);
   });
 
+  // cognitive distortion
   socket.on("cd", (start, end, id) => {
     console.log("CD:", start, end, id);
     io.emit("cd", start, end, id);
@@ -93,11 +96,6 @@ io.on('connection', function(socket) {
   socket.on("download", functions => {
     console.log("download:", functions);
     io.emit("download", functions);
-  });
-
-  socket.on("get", functions => {
-    console.log("get:", functions);
-    io.emit("get", functions);
   });
 
   socket.on("get", functions => {
