@@ -3,7 +3,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Javascript -->
+  <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
 
   <!-- Code mirror scripts -->
@@ -14,7 +14,7 @@
   <script src="node_modules/codemirror/addon/selection/mark-selection.js"></script>
 
   <link rel="stylesheet" type="text/css" href="css/style.css" />
-  <link rel="stylesheet" id="theme" type="text/css" href="css/theme_light.css" />
+  <link rel="stylesheet" id="theme" type="text/css" href="css/theme_light.css" />  <!-- theme_dark是黑暗模式，不过没有调完所有参数，就没加上 -->
 
 </head>
 
@@ -109,6 +109,7 @@
 
   </div>
 
+  <!--删除确认框-->
   <div class="pop-up2" id="popUpWindow">
     <div class="close-pop-up">
       <div class="close-btn" onclick="hidePopUp()"></div>

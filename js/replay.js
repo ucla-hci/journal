@@ -12,11 +12,14 @@ var pauseCursor = [];
 var lengthControl = 0;
 var globalDisplayTimer = 0;
 var replyModeBool = false;
+// reply mode(true): 按时间戳复现输入，复现完成再显示标注
+// preview mode(false): 一次性展示终止时间点的文档和标注
 
 openNav();
 
 document.getElementById("files").addEventListener("change", handleFileSelect, false);
 
+// onload()
 function loader() {
     document.getElementById("main").style.display = "none";
     document.getElementById("temp").style.display = "block";
@@ -73,7 +76,7 @@ function hidePopUp() {
 }
 
 
-var globalActCounter = 0;
+var globalActCounter = 0;   // 复现到第x条键盘记录，用于coding pause/review功能
 var lastTime = -1;
 var animationStartTimeStamp = 0;
 var nextInterval = 0;
@@ -86,6 +89,7 @@ var delayDataRecord = [];
 document.getElementById("delayThreshold").value = "5000";
 
 
+// 设置delay阈值，默认5000ms，间隔＞这个时间会被判为delay
 function setThreshold() {
     let tmp = parseInt(document.getElementById("delayThreshold").value);
     if (isNaN(tmp)) {
@@ -99,6 +103,7 @@ function setThreshold() {
     }
 }
 
+// 只用于开发者模式下debug，production请删除
 function checkData() {
     let prev = keyboardRawData[globalActCounter]['timestamp'];
     globalActCounter += 1;
@@ -123,6 +128,7 @@ function changeMode() {
     }
 }
 
+// 终止按时间轴复现输入，注意这个不是暂停功能
 function stopAnimation() {
     globalActCounter = 9999999999;
     console.log("Terminated!");
@@ -145,6 +151,7 @@ function openEntry(key) {
     loadData();
 }
 
+// 从json文件中提取用于复现的data
 function loadData() {
     let prev = keyboardRawData[1]['timestamp'];
     let i = 2;
@@ -152,7 +159,7 @@ function loadData() {
     while (i<len) {
         let text = keyboardRawData[i]['text'];
         if (text !== '') {
-            globalActCounter = i;
+            globalActCounter = i;   // 可用于以后coding pause/review功能
             cm.setValue(text);
             nextInterval = keyboardRawData[i]['timestamp'] - prev;
             break;
@@ -162,13 +169,13 @@ function loadData() {
     }
     console.log("start");
     nextInterval = 0;
-    if (replyModeBool) {
+    if (replyModeBool) {    // replay mode
         animationStartTimeStamp = 0;
         lastTime = -1;
-        prevFrameObject = requestAnimationFrame(nextFrame);
+        prevFrameObject = requestAnimationFrame(nextFrame); // 根据间隔时间触发下一次复现
     }
     else {
-        console.log("reply mode placeholder");
+        // preview mode ↓
         keepLoad();
     }
 }
@@ -217,7 +224,7 @@ function nextFrame(currentTime){
             let text = keyboardRawData[globalActCounter]['text'];
             //console.log(globalActCounter, text);
             cm.setValue(text);
-            if (text.length <= lengthControl*0.2) { // 发生了清空
+            if (text.length <= lengthControl*0.2) { // 发生了清空或者大范围向前退格，这边逻辑比较暴力，需要重写...
                 pauseCursor = [];
             }
             else{
@@ -259,7 +266,7 @@ function applyPauseUnderline() {
     }
 }
 
-// File System IO
+// File System IO 通过浏览器上传json数据文件
 function handleFileSelect(evt) {
     const reader = new FileReader();
     reader.onload = onReaderLoad;
@@ -272,6 +279,7 @@ function onReaderLoad(evt) {
     rebuildData(data);
 }
 
+// 重建数据库。目前的逻辑是上传的json数据包会被解析为data，然后覆盖本地的indexedDB数据库。如不希望覆盖写入indexedDB，注视掉312 315
 function rebuildData(data) {
     console.log("rebuild start!");
     $('#entryTitles').empty();

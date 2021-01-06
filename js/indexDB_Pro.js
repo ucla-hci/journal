@@ -2,12 +2,12 @@ var inDB = null;
 var dataTable = null;
 var markTable = null;
 
-// IndexedDB
-var openRequest = indexedDB.open('espresso', 1);
+// IndexedDB Initialization
+var openRequest = indexedDB.open('espresso', 1);    // 不要随意修改数据库版本号，不然会导致向前兼容失败
 openRequest.addEventListener('success', e => {
     inDB = openRequest.result;
     console.log("db connected in pro mode");
-    _deleteAllfromDB();
+    _deleteAllfromDB(); // 首次建立数据库会执行一次全清，同时升级数据库版本也会执行删除操作，避免兼容性问题。
 });
 
 openRequest.addEventListener('error', e => {
@@ -16,6 +16,7 @@ openRequest.addEventListener('error', e => {
 
 openRequest.addEventListener('upgradeneeded', e => {
     inDB = e.target.result; // Database
+    // 数据库分两个卷，数据卷data和标注卷mark，都以id作为缩印
     dataTable = inDB.createObjectStore('data', { keyPath: 'id', autoIncrement: false});  // Table header
     markTable = inDB.createObjectStore('mark', { keyPath: 'id', autoIncrement: false});
 });

@@ -1,5 +1,6 @@
 var num = 0;
 var write = document.getElementById('write');
+// codeMirror初始化，之后对文档的操作都通过cm变量的私有方法实现
 var cm = CodeMirror.fromTextArea(write, {
     lineWrapping: true, 
     lineNumbers: false, 
@@ -14,9 +15,11 @@ var entries;
 var key, prevKey, flag = 0;
 var suggestion, s_start, s_end;
 
+// IndexedDB计数器
 var maxID = 0;
 var currentID = 0;
 
+// 键入数据的临时存储，之后存到IndexedDB中
 var currentFlag = 0;
 var currentDate = "";
 var entryTitle = {};
@@ -25,6 +28,7 @@ var entryFlag = {};
 var promptObjects = new Array();
 var _del_ID = 0;
 
+// onLoad方法，网站载入成功后执行，放初始化相关的东西
 function loader() {
     document.getElementById("main").style.display = "none";
     document.getElementById("temp").style.display = "block";
@@ -34,6 +38,7 @@ window.addEventListener('beforeunload', async function (e) {
     await manualSave();
 });
 
+// 输入/标注模式切换，注意，为了方便这里用了绝对地址
 async function changeMode() {
     await manualSave();
     window.open("http://67.158.54.10/exp", "_self");
@@ -49,6 +54,7 @@ var timer = setInterval(function() {
     }
 }, 20000)
 
+// 自动保存 及 配套的简单过渡动画
 function autoSaveRec(){
     let aObj = document.getElementById("toast");
     aObj.innerText = "Saved";
@@ -85,6 +91,7 @@ function initMenu() {
     entryTitle = {};
 }
 
+// 回调函数，会被indexDB_Pro.js中的方法调用。入参menu即使entry的摘要信息
 function buildMenu(menu, _maxID) {
     console.log("buildMenu");
     console.log(menu);
@@ -146,9 +153,10 @@ function toEntry(mood){
 
 function deleteEntry(id) {
     _del_ID = id;
-    messagePopUp("Do you want to delete this entry?");
+    messagePopUp("Do you want to delete this entry?"); // 删除确认->confirmDelete()
 }
 
+// 回调：删除执行
 function deleteEntryRecall() {
     console.log("deleting entry #"+_del_ID);
     removeData(_del_ID);
@@ -185,9 +193,10 @@ function saveEntry() {
 
 function loadContent(id) {
     console.log("Loading entry #"+id);
-    readData(id);
+    readData(id);   // 在indexDB.js中
 }
 
+// 由indexDB.js中的方法发起的回调
 function loadContentRecall(id, data) {
     let title = data["title"];
     let text = data["content"];
@@ -302,12 +311,14 @@ function checkInRange(target, start, end, offset=0) {
     }
 }
 
+// 拆分location信息为line#和char#
 function analysisCoord(coord) {
     if (coord != null) {
         return {l:parseInt(coord["line"]), c:parseInt(coord["ch"])}
     }
 }
 
+// 比较两个location坐标是否相同
 function compareCoord(start, end) {
     if ((start == null) || (end == null)) {return false;}
     else {
@@ -319,6 +330,7 @@ function compareCoord(start, end) {
     }
 }
 
+// 判断光标是否由键盘触发移动
 function isMovementKey(keyCode) {
     return 33 <= keyCode && keyCode <= 40;
 }
@@ -448,6 +460,7 @@ function newBottomBarElement(title, body) {
     document.getElementById("myBottombar").innerHTML += newDiv;
 }
 
+// 因为expert端删去了conitive distortion的标注，以下代码现在实际上不会被触发
 function populateDistortion(name) {
     if(name == "BeingRight") {
         newBottomBarElement("Being Right", "Being right distortion demo text"); }
@@ -462,13 +475,14 @@ function populateDistortion(name) {
 	openDef();
 }
 
+/* 因为删去了ot.js功能，以下代码废弃
 function handleOperation(command){
     switch (command){
         case 'undo': cm.undo(); break;
         case 'redo': cm.redo(); break;
         case 'clear': cm.clear(); break;
     }
-}
+}*/
 
 // CodeMirror Listener
 // Handling mouse activities 
@@ -510,7 +524,8 @@ cm.on("keyup", function() {
     if (isMovementKey(event.which)) {
         movedByMouse = false;
     }
-
+    
+    // 当检测到断句，换行等操作时，触发自动保存
     if (key == 190 || key == 110 || key == 13 || key == 49 || key == 191) {
         if (currentID > 0) {
             saveEntry();    //Autosave
@@ -526,7 +541,7 @@ cm.on("keyup", function() {
                 aObj.innerText = "Auto Saving...";
                 setTimeout(autoSaveRec, 1000);
             }
-        }, 20000)        
+        }, 20000)     // 动画持续时间的控制变量   
     }
 });
 
@@ -549,7 +564,7 @@ cm.on("change", function (cm, changeObj) {
             console.log("check:", cStart, cEnd, start, end)
             if (checkInRange(cStart, start, end, -1) || checkInRange(cEnd, start, end)) {
                 console.log("Auto Fade Away, del:", start, end);
-                cm.replaceRange(input, start, end)
+                cm.replaceRange(input, start, end)  // 点击autosuggest触发自动删除
                 delIndex = index;
                 return true;
             }

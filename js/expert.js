@@ -13,6 +13,7 @@ var last_menu_selection = 0;
 var assigned_tag = null;
 var selected_text = '';
 
+// 暂存标注操作的相关信息，之后存到IndexedDB中
 var commentLog = {};
 var commentSet = [];
 var tagCount = 0;
@@ -20,9 +21,11 @@ var lastTagObj = null;
 
 var movedByMouse = false;
 
+// IndexedDB计数器
 var maxID = 0;
 var currentID = 0;
 
+// 键入数据的临时存储，之后存到IndexedDB中
 var currentFlag = 0;
 var mouselog = null;
 var keyboardlog = null;
@@ -30,12 +33,14 @@ var currentDate = "";
 var entryTitle = {};
 var entryFlag = {};
 
+// 临时存储封装好的entry数据包
 var _currentEntry = null;
 
 window.addEventListener('beforeunload', async function (e) {
     await manualSave();
 });
 
+// 输入/标注模式切换，注意，为了方便这里用了绝对地址
 async function changeMode() {
     await manualSave();
     window.open("http://67.158.54.10/", "_self");
@@ -52,6 +57,7 @@ function autoSaveRec(){
     }, 1300);
 }
 
+// 手动保存 及 配套的简单过渡动画
 function manualSave() {
     if (currentID > 0){
         saveEntry();
@@ -64,7 +70,7 @@ function manualSave() {
 // Backend Communication APIs
 function createMenu(){
     console.log("createMenu");
-    menuData();
+    menuData(); // 在indexDB_Pro.js中
 }
 
 function initMenu() {
@@ -73,6 +79,7 @@ function initMenu() {
     entryTitle = {};
 }
 
+// 回调函数，会被indexDB_Pro.js中的方法调用。入参menu即使entry的摘要信息
 function buildMenu(menu, _maxID) {
     console.log("buildMenu");
     $('#entryTitles').empty();
@@ -108,10 +115,11 @@ function openEntry(id) {
 
 function loadContent(id) {
     console.log("Loading entry #"+id);
-    readData(id);
-    readMark(id);
+    readData(id);   // 在indexDB_Pro.js中
+    readMark(id);   // 在indexDB_Pro.js中
 }
 
+// 由indexDB_Pro.js中的方法发起的回调
 function loadContentRecall(_id, data) {
     let title = data["title"];
     let text = data["content"];
@@ -131,7 +139,7 @@ function loadContentRecall(_id, data) {
     }
     let marks = data["marks"];
     console.log(data);
-    for (m of marks) {
+    for (m of marks) {  // re-apply all marks
         tag = m["tag"];
         from = m["from"];
         to = m["to"];
@@ -142,15 +150,6 @@ function loadContentRecall(_id, data) {
             cm.markText(from, to, {className: tag});
         }
     }
-    
-    /*
-    jString = loadJSON(currentID+'_mark');
-    if (jString !== "Load Failed") {
-        data = JSON.parse(jString);
-        commentLog = data["log"];
-        commentSet = data["comment"];
-        tagCount = data["count"];
-    }*/
 }
 
 function saveEntry() {
@@ -178,6 +177,7 @@ function _saveCurrent() {
     generatePackRecall(_currentEntry);
 }
 
+// 依然是回调函数
 function loadMarkRecall(_id, data) {
     if (data && _id !== -1 && _id === currentID) {
         commentLog = data["commentLog"];
@@ -193,10 +193,12 @@ function loadMarkRecall(_id, data) {
     }
 }
 
+// 生成用于回报的json文件，先调用indexDB_Pro.js中的封装函数
 function generateFile() {
     generatePackOne();
 }
 
+// 封装函数完成后调用此回调，发起文件下载请求
 function generatePackRecall(file){
     console.log(file);
     download(JSON.stringify(file), "report.json");
@@ -259,12 +261,16 @@ function fetchMarks() {
     return marksOutput;
 }
 
+// 拆分location信息为line#和char#
 function analysisCoord(coord) {
     if (coord != null) {
         return {l:parseInt(coord["line"]), c:parseInt(coord["ch"])}
     }
 }
 
+// 判断两个location坐标相对位置
+// True: start 在 end 之前
+// False: start 在 end 之后
 function checkStartCoord(start, end) {
     if ((start == null) && (end == null)) {return false;}
     else if (start == null) {return false;}
@@ -281,6 +287,7 @@ function checkStartCoord(start, end) {
     }
 }
 
+// 比较两个location坐标是否相同
 function compareCoord(start, end) {
     if ((start == null) || (end == null)) {return false;}
     else {
@@ -292,13 +299,13 @@ function compareCoord(start, end) {
     }
 }
 
-
+// 重置选中
 function updateSelect(from=null, to=null) {
     current_sel_from = from;
     current_sel_to = to;
 }
 
-
+// 调用WatsonAPI的代码，具体使用见simple-app分支
 /*/ Watson APIs: Client-Server Comunications
 function getMenu() {
     var jqXHR = $.ajax({
@@ -364,6 +371,7 @@ function darkMode(){
     }
 }
 
+// Left Bar Hide/View
 function openNav() {
     document.getElementById("mySidebar").style.width = '250px';
     document.getElementById("container").style.marginLeft = '250px';
@@ -382,6 +390,7 @@ function closeNav() {
     //document.getElementById("opnsidebar").style.backgroundImage = 'url("../src/hamburger.png")';
 }
 
+// Bottom Bar Hide/View
 function openDef() {
     document.getElementById("myBottombar").style.height = "auto";
     document.getElementById("myBottombar").style.minHeight = "100px";
@@ -392,6 +401,7 @@ function closeDef() {
     document.getElementById("myBottombar").style.minHeight = "0";
 }
 
+// Cycle flag colors
 function refreshFlagColor() {
     if (currentFlag != 0) {
         if (currentFlag === 1) {
@@ -519,7 +529,7 @@ function log(sentence) {
 }
 
     // Other Utlities
-function handelPrompt(sentence) {
+function handelPrompt(sentence) {   //  弹出输入框
     let start = cm.getCursor("from")
     let end = cm.getCursor("to");
     var selectedText = cm.getRange(start, end);

@@ -1,4 +1,4 @@
-var UnixZero = -1;
+var UnixZero = -1;  // 用来记录申请到的时间戳
 var mouselog = new Array();
 var keyboardlog = new Array();
 
@@ -44,6 +44,8 @@ $(document).mousedown(function(evt) {
     mouselog.push({"timestamp":t, "type":"click", "x":evt.pageX, "y":evt.pageY});
 });
 
+// 以下功能在当前版本没有做按钮，需要通过开发者工具的console调用
+// 演示可以在旧版本中测试
 function reportKeyboardLog() {
     if (UnixZero == -1) {return}
     let now = Date.now();

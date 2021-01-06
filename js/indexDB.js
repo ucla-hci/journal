@@ -3,11 +3,11 @@ var dataTable = null;
 var markTable = null;
 
 // IndexedDB
-var openRequest = indexedDB.open('espresso', 1);
+var openRequest = indexedDB.open('espresso', 1);    // 不要随意修改数据库版本号，不然会导致向前兼容失败
 openRequest.addEventListener('success', e => {
     inDB = openRequest.result;
     console.log("db connected");
-    checkInitialDB();
+    checkInitialDB();   //初始化，检查是否已存在数据库
 });
 
 openRequest.addEventListener('error', e => {
@@ -16,10 +16,12 @@ openRequest.addEventListener('error', e => {
 
 openRequest.addEventListener('upgradeneeded', e => {
     inDB = e.target.result; // Database
+    // 数据库分两个卷，数据卷data和标注卷mark，都以id作为缩印
     dataTable = inDB.createObjectStore('data', { keyPath: 'id', autoIncrement: false});  // Table header
     markTable = inDB.createObjectStore('mark', { keyPath: 'id', autoIncrement: false});
 });
 
+// 向indexedDB中添加一条记录（一个新entry）
 function addData(id, flag, title, content, date, mark, mouse, key) {
     let request = inDB.transaction(['data'], 'readwrite')
         .objectStore('data')
@@ -27,15 +29,17 @@ function addData(id, flag, title, content, date, mark, mouse, key) {
 
     request.onsuccess = function (event) {
         console.log('add succeed');
-        menuData();
+        menuData(); // 添加完成，触发菜单更新
     };
 
     request.onerror = function (event) {
         console.log('add failed');
+        // 添加失败说明已存在同id，故转更新
         updateData(id, flag, title, content, date, mark, mouse, key);
     }
 }
 
+// 更新记录
 function updateData(id, flag, title, content, date, mark, mouse, key) {
     let request = inDB.transaction(['data'], 'readwrite')
         .objectStore('data')
@@ -51,6 +55,7 @@ function updateData(id, flag, title, content, date, mark, mouse, key) {
     }
 }
 
+// 删除记录
 function removeData(id) {
     console.log("deleting entry #", id)
     var request = inDB.transaction(['data'], 'readwrite')
@@ -67,6 +72,7 @@ function removeData(id) {
     }
 }
 
+// 调取记录，并返回数据
 function readData(id) {
     console.log("indexDB #"+id);
     let transaction = inDB.transaction(['data'], 'readonly');
@@ -79,10 +85,11 @@ function readData(id) {
  
     request.onsuccess = function(event) {
         console.log(request.result);
-        loadContentRecall(id, request.result);
+        loadContentRecall(id, request.result);  // 通过回调返回数据
     };
 }
 
+// 封装entry摘要，返回触发菜单更新
 function menuData() {
     console.log("menuData");
     var transaction = inDB.transaction(['data'], 'readonly');
@@ -101,7 +108,7 @@ function menuData() {
             cursor.continue();
         } else {
             console.log("DB traverse finished");
-            buildMenu(menu, maxID);
+            buildMenu(menu, maxID); // 回调，触发菜单更新
         }
     };
 
@@ -111,7 +118,7 @@ function menuData() {
     };
 }
 
-// Marks DB
+// Marks DB 添加一条新注释记录
 function addMark(id, commentLog, commentSet, tagCount) {
     let request = inDB.transaction(['mark'], 'readwrite')
         .objectStore('mark')
@@ -127,6 +134,7 @@ function addMark(id, commentLog, commentSet, tagCount) {
     }
 }
 
+// Marks DB 根据id，更新一条新注释记录
 function updateMark(id, commentLog, commentSet, tagCount) {
     let request = inDB.transaction(['mark'], 'readwrite')
         .objectStore('mark')
@@ -141,6 +149,7 @@ function updateMark(id, commentLog, commentSet, tagCount) {
     }
 }
 
+// 根据id读取一条mark记录
 function readMark(id) {
     console.log("indexDB mark #"+id);
     let transaction = inDB.transaction(['mark'], 'readonly');
@@ -173,6 +182,7 @@ function removeMark(id) {
     }
 }
 
+// 开发者调试功能：删除本地indexedDB数据库，注意production版本这条要取掉
 function _reInitializeDB() {
     var DBDeleteRequest = indexedDB.deleteDatabase("espresso");
 
@@ -185,6 +195,7 @@ function _reInitializeDB() {
     };
 }
 
+// 检查indexedDB是否应该被初始化
 function checkInitialDB() {
     let request = inDB.transaction(['data'], 'readwrite')
         .objectStore('data')
@@ -192,17 +203,18 @@ function checkInitialDB() {
 
     request.onerror = function(event) {
         console.log('existing db detected');
-        menuData();
+        menuData();     // 调用菜单生成->funcs.js
     };
  
     request.onsuccess = function(event) {
         console.log('new db detected');
-        initEntry();
+        initEntry();    //↓
         menuData();
         
     };
 }
 
+// 初始化默认记录，可以用于制作特定格式的readme
 function initEntry() {
     let prompts = `1. Thoughts and feelings about COVID-19 
     
@@ -249,6 +261,7 @@ Check more prompts from (http://exw.utpsyc.org/index.php](http://exw.utpsyc.org/
     console.log("db initialization succeeeded!")
 }
 
+// 封装json集合数据文件，步骤一（封装data卷）
 function generatePackOne() {
     console.log("Pack One");
     var returnPack = {};
@@ -279,6 +292,7 @@ function generatePackOne() {
     };
 }
 
+//步骤二（封装mark卷）
 function generatePackTwo(_returnPack) {
     console.log("Pack Two");
     var returnPack = _returnPack;
@@ -305,7 +319,7 @@ function generatePackTwo(_returnPack) {
             cursor.continue();
         } else {
             console.log("DB2 traverse finished");
-            generatePackRecall(returnPack);
+            generatePackRecall(returnPack); // 触发回调，通知浏览器生成文件下载
         }
     };
 
