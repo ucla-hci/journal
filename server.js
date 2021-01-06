@@ -19,8 +19,10 @@ app.get('/__classified__', function(req, res){
 app.use('/python', express.static('python'));
 app.use('/css', express.static('css'));
 app.use('/js', express.static('js'));
-app.use('/lib/ot.js', express.static('lib/ot.js'));
+
+app.use('/lib/ot.js', express.static('lib/ot.js')); //可以注视掉，这个分支完全没有用到ot.js的代码
 app.use('/lib', express.static('lib'));
+
 app.use('/src', express.static('src'));
 app.use('/lib/contextMenu', express.static('lib/contextMenu'));
 app.use('/node_modules', express.static('node_modules'));
