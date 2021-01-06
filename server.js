@@ -26,13 +26,15 @@ http.listen(3000, function(){
   console.log('Access Expert Page on http://localhost:3000/exp');
 });
 
+// 初始化socket communication，为ot.js服务
+
 var EditorSocketIOServer = require('./ot.js/editor-socketio-server.js');
 var server = new EditorSocketIOServer("", [], 1);
 
 io.on('connection', function(socket) {
   server.addClient(socket);
   // Handle commands from expert, send them to all clients
-  socket.on("sentToServer", command => {
+  socket.on("sentToServer", command => {  // 中转来自expert端的command，发送给client
     console.log("Command Receive:", command);
     io.emit("sendToClient", {command});
   });

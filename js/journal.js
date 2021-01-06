@@ -21,6 +21,7 @@ write.onscroll = function() {
     console.log("ScrollTop");
 }
 
+// 调用浏览器本地存储
 if(window.localStorage["last_index"]){
     curr_index = parseInt(window.localStorage["last_index"]);
     if (!curr_index) {
@@ -458,6 +459,7 @@ function insertAtCursor(myValue) {
 }
 */
 
+// Weather display, TODO: new rating algorithm
 function overall(){
     var text = write.value;
     var result = runPyScript_check(text);
@@ -517,4 +519,68 @@ function right(){
 
 close.onclick = function() {
     modal.style.display = "none";
+}
+
+// init socket on client side
+var socket = io();
+var cm;
+socket.on('doc', function(data) {
+    cm = CodeMirror.fromTextArea(document.getElementById('write'), {lineNumbers: true});
+    cm.setValue(data.str);
+    var serverAdapter = new ot.SocketIOAdapter(socket);
+    var editorAdapter = new ot.CodeMirrorAdapter(cm);   // 用于两端文档输入同步，协同
+    var client = new ot.EditorClient(data.revision, data.clients, serverAdapter, editorAdapter);
+})
+
+// Utilities
+function getFirstCoor(command, tag) {
+    let bias = tag.length + 1;
+    let start = bias+1;
+    let comma = command.indexOf(",",start);
+    let end = command.indexOf(")",comma)
+    let _line = parseInt(command.substring(start,comma+1));
+    let _char = parseInt(command.substring(comma+1,end));
+    return {line: _line, ch: _char}
+}
+
+function getSecondCoor(command, tag) {
+    let bias = tag.length + 1;
+    let start = command.indexOf(")",bias) + 3;
+    let comma = command.indexOf(",",start);
+    let end = command.indexOf(")",comma)
+    let _line = parseInt(command.substring(start,comma));
+    let _char = parseInt(command.substring(comma+1,end));
+    console.log("2nd:", start, comma, end)
+    return {line: _line, ch: _char}
+}
+
+// Handle received Expert Command from server.js
+socket.on("sendToClient", command => {  
+    console.log(command);
+    handleCommand(command.command);
+});
+
+function handleCommand(command){
+    console.log(command)
+    if (command.indexOf("HighLt:") == 0){   // Highlight
+        let from = getFirstCoor(command, "HighLt")
+        let to = getSecondCoor(command, "HighLt")
+        cm.markText(from, to, {className: "styled-background"})
+    }
+    else if (command.indexOf("AutoSug:") == 0) {    // Auto Suggesting
+        let start = getFirstCoor(command, "AutoSug");
+        let end = getSecondCoor(command, "AutoSug");
+        cm.markText(start, end, {className: "AutoSuggest-font"})
+    }
+    else if (command.indexOf("On:Keyboard") == 0) { // Keyboard Log
+        $('#keyboardlog').trigger("click");
+    }
+    else if (command.indexOf("On:Mouse") == 0) {    // Mouse Log
+        reportMouseLog();
+    }
+}
+// Demo: How to get text from CodeMirror
+function fetch(){
+    var text = cm.getValue();
+    console.log("Socket:",text);
 }

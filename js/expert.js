@@ -6,12 +6,12 @@ socket.on('doc', function(data) {
     cm.setValue(data.str);
     cm.setSize('90vw','93.5vh');
     var serverAdapter = new ot.SocketIOAdapter(socket);
-    var editorAdapter = new ot.CodeMirrorAdapter(cm);
+    var editorAdapter = new ot.CodeMirrorAdapter(cm);   // 用于两端文档输入同步，协同
     var client = new ot.EditorClient(data.revision, data.clients, serverAdapter, editorAdapter);
     
 })
 
-function Test(){
+function Test(){    // Test socket channel connectivity
     let command = "ShakeHand:";
     socket.emit("sentToServer", command);
     console.log(command);
