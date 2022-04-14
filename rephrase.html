@@ -29,12 +29,6 @@
 
   <button type="button" class="collapsible" onclick = "createMenu()">Recent Journals</button>
   <div class="content" id="entryTitles">
-    <!--<button type="button" id="gooddays" class="collapsible">Good Days</button>
-    <div class="content"></div>
-    <button type="button" id="neutraldays" class="collapsible">Neutral Days</button>
-    <div class="content"></div>
-    <button type="button" class="collapsible">Bad Days</button>
-    <div class="content" id="baddays"></div>-->
   </div>
 
   <div class="switch-wrapper">
@@ -52,43 +46,47 @@
 <div id="container">
   <div class="btbar">
     <button class="openbtn" id="opnsidebar" onclick="openNav()"></button>
+    <!-- DEBUG BUTTONS -------------------------------------------------------->
+    <div class="debug-buttons">
+      <button onclick="sendtoflask()">Send to python</button>
+      <button onclick="showSquare(dummy_input)">show square</button>
+      <button onclick="highlightText(dummy_input)">highligh chunk of text</button>
+      <button onclick="showEditorPopUp('myargs')">show editor popUp</button>
+      <button onclick="showSidebar(dummy_input)">show sidebar</button>
+      <!-- <button onclick="shuffleColorText('myargs')">shuffle color+text</button> -->
+      <button onclick="recommendInput('myargs')">rec input</button>
+      <button onclick="setReadOnly()">set read only</button>
+      <button onclick="populateDistortion('BeingRight')">populate dist</button>
+    </div>
+    <!-- END DEBUG BUTTONS ----------------------------------------------------->
     <a id="toast" href="javascript:void(0)" onclick = "manualSave()">Save</a>
     <div>
       <!--<button class="swtbtn" id="markswitch" onclick="displayMarks()"></button>
       <button class="savebtn" id="manualsave" onclick="manualSave()"></button>
       <button class="newbtn" id="newentry" onclick="newEntry()"></button>
       <button class="recordbtn" id="record" onclick="startRecord()"></button>-->
-      <a href="javascript:void(0)" class="mode-label" title="Now in writing mode">Writing</a>
+      <a onclick="changeMode('writing')" class="mode-button" title="Click to enter writing mode">Writing</a>
       <a onclick="changeMode('expert')" class="mode-button" title="Click to enter reflection mode">Reflection</a>
-      <a onclick="changeMode('rephrase')" class="mode-button" title="Rephrase">Rephrase</a>
+      <a href="javascript:void(0)" class="mode-label" title="Now in rephrase mode">Rephrase</a>
     </div>
   </div>
   <div class="onboard" id="temp">
     <!-- Welcome to Journal! -->
-    <div id="welcome">Welcome to Espresso!</div>
+    <div id="welcome">Welcome to Espresso:rephrase!</div>
     <!-- How is your day today? -->
-    <div id="query" onclick="toEntry()">How is your day today? Choose your mood to begin: </div>
+    <div id="query" onclick="toEntry()">Click an option to begin: </div>
 
     <div class="parent">
       <div class="good embtn" onclick="toEntry('good')" style="cursor:pointer">
-        <!-- Good Day image -->
-        <div class="left top rectangle" id="n21_29"></div>
-        <!-- Good Day -->
-        <div class="left top text" id="n21_30">Good Day</div>
+        <div class="left top text" id="n21_30">Option 1</div>
       </div>
 
       <div class="neutral embtn" onclick="toEntry('neutral')" style="cursor:pointer">
-        <!-- Neutral Day image -->
-        <div class="left top rectangle" id="n21_32"></div>
-        <!-- Neutral Day -->
-        <div class="left top text" id="n21_31" >Neutral Day</div>
+        <div class="left top text" id="n21_31" >Option 2</div>
       </div>
       
       <div class="bad embtn" onclick="toEntry('bad')" style="cursor:pointer">
-        <!-- image 19 -->
-        <div class="left top rectangle" id="n21_34"></div>
-        <!-- Bad Day -->
-        <div class="left top text" id="n21_33">Bad Day</div>
+        <div class="left top text" id="n21_33">Option 3</div>
       </div>
     </div>
   </div>

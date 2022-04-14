@@ -54,8 +54,9 @@
 			<button class="openbtn" id="opnsidebar" onclick="openNav()"></button>
 			<a id="toast" href="javascript:void(0)" onclick = "manualSave()">Save</a>
 			<div>
-				<a onclick="changeMode()" class="mode-button" title="Click to enter writing mode">Writing</a>
-      			<a href="javascript:void(0)" class="mode-label" title="Now in reflection mode">Reflection</a>
+				<a onclick="changeMode('writing')" class="mode-button" title="Click to enter writing mode">Writing</a>
+				<a href="javascript:void(0)" class="mode-label" title="Now in reflection mode">Reflection</a>
+				<a onclick="changeMode('rephrase')" class="mode-button" title="Click to enter rephrase mode">Rephrase</a>
 			</div>
 			<!--<div>
 			  <button class="swtbtn" id="markswitch" onclick="displayMarks()"></button>
