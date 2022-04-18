@@ -1,20 +1,10 @@
 /**
- * Latest updates: 04/13/22
- * - solved moving popup via margin mods
- * - added rephrase section
- * - started fresh python server for computaiton offloading
+ * Latest updates: 04/17/22
+ * - created two sets of sample data
+ * - Informative flow almost ready
+ *    - just missing extra styling on text boxes
  *
- *   for rephrasing interface:
- * - typeWord shows animation of typing w cm interface
- * - locking/unlocking edits done
- *
- *   missing:
- * - finish rephrase interface
- * - full animation of features
- * - multi highlight capabilities
- * - creating test set data
- * - editing styles
- *
+ * Missing: "smartcompose" flow
  */
 
 var num = 0;
@@ -26,186 +16,192 @@ var cm = CodeMirror.fromTextArea(write, {
   styleSelectedText: true,
   cursorHeight: 0.85,
   scrollbarStyle: null,
-  // extraKeys: { "Ctrl-Space": "autocomplete" },
 });
 
-/*************************************************************************** Demo vars */
+/*************************************************************************** Demo examples */
 
-let dummy_input = {
-  header: "header text",
-  content: "content text",
-  content2: "content2 text",
-  color: "rgb(255, 255, 153)",
-  cm_marker_end: "", // use something like getCursor() and convert to line/col numbers
-  cm_marker_highlight: "", // should it be able to handle array?
+// Note: Assuming some phrases are repeated,
+//   should also provide indicator of which phrase is being referred
+//   e.g. "something", 4 --> the fourth repetition of something is the one that matters
+
+let dummy_input_1 = {
+  sentences: ["I am devastated"],
+  distortion_type: "Universalizing",
+  color: "lightgreen",
+  brief_feedback: "Here is brief feedback on universalizing",
+  longer_feedback:
+    "This is a longer feedback on universalizing. \n\n It should contain more details on the writing patterns of the user. It should also inform them of the likely psychological theories that they are experiencing and how to alleviate those negative feelings.",
 };
 
+let dummy_input_2 = {
+  sentences: [
+    "Everything is terrible",
+    "I shall not be able to continue much longer",
+  ],
+  distortion_type: "Overgeneralization",
+  color: "lightblue",
+  brief_feedback: "Here is brief feedback on Overgeneralization",
+  longer_feedback: "This is a longer feedback on Overgeneralization.",
+};
+
+// use this to update via js queries
+let global_feedback = {};
+
 /*************************************************************************** NEW ADDS */
-// at the end for orchestrating
-function launchSequence() {
-  setTimeout(highlightText(), 100);
-  //delay
-  setTimeout(showEditorPopUp(), 2000);
+function launchSequence(args) {
+  global_feedback = args;
+  // https://stackoverflow.com/questions/54957259/codemirror-search-and-highlight-multipule-words-without-dialog
+
+  // for each sentence, search and store pair of from/to coords
+  let temp_highlight_cord = args.sentences.map(function (currentElement) {
+    return search(currentElement);
+  });
+
+  console.log("temp_highlight_coords ", temp_highlight_cord);
+
+  // show box at the next period appearance (after last highlighted phrase)
+  // https://stackoverflow.com/questions/32622128/codemirror-how-to-read-editor-text-before-or-after-cursor-position
+  let period_coords = search(
+    ".",
+    temp_highlight_cord[temp_highlight_cord.length - 1].to
+  );
+  showSquare({ cords: period_coords.to, color: args.color });
+
+  document
+    .getElementsByClassName("clickable-marker")[0]
+    .addEventListener("click", function () {
+      highlightText({ coords: temp_highlight_cord, color: args.color });
+    });
 }
 
-var showSquareToggler = false;
+function killSequence() {
+  cleanMarks();
+  document.getElementsByClassName("clickable-marker")[0].style.display = "none";
+  // IMPORTANT! have to delete the previous event listeners added <-------------------PENDING
+  var old_element = document.getElementsByClassName("clickable-marker")[0];
+  var new_element = old_element.cloneNode(true);
+  old_element.parentNode.replaceChild(new_element, old_element);
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//source
+// https://discuss.codemirror.net/t/programmatically-search-and-select-a-keyword/1666
+function search(astring, start) {
+  // currently: able to handle 1 string at a time.
+  // missing: ability to select among multiple matches
+
+  if (start === "undefined") {
+    start = CodeMirror.Pos(cm.firstLine(), 0);
+  }
+  // var cursor = cm.getSearchCursor(astring, CodeMirror.Pos(cm.firstLine(), 0), {
+  //   caseFold: true,
+  //   multiline: true,
+  // });
+  var cursor = cm.getSearchCursor(astring, start, {
+    caseFold: true,
+    multiline: true,
+  });
+  if (cursor.find(false)) {
+    // cm.setSelection(cursor.from(), cursor.to());
+    return { from: cursor.from(), to: cursor.to() };
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 function showSquare(args) {
-  console.log("showingsquare");
-  console.log("args", args);
-  // missing:
-  // - receive color args
-  // - define position patterns (at input coords)
-
-  showSquareToggler = !showSquareToggler;
-  var cords;
+  var cords = cm.cursorCoords(args.cords);
   var color = args.color;
 
-  if (args.cm_marker_end === "") {
-    // use manual temporarily
-    var cords = cm.cursorCoords(true);
-    console.log("initial cords", cords);
-  } else {
-    cords = args.cm_marker_end;
-  }
-
-  if (showSquareToggler) {
-    let marker = document.getElementsByClassName("clickable-marker")[0];
-    marker.style.left = (cords.left + 0).toString() + "px";
-    marker.style.top = (cords.top - 5).toString() + "px";
-    marker.style.backgroundColor = color;
-    document.getElementsByClassName("clickable-marker")[0].style.display =
-      "block";
-  } else {
-    document.getElementsByClassName("clickable-marker")[0].style.display =
-      "none";
-  }
+  let marker = document.getElementsByClassName("clickable-marker")[0];
+  marker.style.left = (cords.left - 2).toString() + "px";
+  marker.style.top = (cords.top - 5).toString() + "px";
+  marker.style.backgroundColor = color;
+  document.getElementsByClassName("clickable-marker")[0].style.display =
+    "block";
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-var highlight_texttoggle = false;
+function launchSecondSequence(input_string) {
+  // get position where new text will be inserted
+  let target_cord = search(input_string); // -----> save this to then use as cursor
+  // type in some random text at coord:
+  var doc = cm.getDoc();
+  doc.replaceRange("TE", target_cord.to);
 
-// Could make an object for each tag
-// change names to avoid overlap with contextmenu
-var current_sel_from = null;
-var current_sel_to = null;
-var assigned_tag = null;
-var selected_text = "";
-var lastTagObj = null;
-var tagCount = 0;
+  // do typing animation
+  console.log(target_cord.to);
+  doc.replaceRange("ST", target_cord.to);
 
-function checkStartCoord(start, end) {
-  if (start == null && end == null) {
-    return false;
-  } else if (start == null) {
-    return false;
-  } else if (end == null) {
-    return true;
-  } else {
-    let st = analysisCoord(start);
-    let ed = analysisCoord(end);
-    if (st.l > ed.l) {
-      return false;
-    } else if (st.l < ed.l) {
-      return true;
-    } else if (st.c > ed.c) {
-      return false;
-    } else {
-      return true;
-    }
-  }
+  CodeMirror.Pos(target_cord.to.line, target_cord.to.ch);
 }
+
+var rephrase_lastTagObj = null;
 
 function highlightText(args) {
-  // for inputs use setCursor: https://stackoverflow.com/questions/33394855/how-to-set-cursor-position-in-codemirror-editor
-
-  highlight_texttoggle = !highlight_texttoggle;
   var color = args.color;
+  console.log(args.coords);
 
-  // missing:
-  // - minimize code
-  // - args:
-  //    - for input cursor / or list of input cursors
+  document.documentElement.style.setProperty(
+    "--roy-custom-highlight-color",
+    color
+  );
 
-  if (highlight_texttoggle) {
-    console.log("highlightingText");
-    if (cm.somethingSelected()) {
-      let start = cm.getCursor("from");
-      let end = cm.getCursor("to");
+  // add for loop here to mark each pair of coords -- assuming input array
+  rephrase_lastTagObj = args.coords.map(function (currentElement) {
+    console.log("adding tags here: ");
+    return cm.markText(currentElement.from, currentElement.to, {
+      className: "roys-custom-hl",
+    });
+  });
+  // console.log("rephrase_lastTagObj ", rephrase_lastTagObj;)
 
-      if (!checkStartCoord(start, end)) {
-        let tmp = start;
-        start = end;
-        end = tmp;
-      }
-      current_sel_from = start;
-      current_sel_to = end;
-
-      document.documentElement.style.setProperty(
-        "--roy-custom-highlight-color",
-        color
-      );
-
-      lastTagObj = cm.markText(start, end, {
-        className: "roys-custom-hl " + tagCount,
-      });
-      // let s = analysisCoord(start);
-      // let e = analysisCoord(end);
-      // log("pause:(" + s.l + "," + s.c + "),(" + e.l + "," + e.c + ")");
-    }
-  } else {
-    console.log("clearing text highlight");
-    lastTagObj.clear();
+  // extend for all highlights
+  let hls = document.getElementsByClassName("roys-custom-hl");
+  for (let i = 0; i < hls.length; i++) {
+    hls[i].addEventListener("click", function () {
+      showEditorPopUp(global_feedback);
+    });
   }
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-var popuptoggler = false;
-
-function showEditorPopUp(args) {
+function showEditorPopUp(contents) {
   // will show under current cursor
 
-  popuptoggler = !popuptoggler;
   let box = document.getElementsByClassName("roy-popup")[0];
+  var cords = cm.cursorCoords(true);
 
-  if (popuptoggler) {
-    var cords = cm.cursorCoords(true);
-    let text = "dynamic text to fill later";
-    // activate html here
-    box.style.left = (cords.left - 100).toString() + "px";
-    box.style.top = (cords.top + 30).toString() + "px";
+  document.getElementById("popup-header").textContent =
+    contents.distortion_type;
+  document.getElementById("popup-content").textContent =
+    contents.brief_feedback;
 
-    box.style.display = "flex";
-    console.log("cords.left", cords.left);
-    console.log("cords.top", cords.top);
-  } else {
-    // hide popup
-    box.style.display = "none";
-  }
+  box.style.left = (cords.left - 100).toString() + "px";
+  box.style.top = (cords.top + 30).toString() + "px";
 
-  console.log("showing popup");
-  console.log(args);
+  box.style.display = "flex";
+
+  document
+    .querySelector(".readmore-container button")
+    .addEventListener("click", function () {
+      showRightbar(global_feedback);
+    });
+}
+
+function closeNewPopup() {
+  document.getElementsByClassName("roy-popup")[0].style.display = "none";
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-var sidebartoggler = false;
-
-function showSidebar(args) {
-  sidebartoggler = !sidebartoggler;
-  if (sidebartoggler) {
-    openRightBar();
-  } else {
-    closeRightBar();
-  }
-
-  console.log("showing sidebar");
-  console.log(args);
-}
-
-function openRightBar() {
+function showRightbar(contents) {
+  document.querySelector(".right-sidebar h3").textContent =
+    contents.distortion_type;
+  document.querySelector(".right-sidebar p").textContent =
+    contents.longer_feedback;
   document.getElementById("rightsidebar").style.width = "250px";
   document.getElementById("myBottombar").style.right = "250px";
 }

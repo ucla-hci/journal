@@ -4,3 +4,5 @@ Python/settings.py
 node_modules/
 +data_sample/
 .DS_Store
+cspell.json
+.vscode

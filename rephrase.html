@@ -10,6 +10,7 @@
   <script src="lib/codemirror.js"></script>
   <link rel="stylesheet" href="lib/codemirror.css">
   <script src="node_modules/codemirror/lib/codemirror.js"></script>
+  <script src="node_modules/codemirror/addon/search/search.js"></script>
   <script src="node_modules/codemirror/addon/search/searchcursor.js"></script>
   <script src="node_modules/codemirror/addon/selection/mark-selection.js"></script>
   <script src="node_modules/codemirror/addon/display/placeholder.js"></script>
@@ -38,7 +39,8 @@
 </div>
 
 <div class="right-sidebar" id="rightsidebar">
-  <h4>some header</h4>
+  <button onclick="closeRightBar()">X</button>
+  <h3>some header</h3>
   <p>some text</p>
 
 </div>
@@ -48,15 +50,23 @@
     <button class="openbtn" id="opnsidebar" onclick="openNav()"></button>
     <!-- DEBUG BUTTONS -------------------------------------------------------->
     <div class="debug-buttons">
-      <button onclick="sendtoflask()">Send to python</button>
-      <button onclick="showSquare(dummy_input)">show square</button>
-      <button onclick="highlightText(dummy_input)">highligh chunk of text</button>
-      <button onclick="showEditorPopUp('myargs')">show editor popUp</button>
-      <button onclick="showSidebar(dummy_input)">show sidebar</button>
-      <!-- <button onclick="shuffleColorText('myargs')">shuffle color+text</button> -->
-      <button onclick="recommendInput('myargs')">rec input</button>
-      <button onclick="setReadOnly()">set read only</button>
-      <button onclick="populateDistortion('BeingRight')">populate dist</button>
+      <!-- <button onclick="sendtoflask()">Send to python</button> -->
+      <!-- <button onclick="showSquare(dummy_input)">show square</button> -->
+      <!-- <button onclick="highlightText()">highligh chunk of text</button> -->
+      <!-- <button onclick="showEditorPopUp('myargs')">show editor popUp</button> -->
+      <!-- <button onclick="showSidebar(dummy_input)">show sidebar</button> -->
+      <!-- <button onclick="recommendInput('myargs')">rec input</button> -->
+      <!-- <button onclick="setReadOnly()">set read only</button> -->
+      <button onclick="launchSequence(dummy_input_1)">launchSequence1</button>
+      <button onclick="launchSequence(dummy_input_2)">launchSequence2</button>
+      <button onclick="launchSecondSequence('-->')">launchSequence3</button>
+      <!-- <button onclick="search('dummy')">search</button> -->
+      <button onclick="killSequence()">killSequence</button>
+      <button onclick="cleanMarks()">cleanmarks</button>
+
+
+      
+      <!-- <button onclick="populateDistortion('BeingRight')">populate dist</button> -->
     </div>
     <!-- END DEBUG BUTTONS ----------------------------------------------------->
     <a id="toast" href="javascript:void(0)" onclick = "manualSave()">Save</a>
@@ -100,7 +110,7 @@
     <div id="entrydate"></div>
     <textarea id="write" autofocus spellcheck="false"></textarea>
     <!-- <div class="clickable-marker" onclick="highlightText()"></div> -->
-    <div class="clickable-marker" onclick="launchSequence()"></div>
+    <div class="clickable-marker"></div>
 
     <div id="myBottombar" class="bottombar">
       <!--
@@ -119,10 +129,11 @@
   </div>
 
   <div class="roy-popup">
-    <h4>header</h4>
-    <p>text content</p>
+    <button onclick="closeNewPopup()">X</button>
+    <h4 id="popup-header">header</h4>
+    <p id="popup-content">text content</p>
     <div class="readmore-container">
-      <button onclick="showSidebar()">read more</button>
+      <button>Read More</button>
     </div>
   </div>
 
