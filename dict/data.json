@@ -1,0 +1,375 @@
+[
+    {
+        "Strategy No.": "L2a",
+        "Category No.": 1,
+        "Semantic Anchor": "Positive Adjectives",
+        "Words": {
+            "34": "brave"
+        },
+        "WordNet Extension": {
+            "34": null
+        }
+    },
+    {
+        "Strategy No.": "L2a",
+        "Category No.": 2,
+        "Semantic Anchor": "Negative Adjectives",
+        "Words": {
+            "36": "egoistic"
+        },
+        "WordNet Extension": {
+            "36": null
+        }
+    },
+    {
+        "Strategy No.": "L2b",
+        "Category No.": 1,
+        "Semantic Anchor": "Should Statement",
+        "Words": {
+            "39": "should"
+        },
+        "WordNet Extension": {
+            "39": null
+        }
+    },
+    {
+        "Strategy No.": "L2b",
+        "Category No.": 2,
+        "Semantic Anchor": "All or Nothing Thinking / Overgeneralization",
+        "Words": {
+            "41": "never",
+            "42": "always",
+            "43": "forever",
+            "45": "all",
+            "46": "everyone",
+            "47": "everything",
+            "48": "anyone",
+            "49": "anything",
+            "50": "only",
+            "51": "totally",
+            "52": "no one",
+            "44": "again",
+            "54": "nothing",
+            "53": "none"
+        },
+        "WordNet Extension": {
+            "41": null,
+            "42": null,
+            "43": null,
+            "45": null,
+            "46": "everybody",
+            "47": null,
+            "48": "anybody",
+            "49": null,
+            "50": null,
+            "51": null,
+            "52": null,
+            "44": null,
+            "54": null,
+            "53": null
+        }
+    },
+    {
+        "Strategy No.": "L2b",
+        "Category No.": 3,
+        "Semantic Anchor": "Catastrophizing",
+        "Words": {
+            "55": "what if"
+        },
+        "WordNet Extension": {
+            "55": null
+        }
+    },
+    {
+        "Strategy No.": "L2c",
+        "Category No.": 0,
+        "Semantic Anchor": "Dysfunctional Self-Talk",
+        "Words": {
+            "57": "loser",
+            "58": "suck",
+            "59": "hate",
+            "60": "lazy",
+            "61": "the worst",
+            "62": "useless",
+            "63": "failure",
+            "64": "pathetic",
+            "65": "good-for-nothing",
+            "66": "dumb",
+            "67": "stupid"
+        },
+        "WordNet Extension": {
+            "57": null,
+            "58": null,
+            "59": null,
+            "60": null,
+            "61": null,
+            "62": null,
+            "63": null,
+            "64": null,
+            "65": null,
+            "66": null,
+            "67": null
+        }
+    },
+    {
+        "Strategy No.": "L2d",
+        "Category No.": 1,
+        "Semantic Anchor": "Signs of Depression -> Depressed Mood or Dyshphoria",
+        "Words": {
+            "0": "depress",
+            "1": "depressed",
+            "2": "depression"
+        },
+        "WordNet Extension": {
+            "0": null,
+            "1": "gloomy, grim, blue, dispirited, down, downcast, downhearted, down in the mouth, low, low-spirited",
+            "2": null
+        }
+    },
+    {
+        "Strategy No.": "L2d",
+        "Category No.": 1,
+        "Semantic Anchor": "Signs of Depression -> Depressed Mood or Dyshphoria",
+        "Words": {
+            "3": null
+        },
+        "WordNet Extension": {
+            "3": null
+        }
+    },
+    {
+        "Strategy No.": "L2d",
+        "Category No.": 2,
+        "Semantic Anchor": "Signs of Depression -> Hopeless Outlook",
+        "Words": {
+            "6": "helpless"
+        },
+        "WordNet Extension": {
+            "6": "incapacitated "
+        }
+    },
+    {
+        "Strategy No.": "L2d",
+        "Category No.": 2,
+        "Semantic Anchor": "Signs of Depression -> Hopeless Outlook",
+        "Words": {
+            "5": "hopeless"
+        },
+        "WordNet Extension": {
+            "5": null
+        }
+    },
+    {
+        "Strategy No.": "L2d",
+        "Category No.": 2,
+        "Semantic Anchor": "Signs of Depression -> Hopeless Outlook",
+        "Words": {
+            "10": "guity"
+        },
+        "WordNet Extension": {
+            "10": null
+        }
+    },
+    {
+        "Strategy No.": "L2d",
+        "Category No.": 2,
+        "Semantic Anchor": "Signs of Depression -> Hopeless Outlook",
+        "Words": {
+            "9": null
+        },
+        "WordNet Extension": {
+            "9": null
+        }
+    },
+    {
+        "Strategy No.": "L2d",
+        "Category No.": 2,
+        "Semantic Anchor": "Signs of Depression -> Hopeless Outlook",
+        "Words": {
+            "7": "worthlessness",
+            "8": "worthless"
+        },
+        "WordNet Extension": {
+            "7": null,
+            "8": "despicable, ugly, vile, slimy, unworthy, worthless, wretched "
+        }
+    },
+    {
+        "Strategy No.": "L2d",
+        "Category No.": 3,
+        "Semantic Anchor": "Signs of Depression -> Loss of interest in activities",
+        "Words": {
+            "11": null,
+            "12": "indifferent"
+        },
+        "WordNet Extension": {
+            "11": null,
+            "12": "apathetic"
+        }
+    },
+    {
+        "Strategy No.": "L2d",
+        "Category No.": 4,
+        "Semantic Anchor": "Signs of Depression -> Sleep and Appetite Changes",
+        "Words": {
+            "16": null
+        },
+        "WordNet Extension": {
+            "16": null
+        }
+    },
+    {
+        "Strategy No.": "L2d",
+        "Category No.": 4,
+        "Semantic Anchor": "Signs of Depression -> Sleep and Appetite Changes",
+        "Words": {
+            "13": "insomnia",
+            "14": "disrupted sleep",
+            "15": "lethargy"
+        },
+        "WordNet Extension": {
+            "13": "sleeplessness",
+            "14": null,
+            "15": null
+        }
+    },
+    {
+        "Strategy No.": "L2d",
+        "Category No.": 5,
+        "Semantic Anchor": "Signs of Depression -> Fatigue",
+        "Words": {
+            "18": "fatigue",
+            "19": null
+        },
+        "WordNet Extension": {
+            "18": "weariness, tiredness\ntire, pall, weary, jade \ntire, wear upon, tire out, wear, weary, jade, wear out, outwear, wear down, fag out, fag",
+            "19": null
+        }
+    },
+    {
+        "Strategy No.": "L2d",
+        "Category No.": 6,
+        "Semantic Anchor": "Signs of Depression -> Restlessness",
+        "Words": {
+            "20": "restlessness"
+        },
+        "WordNet Extension": {
+            "20": "uneasiness, queasiness"
+        }
+    },
+    {
+        "Strategy No.": "L2d",
+        "Category No.": 7,
+        "Semantic Anchor": "Signs of Depression -> Concentration Problems",
+        "Words": {
+            "22": null,
+            "23": "distract"
+        },
+        "WordNet Extension": {
+            "22": null,
+            "23": "perturb, unhinge, disquiet, trouble, cark, disorder "
+        }
+    },
+    {
+        "Strategy No.": "L2d",
+        "Category No.": 8,
+        "Semantic Anchor": "Signs of Depression -> Suicidal ideation",
+        "Words": {
+            "31": "ending it",
+            "32": "die",
+            "24": "Bury",
+            "25": "coffin",
+            "26": "kill",
+            "27": "suicide",
+            "28": "suicidal",
+            "29": "torture",
+            "30": "escape"
+        },
+        "WordNet Extension": {
+            "31": null,
+            "32": null,
+            "24": null,
+            "25": null,
+            "26": null,
+            "27": "self-destruction, self-annihilation, felo-de-se",
+            "28": null,
+            "29": null,
+            "30": null
+        }
+    },
+    {
+        "Strategy No.": "L2e",
+        "Category No.": 1,
+        "Semantic Anchor": "First Pronoun",
+        "Words": {
+            "74": "self",
+            "73": "myself",
+            "72": "mine",
+            "69": "I",
+            "70": "me",
+            "71": "my"
+        },
+        "WordNet Extension": {
+            "74": null,
+            "73": null,
+            "72": null,
+            "69": null,
+            "70": null,
+            "71": null
+        }
+    },
+    {
+        "Strategy No.": "L2f",
+        "Category No.": 1,
+        "Semantic Anchor": "Insights words",
+        "Words": {
+            "77": "realize",
+            "78": "understand"
+        },
+        "WordNet Extension": {
+            "77": null,
+            "78": null
+        }
+    },
+    {
+        "Strategy No.": "L2f",
+        "Category No.": 2,
+        "Semantic Anchor": "Coherent narrative words",
+        "Words": {
+            "80": "hence",
+            "81": "because",
+            "82": "therefore"
+        },
+        "WordNet Extension": {
+            "80": null,
+            "81": null,
+            "82": null
+        }
+    },
+    {
+        "Strategy No.": "L2f",
+        "Category No.": 3,
+        "Semantic Anchor": "Constructive Self-Talk",
+        "Words": {
+            "85": "work on",
+            "83": "help",
+            "84": "improve"
+        },
+        "WordNet Extension": {
+            "85": null,
+            "83": null,
+            "84": null
+        }
+    },
+    {
+        "Strategy No.": "L2f",
+        "Category No.": 4,
+        "Semantic Anchor": "Cognitive Defusion",
+        "Words": {
+            "86": null
+        },
+        "WordNet Extension": {
+            "86": null
+        }
+    }
+]
