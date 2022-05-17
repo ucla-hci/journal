@@ -14,6 +14,7 @@
   <script src="node_modules/codemirror/addon/search/searchcursor.js"></script>
   <script src="node_modules/codemirror/addon/selection/mark-selection.js"></script>
   <script src="node_modules/codemirror/addon/display/placeholder.js"></script>
+  <script src="node_modules/codemirror/addon/display/rulers.js"></script>
   <!-- <script src="node_modules/codemirror-record/src/CodeRecord.js"></script> -->
 
   <link rel="stylesheet" type="text/css" href="css/style.css" />
@@ -42,6 +43,8 @@
   <button onclick="closeRightBar()">X</button>
   <h3>some header</h3>
   <p>some text</p>
+  <button class="rewrite-button">Rewrite</button>
+  <!-- <button onclick="triggerRewrite(e)">Rewrite</button> -->
 
 </div>
 
@@ -49,32 +52,27 @@
   <div class="btbar">
     <button class="openbtn" id="opnsidebar" onclick="openNav()"></button>
     <!-- DEBUG BUTTONS -------------------------------------------------------->
-    <div class="debug-buttons">
-      <!-- <button onclick="sendtoflask()">Send to python</button> -->
-      <!-- <button onclick="showSquare(dummy_input)">show square</button> -->
-      <!-- <button onclick="highlightText()">highligh chunk of text</button> -->
-      <!-- <button onclick="showEditorPopUp('myargs')">show editor popUp</button> -->
-      <!-- <button onclick="showSidebar(dummy_input)">show sidebar</button> -->
-      <!-- <button onclick="recommendInput('myargs')">rec input</button> -->
-      <!-- <button onclick="setReadOnly()">set read only</button> -->
-      <button onclick="launchSequence(dummy_input_1)">launchSequence1</button>
-      <button onclick="launchSequence(dummy_input_2)">launchSequence2</button>
-      <button onclick="launchSecondSequence('-->')">launchSequence3</button>
-      <!-- <button onclick="search('dummy')">search</button> -->
-      <button onclick="killSequence()">killSequence</button>
-      <button onclick="cleanMarks()">cleanmarks</button>
-
-
-      
-      <!-- <button onclick="populateDistortion('BeingRight')">populate dist</button> -->
-    </div>
+    <div class="doublebuttonbar">
+      <div class="debug-buttons">
+        <button style="background-color: crimson; opacity: 0.8;" onclick="killSequence()">stop</button>
+        <button style="opacity: 0.3;" class="L2Button" onclick="toggleL2()">Analysis off</button>
+        <!-- <button style="opacity: 0.8;" class="rewrite" onclick="showPlaceholder('big ang')">showPLaceholder</button> -->
+      </div>
+      <!-- <div class="suggestion-buttons">
+        <button id="1" onclick="recommendInput2('optimism')">optimism</button>
+        <button id="2" onclick="recommendInput2('impermanence')">impermanence</button>
+        <button id="3" onclick="recommendInput2('thankfulness')">thankfulness</button>
+        <button id="4" onclick="recommendInput2('growth')">growth</button>
+        <button id="5" onclick="recommendInput2('neutralizing')">neutralizing</button>
+      </div> -->
     <!-- END DEBUG BUTTONS ----------------------------------------------------->
+    </div>
     <a id="toast" href="javascript:void(0)" onclick = "manualSave()">Save</a>
     <div>
       <!--<button class="swtbtn" id="markswitch" onclick="displayMarks()"></button>
       <button class="savebtn" id="manualsave" onclick="manualSave()"></button>
       <button class="newbtn" id="newentry" onclick="newEntry()"></button>
-      <button class="recordbtn" id="record" onclick="startRecord()"></button>-->
+      <button class="recordbtn" id="record" onclick="startRecord()"></button> -->
       <a onclick="changeMode('writing')" class="mode-button" title="Click to enter writing mode">Writing</a>
       <a onclick="changeMode('expert')" class="mode-button" title="Click to enter reflection mode">Reflection</a>
       <a href="javascript:void(0)" class="mode-label" title="Now in rephrase mode">Rephrase</a>
@@ -110,7 +108,7 @@
     <div id="entrydate"></div>
     <textarea id="write" autofocus spellcheck="false"></textarea>
     <!-- <div class="clickable-marker" onclick="highlightText()"></div> -->
-    <div class="clickable-marker"></div>
+    <!-- <div class="clickable-marker"></div> -->
 
     <div id="myBottombar" class="bottombar">
       <!--
@@ -128,7 +126,7 @@
 
   </div>
 
-  <div class="roy-popup">
+  <div class="L2-popup">
     <button onclick="closeNewPopup()">X</button>
     <h4 id="popup-header">header</h4>
     <p id="popup-content">text content</p>

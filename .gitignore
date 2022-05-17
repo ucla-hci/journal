@@ -6,3 +6,5 @@ node_modules/
 .DS_Store
 cspell.json
 .vscode
+
+/dict/.ipynb_checkpoints

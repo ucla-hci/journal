@@ -1,0 +1,372 @@
+[
+    {
+        "strategy_code": "L2a",
+        "category_number": 1,
+        "semantic_anchor": "Positive Adjectives",
+        "words": [
+            "brave"
+        ],
+        "wordnet_ext": [],
+        "phrase_ext": [
+            "xx is adj"
+        ],
+        "reprogramming": [
+            "...because"
+        ]
+    },
+    {
+        "strategy_code": "L2a",
+        "category_number": 2,
+        "semantic_anchor": "Negative Adjectives",
+        "words": [
+            "egoistic"
+        ],
+        "wordnet_ext": [],
+        "phrase_ext": [],
+        "reprogramming": []
+    },
+    {
+        "strategy_code": "L2b",
+        "category_number": 1,
+        "semantic_anchor": "Should Statement",
+        "words": [
+            "should"
+        ],
+        "wordnet_ext": [],
+        "phrase_ext": [],
+        "reprogramming": [
+            "-> can/choose/want to/prefer/would like to/plan to"
+        ]
+    },
+    {
+        "strategy_code": "L2b",
+        "category_number": 2,
+        "semantic_anchor": "All or Nothing Thinking / Overgeneralization",
+        "words": [
+            "never",
+            "always",
+            "forever",
+            "all",
+            "everyone",
+            "everything",
+            "anyone",
+            "anything",
+            "only",
+            "totally",
+            "no one",
+            "again",
+            "nothing",
+            "none"
+        ],
+        "wordnet_ext": [
+            "everybody",
+            "anybody"
+        ],
+        "phrase_ext": [],
+        "reprogramming": []
+    },
+    {
+        "strategy_code": "L2b",
+        "category_number": 3,
+        "semantic_anchor": "Catastrophizing",
+        "words": [
+            "what if"
+        ],
+        "wordnet_ext": [],
+        "phrase_ext": [],
+        "reprogramming": []
+    },
+    {
+        "strategy_code": "L2c",
+        "category_number": 0,
+        "semantic_anchor": "Dysfunctional Self-Talk",
+        "words": [
+            "loser",
+            "suck",
+            "hate",
+            "lazy",
+            "the worst",
+            "useless",
+            "failure",
+            "pathetic",
+            "good-for-nothing",
+            "dumb",
+            "stupid"
+        ],
+        "wordnet_ext": [],
+        "phrase_ext": [],
+        "reprogramming": [
+            "I am having the thought of + [ ]"
+        ]
+    },
+    {
+        "strategy_code": "L2d",
+        "category_number": 1,
+        "semantic_anchor": "Signs of Depression -> Depressed Mood or Dyshphoria",
+        "words": [
+            "depress",
+            "depressed",
+            "depression"
+        ],
+        "wordnet_ext": [
+            "gloomy, grim, blue, dispirited, down, downcast, downhearted, down in the mouth, low, low-spirited"
+        ],
+        "phrase_ext": [],
+        "reprogramming": [
+            "L2d: No Reprogramming"
+        ]
+    },
+    {
+        "strategy_code": "L2d",
+        "category_number": 1,
+        "semantic_anchor": "Signs of Depression -> Depressed Mood or Dyshphoria",
+        "words": [],
+        "wordnet_ext": [],
+        "phrase_ext": [],
+        "reprogramming": []
+    },
+    {
+        "strategy_code": "L2d",
+        "category_number": 2,
+        "semantic_anchor": "Signs of Depression -> Hopeless Outlook",
+        "words": [
+            "helpless"
+        ],
+        "wordnet_ext": [
+            "incapacitated "
+        ],
+        "phrase_ext": [
+            "nobody/no one + help"
+        ],
+        "reprogramming": []
+    },
+    {
+        "strategy_code": "L2d",
+        "category_number": 2,
+        "semantic_anchor": "Signs of Depression -> Hopeless Outlook",
+        "words": [
+            "hopeless"
+        ],
+        "wordnet_ext": [],
+        "phrase_ext": [
+            "no/don't + help"
+        ],
+        "reprogramming": []
+    },
+    {
+        "strategy_code": "L2d",
+        "category_number": 2,
+        "semantic_anchor": "Signs of Depression -> Hopeless Outlook",
+        "words": [
+            "guity"
+        ],
+        "wordnet_ext": [],
+        "phrase_ext": [
+            "all my fault, blame on me"
+        ],
+        "reprogramming": []
+    },
+    {
+        "strategy_code": "L2d",
+        "category_number": 2,
+        "semantic_anchor": "Signs of Depression -> Hopeless Outlook",
+        "words": [],
+        "wordnet_ext": [],
+        "phrase_ext": [
+            "hate myself"
+        ],
+        "reprogramming": []
+    },
+    {
+        "strategy_code": "L2d",
+        "category_number": 2,
+        "semantic_anchor": "Signs of Depression -> Hopeless Outlook",
+        "words": [
+            "worthlessness",
+            "worthless"
+        ],
+        "wordnet_ext": [
+            "despicable, ugly, vile, slimy, unworthy, worthless, wretched "
+        ],
+        "phrase_ext": [
+            "what is the point, there is no point, worth nothing, not worthing anything"
+        ],
+        "reprogramming": []
+    },
+    {
+        "strategy_code": "L2d",
+        "category_number": 3,
+        "semantic_anchor": "Signs of Depression -> Loss of interest in activities",
+        "words": [
+            "indifferent"
+        ],
+        "wordnet_ext": [
+            "apathetic"
+        ],
+        "phrase_ext": [
+            "loss of interest, lost/lose interest, used to + interest*"
+        ],
+        "reprogramming": []
+    },
+    {
+        "strategy_code": "L2d",
+        "category_number": 4,
+        "semantic_anchor": "Signs of Depression -> Sleep and Appetite Changes",
+        "words": [],
+        "wordnet_ext": [],
+        "phrase_ext": [],
+        "reprogramming": []
+    },
+    {
+        "strategy_code": "L2d",
+        "category_number": 4,
+        "semantic_anchor": "Signs of Depression -> Sleep and Appetite Changes",
+        "words": [
+            "insomnia",
+            "disrupted sleep",
+            "lethargy"
+        ],
+        "wordnet_ext": [
+            "sleeplessness"
+        ],
+        "phrase_ext": [
+            "can't sleep, sleep less",
+            "sleep + long/ too much, hard + wake up"
+        ],
+        "reprogramming": []
+    },
+    {
+        "strategy_code": "L2d",
+        "category_number": 5,
+        "semantic_anchor": "Signs of Depression -> Fatigue",
+        "words": [
+            "fatigue"
+        ],
+        "wordnet_ext": [
+            "weariness, tiredness\ntire, pall, weary, jade \ntire, wear upon, tire out, wear, weary, jade, wear out, outwear, wear down, fag out, fag"
+        ],
+        "phrase_ext": [
+            "burn out"
+        ],
+        "reprogramming": []
+    },
+    {
+        "strategy_code": "L2d",
+        "category_number": 6,
+        "semantic_anchor": "Signs of Depression -> Restlessness",
+        "words": [
+            "restlessness"
+        ],
+        "wordnet_ext": [
+            "uneasiness, queasiness"
+        ],
+        "phrase_ext": [],
+        "reprogramming": []
+    },
+    {
+        "strategy_code": "L2d",
+        "category_number": 7,
+        "semantic_anchor": "Signs of Depression -> Concentration Problems",
+        "words": [
+            "distract"
+        ],
+        "wordnet_ext": [
+            "perturb, unhinge, disquiet, trouble, cark, disorder "
+        ],
+        "phrase_ext": [
+            "can't/hard to concentrate/focus/pay attention"
+        ],
+        "reprogramming": []
+    },
+    {
+        "strategy_code": "L2d",
+        "category_number": 8,
+        "semantic_anchor": "Signs of Depression -> Suicidal ideation",
+        "words": [
+            "ending it",
+            "die",
+            "Bury",
+            "coffin",
+            "kill",
+            "suicide",
+            "suicidal",
+            "torture",
+            "escape"
+        ],
+        "wordnet_ext": [
+            "self-destruction, self-annihilation, felo-de-se"
+        ],
+        "phrase_ext": [
+            "end my life",
+            "kill myself"
+        ],
+        "reprogramming": []
+    },
+    {
+        "strategy_code": "L2e",
+        "category_number": 1,
+        "semantic_anchor": "First Pronoun",
+        "words": [
+            "self",
+            "myself",
+            "mine",
+            "I",
+            "me",
+            "my"
+        ],
+        "wordnet_ext": [],
+        "phrase_ext": [],
+        "reprogramming": []
+    },
+    {
+        "strategy_code": "L2f",
+        "category_number": 1,
+        "semantic_anchor": "Insights words",
+        "words": [
+            "realize",
+            "understand"
+        ],
+        "wordnet_ext": [],
+        "phrase_ext": [],
+        "reprogramming": [
+            "L2f No Reprogramming"
+        ]
+    },
+    {
+        "strategy_code": "L2f",
+        "category_number": 2,
+        "semantic_anchor": "Coherent narrative words",
+        "words": [
+            "hence",
+            "because",
+            "therefore"
+        ],
+        "wordnet_ext": [],
+        "phrase_ext": [],
+        "reprogramming": []
+    },
+    {
+        "strategy_code": "L2f",
+        "category_number": 3,
+        "semantic_anchor": "Constructive Self-Talk",
+        "words": [
+            "work on",
+            "help",
+            "improve"
+        ],
+        "wordnet_ext": [],
+        "phrase_ext": [],
+        "reprogramming": []
+    },
+    {
+        "strategy_code": "L2f",
+        "category_number": 4,
+        "semantic_anchor": "Cognitive Defusion",
+        "words": [],
+        "wordnet_ext": [],
+        "phrase_ext": [
+            "I am having the thought of"
+        ],
+        "reprogramming": []
+    }
+]

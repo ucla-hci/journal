@@ -1,13 +1,20 @@
 /**
- * Latest updates: 04/17/22
- * - created two sets of sample data
- * - Informative flow almost ready
- *    - just missing extra styling on text boxes
+ * Latest updates: 05/17/22
+ * - smartcompose features almost ready
+ *   - after placeholder works pretty well (not perfect)
+ *   - need to fine tune edit interactions for "before" + "replace" placeholders
+ *   - need to implement "replace" placeholder
  *
- * Missing: "smartcompose" flow
+ * - general improvements missing
+ *   - improve analysis by leveraging wordnet + phrase extensions
+ *   - compile found matches in sentences and focus on 1 strategy based on importance (?)
+ *
+ * - need to confirm logger is working well
+ *
+ * - need to validate deployment scripts + adjust if necessary
+ *
  */
 
-var num = 0;
 var write = document.getElementById("write");
 // codeMirror初始化，之后对文档的操作都通过cm变量的私有方法实现
 var cm = CodeMirror.fromTextArea(write, {
@@ -18,150 +25,360 @@ var cm = CodeMirror.fromTextArea(write, {
   scrollbarStyle: null,
 });
 
-/*************************************************************************** Demo examples */
+/**
+ * initialiing globals
+ *
+ */
+var feedback_flag = true; // <--- only toggle this after changes have been bundled
+let word_counter = {}; // <--- dict needed to
+let global_feedback = []; // <--- store found {keywords +info} inside <------ Pending notice from Ruolin
 
-// Note: Assuming some phrases are repeated,
-//   should also provide indicator of which phrase is being referred
-//   e.g. "something", 4 --> the fourth repetition of something is the one that matters
-
-let dummy_input_1 = {
-  sentences: ["I am devastated"],
-  distortion_type: "Universalizing",
-  color: "lightgreen",
-  brief_feedback: "Here is brief feedback on universalizing",
-  longer_feedback:
-    "This is a longer feedback on universalizing. \n\n It should contain more details on the writing patterns of the user. It should also inform them of the likely psychological theories that they are experiencing and how to alleviate those negative feelings.",
-};
-
-let dummy_input_2 = {
-  sentences: [
-    "Everything is terrible",
-    "I shall not be able to continue much longer",
-  ],
-  distortion_type: "Overgeneralization",
-  color: "lightblue",
-  brief_feedback: "Here is brief feedback on Overgeneralization",
-  longer_feedback: "This is a longer feedback on Overgeneralization.",
-};
-
-// use this to update via js queries
-let global_feedback = {};
+// Note: need to handle pairs of words e.g. "very good"
+// tentative format:
+let dict_temp = [
+  {
+    strategy_code: "L2y",
+    category_number: 0, // ----------- could use array index instead
+    semantic_anchor: "Positive Adjectives",
+    words: ["happy", "accomplishments"],
+    wordnet_ext: ["joy", "positive", "glad"],
+    color: "#eb4034",
+    brief_feedback: "Positive mind!",
+    longer_feedback: "Longer feedback. Explain benefits of healthy mind.",
+    rewrite: "Regardless of adversity, I can still find enjoyment.",
+    rewrite_position: "after",
+  },
+  {
+    strategy_code: "L2z",
+    category_number: 1,
+    semantic_anchor: "Suicide and death",
+    words: [
+      "Bury",
+      "coffin",
+      "kill",
+      "suicide",
+      "suicidal",
+      "torture",
+      "escape",
+      "ending it",
+      "die",
+    ],
+    wordnet_ext: [],
+    color: "#34cceb",
+    brief_feedback:
+      "Suicide is the act of killing yourself, most often as a result of depression or other mental illness.",
+    longer_feedback:
+      "Suicide can be seen as a behavior motivated by the desire to escape from unbearable psychological pain. If you're experiencing these symptoms, please call 800-273-8255 (suicide hotline).",
+    rewrite: "Suicide is never a solution",
+    rewrite_position: "before",
+  },
+  {
+    strategy_code: "L2x",
+    category_number: 2,
+    semantic_anchor: "Fatigue",
+    words: [
+      "weariness",
+      "tiredness",
+      "tire",
+      "pall",
+      "weary",
+      "jade",
+      "tire",
+      "wear upon",
+      "tire out",
+      "wear",
+      "weary",
+      "jade",
+      "wear out",
+      "outwear",
+      "wear down",
+      "fag out",
+      "fag",
+    ],
+    wordnet_ext: [],
+    color: "#3434eb",
+    brief_feedback: "Signs of depression --> Fatigue.",
+    longer_feedback:
+      "Depression can be defined as a mood disorder that leaves you feeling sad, disinterested in things, depressed and tired. Also called ‘clinical depression’ or ‘major depressive disorder,’ depression impacts how you think, feel, and behave, leading to a range of physical and emotional problems.",
+    rewrite: "I should restI should restI should",
+    rewrite_position: "before",
+  },
+  {
+    strategy_code: "L2a",
+    category_number: 3,
+    semantic_anchor: "Overgeneralization",
+    words: [
+      "never",
+      "always",
+      "forever",
+      "again",
+      "all",
+      "everyone",
+      "everything",
+      "anyone",
+      "anything",
+      "only",
+      "totally",
+      "no one",
+      "none",
+      "nothing",
+    ],
+    wordnet_ext: [],
+    color: "#5e32a8",
+    brief_feedback:
+      "Overgeneralization is a type of cognitive distortion where a person applies something from one event to all other events.",
+    longer_feedback:
+      "Overgeneralization involves your thoughts. Therefore, when you are mindful of your thoughts, you can begin to notice patterns. Once you see those patterns, you can start to break them. Some people find it useful to keep a journal in which they record their thoughts so they can identify patterns more easily, as well as identifying overgeneralization triggers.",
+  },
+];
 
 /*************************************************************************** NEW ADDS */
-function launchSequence(args) {
-  global_feedback = args;
-  // https://stackoverflow.com/questions/54957259/codemirror-search-and-highlight-multipule-words-without-dialog
 
-  // for each sentence, search and store pair of from/to coords
-  let temp_highlight_cord = args.sentences.map(function (currentElement) {
-    return search(currentElement);
+function analyzeText(category = "all") {
+  // - missing case insensitivity.
+  // - missing wordnet extension/multiword matching
+
+  // console.log("running L2 analysis for category:", category);
+  clearSquares();
+  global_feedback = [];
+  word_counter = {};
+
+  let allText = cm.getValue();
+  allText = allText.replace(/[",!. ():?–-]|[^\S]/gu, " ").split(" ");
+  allText = allText.filter(function (word) {
+    if (word === "") {
+      return false;
+    }
+    return true;
   });
 
-  console.log("temp_highlight_coords ", temp_highlight_cord);
+  // param needed for search
+  let start = CodeMirror.Pos(cm.firstLine(), 0);
 
-  // show box at the next period appearance (after last highlighted phrase)
-  // https://stackoverflow.com/questions/32622128/codemirror-how-to-read-editor-text-before-or-after-cursor-position
-  let period_coords = search(
-    ".",
-    temp_highlight_cord[temp_highlight_cord.length - 1].to
-  );
-  showSquare({ cords: period_coords.to, color: args.color });
+  // store categories for matched words
+  let categories = [];
+  let target_category = category === "all" ? "" : category; // --------TODO - handle multiple categories
 
-  document
-    .getElementsByClassName("clickable-marker")[0]
-    .addEventListener("click", function () {
-      highlightText({ coords: temp_highlight_cord, color: args.color });
+  // filter words not in dict
+  allText = allText.filter(function (element) {
+    for (let i = 0; i < dict_temp.length; i++) {
+      if (dict_temp[i].words.indexOf(element.toLowerCase()) > -1) {
+        if (target_category !== "") {
+          // check target category
+          // if ( target_category.indexOf(dict_temp[i].strategy_code) > -1) {
+          if (dict_temp[i].strategy_code === target_category) {
+            categories.push(dict_temp[i].category_number);
+            return true;
+          } else {
+            return false;
+          }
+        } else {
+          categories.push(dict_temp[i].category_number);
+          return true;
+        }
+      } else {
+        continue;
+      }
+    }
+  });
+
+  // idea for efficiency
+  // get diff between freshly calculated array and previous version
+  // if end is different crop
+  // if it is more different  refresh the whole thing
+
+  let returnArr = allText.reduce(function (
+    previousElement,
+    currentElement,
+    index
+  ) {
+    if (currentElement === "") {
+      return previousElement;
+    }
+    let offset = 0;
+    if (currentElement in word_counter) {
+      word_counter[currentElement] += 1;
+      offset = word_counter[currentElement];
+    } else {
+      word_counter[currentElement] = 0;
+    }
+
+    let search_coords;
+    try {
+      search_coords = search(currentElement, start, offset);
+    } catch (e) {
+      if (e === "Not Found") {
+        return previousElement;
+      }
+    }
+
+    previousElement.push({
+      search_coords: search_coords,
+      word: currentElement,
+      color: dict_temp[categories[index]].color,
+      title: dict_temp[categories[index]].semantic_anchor,
+      brief_feedback: dict_temp[categories[index]].brief_feedback,
+      longer_feedback: dict_temp[categories[index]].longer_feedback,
+      rewrite: dict_temp[categories[index]].rewrite,
+      rewrite_position: dict_temp[categories[index]].rewrite_position,
     });
+    return previousElement;
+  },
+  []);
+
+  // console.log("analysis returnarr", returnArr);
+
+  return returnArr;
 }
 
 function killSequence() {
+  // remove periodic intervals
+  if (L2interval_ID !== null) {
+    toggleL2();
+  }
+
+  // remove highlihgts
   cleanMarks();
-  document.getElementsByClassName("clickable-marker")[0].style.display = "none";
-  // IMPORTANT! have to delete the previous event listeners added <-------------------PENDING
-  var old_element = document.getElementsByClassName("clickable-marker")[0];
-  var new_element = old_element.cloneNode(true);
-  old_element.parentNode.replaceChild(new_element, old_element);
+
+  // close popup
+  if (document.getElementsByClassName("L2-popup")) {
+    document.getElementsByClassName("L2-popup")[0].style.display = "none";
+  }
+
+  // closeright bar
+  document.getElementById("rightsidebar").style.width = "0px";
+  document.getElementById("myBottombar").style.right = "0px";
+
+  word_counter = {};
+  global_feedback = [];
+
+  // rm all squares
+  clearSquares();
+}
+
+function clearSquares() {
+  let squarelist = document.getElementsByClassName("clickable-marker");
+  if (squarelist) {
+    Array.from(squarelist).forEach(function (element) {
+      element.remove();
+    });
+  }
+  return;
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-//source
 // https://discuss.codemirror.net/t/programmatically-search-and-select-a-keyword/1666
-function search(astring, start) {
-  // currently: able to handle 1 string at a time.
-  // missing: ability to select among multiple matches
+function search(astring, start, offset = 0) {
+  // uses offset to differentiate among multiple matches
 
-  if (start === "undefined") {
-    start = CodeMirror.Pos(cm.firstLine(), 0);
-  }
-  // var cursor = cm.getSearchCursor(astring, CodeMirror.Pos(cm.firstLine(), 0), {
-  //   caseFold: true,
-  //   multiline: true,
-  // });
-  var cursor = cm.getSearchCursor(astring, start, {
+  let search_query = new RegExp(
+    "(?<![^ .,?!;(\r\n])" + astring + "(?![^ .,?!;)\r\n])",
+    "gm"
+  );
+
+  var cursor = cm.getSearchCursor(search_query, start, {
     caseFold: true,
     multiline: true,
   });
+  for (let i = 0; i < offset; i++) {
+    cursor.findNext();
+  }
   if (cursor.find(false)) {
-    // cm.setSelection(cursor.from(), cursor.to());
     return { from: cursor.from(), to: cursor.to() };
+  } else {
+    throw "Not Found";
   }
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-function showSquare(args) {
-  var cords = cm.cursorCoords(args.cords);
+function showSquare(args, index = "", nearestPeriod = false) {
+  if (nearestPeriod) {
+    console.log("MISSING ALIGN TO PERIOD/END OF SENTENCE"); // ---------------------- ASK IF NEEDED!
+  }
+
+  var cords = cm.cursorCoords(args.search_coords.to);
   var color = args.color;
 
-  let marker = document.getElementsByClassName("clickable-marker")[0];
+  // create marker
+  let marker = document.createElement("div");
+  if (index !== "") {
+    marker.id = index;
+    marker.className = "clickable-marker";
+  }
+
+  marker.style.position = "fixed";
   marker.style.left = (cords.left - 2).toString() + "px";
   marker.style.top = (cords.top - 5).toString() + "px";
   marker.style.backgroundColor = color;
-  document.getElementsByClassName("clickable-marker")[0].style.display =
-    "block";
+  marker.style.opacity = 0.4;
+  marker.style.display = "block";
+  marker.addEventListener("click", function () {
+    highlightText(args, index);
+  });
+  marker.addEventListener("mouseover", function (event) {
+    event.target.style.opacity = 0.75;
+  });
+
+  // add div to global feedback dictionary ?? --------- QUESTION - answer: YES
+
+  document.body.appendChild(marker);
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-function launchSecondSequence(input_string) {
-  // get position where new text will be inserted
-  let target_cord = search(input_string); // -----> save this to then use as cursor
-  // type in some random text at coord:
-  var doc = cm.getDoc();
-  doc.replaceRange("TE", target_cord.to);
+var rephrase_lastTagObj = null; // is this really necessary? if not delete
 
-  // do typing animation
-  console.log(target_cord.to);
-  doc.replaceRange("ST", target_cord.to);
-
-  CodeMirror.Pos(target_cord.to.line, target_cord.to.ch);
+function hexToRgb(hex) {
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result
+    ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16),
+      }
+    : null;
 }
 
-var rephrase_lastTagObj = null;
-
-function highlightText(args) {
-  var color = args.color;
-  console.log(args.coords);
+function highlightText(args, index = "") {
+  cleanMarks();
+  closeRightBar();
+  closeNewPopup();
+  var col = hexToRgb(args.color);
+  // console.log(args.search_coords);
+  let target_col = "rgba(" + col.r + "," + col.g + "," + col.b + ",0.4)";
+  let hover_col = "rgba(" + col.r + "," + col.g + "," + col.b + ",0.7)";
 
   document.documentElement.style.setProperty(
-    "--roy-custom-highlight-color",
-    color
+    "--L2-highlight-color",
+    target_col
   );
 
-  // add for loop here to mark each pair of coords -- assuming input array
-  rephrase_lastTagObj = args.coords.map(function (currentElement) {
-    console.log("adding tags here: ");
-    return cm.markText(currentElement.from, currentElement.to, {
-      className: "roys-custom-hl",
+  rephrase_lastTagObj = []
+    .concat(args.search_coords)
+    .map(function (currentElement) {
+      return cm.markText(currentElement.from, currentElement.to, {
+        className: "L2-highlight",
+      });
     });
-  });
-  // console.log("rephrase_lastTagObj ", rephrase_lastTagObj;)
 
-  // extend for all highlights
-  let hls = document.getElementsByClassName("roys-custom-hl");
+  // add popup onclick
+  let hls = document.getElementsByClassName("L2-highlight");
   for (let i = 0; i < hls.length; i++) {
     hls[i].addEventListener("click", function () {
-      showEditorPopUp(global_feedback);
+      showEditorPopUp(args);
+    });
+    hls[i].addEventListener("mouseover", function () {
+      document.documentElement.style.setProperty(
+        "--L2-highlight-color",
+        hover_col
+      );
+    });
+    hls[i].addEventListener("mouseout", function () {
+      document.documentElement.style.setProperty(
+        "--L2-highlight-color",
+        target_col
+      );
     });
   }
 }
@@ -169,17 +386,22 @@ function highlightText(args) {
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 function showEditorPopUp(contents) {
-  // will show under current cursor
-
-  let box = document.getElementsByClassName("roy-popup")[0];
+  let box = document.getElementsByClassName("L2-popup")[0];
   var cords = cm.cursorCoords(true);
 
-  document.getElementById("popup-header").textContent =
-    contents.distortion_type;
+  document.getElementById("popup-header").textContent = contents.title;
   document.getElementById("popup-content").textContent =
     contents.brief_feedback;
 
-  box.style.left = (cords.left - 100).toString() + "px";
+  let window_width = window.innerWidth;
+
+  if (window_width - cords.left < 400) {
+    // distance to
+    console.log("TOO TO THE RIGHT - adjusting");
+    box.style.left = (cords.left - 200).toString() + "px";
+  } else {
+    box.style.left = (cords.left - 100).toString() + "px";
+  }
   box.style.top = (cords.top + 30).toString() + "px";
 
   box.style.display = "flex";
@@ -187,79 +409,219 @@ function showEditorPopUp(contents) {
   document
     .querySelector(".readmore-container button")
     .addEventListener("click", function () {
-      showRightbar(global_feedback);
+      showRightbar(contents);
     });
 }
 
 function closeNewPopup() {
-  document.getElementsByClassName("roy-popup")[0].style.display = "none";
+  document.getElementsByClassName("L2-popup")[0].style.display = "none";
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 function showRightbar(contents) {
-  document.querySelector(".right-sidebar h3").textContent =
-    contents.distortion_type;
+  document.querySelector(".right-sidebar h3").textContent = contents.title;
   document.querySelector(".right-sidebar p").textContent =
     contents.longer_feedback;
   document.getElementById("rightsidebar").style.width = "250px";
   document.getElementById("myBottombar").style.right = "250px";
+
+  let rewrite_button = document.querySelector("button.rewrite-button");
+  rewrite_button.addEventListener("click", function () {
+    closeNewPopup();
+    // showPlaceholder(contents.rewrite); // ----------------------------- call placeholder
+    triggerRewrite(contents); // ----------------------------- call placeholder
+  });
 }
 
 function closeRightBar() {
   document.getElementById("rightsidebar").style.width = "0px";
   document.getElementById("myBottombar").style.right = "0px";
+  // delete event listener
+  let old_rewrite_button = document.querySelector("button.rewrite-button");
+  let new_rewrite_button = old_rewrite_button.cloneNode(true);
+  old_rewrite_button.parentNode.replaceChild(
+    new_rewrite_button,
+    old_rewrite_button
+  );
 }
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// ASSUMING ONLY LAST SENTENCE EDITS
+function triggerRewrite(contents) {
+  console.log(contents.rewrite, contents.rewrite_position);
 
-var placeholderToggle = false;
+  let curr_doc = cm.getDoc();
 
-function recommendInput(in_text) {
-  // write over placeholder
-  // http://jsfiddle.net/DerekL/7sD2r/
+  switch (contents.rewrite_position) {
+    // align cursor into place --> call to show
 
-  console.log("inside recInput");
-  placeholderToggle = !placeholderToggle;
+    case "after":
+      placeholder_location = "after";
+      let end_line = curr_doc.lineCount() - 1;
+      let end_ch = cm.getLine(end_line).length;
 
-  if (placeholderToggle) {
-    const textlength = in_text.length;
-    typeWord(textlength, in_text);
-  } else {
-    cm.setOption("placeholder", "");
+      let last_char = curr_doc.getRange(
+        { line: end_line, ch: end_ch - 1 },
+        { line: end_line, ch: end_ch }
+      );
+
+      if (!(last_char === " " || last_char === "")) {
+        curr_doc.replaceRange(" ", { line: end_line, ch: end_ch++ });
+      }
+      cm.focus();
+      cm.setCursor({ line: end_line, ch: end_ch });
+
+      suggestion = contents.rewrite;
+      delta_edits_suggestion = "";
+
+      showPlaceholder(contents.rewrite, { line: end_line, ch: end_ch });
+
+      placeholder_active = true;
+
+      break;
+    case "before":
+      placeholder_location = "before";
+      let period_cords = null;
+
+      // search period after target text
+      // try {
+      //   period_cords = search(".", contents.search_coords.from);
+      // } catch (e) {
+      //   console.log("search error:", e);
+      // }
+      // if (period_cords === null) {
+      //   // no period after target word
+      // }
+
+      // search previous period by comparing with target text cords
+      let ch_counter = 0;
+      while (ch_counter < contents.search_coords.from.ch) {
+        try {
+          let cursor = cm.getSearchCursor(".", {
+            line: contents.search_coords.from.line,
+            ch: ch_counter++,
+          });
+          if (cursor.find(false)) {
+            // if found
+            if (!(cursor.from().ch > contents.search_coords.from.ch)) {
+              // if in bounds
+              period_cords = cursor.to();
+            }
+          }
+        } catch (e) {
+          ch_counter++;
+        }
+      }
+      if (period_cords === null) {
+        // no period before sentence. Set target ch = 0;
+        period_cords = { line: contents.search_coords.from.line, ch: 0 };
+      } else {
+        period_cords["ch"] += 1;
+      }
+
+      // insert text + tag with placeholder css.
+
+      cm.replaceRange(contents.rewrite, period_cords);
+      cm.markText(
+        period_cords,
+        {
+          line: period_cords.line,
+          ch: period_cords.ch + contents.rewrite.length,
+        },
+        { className: "placeholder" }
+      );
+
+      cm.focus();
+      cm.setCursor(period_cords);
+
+      global_flag = true;
+
+      placeholder_active = true;
+      placeholder_coords = {
+        from: period_cords,
+        to: {
+          line: period_cords.line,
+          ch: period_cords.ch + contents.rewrite.length,
+        },
+      };
+      suggestion = contents.rewrite;
+      delta_edits_suggestion = "";
+      suggestion_cursor = 0;
+
+      break;
+    case "replace":
+      placeholder_location = "replace";
+      break;
+    default:
+      break;
   }
 }
 
-function typeWord(remaining, aword) {
-  setTimeout(function () {
-    var toshow = aword.substr(0, aword.length - remaining + 1);
-    cm.setOption("placeholder", toshow);
-    if (--remaining) typeWord(remaining, aword);
-  }, 200);
-}
-
-var readOnlyLines = [0, 2, 4];
-var readOnlyToggler = false;
-
-function setReadOnly() {
-  readOnlyToggler = !readOnlyToggler;
-
-  cm.on("beforeChange", function (cm, change) {
-    if (~readOnlyLines.indexOf(change.from.line)) {
-      // change to line and column. and check if change is within boundaries.
-      if (readOnlyToggler) {
-        change.cancel();
-      }
-    }
-  });
-}
-
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+function showPlaceholder(sug, target_editor_location = {}) {
+  if (placeholder_active) {
+    return;
+  }
 
-function sendtoflask() {
-  // make request
-  // something like this
-  // http://127.0.0.1:5000/rephrase/?title=atitle&content=somecontent
+  let cmbox = document
+    .querySelector("pre.CodeMirror-line")
+    .getBoundingClientRect();
+
+  let target_cord = cm.charCoords(target_editor_location);
+
+  placeholder_coords = { from: target_editor_location };
+
+  let x = document.createElement("div");
+  x.id = "dynamic_placeholder";
+
+  x.style.position = "absolute";
+  x.style.left = (cmbox.left - 0.1).toString() + "px";
+  x.style.width = (cmbox.width - 4).toString() + "px";
+
+  x.style.top = (target_cord.top - 0.41).toString() + "px";
+  x.style.textIndent = (target_cord.left - cmbox.left - 4.6).toString() + "px";
+  x.style.height = (target_cord.bottom - target_cord.top).toString() + "px";
+  x.style.fontSize = "24px";
+  x.style.zIndex = "1";
+  x.style.color = "lightgrey";
+  x.style.padding = "0 4px";
+  x.style.overflowWrap = "break-word";
+
+  x.style.border = "solid 1px rgba(255,0,0,70)";
+  // x.style.visibility = "hidden";
+
+  x.textContent = sug;
+
+  document.body.appendChild(x);
+}
+
+function hidePlaceholder() {
+  // OJO: placeholder_active remains true here!
+  let placeh = document.querySelector("#dynamic_placeholder");
+  if (placeh) {
+    placeh.style.visibility = "hidden";
+  }
+}
+
+function reShowPlaceholder() {
+  let placeh = document.querySelector("#dynamic_placeholder");
+  if (placeh) {
+    placeh.style.visibility = "";
+  }
+}
+
+function dismissPlaceholder() {
+  if (!placeholder_active) {
+    return;
+  }
+  let placeh = document.querySelector("#dynamic_placeholder");
+  if (placeh) {
+    placeh.remove();
+  }
+  delta_edits_suggestion = "";
+  placeholder_active = false;
+  placeholder_coords = {};
+  suggestion_cursor = 0;
 }
 
 /************************* End new adds */
@@ -270,7 +632,8 @@ var entries;
 var key,
   prevKey,
   flag = 0;
-var suggestion, s_start, s_end;
+// var suggestion, s_start, s_end;
+var s_start, s_end;
 
 // IndexedDB计数器
 var maxID = 0;
@@ -358,14 +721,14 @@ function initMenu() {
 
 // 回调函数，会被indexDB.js中的方法调用。入参menu即使entry的摘要信息
 function buildMenu(menu, _maxID) {
-  console.log("buildMenu");
-  console.log(menu);
+  // console.log("buildMenu");
+  // console.log(menu);
   $("#entryTitles").empty();
   if (menu && menu !== "menuFailed") {
     maxID = _maxID;
     for (id in menu) {
       let title = menu[id]["title"];
-      console.log(title, title.length);
+      // console.log(title, title.length);
       if (title.length > 14) {
         title = title.slice(0, 12) + "...";
       }
@@ -432,15 +795,16 @@ function deleteEntry(id) {
 
 // 回调：删除执行
 function deleteEntryRecall() {
-  console.log("deleting entry #" + _del_ID);
+  // console.log("deleting entry #" + _del_ID);
   removeData(_del_ID);
   _del_ID = 0;
   newEntry();
 }
 
 function openEntry(id) {
+  dismissPlaceholder();
   document.getElementById("toast").style.display = "block";
-  console.log("Open entry #" + id);
+  // console.log("Open entry #" + id);
   if (id <= maxID) {
     currentID = id;
     document.getElementById("temp").style.display = "none";
@@ -465,7 +829,7 @@ function saveEntry() {
 }
 
 function loadContent(id) {
-  console.log("Loading entry #" + id);
+  // console.log("Loading entry #" + id);
   readData(id); // 在indexDB.js中
 }
 
@@ -518,10 +882,10 @@ function cleanMarks() {
 }
 
 function fetchMarks() {
-  console.log("fetchMarks");
+  // console.log("fetchMarks");
   var marksOutput = new Array();
   cm.getAllMarks().forEach((mark) => {
-    console.log(mark, mark.find());
+    // console.log(mark, mark.find());
     if (mark.find().to) {
       marksOutput.push({
         tag: mark.className,
@@ -690,97 +1054,69 @@ function confirmDelete() {
   deleteEntryRecall();
 }
 
-/* CodeMirror Decoration Functions
-function handlePrompt(start, end, sel_start = null, sel_end = null) {
-  //console.log("add prompt, start:", start, "end:", end, "sel_start:", sel_start, "sel_end:", sel_end)
-  let promptObject = cm.markText(start, end, { className: "autosuggest-font" });
-  promptObjects.push(promptObject);
-  if (sel_start != null && sel_end != null) {
-    cm.markText(sel_start, sel_end, { className: "autosuggest-background" });
-  }
-}
+//  CodeMirror Decoration Functions
+// function handlePrompt(start, end, sel_start = null, sel_end = null) {
+//   //console.log("add prompt, start:", start, "end:", end, "sel_start:", sel_start, "sel_end:", sel_end)
+//   let promptObject = cm.markText(start, end, { className: "autosuggest-font" });
+//   promptObjects.push(promptObject);
+//   if (sel_start != null && sel_end != null) {
+//     cm.markText(sel_start, sel_end, { className: "autosuggest-background" });
+//   }
+// }
 
-function handleReplace(start, end, s) {
-  cm.markText(start, end, { className: "replacement-font" });
-  console.log(cm.charCoords(start));
-  console.log(cm.charCoords(start)["left"]);
-  console.log(cm.charCoords(start)["top"]);
-  var newLeft = cm.charCoords(start)["left"].toString() + "px";
-  var newTop = (cm.charCoords(start)["top"] + 30).toString() + "px";
+// function handleReplace(start, end, s) {
+//   cm.markText(start, end, { className: "replacement-font" });
+//   console.log(cm.charCoords(start));
+//   console.log(cm.charCoords(start)["left"]);
+//   console.log(cm.charCoords(start)["top"]);
+//   var newLeft = cm.charCoords(start)["left"].toString() + "px";
+//   var newTop = (cm.charCoords(start)["top"] + 30).toString() + "px";
 
-  $("#textmanipulation").css("display", "block");
-  $("#textmanipulation").css("margin-left", newLeft);
-  $("#textmanipulation").css("margin-top", newTop);
-  document.getElementById("pop-up-title-text").textContent = s;
+//   $("#textmanipulation").css("display", "block");
+//   $("#textmanipulation").css("margin-left", newLeft);
+//   $("#textmanipulation").css("margin-top", newTop);
+//   document.getElementById("pop-up-title-text").textContent = s;
 
-  suggestion = s;
-  s_start = start;
-  s_end = end;
-}
+//   suggestion = s;
+//   s_start = start;
+//   s_end = end;
+// }
 
-function handleHighlight(start, end, type) {
-  cm.markText(start, end, { className: type });
-}
+// function handleHighlight(start, end, type) {
+//   cm.markText(start, end, { className: type });
+// }
 
-function handleCognDistortion(start, end, id) {
-  console.log(id.replace(/\s/g, ""));
-  cm.markText(start, end, { className: id.replace(/\s/g, "") });
-}
+// function handleCognDistortion(start, end, id) {
+//   console.log(id.replace(/\s/g, ""));
+//   cm.markText(start, end, { className: id.replace(/\s/g, "") });
+// }
 
-function handleFeedback(start, end, sentence) {
-  feedbackMsg += "<br>" + "(" + start["line"] + "," + start["ch"] + ")";
-  if (!compareCoord(start, end)) {
-    feedbackMsg += "->(" + +end["line"] + "," + end["ch"] + ")";
-  }
-  feedbackMsg += ": " + sentence;
-  feedbackKey =
-    start["line"] + "," + start["ch"] + "," + end["line"] + "," + end["ch"];
+// function handleFeedback(start, end, sentence) {
+//   feedbackMsg += "<br>" + "(" + start["line"] + "," + start["ch"] + ")";
+//   if (!compareCoord(start, end)) {
+//     feedbackMsg += "->(" + +end["line"] + "," + end["ch"] + ")";
+//   }
+//   feedbackMsg += ": " + sentence;
+//   feedbackKey =
+//     start["line"] + "," + start["ch"] + "," + end["line"] + "," + end["ch"];
 
-  clearBottomBarElement();
-  newBottomBarElement("Expert Feedback", sentence);
-  openDef();
-}
-*/
-function clearBottomBarElement() {
-  document.getElementById("myBottombar").innerHTML = "";
-}
+//   clearBottomBarElement();
+//   newBottomBarElement("Expert Feedback", sentence);
+//   openDef();
+// }
 
-function newBottomBarElement(title, body) {
-  let newDiv =
-    '<div><a href="javascript:void(0)" class="closedef onedeftitle" onclick="closeDef()">' +
-    title +
-    "</a>";
-  newDiv += '<a href="#" class="onedefbody">' + body + "</a></div>";
-  document.getElementById("myBottombar").innerHTML += newDiv;
-}
+// function clearBottomBarElement() {
+//   document.getElementById("myBottombar").innerHTML = "";
+// }
 
-// 因为expert端删去了conitive distortion的标注，以下代码现在实际上不会被触发
-function populateDistortion(name) {
-  if (name == "BeingRight") {
-    newBottomBarElement("Being Right", "Being right distortion demo text");
-  } else if (name == "Blaming") {
-    newBottomBarElement("Blaming", "Blaming distortion demo text");
-  } else if (name == "Catastrophizing") {
-    newBottomBarElement(
-      "Catastrophizing",
-      "Catastrophizing distortion demo text"
-    );
-  } else if (name == "MindReading") {
-    newBottomBarElement("MindReading", "MindReading distortion demo text");
-  } else if (name == "Splitting") {
-    newBottomBarElement("Splitting", "Splitting distortion demo text");
-  }
-  openDef();
-}
-
-/* 因为删去了ot.js功能，以下代码废弃
-function handleOperation(command){
-    switch (command){
-        case 'undo': cm.undo(); break;
-        case 'redo': cm.redo(); break;
-        case 'clear': cm.clear(); break;
-    }
-}*/
+// function newBottomBarElement(title, body) {
+//   let newDiv =
+//     '<div><a href="javascript:void(0)" class="closedef onedeftitle" onclick="closeDef()">' +
+//     title +
+//     "</a>";
+//   newDiv += '<a href="#" class="onedefbody">' + body + "</a></div>";
+//   document.getElementById("myBottombar").innerHTML += newDiv;
+// }
 
 // CodeMirror Listener
 // Handling mouse activities
@@ -789,41 +1125,41 @@ cm.on("mousedown", function () {
   movedByMouse = true;
 });
 
-cm.on("cursorActivity", function () {
-  if (movedByMouse) {
-    movedByMouse = false;
-    if (!cm.getSelection()) {
-      closeDef();
-      //branch based on whether a highlight was clicked here
-      let marks = cm.findMarksAt(cm.getCursor());
-      let len = marks.length;
-      if (len != 0) {
-        clearBottomBarElement();
-        for (let mark of marks) {
-          console.log(cm.getCursor());
-          let tag = mark["className"];
-          switch (tag) {
-            case "BeingRight":
-              populateDistortion("BeingRight");
-              break;
-            case "Blaming":
-              populateDistortion("Blaming");
-              break;
-            case "Catastrophizing":
-              populateDistortion("Catastrophizing");
-              break;
-            case "MindReading":
-              populateDistortion("MindReading");
-              break;
-            case "Splitting":
-              populateDistortion("Splitting");
-              break;
-          }
-        }
-      }
-    }
-  }
-});
+// cm.on("cursorActivity", function () {
+//   if (movedByMouse) {
+//     movedByMouse = false;
+//     if (!cm.getSelection()) {
+//       closeDef();
+//       //branch based on whether a highlight was clicked here
+//       let marks = cm.findMarksAt(cm.getCursor());
+//       let len = marks.length;
+//       if (len != 0) {
+//         clearBottomBarElement();
+//         for (let mark of marks) {
+//           console.log(cm.getCursor());
+//           let tag = mark["className"];
+//           switch (tag) {
+//             case "BeingRight":
+//               populateDistortion("BeingRight");
+//               break;
+//             case "Blaming":
+//               populateDistortion("Blaming");
+//               break;
+//             case "Catastrophizing":
+//               populateDistortion("Catastrophizing");
+//               break;
+//             case "MindReading":
+//               populateDistortion("MindReading");
+//               break;
+//             case "Splitting":
+//               populateDistortion("Splitting");
+//               break;
+//           }
+//         }
+//       }
+//     }
+//   }
+// });
 
 cm.on("keyup", function () {
   prevKey = key;
@@ -853,43 +1189,225 @@ cm.on("keyup", function () {
   }
 });
 
-// cm.on("beforeChange", function () {
-//   movedByMouse = false;
-// });
-
-cm.on("change", function (cm, changeObj) {
-  console.log("inside onchange func");
-  let input = changeObj.text;
-  let origin = changeObj.origin ? true : false;
-  if (origin && promptObjects != undefined && promptObjects.length >= 1) {
-    let cStart = changeObj.from;
-    let cEnd = changeObj.to;
-    let delIndex = -1;
-
-    promptObjects.some(function (obj, index) {
-      // Find, and break.
-      let mtLocation = obj.find();
-      let start = mtLocation.from;
-      let end = mtLocation.to;
-      console.log("check:", cStart, cEnd, start, end);
-      if (
-        checkInRange(cStart, start, end, -1) ||
-        checkInRange(cEnd, start, end)
-      ) {
-        console.log("Auto Fade Away, del:", start, end);
-        cm.replaceRange(input, start, end); // 点击autosuggest触发自动删除
-        delIndex = index;
-        return true;
-      }
-    });
-
-    console.log("before del:", promptObjects);
-    if (delIndex > -1) {
-      promptObjects.splice(delIndex, 1);
-    }
-    console.log("after del:", promptObjects);
-    //let first = checkInRange(cStart, start, end, -2)
-    //let second = checkInRange(cEnd, start, end)
-    //console.log(first, second)
+cm.on("beforeChange", function (cm, changeObj) {
+  console.log("beforeChange changeObj", changeObj);
+  // send one for input
+  if (placeholder_active && global_flag && changeObj.origin !== "+delete") {
+    changeObj.cancel();
+    newEdit(changeObj);
+  }
+  // send one for removing
+  if (placeholder_active && global_flag && changeObj.origin === "+delete") {
+    console.log("beforchange delete");
+    // changeObj.cancel();
+    // newEdit(changeObj);
+    backspacePlaceholder();
   }
 });
+
+// USE FLAG TO AVOID INFINITE LOOP
+function newEdit(prevChangeObj) {
+  console.log("in new edit, prevChangeObj", prevChangeObj);
+  global_flag = false;
+
+  cm.replaceRange(prevChangeObj.text[0], prevChangeObj.from, {
+    line: prevChangeObj.to.line,
+    ch: prevChangeObj.to.ch + 1,
+  });
+
+  setTimeout(() => {
+    global_flag = true;
+  }, 10);
+}
+
+function backspacePlaceholder() {
+  // use suggestion cursor to get backspaced letter
+  console.log(
+    "backspacePlaceholder suggestion[suggestion_cursor]",
+    suggestion[suggestion_cursor]
+  );
+  // then insert with placeholder mark
+}
+
+let global_flag = false;
+
+let placeholder_active = false;
+let placeholder_location = "";
+let placeholder_coords = {}; // two coords objects if bounded by two. one if at the end
+
+let suggestion = "";
+let delta_edits_suggestion = "";
+let suggestion_cursor = 0;
+let typo_counter = 0;
+
+function resetPHStates() {
+  delta_edits_suggestion = "";
+  placeholder_active = false;
+  placeholder_coords = {};
+  suggestion_cursor = 0;
+}
+
+// if input --> changeObj.origin === "+input"
+// if delete --> changeObj.origin === "+delete"
+cm.on("change", function (cm, changeObj) {
+  // console.log("inside onchange func", changeObj);
+  let input = changeObj.text;
+  let removed = changeObj.removed;
+
+  if (placeholder_active) {
+    // detect edit location ----------------------------------
+    // console.log("placeholder_coords", placeholder_coords);
+    // if (placeholder_coords["to"] !== undefined) {
+    if (
+      placeholder_location === "before" ||
+      placeholder_location === "replace"
+    ) {
+      // check two bounds - necessary in case in between texts
+      if (
+        changeObj.from.line < placeholder_coords.from.line ||
+        changeObj.from.ch < placeholder_coords.from.ch ||
+        changeObj.from.line > placeholder_coords.to.line ||
+        changeObj.from.ch > placeholder_coords.to.ch
+      ) {
+        console.log("dimissing ph");
+        closePH_lose();
+        global_flag = false;
+      }
+    } else if (placeholder_location === "after") {
+      // check only final end bound
+      if (
+        changeObj.from.line < placeholder_coords.from.line ||
+        changeObj.from.ch < placeholder_coords.from.ch
+      ) {
+        closePH_lose();
+        global_flag = false;
+      }
+    }
+    // detect newline ----------------------------------
+    if (input.length === 2) {
+      console.log("new line --> closingPH lose");
+      closePH_lose();
+      global_flag = false;
+    }
+
+    // backspace -- pop from delta + decrement cursor
+    else if (input[0] === "" && removed[0] !== "" && removed[0].length === 1) {
+      if (placeholder_location === "after") {
+        delta_edits_suggestion = delta_edits_suggestion.slice(0, -1);
+        suggestion_cursor--;
+      } else {
+        // ---------------------------------------------------------------------TODO: missing backspace on replace/before
+      }
+      // ------------------------------------------------------------------------------------ TODO - compare+show suggestion
+    }
+
+    // handle larger deletes/inserts ------------------
+
+    // on correct -------------------------------------
+    else if (input[0] === suggestion[suggestion_cursor]) {
+      console.log("good", input[0]);
+      suggestion_cursor++;
+      delta_edits_suggestion += input[0];
+      if (typo_counter > 0) {
+        typo_counter = 0;
+        reShowPlaceholder();
+      }
+    }
+    // if typo -- hide -----------------------------------
+    else if (
+      input[0] !== suggestion[suggestion_cursor] &&
+      (placeholder_location !== "after" || removed[0] === "")
+    ) {
+      // console.log("typo!");
+      hidePlaceholder();
+      delta_edits_suggestion += input[0];
+      suggestion_cursor++;
+      typo_counter++;
+    }
+    console.log("typo_counter", typo_counter);
+    if (typo_counter >= 4) {
+      console.log("max errors reached. dismissing");
+      closePH_lose();
+      global_flag = false;
+    }
+
+    // if success! ------------------------------------------
+    if (suggestion === delta_edits_suggestion) {
+      console.log("rewrite accepted successfully!");
+      closePH_win();
+      global_flag = false;
+    }
+  }
+});
+
+function closePH_lose() {
+  console.log("placeholder_location", placeholder_location);
+
+  let cont = document.querySelector("div#container");
+  let col = cont.style.backgroundColor;
+  cont.style.backgroundColor = "rgba(70,250,210,0.1)";
+  setTimeout(function () {
+    cont.style.backgroundColor = col;
+  }, 300);
+
+  if (placeholder_location === "before" || placeholder_location === "replace") {
+    resetPHStates();
+  } else {
+    dismissPlaceholder();
+    resetPHStates();
+  }
+}
+
+function closePH_win() {
+  let cont = document.querySelector("div#container");
+  let col = cont.style.backgroundColor;
+  cont.style.backgroundColor = "rgba(0,255,0,0.2)";
+  setTimeout(function () {
+    cont.style.backgroundColor = col;
+  }, 300);
+
+  if (placeholder_location === "before" || placeholder_location === "replace") {
+    resetPHStates();
+  } else {
+    dismissPlaceholder();
+    resetPHStates();
+  }
+}
+
+function manualAnalyzeTrigger(input_cat = "") {
+  /**
+   * input_cat :  is used to select what analysis category to focus on
+   *              By default this string is empty which selects all
+   */
+  if (feedback_flag === false) {
+    return;
+  }
+
+  if (input_cat === "") {
+    global_feedback = analyzeText();
+  } else {
+    global_feedback = analyzeText(input_cat);
+  }
+  if (global_feedback.length > 0) {
+    global_feedback.map((element, index) => {
+      showSquare(element, index.toString());
+
+      return;
+    });
+  }
+}
+
+let L2interval_ID = null;
+
+function toggleL2() {
+  let temp = document.querySelector("button.L2Button");
+  if (temp.textContent === "Analysis off") {
+    temp.textContent = "Analysis on";
+    temp.style.opacity = 0.8;
+    L2interval_ID = setInterval(manualAnalyzeTrigger, 200);
+  } else {
+    temp.textContent = "Analysis off";
+    temp.style.opacity = 0.3;
+    clearInterval(L2interval_ID);
+  }
+}
