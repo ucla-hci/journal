@@ -41,8 +41,7 @@
   </div>
 
   <div class="switch-wrapper">
-    <a class="support-btn" href="mailto:sigchi@ucla.edu" target="_blank" title="Contact UCLA HCI if you need help about using Espresso">Tech Support</a>
-    <!--<input class="switch switch-anim" type="checkbox" onclick=darkMode()>-->
+    <a class="support-btn" href="mailto:sigchi@ucla.edu" target="_blank" title="Contact UCLA HCI if you need help using Espresso">Tech Support</a>
   </div>
 </div>
 
@@ -68,32 +67,29 @@
   </div>
   <div class="onboard" id="temp">
     <!-- Welcome to Journal! -->
-    <div id="welcome">Welcome to Espresso!</div>
+    <div id="welcome">Espresso Notes</div>
     <!-- How is your day today? -->
-    <div id="query" onclick="toEntry()">How is your day today? Choose your mood to begin: </div>
+    <div id="query" onclick="toEntry()">
+      <p>How is your day today? Pick a mood: </p>
+    </div>
 
     <div class="parent">
       <div class="good embtn" onclick="toEntry('good')" style="cursor:pointer">
-        <!-- Good Day image -->
-        <div class="left top rectangle" id="n21_29"></div>
-        <!-- Good Day -->
-        <div class="left top text" id="n21_30">Good Day</div>
+        <img src="./src/smile.png"/>
+        <div class="onboard-button-text">Good Day</div>
       </div>
 
-      <div class="neutral embtn" onclick="toEntry('neutral')" style="cursor:pointer">
-        <!-- Neutral Day image -->
-        <div class="left top rectangle" id="n21_32"></div>
-        <!-- Neutral Day -->
-        <div class="left top text" id="n21_31" >Neutral Day</div>
+      <div class="embtn" onclick="toEntry('neutral')" style="cursor:pointer">
+        <img src="./src/neutral.png"/>
+        <div class="onboard-button-text" id="n21_31" >Neutral Day</div>
       </div>
       
-      <div class="bad embtn" onclick="toEntry('bad')" style="cursor:pointer">
-        <!-- image 19 -->
-        <div class="left top rectangle" id="n21_34"></div>
-        <!-- Bad Day -->
-        <div class="left top text" id="n21_33">Bad Day</div>
+      <div class="embtn" onclick="toEntry('bad')" style="cursor:pointer">
+        <img src="./src/frown.png"/>
+        <div class="onboard-button-text" id="n21_33">Bad Day</div>
       </div>
     </div>
+    
   </div>
 
   <div id="main">

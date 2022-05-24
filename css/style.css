@@ -1,4 +1,4 @@
-.container{
+/* .container{
     border: none;
     width: 92vw;
     height: 94vh;
@@ -6,6 +6,12 @@
     display: block;
     transform: translateZ(0);
     -webkit-text-size-adjust: none;
+} */
+
+hr {
+    border: 2px solid rgb(118, 118, 118);
+    border-image: linear-gradient(to left, white,rgb(232, 228, 255), white ) 1;
+
 }
 
 #onboard{
@@ -95,59 +101,71 @@ p {
 }
 
 .sidebar {
-  border-right-style: solid;
-  border-color: rgb(255, 76, 76);
+  /* border-right-style: solid;
+  border-width: 5px; */
+  /* border-color: rgb(232, 228, 255); */
   height: 100%;
-  width: 0;
   position: fixed;
-  z-index: 3;
+  z-index: 1;
   top: 0;
-  left: 0;
-  overflow-x: hidden;
+  left: 0px;
   transition: 0.5s;
-  padding-top: 60px;
-}
+  padding-top: 8px;
+  white-space: nowrap;
+  /* ------ */
+  margin-top: 70px;
+  width: 220px;
+  /* border-image: linear-gradient(to top, rgb(232, 228, 255), white) 1; */
+  /* background-image: linear-gradient(to right top, #e8e4ff, #ece9ff, #f0eeff, #f5f3ff, #f9f8ff, #fbfaff, #fdfdff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff); */
+  background: linear-gradient(45deg, rgba(232,228,255,1) 0%, rgba(233,229,255,1) 50%, rgba(254,253,255,1) 80%, rgba(255,255,255,1) 100%); }
 
 .sidebar a {
-    padding: 8px 8px 15px 32px;
+    margin: 4px 10px 4px 12px;
+    padding: 8px 8px 6px 8px;
     text-decoration: none;
-    font-size: 25px;
+    font-size: 22px;
     display: block;
     transition: 0.3s;
+    border-radius: 25px;
 }
 
 .sidebar a.support-btn {
-    font-size: 15px;
+    font-size: 12px;
 }
 
 .newb {
     opacity: 70%;
+    background-color: #d8b7ff;
+    width: fit-content;
 }
 
 .newb:hover {
     opacity: 100%;
 }
 
+
 .sidebar p {
     text-decoration: none;
-    font-size: 20px;
+    font-size: 16px;
+    /* font-weight: bold; */
     display: inline-block;
     margin: 2px;
-    color: #434343;
+    color: #000000;
 }
 
 .oneEntry {
     margin-bottom: 10px;
-    padding: 0px 0px 0px 16px;
+    padding: 0px 0px 0px 8px;
     transition: 0.3s;
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    /* justify-content: start; */
     align-items: center;
     cursor: pointer;
 }
 
 .oneEntry p {
+    margin-left: 3px;
     max-width: 150px;
     max-height: 30px;
     overflow: hidden;
@@ -157,16 +175,15 @@ p {
     border-radius: 50%;
     width: 25px;
     height: 25px;
-    margin: 0px;
-    padding: 0px;
+    /* margin-right: 18px; */
     display: inline-block;
     background-color: #8ac8a4;
 }
 
 .circle1 {
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     margin: 0px;
     padding: 0px;
     display: inline-block;
@@ -175,8 +192,8 @@ p {
 
 .circle2 {
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     margin: 0px;
     padding: 0px;
     display: inline-block;
@@ -185,8 +202,8 @@ p {
 
 .circle3 {
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     margin: 0px;
     padding: 0px;
     display: inline-block;
@@ -203,12 +220,13 @@ p {
 .collapsible {
     background: none;
     border: none;
-    padding: 8px 8px 15px 32px;
+    padding: 8px 8px 15px 16px;
     text-decoration: none;
     font-size: 25px;
     color: #000000;
     display: block;
     transition: 0.3s;
+    margin-top: 14px;
 }
 
 .active:after {
@@ -216,7 +234,7 @@ p {
 }
 
 .content {
-    padding: 0 18px;
+    padding: 0 8px;
     max-height: 0;
     overflow: auto;
     transition: max-height 0.2s ease-out;
@@ -243,11 +261,14 @@ p {
 }
 
 .btbar {
+    /* padding-left: 12px; */
+    padding: 24px 24px 8px 24px;
     height: 25px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
 }
 
 .openbtn {
@@ -332,10 +353,12 @@ p {
 .mode-label {
     opacity: 90%;
     cursor: default;
+    font-size:22px;
 }
 
 .mode-button {
     opacity: 50%;
+    font-size: 22px;
 }
 
 .mode-button:hover {
@@ -367,38 +390,19 @@ p {
     padding-left: 30px;
 }
 
-button {
+/* button {
     outline: none;
-}
+} */
 
 #title {
     width: auto;
-    height: 1.8vh;
-
-    padding: 10px;
     font: 28px Helvetica, sans-serif;
     font-weight: 100;
-    letter-spacing: 1px;
-    line-height:40px;
-    
-    padding-top: 7px;
-    padding-left: 1px;
-    padding-bottom: 14px;
-
-    margin-bottom: 0px;
-
+    padding-left: 18px;
     color: #000000;
-    background-color: transparent;
-    overflow: none;
-    resize: none;
     transition: transform 1s;
-    border: none;
-    outline: none;
-    align-items: center;
-    justify-content: center;
     opacity: 0.7;
     pointer-events: auto;
-    display: inline-block;
 }
 
 #entrydate {
@@ -462,19 +466,25 @@ button {
 /* #Onboarding Screen */
     .parent { 
         text-align: center;
-        display: grid; 
-        padding: 16px 16px 16px 16px;
-        grid-template-columns: repeat(3, 1fr); 
-        grid-template-rows: 1fr; 
-        grid-column-gap: 0px;
-        grid-row-gap: 0px; 
+        display: flex;
+        flex-direction: row;
+        justify-content:space-between;
+        padding: 48px 64px 16px 64px;
+        max-height: 120px;
     }
-    .good { grid-area: 1 / 1 / 2 / 2; } 
-    .neutral { grid-area: 1 / 2 / 2 / 3; } 
-    .bad { grid-area: 1 / 3 / 2 / 4; } 
+
+    .onboard-button-text{
+        margin-top: 20px;
+        font-size: 24px;
+		font-weight: 500;
+		color: rgb(0, 0, 0);
+		opacity: 0.8;
+    }
 
     .embtn {
-        opacity: 50%
+        opacity: 50%;
+        display: flex;
+        flex-direction: column;
     }
     
     .embtn:hover {
@@ -483,120 +493,24 @@ button {
 
 	/* Welcome to Journal! */
 	#welcome {
-		/*font-family: Poligon;*/
-		font-size: 60px;
+		font-size: 56px;
 		font-weight: 600;
-		letter-spacing: 0px;
-		color: rgb(79, 79, 79);
-		vertical-align: middle;
-		justify-content: flex-start;
-		width: 100%;
-		transform: translate(0px, 0px);
-		line-height: 70.3125px;
-		height: 54px;
-		left: 179px;
-        top: 140px;
-        padding-top: 16px;
+		letter-spacing: -4px;
+        /* ------------------------------------------------------------------------------- COLOR TO SURFACE TO GLOBAL THEME<--- */
+		color: rgb(79, 79, 79); 
+		/* line-height: 70.3125px; */
+        padding-top: 32px;
         padding-bottom: 16px;
+        padding-left: 52px;
 	}
  
 	/* How is your day today? */
 	#query {
-		font-size: 24px;
+		font-size: 32px;
 		font-weight: 400;
-		letter-spacing: 0px;
 		color: rgb(67, 67, 67);
-		vertical-align: middle;
-		justify-content: flex-start;
-		width: 100%;
-		transform: translate(0px, 0px);
-		line-height: 28.125px;
-		height: 31px;
-		left: 179px;
-        top: 240px;
-        padding: 16px 16px 16px 16px;
+        padding: 32px 64px 32px 52px;
 	}
- 
-	/* image 17 */
-	#n21_29 {
-		background-image: url("../src/smile.png");
-		background-size: cover;
-		background-repeat: no-repeat;
-		background-position: center center;
-		left: 195px;
-		width: 72px;
-		top: 318px;
-        height: 72px;
-        margin-left: auto;
-        margin-right: auto;
-	}
- 
-	/* Good Day */
-	#n21_30 {
-		font-size: 24px;
-		font-weight: 500;
-		letter-spacing: 0px;
-		color: rgb(0, 0, 0);
-		opacity: 0.8;
-		vertical-align: middle;
-		justify-content: flex-start;
-        margin-left: auto;
-        margin-right: auto;
-	}
- 
-	/* Neutral Day */
-	#n21_31 {
-		font-size: 24px;
-		font-weight: 500;
-		letter-spacing: 0px;
-		color: rgb(0, 0, 0);
-		opacity: 0.8;
-		vertical-align: middle;
-		justify-content: flex-start;
-		margin-left: auto;
-        margin-right: auto;
-	}
- 
-	/* image 18 */
-	#n21_32 {
-		background-image: url("../src/neutral.png");
-		background-size: cover;
-		background-repeat: no-repeat;
-		background-position: center center;
-		left: 355px;
-		width: 72px;
-		top: 317px;
-        height: 72px;
-        margin-left: auto;
-        margin-right: auto;
-	}
- 
-    /* Bad Day */
-    #n21_33 {
-        font-size: 24px;
-        font-weight: 500;
-        letter-spacing: 0px;
-        color: rgb(0, 0, 0);
-        opacity: 0.8;
-        vertical-align: middle;
-        justify-content: flex-start;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    /* image 19 */
-    #n21_34 {
-        background-image: url("../src/frown.png");
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center center;
-        left: 515px;
-        width: 72px;
-        top: 317px;
-        height: 72px;
-        margin-left: auto;
-        margin-right: auto;
-    }
         
 
 /* Pop UP */
@@ -625,7 +539,7 @@ button {
     font-weight: 100;
     display: none;
     position: absolute;
-    left: 35%;
+    /* left: 35%; */
     top: 25vh;
     border-radius: 3px;
     height: auto;
@@ -633,7 +547,7 @@ button {
     z-index: 101;
     color: #242424;
     background-color: whitesmoke;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .5);
 }
 
 #textExplanation {
@@ -653,8 +567,26 @@ button {
     display: flex;
     justify-content: space-evenly;
     flex-direction: row;
-    vertical-align: center;
+    /* vertical-align: center; */
     padding-bottom: 20px;
+}
+
+button {
+    border: none;
+    border-radius: 0px;
+    background-color: transparent;
+    font-size: 16px;
+    font-weight: 300;
+    cursor: pointer;
+    opacity: 70%;
+}
+
+
+button:hover {
+    /* font-weight: 500; */
+    /* font-size: 20px; */
+    /* color:#2f7fed; */
+    opacity: 100%;
 }
 
 .pop-up-title2{
@@ -682,11 +614,12 @@ button {
     background-repeat: no-repeat;
     background-position: center center;
     background-color: transparent;
-    opacity: 0.7;
+    /* opacity: 0.7; */
     height: 18px;
     width: 18px;
-    border-style: none;
+    /* border-style: none; */
     opacity: 60%;
+    cursor: pointer;
 }
 
 .close-btn:hover {
@@ -712,7 +645,10 @@ textarea:focus {
 .switch-wrapper{
     position: absolute;
     right: 8px;
-    bottom: 6%;
+    bottom: 10%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .tag-wrapper{

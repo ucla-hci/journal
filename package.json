@@ -26,6 +26,7 @@
   "homepage": "https://github.com/ucla-hci/journal#readme",
   "dependencies": {
     "codemirror": "^5.42.0",
+    "connect-livereload": "^0.6.1",
     "express": "^4.16.2",
     "serve-favicon": "^2.5.0",
     "socket.io": "^2.0.4"

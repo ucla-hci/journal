@@ -16,7 +16,7 @@
  */
 
 var write = document.getElementById("write");
-// codeMirror初始化，之后对文档的操作都通过cm变量的私有方法实现
+// init codeMirror - manipulate document using cm instance methods
 var cm = CodeMirror.fromTextArea(write, {
   lineWrapping: true,
   lineNumbers: false,
@@ -26,12 +26,11 @@ var cm = CodeMirror.fromTextArea(write, {
 });
 
 /**
- * initialiing globals
+ * initializing globals
  *
  */
-var feedback_flag = true; // <--- only toggle this after changes have been bundled
 let word_counter = {}; // <--- dict needed to
-let global_feedback = []; // <--- store found {keywords +info} inside <------ Pending notice from Ruolin
+let global_feedback = [];
 
 // Note: need to handle pairs of words e.g. "very good"
 // tentative format:
@@ -69,7 +68,7 @@ let dict_temp = [
       "Suicide is the act of killing yourself, most often as a result of depression or other mental illness.",
     longer_feedback:
       "Suicide can be seen as a behavior motivated by the desire to escape from unbearable psychological pain. If you're experiencing these symptoms, please call 800-273-8255 (suicide hotline).",
-    rewrite: "Suicide is never a solution",
+    rewrite: "Suicide is never a solution. ",
     rewrite_position: "before",
   },
   {
@@ -100,8 +99,10 @@ let dict_temp = [
     brief_feedback: "Signs of depression --> Fatigue.",
     longer_feedback:
       "Depression can be defined as a mood disorder that leaves you feeling sad, disinterested in things, depressed and tired. Also called ‘clinical depression’ or ‘major depressive disorder,’ depression impacts how you think, feel, and behave, leading to a range of physical and emotional problems.",
-    rewrite: "I should restI should restI should",
-    rewrite_position: "before",
+    rewrite: "rest",
+    rewrite_position: "replace",
+    target_word: "writing",
+    line_offset: 0,
   },
   {
     strategy_code: "L2a",
@@ -135,11 +136,9 @@ let dict_temp = [
 /*************************************************************************** NEW ADDS */
 
 function analyzeText(category = "all") {
-  // - missing case insensitivity.
-  // - missing wordnet extension/multiword matching
+  // ---------------------------------------------------------------------------------------TODO missing wordnet extension/multiword matching
 
-  // console.log("running L2 analysis for category:", category);
-  clearSquares();
+  // clearSquares();
   global_feedback = [];
   word_counter = {};
 
@@ -157,7 +156,7 @@ function analyzeText(category = "all") {
 
   // store categories for matched words
   let categories = [];
-  let target_category = category === "all" ? "" : category; // --------TODO - handle multiple categories
+  let target_category = category === "all" ? "" : category; // ----------------------------TODO - handle multiple categories
 
   // filter words not in dict
   allText = allText.filter(function (element) {
@@ -181,11 +180,6 @@ function analyzeText(category = "all") {
       }
     }
   });
-
-  // idea for efficiency
-  // get diff between freshly calculated array and previous version
-  // if end is different crop
-  // if it is more different  refresh the whole thing
 
   let returnArr = allText.reduce(function (
     previousElement,
@@ -246,8 +240,8 @@ function killSequence() {
   }
 
   // closeright bar
-  document.getElementById("rightsidebar").style.width = "0px";
-  document.getElementById("myBottombar").style.right = "0px";
+  // document.getElementById("rightsidebar").style.width = "0px";
+  document.getElementById("myBottombar").style.right = "-250px";
 
   word_counter = {};
   global_feedback = [];
@@ -293,10 +287,6 @@ function search(astring, start, offset = 0) {
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 function showSquare(args, index = "", nearestPeriod = false) {
-  if (nearestPeriod) {
-    console.log("MISSING ALIGN TO PERIOD/END OF SENTENCE"); // ---------------------- ASK IF NEEDED!
-  }
-
   var cords = cm.cursorCoords(args.search_coords.to);
   var color = args.color;
 
@@ -307,20 +297,29 @@ function showSquare(args, index = "", nearestPeriod = false) {
     marker.className = "clickable-marker";
   }
 
-  marker.style.position = "fixed";
+  marker.style.position = "absolute";
   marker.style.left = (cords.left - 2).toString() + "px";
-  marker.style.top = (cords.top - 5).toString() + "px";
-  marker.style.backgroundColor = color;
+  marker.style.top = (cords.top - 1).toString() + "px";
   marker.style.opacity = 0.4;
   marker.style.display = "block";
+
+  let color_rgb = hexToRgb(color);
+  marker.style.backgroundColor =
+    "rgba(" + color_rgb.r + "," + color_rgb.g + "," + color_rgb.b + ",0.6)";
+
   marker.addEventListener("click", function () {
     highlightText(args, index);
   });
   marker.addEventListener("mouseover", function (event) {
-    event.target.style.opacity = 0.75;
+    // event.target.style.opacity = 0.75;
+    event.target.style.backgroundColor =
+      "rgba(" + color_rgb.r + "," + color_rgb.g + "," + color_rgb.b + ",1)";
   });
-
-  // add div to global feedback dictionary ?? --------- QUESTION - answer: YES
+  marker.addEventListener("mouseout", function (event) {
+    // event.target.style.opacity = 0.75;
+    event.target.style.backgroundColor =
+      "rgba(" + color_rgb.r + "," + color_rgb.g + "," + color_rgb.b + ",0.6)";
+  });
 
   document.body.appendChild(marker);
 }
@@ -423,38 +422,32 @@ function showRightbar(contents) {
   document.querySelector(".right-sidebar h3").textContent = contents.title;
   document.querySelector(".right-sidebar p").textContent =
     contents.longer_feedback;
-  document.getElementById("rightsidebar").style.width = "250px";
-  document.getElementById("myBottombar").style.right = "250px";
+  // document.getElementById("rightsidebar").style.width = "250px";
+  document.getElementById("rightsidebar").style.right = "0px";
+  // document.getElementById("myBottombar").style.right = "0px";
 
   let rewrite_button = document.querySelector("button.rewrite-button");
-  rewrite_button.addEventListener("click", function () {
+
+  let new_rewrite_button = rewrite_button.cloneNode(true);
+  rewrite_button.parentNode.replaceChild(new_rewrite_button, rewrite_button);
+  new_rewrite_button.addEventListener("click", function () {
     closeNewPopup();
-    // showPlaceholder(contents.rewrite); // ----------------------------- call placeholder
-    triggerRewrite(contents); // ----------------------------- call placeholder
+    triggerRewrite(contents);
   });
 }
 
 function closeRightBar() {
-  document.getElementById("rightsidebar").style.width = "0px";
-  document.getElementById("myBottombar").style.right = "0px";
-  // delete event listener
-  let old_rewrite_button = document.querySelector("button.rewrite-button");
-  let new_rewrite_button = old_rewrite_button.cloneNode(true);
-  old_rewrite_button.parentNode.replaceChild(
-    new_rewrite_button,
-    old_rewrite_button
-  );
+  // document.getElementById("rightsidebar").style.width = "0px";
+  document.getElementById("rightsidebar").style.right = "-250px";
+  // document.getElementById("myBottombar").style.right = "0px";
 }
 
-// ASSUMING ONLY LAST SENTENCE EDITS
 function triggerRewrite(contents) {
   console.log(contents.rewrite, contents.rewrite_position);
 
   let curr_doc = cm.getDoc();
 
   switch (contents.rewrite_position) {
-    // align cursor into place --> call to show
-
     case "after":
       placeholder_location = "after";
       let end_line = curr_doc.lineCount() - 1;
@@ -494,24 +487,8 @@ function triggerRewrite(contents) {
       // }
 
       // search previous period by comparing with target text cords
-      let ch_counter = 0;
-      while (ch_counter < contents.search_coords.from.ch) {
-        try {
-          let cursor = cm.getSearchCursor(".", {
-            line: contents.search_coords.from.line,
-            ch: ch_counter++,
-          });
-          if (cursor.find(false)) {
-            // if found
-            if (!(cursor.from().ch > contents.search_coords.from.ch)) {
-              // if in bounds
-              period_cords = cursor.to();
-            }
-          }
-        } catch (e) {
-          ch_counter++;
-        }
-      }
+      period_cords = findPeriod(contents, period_cords);
+
       if (period_cords === null) {
         // no period before sentence. Set target ch = 0;
         period_cords = { line: contents.search_coords.from.line, ch: 0 };
@@ -519,10 +496,9 @@ function triggerRewrite(contents) {
         period_cords["ch"] += 1;
       }
 
-      // insert text + tag with placeholder css.
-
-      cm.replaceRange(contents.rewrite, period_cords);
-      cm.markText(
+      // insert text + tag with placeholder class
+      cm.replaceRange(contents.rewrite + " ", period_cords);
+      cm_placeholder = cm.markText(
         period_cords,
         {
           line: period_cords.line,
@@ -534,7 +510,7 @@ function triggerRewrite(contents) {
       cm.focus();
       cm.setCursor(period_cords);
 
-      global_flag = true;
+      before_change_flag = true;
 
       placeholder_active = true;
       placeholder_coords = {
@@ -551,10 +527,68 @@ function triggerRewrite(contents) {
       break;
     case "replace":
       placeholder_location = "replace";
+      // find target word
+      console.log("target word: ", "writing");
+
+      // ---------- Need to edit to ensure the right word was marked.
+      let search_coords;
+      try {
+        search_coords = search(
+          "writing",
+          { line: contents.search_coords.from.line, ch: 0 },
+          0
+        );
+        console.log("search_coords", search_coords);
+        cm_placeholder = cm.markText(search_coords.from, search_coords.to, {
+          className: "placeholder replace_ph",
+        });
+      } catch (e) {
+        if (e === "Not Found") {
+          return previousElement;
+        }
+      }
+      // get search.from position
+      // - insert space
+      cm.replaceRange(" ", search_coords.from);
+      // - move cursor here
+      cm.focus();
+      cm.setCursor(search_coords.from);
+
+      placeholder_active = true;
+      placeholder_coords = search_coords;
+
+      suggestion = contents.rewrite;
+      delta_edits_suggestion = "";
+      suggestion_cursor = 0;
+      // then -- track changes
+      // - see if target word is being reached
+
       break;
     default:
       break;
   }
+}
+
+function findPeriod(contents, period_cords) {
+  let ch_counter = 0;
+  while (ch_counter < contents.search_coords.from.ch) {
+    try {
+      let cursor = cm.getSearchCursor(".", {
+        line: contents.search_coords.from.line,
+        ch: ch_counter++,
+      });
+      if (cursor.find(false)) {
+        // if found
+        if (!(cursor.from().ch > contents.search_coords.from.ch)) {
+          // if in bounds
+          period_cords = cursor.to();
+        }
+      }
+    } catch (e) {
+      ch_counter++;
+    }
+  }
+  return period_cords;
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -576,22 +610,21 @@ function showPlaceholder(sug, target_editor_location = {}) {
 
   x.style.position = "absolute";
   x.style.left = (cmbox.left - 0.1).toString() + "px";
-  x.style.width = (cmbox.width - 4).toString() + "px";
-
-  x.style.top = (target_cord.top - 0.41).toString() + "px";
-  x.style.textIndent = (target_cord.left - cmbox.left - 4.6).toString() + "px";
+  x.style.width = (cmbox.width - 8).toString() + "px";
+  x.style.top = (target_cord.top + 1).toString() + "px";
+  x.style.textIndent = (target_cord.left - cmbox.left - 3).toString() + "px";
   x.style.height = (target_cord.bottom - target_cord.top).toString() + "px";
-  x.style.fontSize = "24px";
+  x.style.fontSize = "18px";
   x.style.zIndex = "1";
   x.style.color = "lightgrey";
-  x.style.padding = "0 4px";
+  x.style.padding = "0px 3.3px";
   x.style.overflowWrap = "break-word";
+  x.style.lineHeight = "28px";
+  x.style.display = "inline-block";
 
-  x.style.border = "solid 1px rgba(255,0,0,70)";
-  // x.style.visibility = "hidden";
+  // x.style.border = "solid 1px rgba(255,0,0,70)";
 
   x.textContent = sug;
-
   document.body.appendChild(x);
 }
 
@@ -614,10 +647,35 @@ function dismissPlaceholder() {
   if (!placeholder_active) {
     return;
   }
+
+  //hacky solution
   let placeh = document.querySelector("#dynamic_placeholder");
   if (placeh) {
     placeh.remove();
   }
+
+  // cm solution
+  console.log("cm_placeholder", cm_placeholder);
+  if (Object.keys(cm_placeholder) !== 0) {
+    if (placeholder_location === "replace") {
+      if (suggestion === delta_edits_suggestion) {
+        // win
+        let mark_locations = cm_placeholder.find();
+        console.log("ph mark", mark_locations);
+        cm.replaceRange("", mark_locations.from, mark_locations.to);
+        cm_placeholder = {};
+      } else {
+        cm_placeholder.clear();
+        cm_placeholder = {};
+      }
+    } else {
+      let mark_locations = cm_placeholder.find();
+      console.log("ph mark", mark_locations);
+      cm.replaceRange("", mark_locations.from, mark_locations.to);
+      cm_placeholder = {};
+    }
+  }
+
   delta_edits_suggestion = "";
   placeholder_active = false;
   placeholder_coords = {};
@@ -708,10 +766,10 @@ function startRecord() {
 
 // IndexedDB Communication APIs
 // Menu Operations
-function createMenu() {
-  console.log("createMenu");
-  menuData();
-}
+// function createMenu() {
+//   console.log("createMenu");
+//   menuData();
+// }
 
 function initMenu() {
   maxID = 0;
@@ -802,7 +860,11 @@ function deleteEntryRecall() {
 }
 
 function openEntry(id) {
+  // cleanMarks();
   dismissPlaceholder();
+  closeNewPopup();
+  clearSquares();
+  closeRightBar();
   document.getElementById("toast").style.display = "block";
   // console.log("Open entry #" + id);
   if (id <= maxID) {
@@ -861,6 +923,7 @@ function loadContentRecall(id, data) {
       cm.markText(from, to, { className: tag });
     }
   }
+  cleanMarks(); // ------------------------------------------------------- ATTENTION when reviewing writitng+reflection
   //saveEntry();
 }
 
@@ -989,19 +1052,22 @@ function isMovementKey(keyCode) {
 
 // UI Operations
 function openNav() {
-  document.getElementById("mySidebar").style.width = "250px";
-  document.getElementById("container").style.marginLeft = "250px";
-  document.getElementById("myBottombar").style.left = "250px";
+  document.getElementById("mySidebar").style.left = "0px";
+  let bottombar = document.getElementById("myBottombar");
+  if (bottombar) {
+    bottombar.style.left = "220px";
+  }
+
   document.getElementById("opnsidebar").setAttribute("onclick", "closeNav()");
-  //document.getElementById("opnsidebar").style.backgroundImage = 'url("../src/xmark.png")';
 }
 
 function closeNav() {
-  document.getElementById("mySidebar").style.width = "0";
-  document.getElementById("container").style.marginLeft = "0";
-  document.getElementById("myBottombar").style.left = "0px";
+  document.getElementById("mySidebar").style.left = "-220px";
+  let bottombar = document.getElementById("myBottombar");
+  if (bottombar) {
+    bottombar.style.left = "0px";
+  }
   document.getElementById("opnsidebar").setAttribute("onclick", "openNav()");
-  //document.getElementById("opnsidebar").style.backgroundImage = 'url("../src/hamburger.png")';
 }
 
 function openDef() {
@@ -1014,16 +1080,6 @@ function closeDef() {
   document.getElementById("myBottombar").style.height = "0";
   document.getElementById("myBottombar").style.minHeight = "0";
   document.getElementById("main").style.marginBottom = "0";
-}
-
-function darkMode() {
-  if ($(".switch-anim").prop("checked")) {
-    document.getElementById("theme").setAttribute("href", "css/theme_dark.css");
-  } else {
-    document
-      .getElementById("theme")
-      .setAttribute("href", "css/theme_light.css");
-  }
 }
 
 function acceptChange() {
@@ -1054,112 +1110,12 @@ function confirmDelete() {
   deleteEntryRecall();
 }
 
-//  CodeMirror Decoration Functions
-// function handlePrompt(start, end, sel_start = null, sel_end = null) {
-//   //console.log("add prompt, start:", start, "end:", end, "sel_start:", sel_start, "sel_end:", sel_end)
-//   let promptObject = cm.markText(start, end, { className: "autosuggest-font" });
-//   promptObjects.push(promptObject);
-//   if (sel_start != null && sel_end != null) {
-//     cm.markText(sel_start, sel_end, { className: "autosuggest-background" });
-//   }
-// }
-
-// function handleReplace(start, end, s) {
-//   cm.markText(start, end, { className: "replacement-font" });
-//   console.log(cm.charCoords(start));
-//   console.log(cm.charCoords(start)["left"]);
-//   console.log(cm.charCoords(start)["top"]);
-//   var newLeft = cm.charCoords(start)["left"].toString() + "px";
-//   var newTop = (cm.charCoords(start)["top"] + 30).toString() + "px";
-
-//   $("#textmanipulation").css("display", "block");
-//   $("#textmanipulation").css("margin-left", newLeft);
-//   $("#textmanipulation").css("margin-top", newTop);
-//   document.getElementById("pop-up-title-text").textContent = s;
-
-//   suggestion = s;
-//   s_start = start;
-//   s_end = end;
-// }
-
-// function handleHighlight(start, end, type) {
-//   cm.markText(start, end, { className: type });
-// }
-
-// function handleCognDistortion(start, end, id) {
-//   console.log(id.replace(/\s/g, ""));
-//   cm.markText(start, end, { className: id.replace(/\s/g, "") });
-// }
-
-// function handleFeedback(start, end, sentence) {
-//   feedbackMsg += "<br>" + "(" + start["line"] + "," + start["ch"] + ")";
-//   if (!compareCoord(start, end)) {
-//     feedbackMsg += "->(" + +end["line"] + "," + end["ch"] + ")";
-//   }
-//   feedbackMsg += ": " + sentence;
-//   feedbackKey =
-//     start["line"] + "," + start["ch"] + "," + end["line"] + "," + end["ch"];
-
-//   clearBottomBarElement();
-//   newBottomBarElement("Expert Feedback", sentence);
-//   openDef();
-// }
-
-// function clearBottomBarElement() {
-//   document.getElementById("myBottombar").innerHTML = "";
-// }
-
-// function newBottomBarElement(title, body) {
-//   let newDiv =
-//     '<div><a href="javascript:void(0)" class="closedef onedeftitle" onclick="closeDef()">' +
-//     title +
-//     "</a>";
-//   newDiv += '<a href="#" class="onedefbody">' + body + "</a></div>";
-//   document.getElementById("myBottombar").innerHTML += newDiv;
-// }
-
 // CodeMirror Listener
 // Handling mouse activities
 var movedByMouse = false;
 cm.on("mousedown", function () {
   movedByMouse = true;
 });
-
-// cm.on("cursorActivity", function () {
-//   if (movedByMouse) {
-//     movedByMouse = false;
-//     if (!cm.getSelection()) {
-//       closeDef();
-//       //branch based on whether a highlight was clicked here
-//       let marks = cm.findMarksAt(cm.getCursor());
-//       let len = marks.length;
-//       if (len != 0) {
-//         clearBottomBarElement();
-//         for (let mark of marks) {
-//           console.log(cm.getCursor());
-//           let tag = mark["className"];
-//           switch (tag) {
-//             case "BeingRight":
-//               populateDistortion("BeingRight");
-//               break;
-//             case "Blaming":
-//               populateDistortion("Blaming");
-//               break;
-//             case "Catastrophizing":
-//               populateDistortion("Catastrophizing");
-//               break;
-//             case "MindReading":
-//               populateDistortion("MindReading");
-//               break;
-//             case "Splitting":
-//               populateDistortion("Splitting");
-//               break;
-//           }
-//         }
-//       }
-//     }
-//   }
-// });
 
 cm.on("keyup", function () {
   prevKey = key;
@@ -1192,23 +1148,30 @@ cm.on("keyup", function () {
 cm.on("beforeChange", function (cm, changeObj) {
   console.log("beforeChange changeObj", changeObj);
   // send one for input
-  if (placeholder_active && global_flag && changeObj.origin !== "+delete") {
+  if (
+    placeholder_active &&
+    before_change_flag &&
+    changeObj.origin !== "+delete"
+  ) {
     changeObj.cancel();
     newEdit(changeObj);
   }
   // send one for removing
-  if (placeholder_active && global_flag && changeObj.origin === "+delete") {
+  if (
+    placeholder_active &&
+    before_change_flag &&
+    changeObj.origin === "+delete"
+  ) {
     console.log("beforchange delete");
-    // changeObj.cancel();
-    // newEdit(changeObj);
     backspacePlaceholder();
   }
+  // If change occurs somewhere else, query mark and clear it. --> aka dismiss
 });
 
 // USE FLAG TO AVOID INFINITE LOOP
 function newEdit(prevChangeObj) {
   console.log("in new edit, prevChangeObj", prevChangeObj);
-  global_flag = false;
+  before_change_flag = false;
 
   cm.replaceRange(prevChangeObj.text[0], prevChangeObj.from, {
     line: prevChangeObj.to.line,
@@ -1216,11 +1179,12 @@ function newEdit(prevChangeObj) {
   });
 
   setTimeout(() => {
-    global_flag = true;
+    before_change_flag = true;
   }, 10);
 }
 
 function backspacePlaceholder() {
+  // ---------------------------------------------------------------------------------------- TODO:
   // use suggestion cursor to get backspaced letter
   console.log(
     "backspacePlaceholder suggestion[suggestion_cursor]",
@@ -1229,8 +1193,9 @@ function backspacePlaceholder() {
   // then insert with placeholder mark
 }
 
-let global_flag = false;
+let before_change_flag = false;
 
+let cm_placeholder = {};
 let placeholder_active = false;
 let placeholder_location = "";
 let placeholder_coords = {}; // two coords objects if bounded by two. one if at the end
@@ -1250,14 +1215,12 @@ function resetPHStates() {
 // if input --> changeObj.origin === "+input"
 // if delete --> changeObj.origin === "+delete"
 cm.on("change", function (cm, changeObj) {
-  // console.log("inside onchange func", changeObj);
+  console.log("inside onchange func", changeObj);
   let input = changeObj.text;
   let removed = changeObj.removed;
 
   if (placeholder_active) {
     // detect edit location ----------------------------------
-    // console.log("placeholder_coords", placeholder_coords);
-    // if (placeholder_coords["to"] !== undefined) {
     if (
       placeholder_location === "before" ||
       placeholder_location === "replace"
@@ -1271,7 +1234,7 @@ cm.on("change", function (cm, changeObj) {
       ) {
         console.log("dimissing ph");
         closePH_lose();
-        global_flag = false;
+        before_change_flag = false;
       }
     } else if (placeholder_location === "after") {
       // check only final end bound
@@ -1280,14 +1243,15 @@ cm.on("change", function (cm, changeObj) {
         changeObj.from.ch < placeholder_coords.from.ch
       ) {
         closePH_lose();
-        global_flag = false;
+        before_change_flag = false;
       }
     }
+
     // detect newline ----------------------------------
     if (input.length === 2) {
       console.log("new line --> closingPH lose");
       closePH_lose();
-      global_flag = false;
+      before_change_flag = false;
     }
 
     // backspace -- pop from delta + decrement cursor
@@ -1296,7 +1260,9 @@ cm.on("change", function (cm, changeObj) {
         delta_edits_suggestion = delta_edits_suggestion.slice(0, -1);
         suggestion_cursor--;
       } else {
+        // backspace for cm_placeholder
         // ---------------------------------------------------------------------TODO: missing backspace on replace/before
+        closePH_lose();
       }
       // ------------------------------------------------------------------------------------ TODO - compare+show suggestion
     }
@@ -1325,73 +1291,57 @@ cm.on("change", function (cm, changeObj) {
       typo_counter++;
     }
     console.log("typo_counter", typo_counter);
-    if (typo_counter >= 4) {
+    if (typo_counter >= 1) {
       console.log("max errors reached. dismissing");
       closePH_lose();
-      global_flag = false;
+      before_change_flag = false;
     }
 
     // if success! ------------------------------------------
     if (suggestion === delta_edits_suggestion) {
       console.log("rewrite accepted successfully!");
       closePH_win();
-      global_flag = false;
+      before_change_flag = false;
     }
   }
 });
 
 function closePH_lose() {
-  console.log("placeholder_location", placeholder_location);
-
-  let cont = document.querySelector("div#container");
-  let col = cont.style.backgroundColor;
-  cont.style.backgroundColor = "rgba(70,250,210,0.1)";
-  setTimeout(function () {
-    cont.style.backgroundColor = col;
-  }, 300);
-
-  if (placeholder_location === "before" || placeholder_location === "replace") {
-    resetPHStates();
-  } else {
-    dismissPlaceholder();
-    resetPHStates();
-  }
+  dismissPlaceholder();
+  resetPHStates();
 }
 
 function closePH_win() {
-  let cont = document.querySelector("div#container");
-  let col = cont.style.backgroundColor;
-  cont.style.backgroundColor = "rgba(0,255,0,0.2)";
-  setTimeout(function () {
-    cont.style.backgroundColor = col;
-  }, 300);
-
-  if (placeholder_location === "before" || placeholder_location === "replace") {
-    resetPHStates();
-  } else {
-    dismissPlaceholder();
-    resetPHStates();
-  }
+  dismissPlaceholder();
+  resetPHStates();
 }
 
-function manualAnalyzeTrigger(input_cat = "") {
-  /**
-   * input_cat :  is used to select what analysis category to focus on
-   *              By default this string is empty which selects all
-   */
-  if (feedback_flag === false) {
-    return;
-  }
+/**
+ * input_cat :  is used to select what analysis category to focus on
+ *              By default this string is empty which selects all
+ */
+function manualAnalyzeTrigger(force_cook = false, input_cat = "") {
+  let previous_feedback = global_feedback;
 
   if (input_cat === "") {
     global_feedback = analyzeText();
   } else {
     global_feedback = analyzeText(input_cat);
   }
+
+  // skip recook if not needed
+  if (
+    JSON.stringify(global_feedback) === JSON.stringify(previous_feedback) &&
+    force_cook === false
+  ) {
+    return;
+  }
+
+  clearSquares();
+
   if (global_feedback.length > 0) {
     global_feedback.map((element, index) => {
       showSquare(element, index.toString());
-
       return;
     });
   }
@@ -1404,10 +1354,14 @@ function toggleL2() {
   if (temp.textContent === "Analysis off") {
     temp.textContent = "Analysis on";
     temp.style.opacity = 0.8;
+    manualAnalyzeTrigger((force_cook = true), "");
     L2interval_ID = setInterval(manualAnalyzeTrigger, 200);
   } else {
     temp.textContent = "Analysis off";
+    clearSquares();
     temp.style.opacity = 0.3;
     clearInterval(L2interval_ID);
   }
 }
+
+toggleL2();

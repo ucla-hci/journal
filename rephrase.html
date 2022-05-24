@@ -24,77 +24,64 @@
 
 <body onload="loader()">
 <div id="mySidebar" class="sidebar">
-  <!--<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">Settings</a>
-  <a href="javascript:void(0)" class="greeting">Good afternoon, X.</a>-->
+  <!--<a href="javascript:void(0)" class="greeting">Good afternoon, X.</a>-->
   <a href="javascript:void(0)" onclick = "newEntry()" class="newb">New +</a>
-  <!--<a href="javascript:void(0)" onclick = "manualSave()">Save</a>-->
-
   <button type="button" class="collapsible" onclick = "createMenu()">Recent Journals</button>
   <div class="content" id="entryTitles">
   </div>
-
   <div class="switch-wrapper">
-    <a class="support-btn" href="mailto:sigchi@ucla.edu" target="_blank" title="Contact UCLA HCI if you need help about using Espresso">Tech Support</a>
-    <!--<input class="switch switch-anim" type="checkbox" onclick=darkMode()>-->
+    <button style="opacity: 0.3;" class="L2Button" onclick="toggleL2()">Analysis off</button>
+
+    <a class="support-btn" href="mailto:sigchi@ucla.edu" target="_blank" title="Contact UCLA HCI if you need help about using Espresso">Need help?</a>
   </div>
 </div>
 
 <div class="right-sidebar" id="rightsidebar">
-  <button onclick="closeRightBar()">X</button>
+  <div class="close-btn" onclick="closeRightBar()"></div>
   <h3>some header</h3>
   <p>some text</p>
   <button class="rewrite-button">Rewrite</button>
-  <!-- <button onclick="triggerRewrite(e)">Rewrite</button> -->
-
 </div>
 
-<div id="container">
-  <div class="btbar">
-    <button class="openbtn" id="opnsidebar" onclick="openNav()"></button>
-    <!-- DEBUG BUTTONS -------------------------------------------------------->
-    <div class="doublebuttonbar">
-      <div class="debug-buttons">
-        <button style="background-color: crimson; opacity: 0.8;" onclick="killSequence()">stop</button>
-        <button style="opacity: 0.3;" class="L2Button" onclick="toggleL2()">Analysis off</button>
-        <!-- <button style="opacity: 0.8;" class="rewrite" onclick="showPlaceholder('big ang')">showPLaceholder</button> -->
-      </div>
-      <!-- <div class="suggestion-buttons">
-        <button id="1" onclick="recommendInput2('optimism')">optimism</button>
-        <button id="2" onclick="recommendInput2('impermanence')">impermanence</button>
-        <button id="3" onclick="recommendInput2('thankfulness')">thankfulness</button>
-        <button id="4" onclick="recommendInput2('growth')">growth</button>
-        <button id="5" onclick="recommendInput2('neutralizing')">neutralizing</button>
-      </div> -->
-    <!-- END DEBUG BUTTONS ----------------------------------------------------->
+<div class="btbar">
+  <button class="openbtn" id="opnsidebar" onclick="closeNav()"></button>
+    <div class="debug-buttons">
+      <!-- <button style="background-color: crimson; opacity: 0.8;" onclick="killSequence()">Pause Feedback</button> -->
+      <!-- <button style="opacity: 0.3;" class="L2Button" onclick="toggleL2()">Analysis off</button> -->
     </div>
-    <a id="toast" href="javascript:void(0)" onclick = "manualSave()">Save</a>
-    <div>
-      <!--<button class="swtbtn" id="markswitch" onclick="displayMarks()"></button>
-      <button class="savebtn" id="manualsave" onclick="manualSave()"></button>
-      <button class="newbtn" id="newentry" onclick="newEntry()"></button>
-      <button class="recordbtn" id="record" onclick="startRecord()"></button> -->
-      <a onclick="changeMode('writing')" class="mode-button" title="Click to enter writing mode">Writing</a>
-      <a onclick="changeMode('expert')" class="mode-button" title="Click to enter reflection mode">Reflection</a>
-      <a href="javascript:void(0)" class="mode-label" title="Now in rephrase mode">Rephrase</a>
-    </div>
+  <!-- END DEBUG BUTTONS ----------------------------------------------------->
+  <a id="toast" href="javascript:void(0)" onclick = "manualSave()">Save</a>
+  <div>
+    <!--<button class="swtbtn" id="markswitch" onclick="displayMarks()"></button>
+    <button class="savebtn" id="manualsave" onclick="manualSave()"></button>
+    <button class="newbtn" id="newentry" onclick="newEntry()"></button>
+    <button class="recordbtn" id="record" onclick="startRecord()"></button> -->
+    <a onclick="changeMode('writing')" class="mode-button" title="Click to enter writing mode">Writing</a>
+    <a onclick="changeMode('expert')" class="mode-button" title="Click to enter reflection mode">Reflection</a>
+    <a href="javascript:void(0)" class="mode-label" title="Now in rephrase mode">Rephrase</a>
   </div>
+</div>
+<div id="container">
   <div class="onboard" id="temp">
     <!-- Welcome to Journal! -->
-    <div id="welcome">Welcome to Espresso:rephrase!</div>
+    <div id="welcome">Espresso Notes</div>
     <!-- How is your day today? -->
-    <div id="query" onclick="toEntry()">Click an option to begin: </div>
+    <div id="query" onclick="toEntry()">How is your day today? Pick a mood:</div>
 
     <div class="parent">
       <div class="good embtn" onclick="toEntry('good')" style="cursor:pointer">
-        <div class="left top text" id="n21_30">Option 1</div>
+        <img src="./src/smile.png"/>
+        <div class="onboard-button-text">Good Day</div>
       </div>
 
-      <div class="neutral embtn" onclick="toEntry('neutral')" style="cursor:pointer">
-        <div class="left top text" id="n21_31" >Option 2</div>
+      <div class="embtn" onclick="toEntry('neutral')" style="cursor:pointer">
+        <img src="./src/neutral.png"/>
+        <div class="onboard-button-text" id="n21_31" >Neutral Day</div>
       </div>
       
-      <div class="bad embtn" onclick="toEntry('bad')" style="cursor:pointer">
-        <div class="left top text" id="n21_33">Option 3</div>
+      <div class="embtn" onclick="toEntry('bad')" style="cursor:pointer">
+        <img src="./src/frown.png"/>
+        <div class="onboard-button-text" id="n21_33">Bad Day</div>
       </div>
     </div>
   </div>
@@ -107,35 +94,19 @@
     <hr>
     <div id="entrydate"></div>
     <textarea id="write" autofocus spellcheck="false"></textarea>
-    <!-- <div class="clickable-marker" onclick="highlightText()"></div> -->
     <!-- <div class="clickable-marker"></div> -->
-
-    <div id="myBottombar" class="bottombar">
-      <!--
-        <a href="javascript:void(0)" class="closedef" onclick="closeDef()" id="deftitle">Distortion Name</a>
-        <a href="#" id="defbody">Distortion Sample</a> -->
-    </div>
-
-    <!--<div class="pop-up" id="textmanipulation">
-      <div class="pop-up-title">
-        <div class="close-btn" onclick="rejectChange()"></div>
-        <span id="pop-up-title-text">Entry Deleted!</span>
-        <div class="okay-btn" onclick="acceptChange()"></div>
-      </div>
-    </div>-->
-
   </div>
 
   <div class="L2-popup">
-    <button onclick="closeNewPopup()">X</button>
+    <button class="x-button" onclick="closeNewPopup()"></button>
     <h4 id="popup-header">header</h4>
     <p id="popup-content">text content</p>
     <div class="readmore-container">
-      <button>Read More</button>
+      <button class="readmore-button">Read More</button>
     </div>
   </div>
 
-  <!--删除确认框-->
+  <!--delete confirmation box-->
   <div class="pop-up2" id="popUpWindow">
     <div class="close-pop-up">
       <div class="close-btn" onclick="hidePopUp()"></div>
@@ -148,11 +119,14 @@
       <button onclick="hidePopUp()">No</button>
     </div>
   </div>
+
+
 </div>
 </body>
 
 <!-- Espresso.js -->
 <script type="text/javascript" src="js/funcs.js"></script>
+<!-- <script type="text/javascript" src="js/expert.js"></script> -->
 <script type="text/javascript" src="js/indexDB.js"></script>
 <script type="text/javascript" src="js/logger.js"></script>
 

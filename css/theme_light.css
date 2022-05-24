@@ -3,7 +3,7 @@
 }
 
 /* This css file will be shared by both expert.html and index.html */
-body {
+html, body {
     --postive-font: #00BD4B;
     --negative-font: #BD0013;
     --sadness-font: #8fb3f1;
@@ -18,6 +18,10 @@ body {
     color: #828282;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    height: 100%;
+  width: 100%;
+  margin: 0;
 
 }
 
@@ -124,11 +128,18 @@ body {
 }
 
 .CodeMirror {
-    /* background-color: #fafafa; */
+
+    margin-top: 12px;
     background-color: transparent;
     color: #828282;
-    margin-right: 250px;
-    /* border: solid 5px red; */
+
+    /* margin-right: 250px;  */
+    /* border: solid 1px red; */
+
+}
+
+.CodeMirror-line span {
+    font-size: 18px;
 }
 
 .CodeMirror-cursor{
@@ -149,15 +160,6 @@ a {
 
 .onedefbody{
     color: #6c6c6c;
-}
-
-.sidebar{
-    background-color: #fafafa;
-    white-space: nowrap;
-}
-
-.sidebar a:hover {
-    color: #000000;
 }
 
 .bottombar {
@@ -264,15 +266,22 @@ a {
 
 
 /****************************** new */
-.debug-buttons button {
+/* .debug-buttons button { */
+.L2Button {
     border: none ;
     background-color: #434343;
     color: ghostwhite;
     cursor: pointer;
+    border-radius: 25px;
+    padding:6px 8px 6px 8px;
+    margin-left: 14px;
+    margin-bottom: 14px;
+    /* font-weight: unset; */
 }
 
 .clickable-marker {
-    position: fixed;
+    border-radius: 50%;
+    position: relative;
     display: none;
     background-color: red;
     z-index: 101;
@@ -297,57 +306,72 @@ a {
 .L2-popup {
     /* display: flex; */
     display: none;
-    position: fixed;
+    position: absolute;
     width: 250px;
     flex-direction: column;
     z-index: 102;
-    background-color: whitesmoke;
-    border: solid 2px red;
+    background-color: rgb(255, 255, 255);
+    border: solid 2px rgb(147, 147, 147); /* PARAMETRIZE INTO STYLE */
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
+    height: 12em;
 }
 
 .L2-popup h4 {
-    margin: 20px;
-    /* border: solid 1px red; */
+    margin: 8px 18px 12px 18px;
 }
 
 .L2-popup p {
-    margin: 20px;
-    /* border: solid 1px red; */
+    margin: 4px 18px 0px 18px;
     cursor: unset;
+}
+
+
+.readmore-button {
+    border-radius: 20px;
+    background-color: gainsboro;
+    margin: auto 4px 4px 4px;
+    padding: 0px 6px 2px 6px;
+    font-size: medium;
+    font-weight:500;
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .readmore-container {
     display: flex;
     flex-direction: row;
-    /* align-items: flex-end; */
+    justify-content: flex-end;
+    margin-top: auto;
 }
 
-.L2-popup button {
-    margin-left: auto;
-    margin-right: 0;
-    /* border: solid 1px red; */
+.x-button {
+    margin: 6px 6px 0px auto;
+    background-image: url("../src/xmark.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: transparent;
+    width: 13px;
+    height: 15px;
+    border-style: none;
+    display: inline-block;
 }
 
 .right-sidebar {
-    /* white-space: nowrap; */
     white-space: pre-line;
-    border-left-style: solid;
-    border-color: rgb(255, 76, 76);
-    background-color: #fafafa;
-    height: 87%;
-    width: 0;
+    /* border-left-style: solid; */
+    height:100%;
+    width: 250px;
     position: fixed;
     z-index: 3;
-    bottom: 0;
-    right: 0;
-    overflow-wrap: break-word;
+    right: -250px;
     transition: 0.5s;
-    /* padding-left: 20px;
-    padding-right: 20px; */
-    overflow-y:hidden;
-    /* word-break: break-all; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 60px;
+    /* border-image: linear-gradient(to top, rgb(232, 228, 255), white) 1; */
+    background: linear-gradient(315deg, rgba(232,228,255,1) 0%, rgba(233,229,255,1) 25%, rgba(254,253,255,1) 60%, rgba(255,255,255,1) 100%);
 }
 
 .right-sidebar p {
@@ -386,7 +410,43 @@ a {
 }
 
 .placeholder {
-    /* background-color: #cff; */
+    background-color: rgb(255, 255, 255);
     color: lightgray;
+}
 
+
+/* ------ */
+
+div#container {
+    padding: 8px 28px 0px 28px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin: 0 250px auto 220px;
+    display: block;
+    height: 100%;
+}
+
+
+.title_in_line {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.rewrite-button {
+    font-size: large;
+    font-weight:400;
+    margin-top: 14px;
+    margin-left: 20px;
+    border-radius: 20px;
+    background-color: gainsboro;
+    padding: 4px 8px 4px 8px;
+    width: fit-content;
+}
+
+.replace_ph {
+    text-decoration: line-through !important;
+    color:#aeaeae !important;
 }
