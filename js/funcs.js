@@ -15,6 +15,12 @@
  *
  */
 
+function testNLP() {
+  var x = nlp("two bottles of beer");
+  x.numbers().minus(1);
+  console.log(x.text());
+}
+
 var write = document.getElementById("write");
 // init codeMirror - manipulate document using cm instance methods
 var cm = CodeMirror.fromTextArea(write, {
