@@ -1,0 +1,575 @@
+[
+    {
+        "strategy_code": "L2a",
+        "category_number": 1,
+        "semantic_anchor": "Positive Adjectives",
+        "words": [
+            "brave"
+        ],
+        "wordnet_ext": [],
+        "phrase_ext": [
+            "xx is adj"
+        ],
+        "rewrite": [
+            "... because"
+        ],
+        "rewrite_position": "after",
+        "brief_feedback": null,
+        "longer_feedback": null,
+        "color": "#597dce"
+    },
+    {
+        "strategy_code": "L2a",
+        "category_number": 2,
+        "semantic_anchor": "Negative Adjectives",
+        "words": [
+            "egoistic"
+        ],
+        "wordnet_ext": [],
+        "phrase_ext": null,
+        "rewrite": null,
+        "rewrite_position": null,
+        "brief_feedback": null,
+        "longer_feedback": null,
+        "color": "#d27d2c"
+    },
+    {
+        "strategy_code": "L2b",
+        "category_number": 1,
+        "semantic_anchor": "Should Statement",
+        "words": [
+            "should"
+        ],
+        "wordnet_ext": [],
+        "phrase_ext": null,
+        "rewrite": [
+            "can",
+            "choose",
+            "want to",
+            "prefer",
+            "would like to",
+            "plan to"
+        ],
+        "rewrite_position": "replace",
+        "brief_feedback": null,
+        "longer_feedback": null,
+        "color": "#8595a1"
+    },
+    {
+        "strategy_code": "L2b",
+        "category_number": 2,
+        "semantic_anchor": "All or Nothing Thinking / Overgeneralization",
+        "words": [
+            "never",
+            "always",
+            "forever",
+            "all",
+            "everyone",
+            "everything",
+            "anyone",
+            "anything",
+            "only",
+            "totally",
+            "no one",
+            "again",
+            "nothing",
+            "none"
+        ],
+        "wordnet_ext": [
+            [
+                "everybody"
+            ],
+            [
+                "anybody"
+            ]
+        ],
+        "phrase_ext": null,
+        "rewrite": null,
+        "rewrite_position": null,
+        "brief_feedback": null,
+        "longer_feedback": null,
+        "color": "#6daa2c"
+    },
+    {
+        "strategy_code": "L2b",
+        "category_number": 3,
+        "semantic_anchor": "Catastrophizing",
+        "words": [
+            "what if"
+        ],
+        "wordnet_ext": [],
+        "phrase_ext": null,
+        "rewrite": null,
+        "rewrite_position": null,
+        "brief_feedback": null,
+        "longer_feedback": null,
+        "color": "#d2aa99"
+    },
+    {
+        "strategy_code": "L2c",
+        "category_number": 0,
+        "semantic_anchor": "Dysfunctional Self-Talk",
+        "words": [
+            "loser",
+            "suck",
+            "hate",
+            "lazy",
+            "the worst",
+            "useless",
+            "failure",
+            "pathetic",
+            "good-for-nothing",
+            "dumb",
+            "stupid"
+        ],
+        "wordnet_ext": [],
+        "phrase_ext": null,
+        "rewrite": [
+            "I am having the thought of ..."
+        ],
+        "rewrite_position": null,
+        "brief_feedback": null,
+        "longer_feedback": null,
+        "color": "#6dc2ca"
+    },
+    {
+        "strategy_code": "L2d",
+        "category_number": 1,
+        "semantic_anchor": "Signs of Depression -> Depressed Mood or Dyshphoria",
+        "words": [
+            "depress",
+            "depressed",
+            "depression"
+        ],
+        "wordnet_ext": [
+            [
+                "/"
+            ],
+            [
+                "gloomy grim",
+                " blue",
+                " dispirited",
+                " down",
+                " downcast",
+                " downhearted",
+                " down in the mouth",
+                " low",
+                " low-spirited"
+            ],
+            [
+                "/"
+            ]
+        ],
+        "phrase_ext": null,
+        "rewrite": null,
+        "rewrite_position": null,
+        "brief_feedback": "Depression is a mental state of low mood and aversion to activity",
+        "longer_feedback": "Classified medically as a mental and behavioral disorder, the experience of depression affects a person's thoughts, behavior, motivation, feelings, and sense of well-being. The core symptom of depression is said to be anhedonia, which refers to loss of interest or a loss of feeling of pleasure in certain activities that usually bring joy to people.",
+        "color": "#140c1c"
+    },
+    {
+        "strategy_code": "L2d",
+        "category_number": 1,
+        "semantic_anchor": "Signs of Depression -> Depressed Mood or Dyshphoria",
+        "words": [],
+        "wordnet_ext": [],
+        "phrase_ext": null,
+        "rewrite": null,
+        "rewrite_position": null,
+        "brief_feedback": "Depression is a mental state of low mood and aversion to activity",
+        "longer_feedback": "Classified medically as a mental and behavioral disorder, the experience of depression affects a person's thoughts, behavior, motivation, feelings, and sense of well-being. The core symptom of depression is said to be anhedonia, which refers to loss of interest or a loss of feeling of pleasure in certain activities that usually bring joy to people.",
+        "color": "#140c1c"
+    },
+    {
+        "strategy_code": "L2d",
+        "category_number": 2,
+        "semantic_anchor": "Signs of Depression -> Hopeless Outlook",
+        "words": [
+            "helpless"
+        ],
+        "wordnet_ext": [
+            [
+                "incapacitated "
+            ]
+        ],
+        "phrase_ext": [
+            "nobody/no one + help"
+        ],
+        "rewrite": [
+            "But ..."
+        ],
+        "rewrite_position": "after",
+        "brief_feedback": "Hopelessness is an emotion characterized by a lack of hope, optimism, and passion",
+        "longer_feedback": "Hopelessness is a powerful emotion that often contributes to a dark or low mood and may adversely affect the way one perceives the self, other individuals, personal circumstances, and even the world. Often hopelessness can have a significant influence on human behavior, as it may reflect an individual’s negative view of the future.",
+        "color": "#442434"
+    },
+    {
+        "strategy_code": "L2d",
+        "category_number": 2,
+        "semantic_anchor": "Signs of Depression -> Hopeless Outlook",
+        "words": [
+            "hopeless"
+        ],
+        "wordnet_ext": [
+            [
+                "/"
+            ]
+        ],
+        "phrase_ext": [
+            "no/don't + help"
+        ],
+        "rewrite": [
+            "But ..."
+        ],
+        "rewrite_position": "after",
+        "brief_feedback": "Hopelessness is an emotion characterized by a lack of hope, optimism, and passion",
+        "longer_feedback": "Hopelessness is a powerful emotion that often contributes to a dark or low mood and may adversely affect the way one perceives the self, other individuals, personal circumstances, and even the world. Often hopelessness can have a significant influence on human behavior, as it may reflect an individual’s negative view of the future.",
+        "color": "#442434"
+    },
+    {
+        "strategy_code": "L2d",
+        "category_number": 2,
+        "semantic_anchor": "Signs of Depression -> Hopeless Outlook",
+        "words": [
+            "guity"
+        ],
+        "wordnet_ext": [],
+        "phrase_ext": [
+            "all my fault",
+            " blame on me"
+        ],
+        "rewrite": [
+            "But ..."
+        ],
+        "rewrite_position": "after",
+        "brief_feedback": "Hopelessness is an emotion characterized by a lack of hope, optimism, and passion",
+        "longer_feedback": "Hopelessness is a powerful emotion that often contributes to a dark or low mood and may adversely affect the way one perceives the self, other individuals, personal circumstances, and even the world. Often hopelessness can have a significant influence on human behavior, as it may reflect an individual’s negative view of the future.",
+        "color": "#442434"
+    },
+    {
+        "strategy_code": "L2d",
+        "category_number": 2,
+        "semantic_anchor": "Signs of Depression -> Hopeless Outlook",
+        "words": [],
+        "wordnet_ext": [],
+        "phrase_ext": [
+            "hate myself"
+        ],
+        "rewrite": [
+            "But ..."
+        ],
+        "rewrite_position": "after",
+        "brief_feedback": "Hopelessness is an emotion characterized by a lack of hope, optimism, and passion",
+        "longer_feedback": "Hopelessness is a powerful emotion that often contributes to a dark or low mood and may adversely affect the way one perceives the self, other individuals, personal circumstances, and even the world. Often hopelessness can have a significant influence on human behavior, as it may reflect an individual’s negative view of the future.",
+        "color": "#442434"
+    },
+    {
+        "strategy_code": "L2d",
+        "category_number": 2,
+        "semantic_anchor": "Signs of Depression -> Hopeless Outlook",
+        "words": [
+            "worthlessness",
+            "worthless"
+        ],
+        "wordnet_ext": [
+            [
+                "/"
+            ],
+            [
+                "despicable",
+                " ugly",
+                " vile",
+                " slimy",
+                " unworthy",
+                " worthless",
+                " wretched "
+            ]
+        ],
+        "phrase_ext": [
+            "what is the point",
+            " there is no point",
+            " worth nothing",
+            " not worthing anything"
+        ],
+        "rewrite": [
+            "But ..."
+        ],
+        "rewrite_position": "after",
+        "brief_feedback": "Hopelessness is an emotion characterized by a lack of hope, optimism, and passion",
+        "longer_feedback": "Hopelessness is a powerful emotion that often contributes to a dark or low mood and may adversely affect the way one perceives the self, other individuals, personal circumstances, and even the world. Often hopelessness can have a significant influence on human behavior, as it may reflect an individual’s negative view of the future.",
+        "color": "#442434"
+    },
+    {
+        "strategy_code": "L2d",
+        "category_number": 3,
+        "semantic_anchor": "Signs of Depression -> Loss of interest in activities",
+        "words": [
+            "/",
+            "indifferent"
+        ],
+        "wordnet_ext": [
+            [
+                "/"
+            ],
+            [
+                "apathetic"
+            ]
+        ],
+        "phrase_ext": [
+            "loss of interest",
+            " lost/lose interest",
+            " used to + interest*"
+        ],
+        "rewrite": [
+            "Have I been unusually tired lately?"
+        ],
+        "rewrite_position": "after",
+        "brief_feedback": "This loss of interest is known as anhedonia — a main symptom of depression.",
+        "longer_feedback": "This loss of interest is known as anhedonia — a main symptom of depression. Loss of interest can be an overwhelming and far-reaching symptom that impacts your relationships with friends and family, your sexual health, work and school productivity, and hobby enjoyment.",
+        "color": "#30346d"
+    },
+    {
+        "strategy_code": "L2d",
+        "category_number": 4,
+        "semantic_anchor": "Signs of Depression -> Sleep and Appetite Changes",
+        "words": [],
+        "wordnet_ext": [],
+        "phrase_ext": null,
+        "rewrite": null,
+        "rewrite_position": null,
+        "brief_feedback": "Depression can affect our appetite and change the relationship that we have with food. It can cause us to eat unhealthily, eat more than usual and it can also lead to a loss of appetite.",
+        "longer_feedback": "When someone has depression, it may be that they occasionally skip or do not finish their meals. They may go for days without eating or drinking enough. This can impact on their energy levels and cause weight loss and health problems, making their depression even worse.",
+        "color": "#4e4a4e"
+    },
+    {
+        "strategy_code": "L2d",
+        "category_number": 4,
+        "semantic_anchor": "Signs of Depression -> Sleep and Appetite Changes",
+        "words": [
+            "insomnia",
+            "disrupted sleep",
+            "lethargy"
+        ],
+        "wordnet_ext": [
+            [
+                "sleeplessness"
+            ]
+        ],
+        "phrase_ext": [
+            "can't sleep",
+            " sleep less"
+        ],
+        "rewrite": [
+            "Maybe I should get some rest."
+        ],
+        "rewrite_position": "after",
+        "brief_feedback": "Sleep problems can increase the risk of initially developing depression, and persistent sleep issues can also increase the risk of relapse in people who have successfully been treated for depression.",
+        "longer_feedback": "Sleep issues associated with depression include insomnia, hypersomnia, and obstructive sleep apnea. Insomnia is the most common and is estimated to occur in about 75% of adult patients with depression9. It is believed that about 20% of people with depression have obstructive sleep apnea and about 15% have hypersomnia. Many people with depression may go back and forth between insomnia and hypersomnia during a single period of depression.",
+        "color": "#4e4a4e"
+    },
+    {
+        "strategy_code": "L2d",
+        "category_number": 5,
+        "semantic_anchor": "Signs of Depression -> Fatigue",
+        "words": [
+            "fatigue",
+            "/"
+        ],
+        "wordnet_ext": [
+            [
+                "weariness",
+                " tiredness\ntire",
+                " pall",
+                " weary",
+                " jade \ntire",
+                " wear upon",
+                " tire out",
+                " wear",
+                " weary",
+                " jade",
+                " wear out",
+                " outwear",
+                " wear down",
+                " fag out",
+                " fag"
+            ],
+            [
+                "/"
+            ]
+        ],
+        "phrase_ext": null,
+        "rewrite": null,
+        "rewrite_position": null,
+        "brief_feedback": null,
+        "longer_feedback": null,
+        "color": "#854c30"
+    },
+    {
+        "strategy_code": "L2d",
+        "category_number": 6,
+        "semantic_anchor": "Signs of Depression -> Restlessness",
+        "words": [
+            "restlessness"
+        ],
+        "wordnet_ext": [
+            [
+                "uneasiness",
+                " queasiness"
+            ]
+        ],
+        "phrase_ext": null,
+        "rewrite": null,
+        "rewrite_position": null,
+        "brief_feedback": null,
+        "longer_feedback": null,
+        "color": "#346524"
+    },
+    {
+        "strategy_code": "L2d",
+        "category_number": 7,
+        "semantic_anchor": "Signs of Depression -> Concentration Problems",
+        "words": [
+            "/",
+            "distract"
+        ],
+        "wordnet_ext": [
+            [
+                "/"
+            ],
+            [
+                "perturb",
+                " unhinge",
+                " disquiet",
+                " trouble",
+                " cark",
+                " disorder "
+            ]
+        ],
+        "phrase_ext": [
+            "can't/hard to concentrate/focus/pay attention"
+        ],
+        "rewrite": null,
+        "rewrite_position": null,
+        "brief_feedback": null,
+        "longer_feedback": null,
+        "color": "#d04648"
+    },
+    {
+        "strategy_code": "L2d",
+        "category_number": 8,
+        "semantic_anchor": "Signs of Depression -> Suicidal ideation",
+        "words": [
+            "ending it",
+            "die",
+            "Bury",
+            "coffin",
+            "kill",
+            "suicide",
+            "suicidal",
+            "torture",
+            "escape"
+        ],
+        "wordnet_ext": [
+            [
+                "self-destruction",
+                " self-annihilation",
+                " felo-de-se"
+            ]
+        ],
+        "phrase_ext": [
+            "end my life"
+        ],
+        "rewrite": null,
+        "rewrite_position": null,
+        "brief_feedback": null,
+        "longer_feedback": null,
+        "color": "#757161"
+    },
+    {
+        "strategy_code": "L2e",
+        "category_number": 1,
+        "semantic_anchor": "First Pronoun",
+        "words": [
+            "self",
+            "myself",
+            "mine",
+            "I",
+            "me",
+            "my"
+        ],
+        "wordnet_ext": [],
+        "phrase_ext": null,
+        "rewrite": null,
+        "rewrite_position": null,
+        "brief_feedback": null,
+        "longer_feedback": null,
+        "color": "#dad45e"
+    },
+    {
+        "strategy_code": "L2f",
+        "category_number": 1,
+        "semantic_anchor": "Insights words",
+        "words": [
+            "realize",
+            "understand"
+        ],
+        "wordnet_ext": [],
+        "phrase_ext": null,
+        "rewrite": [
+            "L2f No Reprogramming"
+        ],
+        "rewrite_position": null,
+        "brief_feedback": null,
+        "longer_feedback": null,
+        "color": "#deeed6"
+    },
+    {
+        "strategy_code": "L2f",
+        "category_number": 2,
+        "semantic_anchor": "Coherent narrative words",
+        "words": [
+            "hence",
+            "because",
+            "therefore"
+        ],
+        "wordnet_ext": [],
+        "phrase_ext": null,
+        "rewrite": null,
+        "rewrite_position": null,
+        "brief_feedback": null,
+        "longer_feedback": null,
+        "color": "#aed65a"
+    },
+    {
+        "strategy_code": "L2f",
+        "category_number": 3,
+        "semantic_anchor": "Constructive Self-Talk",
+        "words": [
+            "work on",
+            "help",
+            "improve"
+        ],
+        "wordnet_ext": [],
+        "phrase_ext": null,
+        "rewrite": null,
+        "rewrite_position": null,
+        "brief_feedback": null,
+        "longer_feedback": null,
+        "color": "#44aa38"
+    },
+    {
+        "strategy_code": "L2f",
+        "category_number": 4,
+        "semantic_anchor": "Cognitive Defusion",
+        "words": [],
+        "wordnet_ext": [],
+        "phrase_ext": [
+            "I am having the thought of"
+        ],
+        "rewrite": null,
+        "rewrite_position": null,
+        "brief_feedback": null,
+        "longer_feedback": null,
+        "color": "#d3cd57"
+    }
+]
