@@ -267,6 +267,17 @@ a {
 
 /****************************** new */
 /* .debug-buttons button { */
+.L1Button {
+    border: none ;
+    background-color: #434343;
+    color: ghostwhite;
+    cursor: pointer;
+    border-radius: 25px;
+    padding:6px 8px 6px 8px;
+    margin-left: 14px;
+    margin-bottom: 14px;
+    /* font-weight: unset; */
+}
 .L2Button {
     border: none ;
     background-color: #434343;

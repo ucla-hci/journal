@@ -16,9 +16,31 @@
  */
 
 function testNLP() {
-  var x = nlp("two bottles of beer");
-  x.numbers().minus(1);
-  console.log(x.text());
+  let selectedText = cm.getSelection();
+  console.log(normalizeText(selectedText));
+  let target = "james";
+  console.log("leven test", leven(selectedText, target));
+}
+
+let normOptions = {
+  whitespace: true,
+  case: false,
+  punctuation: false,
+  unicode: false,
+  contractions: true,
+  acronyms: false,
+  parentheses: false,
+  possessives: true,
+  plurals: true,
+  verbs: true,
+  honorifics: false,
+};
+
+function normalizeText(input) {
+  if (typeof input === "string") {
+    return nlp(input).normalize(normOptions).out();
+  }
+  // handle arrays ...
 }
 
 var write = document.getElementById("write");
@@ -35,60 +57,309 @@ var cm = CodeMirror.fromTextArea(write, {
  * initializing globals
  *
  */
-let word_counter = {}; // <--- dict needed to
+let word_counter = {}; // <--- dict needed to capture right place of word.
 let global_feedback = [];
 
-// Note: need to handle pairs of words e.g. "very good"
-// tentative format:
 let dict_temp = [
   {
-    strategy_code: "L2y",
-    category_number: 0, // ----------- could use array index instead
+    strategy_code: "L2a",
+    category_number: 1,
     semantic_anchor: "Positive Adjectives",
-    words: ["happy", "accomplishments"],
-    wordnet_ext: ["joy", "positive", "glad"],
-    color: "#eb4034",
-    brief_feedback: "Positive mind!",
-    longer_feedback: "Longer feedback. Explain benefits of healthy mind.",
-    rewrite: "Regardless of adversity, I can still find enjoyment.",
+    words: ["brave"],
+    wordnet_ext: [],
+    phrase_ext: ["xx is adj"],
+    rewrite: ["... because"],
     rewrite_position: "after",
+    brief_feedback: null,
+    longer_feedback: null,
+    color: "#597dce",
   },
   {
-    strategy_code: "L2z",
+    strategy_code: "L2a",
+    category_number: 2,
+    semantic_anchor: "Negative Adjectives",
+    words: ["egoist", "egoistic"],
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: ["This is a negative thought."],
+    rewrite_position: "before",
+    brief_feedback: null,
+    longer_feedback: null,
+    color: "#d27d2c",
+  },
+  {
+    strategy_code: "L2b",
     category_number: 1,
-    semantic_anchor: "Suicide and death",
+    semantic_anchor: "Should Statement",
+    words: ["should"],
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: ["can", "choose", "want to", "prefer", "would like to", "plan to"],
+    rewrite_position: "replace",
+    brief_feedback: null,
+    longer_feedback: null,
+    color: "#8595a1",
+  },
+  {
+    strategy_code: "L2b",
+    category_number: 2,
+    semantic_anchor: "All or Nothing Thinking / Overgeneralization",
     words: [
-      "Bury",
-      "coffin",
-      "kill",
-      "suicide",
-      "suicidal",
-      "torture",
-      "escape",
-      "ending it",
-      "die",
+      "never",
+      "always",
+      "forever",
+      "all",
+      "everyone",
+      "everything",
+      "anyone",
+      "anything",
+      "only",
+      "totally",
+      "no one",
+      "again",
+      "nothing",
+      "none",
+    ],
+    wordnet_ext: ["everybody", "anybody"],
+    phrase_ext: [],
+    rewrite: [
+      "Things feel very black and white, right or wrong but they don't have to be.",
+    ],
+    rewrite_position: "before",
+    brief_feedback: null,
+    longer_feedback: null,
+    color: "#6daa2c",
+  },
+  {
+    strategy_code: "L2b",
+    category_number: 3,
+    semantic_anchor: "Catastrophizing",
+    words: ["what if"],
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "Thinking of potential scenarios could be beneficial, but only if I consider rationally good and bad outcomes.",
+    ],
+    rewrite_position: "before",
+    brief_feedback: null,
+    longer_feedback: null,
+    color: "#d2aa99",
+  },
+  {
+    strategy_code: "L2c",
+    category_number: 0,
+    semantic_anchor: "Dysfunctional Self-Talk",
+    words: [
+      "loser",
+      "suck",
+      "hate",
+      "lazy",
+      "the worst",
+      "useless",
+      "failure",
+      "pathetic",
+      "good-for-nothing",
+      "dumb",
+      "stupid",
     ],
     wordnet_ext: [],
-    color: "#34cceb",
-    brief_feedback:
-      "Suicide is the act of killing yourself, most often as a result of depression or other mental illness.",
-    longer_feedback:
-      "Suicide can be seen as a behavior motivated by the desire to escape from unbearable psychological pain. If you're experiencing these symptoms, please call 800-273-8255 (suicide hotline).",
-    rewrite: "Suicide is never a solution. ",
-    rewrite_position: "before",
+    phrase_ext: [],
+    rewrite: ["I am having the thought of ..."],
+    rewrite_position: "after",
+    brief_feedback: null,
+    longer_feedback: null,
+    color: "#6dc2ca",
   },
   {
-    strategy_code: "L2x",
+    strategy_code: "L2d",
+    category_number: 1,
+    semantic_anchor: "Signs of Depression -> Depressed Mood or Dyshphoria",
+    words: ["depress", "depressed", "depression"],
+    wordnet_ext: [
+      "gloomy grim",
+      "blue",
+      "dispirited",
+      "down",
+      "downcast",
+      "downhearted",
+      "down in the mouth",
+      "low",
+      "low-spirited",
+    ],
+    phrase_ext: [],
+    rewrite: [
+      "There is nothing wrong with feeling bad. Everybody experiences it sometime.",
+    ],
+    rewrite_position: "after",
+    brief_feedback:
+      "Depression is a mental state of low mood and aversion to activity",
+    longer_feedback:
+      "Classified medically as a mental and behavioral disorder, the experience of depression affects a person's thoughts, behavior, motivation, feelings, and sense of well-being. The core symptom of depression is said to be anhedonia, which refers to loss of interest or a loss of feeling of pleasure in certain activities that usually bring joy to people.",
+    color: "#140c1c",
+  },
+  {
+    strategy_code: "L2d",
+    category_number: 1,
+    semantic_anchor: "Signs of Depression -> Depressed Mood or Dyshphoria",
+    words: [],
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: null,
+    rewrite_position: null,
+    brief_feedback:
+      "Depression is a mental state of low mood and aversion to activity",
+    longer_feedback:
+      "Classified medically as a mental and behavioral disorder, the experience of depression affects a person's thoughts, behavior, motivation, feelings, and sense of well-being. The core symptom of depression is said to be anhedonia, which refers to loss of interest or a loss of feeling of pleasure in certain activities that usually bring joy to people.",
+    color: "#140c1c",
+  },
+  {
+    strategy_code: "L2d",
     category_number: 2,
-    semantic_anchor: "Fatigue",
-    words: [
+    semantic_anchor: "Signs of Depression -> Hopeless Outlook",
+    words: ["helpless"],
+    wordnet_ext: ["incapacitated "],
+    phrase_ext: ["nobody/no one + help"],
+    rewrite: ["But ..."],
+    rewrite_position: "after",
+    brief_feedback:
+      "Hopelessness is an emotion characterized by a lack of hope, optimism, and passion",
+    longer_feedback:
+      "Hopelessness is a powerful emotion that often contributes to a dark or low mood and may adversely affect the way one perceives the self, other individuals, personal circumstances, and even the world. Often hopelessness can have a significant influence on human behavior, as it may reflect an individual’s negative view of the future.",
+    color: "#442434",
+  },
+  {
+    strategy_code: "L2d",
+    category_number: 2,
+    semantic_anchor: "Signs of Depression -> Hopeless Outlook",
+    words: ["hopeless"],
+    wordnet_ext: [],
+    phrase_ext: ["no/don't + help"],
+    rewrite: ["But ..."],
+    rewrite_position: "after",
+    brief_feedback:
+      "Hopelessness is an emotion characterized by a lack of hope, optimism, and passion",
+    longer_feedback:
+      "Hopelessness is a powerful emotion that often contributes to a dark or low mood and may adversely affect the way one perceives the self, other individuals, personal circumstances, and even the world. Often hopelessness can have a significant influence on human behavior, as it may reflect an individual’s negative view of the future.",
+    color: "#442434",
+  },
+  {
+    strategy_code: "L2d",
+    category_number: 2,
+    semantic_anchor: "Signs of Depression -> Hopeless Outlook",
+    words: ["guilty"],
+    wordnet_ext: [],
+    phrase_ext: ["all my fault", " blame on me"],
+    rewrite: ["But ..."],
+    rewrite_position: "after",
+    brief_feedback:
+      "Hopelessness is an emotion characterized by a lack of hope, optimism, and passion",
+    longer_feedback:
+      "Hopelessness is a powerful emotion that often contributes to a dark or low mood and may adversely affect the way one perceives the self, other individuals, personal circumstances, and even the world. Often hopelessness can have a significant influence on human behavior, as it may reflect an individual’s negative view of the future.",
+    color: "#442434",
+  },
+  {
+    strategy_code: "L2d",
+    category_number: 2,
+    semantic_anchor: "Signs of Depression -> Hopeless Outlook",
+    words: [],
+    wordnet_ext: [],
+    phrase_ext: ["hate myself"],
+    rewrite: ["But ..."],
+    rewrite_position: "after",
+    brief_feedback:
+      "Hopelessness is an emotion characterized by a lack of hope, optimism, and passion",
+    longer_feedback:
+      "Hopelessness is a powerful emotion that often contributes to a dark or low mood and may adversely affect the way one perceives the self, other individuals, personal circumstances, and even the world. Often hopelessness can have a significant influence on human behavior, as it may reflect an individual’s negative view of the future.",
+    color: "#442434",
+  },
+  {
+    strategy_code: "L2d",
+    category_number: 2,
+    semantic_anchor: "Signs of Depression -> Hopeless Outlook",
+    words: ["worthlessness", "worthless"],
+    wordnet_ext: [
+      "despicable",
+      "ugly",
+      "vile",
+      "slimy",
+      "unworthy",
+      "worthless",
+      "wretched ",
+    ],
+    phrase_ext: [
+      "what is the point",
+      "there is no point",
+      "worth nothing",
+      "not worthing anything",
+    ],
+    rewrite: ["But ..."],
+    rewrite_position: "after",
+    brief_feedback:
+      "Hopelessness is an emotion characterized by a lack of hope, optimism, and passion",
+    longer_feedback:
+      "Hopelessness is a powerful emotion that often contributes to a dark or low mood and may adversely affect the way one perceives the self, other individuals, personal circumstances, and even the world. Often hopelessness can have a significant influence on human behavior, as it may reflect an individual’s negative view of the future.",
+    color: "#442434",
+  },
+  {
+    strategy_code: "L2d",
+    category_number: 3,
+    semantic_anchor: "Signs of Depression -> Loss of interest in activities",
+    words: ["indifferent"],
+    wordnet_ext: ["apathetic"],
+    phrase_ext: [
+      "loss of interest",
+      " lost/lose interest",
+      " used to + interest*",
+    ],
+    rewrite: ["Have I been unusually tired lately?"],
+    rewrite_position: "after",
+    brief_feedback:
+      "This loss of interest is known as anhedonia — a main symptom of depression.",
+    longer_feedback:
+      "This loss of interest is known as anhedonia — a main symptom of depression. Loss of interest can be an overwhelming and far-reaching symptom that impacts your relationships with friends and family, your sexual health, work and school productivity, and hobby enjoyment.",
+    color: "#30346d",
+  },
+  {
+    strategy_code: "L2d",
+    category_number: 4,
+    semantic_anchor: "Signs of Depression -> Sleep and Appetite Changes",
+    words: ["starving"],
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: ["hungry"],
+    rewrite_position: "replace",
+    brief_feedback:
+      "Depression can affect our appetite and change the relationship that we have with food. It can cause us to eat unhealthily, eat more than usual and it can also lead to a loss of appetite.",
+    longer_feedback:
+      "When someone has depression, it may be that they occasionally skip or do not finish their meals. They may go for days without eating or drinking enough. This can impact on their energy levels and cause weight loss and health problems, making their depression even worse.",
+    color: "#4e4a4e",
+  },
+  {
+    strategy_code: "L2d",
+    category_number: 4,
+    semantic_anchor: "Signs of Depression -> Sleep and Appetite Changes",
+    words: ["insomnia", "disrupted sleep", "lethargy"],
+    wordnet_ext: ["sleeplessness"],
+    phrase_ext: ["can't sleep", " sleep less"],
+    rewrite: ["Maybe I should get some rest."],
+    rewrite_position: "after",
+    brief_feedback:
+      "Sleep problems can increase the risk of initially developing depression, and persistent sleep issues can also increase the risk of relapse in people who have successfully been treated for depression.",
+    longer_feedback:
+      "Sleep issues associated with depression include insomnia, hypersomnia, and obstructive sleep apnea. Insomnia is the most common and is estimated to occur in about 75% of adult patients with depression9. It is believed that about 20% of people with depression have obstructive sleep apnea and about 15% have hypersomnia. Many people with depression may go back and forth between insomnia and hypersomnia during a single period of depression.",
+    color: "#4e4a4e",
+  },
+  {
+    strategy_code: "L2d",
+    category_number: 5,
+    semantic_anchor: "Signs of Depression -> Fatigue",
+    words: ["fatigue"],
+    wordnet_ext: [
       "weariness",
-      "tiredness",
-      "tire",
+      "tiredness\ntire",
       "pall",
       "weary",
-      "jade",
-      "tire",
+      "jade \ntire",
       "wear upon",
       "tire out",
       "wear",
@@ -100,51 +371,153 @@ let dict_temp = [
       "fag out",
       "fag",
     ],
-    wordnet_ext: [],
-    color: "#3434eb",
-    brief_feedback: "Signs of depression --> Fatigue.",
-    longer_feedback:
-      "Depression can be defined as a mood disorder that leaves you feeling sad, disinterested in things, depressed and tired. Also called ‘clinical depression’ or ‘major depressive disorder,’ depression impacts how you think, feel, and behave, leading to a range of physical and emotional problems.",
-    rewrite: "rest",
-    rewrite_position: "replace",
-    target_word: "writing",
-    line_offset: 0,
+    phrase_ext: [],
+    rewrite: null,
+    rewrite_position: null,
+    brief_feedback: null,
+    longer_feedback: null,
+    color: "#854c30",
   },
   {
-    strategy_code: "L2a",
-    category_number: 3,
-    semantic_anchor: "Overgeneralization",
-    words: [
-      "never",
-      "always",
-      "forever",
-      "again",
-      "all",
-      "everyone",
-      "everything",
-      "anyone",
-      "anything",
-      "only",
-      "totally",
-      "no one",
-      "none",
-      "nothing",
+    strategy_code: "L2d",
+    category_number: 6,
+    semantic_anchor: "Signs of Depression -> Restlessness",
+    words: ["restlessness"],
+    wordnet_ext: ["uneasiness", " queasiness"],
+    phrase_ext: [],
+    rewrite: null,
+    rewrite_position: null,
+    brief_feedback: null,
+    longer_feedback: null,
+    color: "#346524",
+  },
+  {
+    strategy_code: "L2d",
+    category_number: 7,
+    semantic_anchor: "Signs of Depression -> Concentration Problems",
+    words: ["distract"],
+    wordnet_ext: [
+      "perturb",
+      " unhinge",
+      " disquiet",
+      " trouble",
+      " cark",
+      " disorder ",
     ],
+    phrase_ext: ["can't/hard to concentrate/focus/pay attention"],
+    rewrite: null,
+    rewrite_position: null,
+    brief_feedback: null,
+    longer_feedback: null,
+    color: "#d04648",
+  },
+  {
+    strategy_code: "L2d",
+    category_number: 8,
+    semantic_anchor: "Signs of Depression -> Suicidal ideation",
+    words: [
+      "ending it",
+      "die",
+      "Bury",
+      "coffin",
+      "kill",
+      "suicide",
+      "suicidal",
+      "torture",
+      "escape",
+    ],
+    wordnet_ext: ["self-destruction", " self-annihilation", " felo-de-se"],
+    phrase_ext: ["end my life"],
+    rewrite: null,
+    rewrite_position: null,
+    brief_feedback: null,
+    longer_feedback: null,
+    color: "#757161",
+  },
+  {
+    strategy_code: "L2e",
+    category_number: 1,
+    semantic_anchor: "First Pronoun",
+    words: ["self", "myself", "mine", "I", "me", "my"],
     wordnet_ext: [],
-    color: "#5e32a8",
-    brief_feedback:
-      "Overgeneralization is a type of cognitive distortion where a person applies something from one event to all other events.",
-    longer_feedback:
-      "Overgeneralization involves your thoughts. Therefore, when you are mindful of your thoughts, you can begin to notice patterns. Once you see those patterns, you can start to break them. Some people find it useful to keep a journal in which they record their thoughts so they can identify patterns more easily, as well as identifying overgeneralization triggers.",
+    phrase_ext: [],
+    rewrite: null,
+    rewrite_position: null,
+    brief_feedback: null,
+    longer_feedback: null,
+    color: "#dad45e",
+  },
+  {
+    strategy_code: "L2f",
+    category_number: 1,
+    semantic_anchor: "Insights words",
+    words: ["realize", "understand"],
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: ["L2f No Reprogramming"],
+    rewrite_position: null,
+    brief_feedback: null,
+    longer_feedback: null,
+    color: "#deeed6",
+  },
+  {
+    strategy_code: "L2f",
+    category_number: 2,
+    semantic_anchor: "Coherent narrative words",
+    words: ["hence", "because", "therefore"],
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: null,
+    rewrite_position: null,
+    brief_feedback: null,
+    longer_feedback: null,
+    color: "#aed65a",
+  },
+  {
+    strategy_code: "L2f",
+    category_number: 3,
+    semantic_anchor: "Constructive Self-Talk",
+    words: ["work on", "help", "improve"],
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: null,
+    rewrite_position: null,
+    brief_feedback: null,
+    longer_feedback: null,
+    color: "#44aa38",
+  },
+  {
+    strategy_code: "L2f",
+    category_number: 4,
+    semantic_anchor: "Cognitive Defusion",
+    words: [],
+    wordnet_ext: [],
+    phrase_ext: ["I am having the thought of"],
+    rewrite: null,
+    rewrite_position: null,
+    brief_feedback: null,
+    longer_feedback: null,
+    color: "#d3cd57",
   },
 ];
 
 /*************************************************************************** NEW ADDS */
 
-function analyzeText(category = "all") {
-  // ---------------------------------------------------------------------------------------TODO missing wordnet extension/multiword matching
+function get_ngram(alist, n) {
+  let holder = [];
+  for (let i = 0; i < alist.length - (n - 1); i++) {
+    let temp = alist[i];
+    for (let j = 1; j < n; j++) {
+      temp = temp.concat(" ", alist[i + j]);
+    }
+    holder.push(temp);
+  }
+  return holder;
+}
 
-  // clearSquares();
+function analyzeText() {
+  // ---------------------------------------------------------------------------------------TODO missing wordnet extension
+
   global_feedback = [];
   word_counter = {};
 
@@ -157,31 +530,39 @@ function analyzeText(category = "all") {
     return true;
   });
 
+  nWords_fulldoc = allText.length;
+
+  allText = allText.concat(get_ngram(allText, 2), get_ngram(allText, 3));
+
   // param needed for search
   let start = CodeMirror.Pos(cm.firstLine(), 0);
 
   // store categories for matched words
   let categories = [];
-  let target_category = category === "all" ? "" : category; // ----------------------------TODO - handle multiple categories
 
   // filter words not in dict
   allText = allText.filter(function (element) {
     for (let i = 0; i < dict_temp.length; i++) {
       if (dict_temp[i].words.indexOf(element.toLowerCase()) > -1) {
-        if (target_category !== "") {
-          // check target category
-          // if ( target_category.indexOf(dict_temp[i].strategy_code) > -1) {
-          if (dict_temp[i].strategy_code === target_category) {
-            categories.push(dict_temp[i].category_number);
-            return true;
-          } else {
-            return false;
-          }
-        } else {
-          categories.push(dict_temp[i].category_number);
-          return true;
-        }
-      } else {
+        categories.push({
+          strategy_code: dict_temp[i].strategy_code,
+          category_number: dict_temp[i].category_number,
+        });
+        return true;
+      } else if (dict_temp[i].wordnet_ext.indexOf(element.toLowerCase()) > -1) {
+        categories.push({
+          strategy_code: dict_temp[i].strategy_code,
+          category_number: dict_temp[i].category_number,
+        });
+        return true;
+      } else if (dict_temp[i].phrase_ext.indexOf(element.toLowerCase()) > -1) {
+        categories.push({
+          strategy_code: dict_temp[i].strategy_code,
+          category_number: dict_temp[i].category_number,
+        });
+        return true;
+      }
+      {
         continue;
       }
     }
@@ -192,6 +573,7 @@ function analyzeText(category = "all") {
     currentElement,
     index
   ) {
+    // console.log("reducing", currentElement);
     if (currentElement === "") {
       return previousElement;
     }
@@ -208,19 +590,27 @@ function analyzeText(category = "all") {
       search_coords = search(currentElement, start, offset);
     } catch (e) {
       if (e === "Not Found") {
+        console.log("in reduce -- not found error", currentElement);
         return previousElement;
       }
     }
 
+    let obj_filt = dict_temp.filter(
+      (entry) =>
+        entry.strategy_code === categories[index].strategy_code &&
+        entry.category_number === categories[index].category_number
+    )[0];
+
     previousElement.push({
+      // maybe add normalization marker here?
       search_coords: search_coords,
       word: currentElement,
-      color: dict_temp[categories[index]].color,
-      title: dict_temp[categories[index]].semantic_anchor,
-      brief_feedback: dict_temp[categories[index]].brief_feedback,
-      longer_feedback: dict_temp[categories[index]].longer_feedback,
-      rewrite: dict_temp[categories[index]].rewrite,
-      rewrite_position: dict_temp[categories[index]].rewrite_position,
+      color: obj_filt.color,
+      title: obj_filt.semantic_anchor,
+      brief_feedback: obj_filt.brief_feedback,
+      longer_feedback: obj_filt.longer_feedback,
+      rewrite: obj_filt.rewrite,
+      rewrite_position: obj_filt.rewrite_position,
     });
     return previousElement;
   },
@@ -408,18 +798,22 @@ function showEditorPopUp(contents) {
     box.style.left = (cords.left - 100).toString() + "px";
   }
   box.style.top = (cords.top + 30).toString() + "px";
-
   box.style.display = "flex";
 
-  document
-    .querySelector(".readmore-container button")
-    .addEventListener("click", function () {
-      showRightbar(contents);
-    });
+  // remove previous event listeners.
+  var old_element = document.querySelector(".readmore-container button");
+  var new_element = old_element.cloneNode(true);
+  old_element.parentNode.replaceChild(new_element, old_element);
+  new_element.addEventListener("click", function () {
+    showRightbar(contents);
+  });
 }
 
 function closeNewPopup() {
-  document.getElementsByClassName("L2-popup")[0].style.display = "none";
+  let popup = document.querySelector(".L2-popup");
+  if (popup) {
+    popup.style.display = "none";
+  }
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -428,87 +822,194 @@ function showRightbar(contents) {
   document.querySelector(".right-sidebar h3").textContent = contents.title;
   document.querySelector(".right-sidebar p").textContent =
     contents.longer_feedback;
-  // document.getElementById("rightsidebar").style.width = "250px";
   document.getElementById("rightsidebar").style.right = "0px";
-  // document.getElementById("myBottombar").style.right = "0px";
+
+  let b_rewrite = false;
+  if (contents.rewrite !== null) {
+    b_rewrite = contents.rewrite.length > 0;
+  }
 
   let rewrite_button = document.querySelector("button.rewrite-button");
 
-  let new_rewrite_button = rewrite_button.cloneNode(true);
-  rewrite_button.parentNode.replaceChild(new_rewrite_button, rewrite_button);
-  new_rewrite_button.addEventListener("click", function () {
-    closeNewPopup();
-    triggerRewrite(contents);
-  });
+  if (b_rewrite) {
+    rewrite_button.style.display = "block";
+    let new_rewrite_button = rewrite_button.cloneNode(true);
+    rewrite_button.parentNode.replaceChild(new_rewrite_button, rewrite_button);
+    new_rewrite_button.addEventListener("click", function () {
+      closeNewPopup();
+      triggerRewrite(contents);
+    });
+  } else {
+    rewrite_button.style.display = "none";
+  }
 }
 
 function closeRightBar() {
   // document.getElementById("rightsidebar").style.width = "0px";
   document.getElementById("rightsidebar").style.right = "-250px";
   // document.getElementById("myBottombar").style.right = "0px";
+  cleanMarks();
 }
 
 function triggerRewrite(contents) {
   console.log(contents.rewrite, contents.rewrite_position);
+  if (placeholder_active) {
+    return false;
+  }
+
+  // IMPLEMENT HERE IF NEED TO DECIDE ON MULTIPLE REWRITE OPTIONS FROM DICT ARRAYS
+  // currently, just extracting the one item
+  let rewrite_content =
+    contents.rewrite[Math.floor(Math.random() * contents.rewrite.length)];
+  // let rewrite_position = contents.rewrite_position;
+  // console.log(rewrite_content, rewrite_position);
 
   let curr_doc = cm.getDoc();
 
   switch (contents.rewrite_position) {
-    case "after":
-      placeholder_location = "after";
-      let end_line = curr_doc.lineCount() - 1;
-      let end_ch = cm.getLine(end_line).length;
+    case "end":
+      placeholder_location = "end";
 
-      let last_char = curr_doc.getRange(
-        { line: end_line, ch: end_ch - 1 },
-        { line: end_line, ch: end_ch }
+      cm.replaceRange(". " + rewrite_content + " ", contents.search_coords);
+      cm_placeholder = cm.markText(
+        {
+          line: contents.search_coords.line,
+          ch: contents.search_coords.ch + 2,
+        },
+        {
+          line: contents.search_coords.line,
+          ch: contents.search_coords.ch + rewrite_content.length + 2,
+        },
+        { className: "placeholder" }
       );
 
-      if (!(last_char === " " || last_char === "")) {
-        curr_doc.replaceRange(" ", { line: end_line, ch: end_ch++ });
-      }
+      // console.log("cm_placeholder", cm_placeholder);
+
       cm.focus();
-      cm.setCursor({ line: end_line, ch: end_ch });
+      cm.setCursor({
+        line: contents.search_coords.line,
+        ch: contents.search_coords.ch + 2,
+      });
 
-      suggestion = contents.rewrite;
-      delta_edits_suggestion = "";
-
-      showPlaceholder(contents.rewrite, { line: end_line, ch: end_ch });
+      before_change_flag = true;
 
       placeholder_active = true;
+      placeholder_coords = {
+        from: contents.search_coords,
+        to: {
+          line: contents.search_coords.line,
+          ch: contents.search_coords.ch + rewrite_content.length,
+        },
+      };
+      suggestion = rewrite_content;
+      delta_edits_suggestion = "";
+      suggestion_cursor = 0;
+
+      break;
+
+    case "after":
+      // need to handle if there is text after current marker.
+      // currently only implemented after placeholder for after document ends.
+      placeholder_location = "after";
+
+      // 1. check if at end of document or not
+      // 2. if not at end use cm placeholder option <--------
+      let implementation = "cm";
+
+      if (implementation === "cm") {
+        let period_cords = null;
+        period_cords = findPeriodAfter(contents);
+
+        if (period_cords === null) {
+          // no period after target word. Set target ch = line.length;
+          let linelength = cm.getLine(contents.search_coords.from.line).length;
+          period_cords = {
+            line: contents.search_coords.from.line,
+            ch: linelength,
+          }; //
+        }
+
+        // add space
+        // cm.replaceRange(" ", period_cords);
+
+        // insert placeholder
+        cm.replaceRange(" " + rewrite_content + " ", period_cords);
+        period_cords["ch"] += 1; // adjust for initial space
+        cm_placeholder = cm.markText(
+          period_cords,
+          {
+            line: period_cords.line,
+            ch: period_cords.ch + rewrite_content.length,
+          },
+          { className: "placeholder" }
+        );
+
+        console.log("cm_placeholder", cm_placeholder);
+
+        cm.focus();
+        cm.setCursor(period_cords);
+
+        before_change_flag = true;
+
+        placeholder_active = true;
+        placeholder_coords = {
+          from: period_cords,
+          to: {
+            line: period_cords.line,
+            ch: period_cords.ch + rewrite_content.length,
+          },
+        };
+        suggestion = rewrite_content;
+        delta_edits_suggestion = "";
+        suggestion_cursor = 0;
+      } else {
+        let end_line = curr_doc.lineCount() - 1;
+        let end_ch = cm.getLine(end_line).length;
+
+        let last_char = curr_doc.getRange(
+          { line: end_line, ch: end_ch - 1 },
+          { line: end_line, ch: end_ch }
+        );
+
+        if (!(last_char === " " || last_char === "")) {
+          curr_doc.replaceRange(" ", { line: end_line, ch: end_ch++ });
+        }
+        cm.focus();
+        cm.setCursor({ line: end_line, ch: end_ch });
+
+        suggestion = rewrite_content;
+        delta_edits_suggestion = "";
+
+        showPlaceholder(rewrite_content, { line: end_line, ch: end_ch });
+
+        placeholder_active = true;
+      }
 
       break;
     case "before":
       placeholder_location = "before";
       let period_cords = null;
 
-      // search period after target text
-      // try {
-      //   period_cords = search(".", contents.search_coords.from);
-      // } catch (e) {
-      //   console.log("search error:", e);
-      // }
-      // if (period_cords === null) {
-      //   // no period after target word
-      // }
-
       // search previous period by comparing with target text cords
-      period_cords = findPeriod(contents, period_cords);
+      period_cords = findPeriodBefore(contents);
 
       if (period_cords === null) {
         // no period before sentence. Set target ch = 0;
+        console.log("no period found - beforetrigger");
         period_cords = { line: contents.search_coords.from.line, ch: 0 };
       } else {
+        console.log("period found - beforetrigger", period_cords);
+
         period_cords["ch"] += 1;
       }
 
       // insert text + tag with placeholder class
-      cm.replaceRange(contents.rewrite + " ", period_cords);
+      cm.replaceRange(rewrite_content + " ", period_cords);
       cm_placeholder = cm.markText(
         period_cords,
         {
           line: period_cords.line,
-          ch: period_cords.ch + contents.rewrite.length,
+          ch: period_cords.ch + rewrite_content.length,
         },
         { className: "placeholder" }
       );
@@ -523,10 +1024,10 @@ function triggerRewrite(contents) {
         from: period_cords,
         to: {
           line: period_cords.line,
-          ch: period_cords.ch + contents.rewrite.length,
+          ch: period_cords.ch + rewrite_content.length,
         },
       };
-      suggestion = contents.rewrite;
+      suggestion = rewrite_content;
       delta_edits_suggestion = "";
       suggestion_cursor = 0;
 
@@ -534,36 +1035,56 @@ function triggerRewrite(contents) {
     case "replace":
       placeholder_location = "replace";
       // find target word
-      console.log("target word: ", "writing");
+      console.log("word to delete: ", contents.word);
+      console.log("word to type: ", rewrite_content);
 
       // ---------- Need to edit to ensure the right word was marked.
       let search_coords;
       try {
         search_coords = search(
-          "writing",
+          contents.word,
           { line: contents.search_coords.from.line, ch: 0 },
           0
         );
-        console.log("search_coords", search_coords);
-        cm_placeholder = cm.markText(search_coords.from, search_coords.to, {
-          className: "placeholder replace_ph",
-        });
+        cm_placeholder_toreplace = cm.markText(
+          search_coords.from,
+          search_coords.to,
+          {
+            className: "placeholder replace_ph",
+          }
+        );
       } catch (e) {
         if (e === "Not Found") {
-          return previousElement;
+          console.log("NOT FOUND ERROR IN SEARCH");
         }
       }
-      // get search.from position
-      // - insert space
+
       cm.replaceRange(" ", search_coords.from);
-      // - move cursor here
+      cm.replaceRange(rewrite_content + " ", search_coords.from);
+      cm_placeholder = cm.markText(
+        search_coords.from,
+        {
+          line: search_coords.from.line,
+          ch: search_coords.from.ch + rewrite_content.length,
+        },
+        { className: "placeholder" }
+      );
+
       cm.focus();
       cm.setCursor(search_coords.from);
 
-      placeholder_active = true;
-      placeholder_coords = search_coords;
+      before_change_flag = true;
 
-      suggestion = contents.rewrite;
+      placeholder_active = true;
+      placeholder_coords = {
+        from: search_coords.from,
+        to: {
+          line: search_coords.from.line,
+          ch: search_coords.from.ch + rewrite_content.length,
+        },
+      };
+
+      suggestion = rewrite_content;
       delta_edits_suggestion = "";
       suggestion_cursor = 0;
       // then -- track changes
@@ -573,28 +1094,51 @@ function triggerRewrite(contents) {
     default:
       break;
   }
+
+  return true;
 }
 
-function findPeriod(contents, period_cords) {
-  let ch_counter = 0;
-  while (ch_counter < contents.search_coords.from.ch) {
-    try {
-      let cursor = cm.getSearchCursor(".", {
-        line: contents.search_coords.from.line,
-        ch: ch_counter++,
-      });
-      if (cursor.find(false)) {
-        // if found
-        if (!(cursor.from().ch > contents.search_coords.from.ch)) {
-          // if in bounds
-          period_cords = cursor.to();
-        }
-      }
-    } catch (e) {
-      ch_counter++;
-    }
+function findPeriodBefore(contents) {
+  let result = null;
+  let cursor;
+
+  try {
+    cursor = cm.getSearchCursor(".", contents.search_coords.from, {
+      multiline: "disable",
+    });
+    cursor.findPrevious(false);
+  } catch (e) {
+    console.log("error in findPeriodBefore search", e);
   }
-  return period_cords;
+
+  result = cursor.to();
+  if (cursor.to().line !== contents.search_coords.from.line) {
+    result = null;
+  }
+
+  return result;
+}
+
+function findPeriodAfter(contents) {
+  let result = null;
+  let cursor;
+
+  try {
+    cursor = cm.getSearchCursor(".", contents.search_coords.from, {
+      multiline: "disable",
+    });
+    cursor.find(false);
+  } catch (e) {
+    console.log("error in findPerioAfter search", e);
+    result = null;
+  }
+
+  result = cursor.to();
+  if (cursor.to().line !== contents.search_coords.from.line) {
+    result = null;
+  }
+
+  return result;
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -661,24 +1205,20 @@ function dismissPlaceholder() {
   }
 
   // cm solution
-  console.log("cm_placeholder", cm_placeholder);
-  if (Object.keys(cm_placeholder) !== 0) {
-    if (placeholder_location === "replace") {
-      if (suggestion === delta_edits_suggestion) {
-        // win
-        let mark_locations = cm_placeholder.find();
-        console.log("ph mark", mark_locations);
-        cm.replaceRange("", mark_locations.from, mark_locations.to);
-        cm_placeholder = {};
-      } else {
-        cm_placeholder.clear();
-        cm_placeholder = {};
-      }
-    } else {
-      let mark_locations = cm_placeholder.find();
-      console.log("ph mark", mark_locations);
+  if (Object.keys(cm_placeholder).length !== 0) {
+    let mark_locations = cm_placeholder.find();
+
+    if (typeof mark_locations != "undefined") {
       cm.replaceRange("", mark_locations.from, mark_locations.to);
       cm_placeholder = {};
+    }
+  }
+  if (Object.keys(cm_placeholder_toreplace).length !== 0) {
+    let mark_locations = cm_placeholder_toreplace.find();
+
+    if (typeof mark_locations != "undefined") {
+      cm.replaceRange("", mark_locations.from, mark_locations.to);
+      cm_placeholder_toreplace = {};
     }
   }
 
@@ -1063,7 +1603,6 @@ function openNav() {
   if (bottombar) {
     bottombar.style.left = "220px";
   }
-
   document.getElementById("opnsidebar").setAttribute("onclick", "closeNav()");
 }
 
@@ -1077,14 +1616,20 @@ function closeNav() {
 }
 
 function openDef() {
-  document.getElementById("myBottombar").style.height = "auto";
-  document.getElementById("myBottombar").style.minHeight = "200px";
+  let bottombar = document.getElementById("myBottombar");
+  if (bottombar) {
+    bottombar.style.height = "auto";
+    bottombar.style.minHeight = "200px";
+  }
   document.getElementById("main").style.marginBottom = "250px";
 }
 
 function closeDef() {
-  document.getElementById("myBottombar").style.height = "0";
-  document.getElementById("myBottombar").style.minHeight = "0";
+  let bottombar = document.getElementById("myBottombar");
+  if (bottombar) {
+    bottombar.style.height = "0";
+    bottombar.style.minHeight = "0";
+  }
   document.getElementById("main").style.marginBottom = "0";
 }
 
@@ -1169,7 +1714,7 @@ cm.on("beforeChange", function (cm, changeObj) {
     changeObj.origin === "+delete"
   ) {
     console.log("beforchange delete");
-    backspacePlaceholder();
+    backspacePlaceholder(changeObj);
   }
   // If change occurs somewhere else, query mark and clear it. --> aka dismiss
 });
@@ -1186,22 +1731,29 @@ function newEdit(prevChangeObj) {
 
   setTimeout(() => {
     before_change_flag = true;
-  }, 10);
+  }, 5);
 }
 
-function backspacePlaceholder() {
+function backspacePlaceholder(prevChangeObj) {
   // ---------------------------------------------------------------------------------------- TODO:
   // use suggestion cursor to get backspaced letter
   console.log(
     "backspacePlaceholder suggestion[suggestion_cursor]",
     suggestion[suggestion_cursor]
   );
+  before_change_flag = false;
+  // cm.replaceRange(suggestion[suggestion_cursor], prevChangeObj.from);
   // then insert with placeholder mark
+
+  setTimeout(() => {
+    before_change_flag = true;
+  }, 5);
 }
 
 let before_change_flag = false;
 
 let cm_placeholder = {};
+let cm_placeholder_toreplace = {};
 let placeholder_active = false;
 let placeholder_location = "";
 let placeholder_coords = {}; // two coords objects if bounded by two. one if at the end
@@ -1221,61 +1773,44 @@ function resetPHStates() {
 // if input --> changeObj.origin === "+input"
 // if delete --> changeObj.origin === "+delete"
 cm.on("change", function (cm, changeObj) {
-  console.log("inside onchange func", changeObj);
+  // watchL1();
+  if (L1_active) {
+    clearL1interval();
+  }
+
+  // console.log("inside onchange func", changeObj);
+
   let input = changeObj.text;
   let removed = changeObj.removed;
 
   if (placeholder_active) {
-    // detect edit location ----------------------------------
+    // detect edit location --------------------------------------------------------------------
+    // check two bounds - necessary in case in between texts
     if (
-      placeholder_location === "before" ||
-      placeholder_location === "replace"
+      changeObj.from.line < placeholder_coords.from.line ||
+      changeObj.from.ch < placeholder_coords.from.ch ||
+      changeObj.from.line > placeholder_coords.to.line ||
+      changeObj.from.ch > placeholder_coords.to.ch
     ) {
-      // check two bounds - necessary in case in between texts
-      if (
-        changeObj.from.line < placeholder_coords.from.line ||
-        changeObj.from.ch < placeholder_coords.from.ch ||
-        changeObj.from.line > placeholder_coords.to.line ||
-        changeObj.from.ch > placeholder_coords.to.ch
-      ) {
-        console.log("dimissing ph");
-        closePH_lose();
-        before_change_flag = false;
-      }
-    } else if (placeholder_location === "after") {
-      // check only final end bound
-      if (
-        changeObj.from.line < placeholder_coords.from.line ||
-        changeObj.from.ch < placeholder_coords.from.ch
-      ) {
-        closePH_lose();
-        before_change_flag = false;
-      }
-    }
-
-    // detect newline ----------------------------------
-    if (input.length === 2) {
-      console.log("new line --> closingPH lose");
+      console.log("EDIT OUSTIDE OF BOUNDS - dimissing ph");
       closePH_lose();
       before_change_flag = false;
     }
 
-    // backspace -- pop from delta + decrement cursor
-    else if (input[0] === "" && removed[0] !== "" && removed[0].length === 1) {
-      if (placeholder_location === "after") {
-        delta_edits_suggestion = delta_edits_suggestion.slice(0, -1);
-        suggestion_cursor--;
-      } else {
-        // backspace for cm_placeholder
-        // ---------------------------------------------------------------------TODO: missing backspace on replace/before
-        closePH_lose();
-      }
-      // ------------------------------------------------------------------------------------ TODO - compare+show suggestion
+    // detect newline -------------------------------------------------------------------------
+    if (input.length === 2) {
+      console.log("NEWLINE --> dimissing PH");
+      closePH_lose();
+      before_change_flag = false;
     }
 
-    // handle larger deletes/inserts ------------------
+    // backspace -- dismiss for simplicity -----------------------------------------------------
+    else if (input[0] === "" && removed[0] !== "" && removed[0].length === 1) {
+      console.log("BACKSPACE --> dimissing PH");
+      closePH_lose();
+    }
 
-    // on correct -------------------------------------
+    // on correct --------------------------------------------------------------------------
     else if (input[0] === suggestion[suggestion_cursor]) {
       console.log("good", input[0]);
       suggestion_cursor++;
@@ -1285,20 +1820,19 @@ cm.on("change", function (cm, changeObj) {
         reShowPlaceholder();
       }
     }
-    // if typo -- hide -----------------------------------
-    else if (
-      input[0] !== suggestion[suggestion_cursor] &&
-      (placeholder_location !== "after" || removed[0] === "")
-    ) {
-      // console.log("typo!");
-      hidePlaceholder();
-      delta_edits_suggestion += input[0];
-      suggestion_cursor++;
-      typo_counter++;
-    }
-    console.log("typo_counter", typo_counter);
-    if (typo_counter >= 1) {
-      console.log("max errors reached. dismissing");
+    // if typo -- hide ----------------------------------------------------------------------
+    else if (input[0] !== "" && input[0] !== suggestion[suggestion_cursor]) {
+      // {
+      //   hidePlaceholder();
+      //   delta_edits_suggestion += input[0];
+      //   suggestion_cursor++;
+      //   typo_counter++;
+      // }
+
+      // console.log("typo_counter", typo_counter);
+      // if (typo_counter >= 1)
+      console.log("TYPO - dismissing PH");
+      // console.log("max errors reached. dismissing");
       closePH_lose();
       before_change_flag = false;
     }
@@ -1313,6 +1847,8 @@ cm.on("change", function (cm, changeObj) {
 });
 
 function closePH_lose() {
+  // log how much of the rewrite was done
+  // words that came next can be found in rest of logs by checking timestamps.
   dismissPlaceholder();
   resetPHStates();
 }
@@ -1326,14 +1862,10 @@ function closePH_win() {
  * input_cat :  is used to select what analysis category to focus on
  *              By default this string is empty which selects all
  */
-function manualAnalyzeTrigger(force_cook = false, input_cat = "") {
+function manualAnalyzeTrigger(force_cook = false) {
   let previous_feedback = global_feedback;
 
-  if (input_cat === "") {
-    global_feedback = analyzeText();
-  } else {
-    global_feedback = analyzeText(input_cat);
-  }
+  global_feedback = analyzeText();
 
   // skip recook if not needed
   if (
@@ -1360,7 +1892,7 @@ function toggleL2() {
   if (temp.textContent === "Analysis off") {
     temp.textContent = "Analysis on";
     temp.style.opacity = 0.8;
-    manualAnalyzeTrigger((force_cook = true), "");
+    manualAnalyzeTrigger(true);
     L2interval_ID = setInterval(manualAnalyzeTrigger, 200);
   } else {
     temp.textContent = "Analysis off";
@@ -1370,4 +1902,67 @@ function toggleL2() {
   }
 }
 
-toggleL2();
+const L1_T_low = 5000;
+const L1_T_high = 100000;
+let L1_T_current;
+let L1_active = false;
+
+// let L1interval_ID = setInterval(watchL1, L1_T_high);
+let L1interval_ID = null;
+let nWords_fulldoc = 0;
+const L1_words_thresh = 10;
+
+function clearL1interval() {
+  clearInterval(L1interval_ID);
+  L1interval_ID = setInterval(watchL1, L1_T_current);
+}
+
+function watchL1() {
+  if (nWords_fulldoc > L1_words_thresh && L1_T_current !== L1_T_high) {
+    // flip switch
+    console.log("Above thresh: flipping L1 period from low to high");
+    clearInterval(L1interval_ID);
+    L1_T_current = L1_T_high;
+    L1interval_ID = setInterval(watchL1, L1_T_high);
+  } else if (nWords_fulldoc < L1_words_thresh && L1_T_current !== L1_T_low) {
+    console.log("Below thresh: flipping L1 period from high to low");
+    clearInterval(L1interval_ID);
+    L1interval_ID = setInterval(watchL1, L1_T_low);
+    L1_T_current = L1_T_low;
+  }
+
+  console.log("called L1");
+  if (!placeholder_active) {
+    console.log("created L1 Placeholder");
+    let end_line = cm.getDoc().lastLine();
+    let end_ch = cm.getLine(end_line).length;
+    triggerRewrite({
+      search_coords: { line: end_line, ch: end_ch },
+      rewrite: ["I am having the thought of"],
+      rewrite_position: "end",
+    });
+  }
+}
+
+function toggleL1() {
+  let btn = document.querySelector("button.L1Button");
+  if (btn.textContent === "Expressiveness off") {
+    btn.textContent = "Expressiveness on";
+    btn.style.opacity = 0.8;
+    L1_T_current = L1_T_high;
+    L1_active = true;
+    L1interval_ID = setInterval(watchL1, L1_T_high);
+  } else {
+    btn.textContent = "Expressiveness off";
+    dismissPlaceholder();
+    resetPHStates();
+    L1_active = false;
+    btn.style.opacity = 0.3;
+    clearInterval(L1interval_ID);
+  }
+}
+
+if (window.location.href.includes("rephrase")) {
+  toggleL2();
+  toggleL1();
+}
