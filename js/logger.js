@@ -1,6 +1,19 @@
+/**
+ * Latest changes:
+ *
+ * Currently logging:
+ * - on expressiveness/analysis toggles
+ * - Popup onopen, onmove to next event
+ * - Sidebar onopen, onmove to next event
+ * - rewrite - done in keyup handler
+ */
+
 var UnixZero = -1; // Used to record the timestamp of the application
 var mouselog = new Array();
 var keyboardlog = new Array();
+var toggleLog = new Array();
+var popupLog = new Array();
+var sidebarLog = new Array();
 
 function startTimer() {
   let dateTime = Date.now();
@@ -16,21 +29,25 @@ function initialization() {
   mouselog.push({ timestamp: UnixZero, type: "start" });
 }
 
-// Keyboard Operations logger
+// Keyboard Operations logger ----> keyup executes after the press is handled.
 $(document).keyup(function (evt) {
   console.log("inside logger keyup");
   if (UnixZero == -1) {
     initialization();
   }
-  t = evt.timeStamp;
-  text = fetchContent();
-  cursor = cm.getCursor();
+  let ph = "";
+  if (placeholder_active) {
+    ph = suggestion;
+  }
+
   keyboardlog.push({
-    timestamp: t,
+    timestamp: evt.timeStamp,
     type: "type",
     keycode: evt.which,
-    cursor: cursor,
-    text: text,
+    cursor: cm.getCursor(),
+    text: fetchContent(),
+    marks: fetchMarks(),
+    placeholder: ph,
   });
 });
 
@@ -48,7 +65,14 @@ $(document).mousedown(function (evt) {
     initialization();
   }
   t = evt.timeStamp;
-  mouselog.push({ timestamp: t, type: "click", x: evt.pageX, y: evt.pageY });
+
+  mouselog.push({
+    timestamp: t,
+    type: "click",
+    x: evt.pageX,
+    y: evt.pageY,
+    // marks: cm.getAllMarks(),
+  });
 });
 
 // The following functions do not have buttons in the current version and need to be called through the console of the developer tools
@@ -122,4 +146,178 @@ function download(text, filename) {
   document.body.appendChild(anchor);
   anchor.click();
   document.body.removeChild(anchor);
+}
+
+// ----------------------------------------------------------------------------------------
+
+function onL1Toggle(evt) {
+  console.log("inside onL1toggle logger");
+
+  if (UnixZero == -1) {
+    initialization();
+  }
+  t = evt.timeStamp;
+  let state = null;
+  if (evt.target.innerText === "Expressiveness on") {
+    state = true;
+  } else {
+    state = false;
+  }
+  toggleLog.push({
+    type: "toggleL1",
+    timestamp: t,
+    activated: state,
+  });
+}
+
+function onL2Toggle(evt) {
+  // track state change (on/off)
+  console.log("inside onL2toggle logger");
+  // console.log("-evt:", evt);
+  // console.log("-evt.target.innerText:", evt.target.innerText);
+
+  if (UnixZero == -1) {
+    initialization();
+  }
+  t = evt.timeStamp;
+  let state = null;
+  if (evt.target.innerText === "Analysis on") {
+    state = true;
+  } else {
+    state = false;
+  }
+  toggleLog.push({
+    type: "toggleL2",
+    timestamp: t,
+    activated: state,
+  });
+}
+
+let popupLogMark = null;
+
+function logPopup(contents) {
+  console.log("starting logPopup timer");
+  if (UnixZero == -1) {
+    initialization();
+  }
+
+  popupLogMark = performance.mark("popup-performance-mark");
+
+  popupLog.push({
+    type: "popup",
+    timestamp: Date.now(),
+    search_cords: contents.search_cords,
+    word: contents.word,
+    popup_title: contents.popup_title,
+    state: "start",
+  });
+  setTimeout(() => {
+    monitorEvents(document.body);
+  }, 100);
+}
+
+let sidebarLogMark = null;
+
+function stopLogTimerPopup(duration) {
+  console.log("inside stopLogTimerPopup logger. duration in ms:", duration);
+  popupLog.push({
+    timestamp: Date.now(),
+    type: "popup",
+    duration: duration,
+    state: "stop",
+  });
+}
+
+function stopLogTimerSidebar(duration) {
+  console.log("inside stopLogTimerSidebar logger. duration in ms:", duration);
+  popupLog.push({
+    timestamp: Date.now(),
+    type: "sidebar",
+    duration: duration,
+    state: "stop",
+  });
+}
+
+function logSidebar(contents) {
+  console.log("starting logSidebar timer");
+  if (UnixZero == -1) {
+    initialization();
+  }
+  sidebarLogMark = performance.mark("sidebar-performance-mark");
+
+  sidebarLog.push({
+    type: "sidebar",
+    timestamp: Date.now(),
+    word: contents.word,
+    sidebar_title: contents.sidebar_title,
+    state: "start",
+  });
+  setTimeout(() => {
+    monitorEvents(document.body);
+  }, 100);
+}
+
+// -------------------------------- use this to stop other timers
+function monitorEvents(element) {
+  if (popupLogMark !== null) {
+    var stopPopupTimer = function (e) {
+      performance.measure("popupMeasure", "popup-performance-mark");
+      let measures = performance.getEntriesByType("measure");
+
+      stopLogTimerPopup(measures[0].duration);
+
+      performance.clearMarks("popup-performance-mark");
+      performance.clearMeasures("popupMeasure");
+
+      popupLogMark = null;
+      // remove my own listener
+      var events2remove = [];
+      for (var i in element) {
+        if (i.startsWith("onclick") || i.startsWith("onkey"))
+          events2remove.push(i.substring(2));
+      }
+      events2remove.forEach(function (eventName) {
+        element.removeEventListener(eventName, stopPopupTimer);
+      });
+    };
+    // add event listener here
+    var events = [];
+
+    for (var i in element) {
+      if (i.startsWith("onclick") || i.startsWith("onkey"))
+        events.push(i.substring(2));
+    }
+    events.forEach(function (eventName) {
+      element.addEventListener(eventName, stopPopupTimer);
+    });
+  }
+  if (sidebarLogMark !== null) {
+    var stopSidebarTimer = function (e) {
+      // console.log("stoping sidebar timer");
+      performance.measure("sidebarMeasure", "sidebar-performance-mark");
+      let measures = performance.getEntriesByType("measure");
+      stopLogTimerSidebar(measures[0].duration);
+      performance.clearMarks("sidebar-performance-mark");
+      performance.clearMeasures("sidebarMeasure");
+      sidebarLogMark = null;
+      // remove my own listener
+      var events2remove = [];
+      for (var i in element) {
+        if (i.startsWith("onclick") || i.startsWith("onkey"))
+          events2remove.push(i.substring(2));
+      }
+      events2remove.forEach(function (eventName) {
+        element.removeEventListener(eventName, stopSidebarTimer);
+      });
+    };
+    var events = [];
+
+    for (var i in element) {
+      if (i.startsWith("onclick") || i.startsWith("onkey"))
+        events.push(i.substring(2));
+    }
+    events.forEach(function (eventName) {
+      element.addEventListener(eventName, stopSidebarTimer);
+    });
+  }
 }

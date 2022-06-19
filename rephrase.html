@@ -18,7 +18,7 @@
   <!-- <script src="node_modules/codemirror-record/src/CodeRecord.js"></script> -->
   
   <script src="node_modules/leven/index.js"></script>
-  <script src="https://unpkg.com/compromise"></script>
+  <!-- <script src="https://unpkg.com/compromise"></script> -->
 
   <link rel="stylesheet" type="text/css" href="css/style.css" />
   <link rel="stylesheet" id="theme" type="text/css" href="css/theme_light.css" />  <!-- theme_dark是黑暗模式，不过没有调完所有参数，就没加上 -->
@@ -40,6 +40,9 @@
   </div>
 </div>
 
+<div class="download-btn" onclick = "generateFile()" title="Click to generate the file for reporting">Download<br>Button</div>
+
+
 <div class="right-sidebar" id="rightsidebar">
   <div class="close-btn" onclick="closeRightBar()"></div>
   <h3>some header</h3>
@@ -56,13 +59,7 @@
   <!-- END DEBUG BUTTONS ----------------------------------------------------->
   <a id="toast" href="javascript:void(0)" onclick = "manualSave()">Save</a>
   <div>
-    <!--<button class="swtbtn" id="markswitch" onclick="displayMarks()"></button>
-    <button class="savebtn" id="manualsave" onclick="manualSave()"></button>
-    <button class="newbtn" id="newentry" onclick="newEntry()"></button>
-    <button class="recordbtn" id="record" onclick="startRecord()"></button> -->
-    <a onclick="changeMode('writing')" class="mode-button" title="Click to enter writing mode">Writing</a>
-    <!-- <a onclick="changeMode('expert')" class="mode-button" title="Click to enter reflection mode">Reflection</a> -->
-    <a href="javascript:void(0)" class="mode-label" title="Now in rephrase mode">Rephrase</a>
+    <a href="javascript:void(0)" class="mode-label">Espresso</a>
   </div>
 </div>
 <div id="container">
@@ -129,9 +126,9 @@
 </body>
 
 <!-- Espresso.js -->
+<script type="text/javascript" src="js/logger.js"></script>
 <script type="text/javascript" src="js/funcs.js"></script>
 <!-- <script type="text/javascript" src="js/expert.js"></script> -->
 <script type="text/javascript" src="js/indexDB.js"></script>
-<script type="text/javascript" src="js/logger.js"></script>
 
 </html> 

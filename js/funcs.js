@@ -1,50 +1,49 @@
-/**
- * Latest updates: 05/17/22
- * - smartcompose features almost ready
- *   - after placeholder works pretty well (not perfect)
- *   - need to fine tune edit interactions for "before" + "replace" placeholders
- *   - need to implement "replace" placeholder
+/*                      }_{ __{
+ *                   .-{   }   }-.
+ *                  (   }     {   )
+ *                  |`-.._____..-'|
+ *                  |             ;--.
+ *                  |            (__  \
+ *                  |             | )  )
+ *                  |             |/  /
+ *                  |            (  /
+ *                  \             y'
+ *                   `-.._____..-'
+ *     ______
+ *    / ____/________  ________  ______________
+ *   / __/ / ___/ __ \/ ___/ _ \/ ___/ ___/ __ \
+ *  / /___(__  ) /_/ / /  /  __(__  |__  ) /_/ /
+ * /_____/____/ .___/_/   \___/____/____/\____/
+ *           /_/
  *
- * - general improvements missing
- *   - improve analysis by leveraging wordnet + phrase extensions
- *   - compile found matches in sentences and focus on 1 strategy based on importance (?)
+ *  Latest updates: 06/07/22
  *
- * - need to confirm logger is working well
+ * Fixes:
+ * - replace word interaction (when to delete strikethrough letter)
  *
- * - need to validate deployment scripts + adjust if necessary
+ * Pending Finetuning
+ * - placeholder
+ * - editor width
+ * - L1 time intervals
+ *
+ * Recent features:
+ * - save json
+ *
+ * Next features:
+ * - save use of project features --> need DB understanding
+ *  - accepted rewrites
+ *  - clicks on buttons to toggle popups/or rewrites
+ * - implement dismissing analysis and saving that to cache - dict
+ *
+ * future items:
+ * - logo
+ * - themes (retro cyber!)
+ *  - reuse the colors in the dict - maybe have as primary the most repeated one after analysis
  *
  */
 
-function testNLP() {
-  let selectedText = cm.getSelection();
-  console.log(normalizeText(selectedText));
-  let target = "james";
-  console.log("leven test", leven(selectedText, target));
-}
-
-let normOptions = {
-  whitespace: true,
-  case: false,
-  punctuation: false,
-  unicode: false,
-  contractions: true,
-  acronyms: false,
-  parentheses: false,
-  possessives: true,
-  plurals: true,
-  verbs: true,
-  honorifics: false,
-};
-
-function normalizeText(input) {
-  if (typeof input === "string") {
-    return nlp(input).normalize(normOptions).out();
-  }
-  // handle arrays ...
-}
-
+// init codeMirror
 var write = document.getElementById("write");
-// init codeMirror - manipulate document using cm instance methods
 var cm = CodeMirror.fromTextArea(write, {
   lineWrapping: true,
   lineNumbers: false,
@@ -54,15 +53,20 @@ var cm = CodeMirror.fromTextArea(write, {
 });
 
 /**
- * initializing globals
+ * initializing globals for tweaking interaction parameters.
  *
  */
 let word_counter = {}; // <--- dict needed to capture right place of word.
 let global_feedback = [];
+let nTyposPossible = 3;
+let toggleAtomic = true;
+// bring L1 intervals here
 
 let dict_temp = [
   {
     strategy_code: "L2a",
+    popup_title: "Positive Adjectives",
+    sidebar_title: "Positive Adjectives",
     category_number: 1,
     semantic_anchor: "Positive Adjectives",
     words: ["brave"],
@@ -75,6 +79,8 @@ let dict_temp = [
     color: "#597dce",
   },
   {
+    popup_title: "Negative Adjectives",
+    sidebar_title: "Negative Adjectives",
     strategy_code: "L2a",
     category_number: 2,
     semantic_anchor: "Negative Adjectives",
@@ -88,6 +94,8 @@ let dict_temp = [
     color: "#d27d2c",
   },
   {
+    popup_title: "Should Statement",
+    sidebar_title: "Should Statement",
     strategy_code: "L2b",
     category_number: 1,
     semantic_anchor: "Should Statement",
@@ -101,6 +109,8 @@ let dict_temp = [
     color: "#8595a1",
   },
   {
+    popup_title: "All or Nothing Thinking / Overgeneralization",
+    sidebar_title: "All or Nothing Thinking / Overgeneralization",
     strategy_code: "L2b",
     category_number: 2,
     semantic_anchor: "All or Nothing Thinking / Overgeneralization",
@@ -131,6 +141,8 @@ let dict_temp = [
     color: "#6daa2c",
   },
   {
+    popup_title: "Catastrophizing",
+    sidebar_title: "Catastrophizing",
     strategy_code: "L2b",
     category_number: 3,
     semantic_anchor: "Catastrophizing",
@@ -146,6 +158,8 @@ let dict_temp = [
     color: "#d2aa99",
   },
   {
+    popup_title: "Dysfunctional Self-Talk",
+    sidebar_title: "Dysfunctional Self-Talk",
     strategy_code: "L2c",
     category_number: 0,
     semantic_anchor: "Dysfunctional Self-Talk",
@@ -501,6 +515,125 @@ let dict_temp = [
   },
 ];
 
+let dict_temp_demo = [
+  {
+    strategy_code: "L2a",
+    category_number: 1,
+    semantic_anchor: "Negative Emotions",
+    popup_title: "Negative Emotions",
+    sidebar_title: "Negative Emotions",
+    words: ["hurt", "lack of confidence", "sad", "worried"],
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "First I accept all my emotions whether they are positive or negative, I also realize there are some actions I can make rather than let the emotions control me, such as",
+    ],
+    rewrite_position: "after",
+    brief_feedback: null,
+    longer_feedback: null,
+    color: "#4b93ff",
+  },
+  {
+    strategy_code: "L2a",
+    category_number: 2,
+    semantic_anchor: "Negative Emotions",
+    popup_title: "Cognitive distortion",
+    sidebar_title: "Cognitive Defusion",
+    words: ["a bad way"],
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: ["A different perspective might be"],
+    rewrite_position: "after",
+    brief_feedback: "",
+    longer_feedback:
+      "The purpose of cognitive defusion is to enable you to be aware of the actual process of your thinking so you are better able to reflect objectively and problem solve effectively before taking any action.",
+    color: "#2daf33",
+  },
+  {
+    strategy_code: "L2a",
+    category_number: 3,
+    semantic_anchor: "Negative Emotions",
+    popup_title: "Dysfunctional self-talk",
+    sidebar_title: "Cognitive Defusion",
+    words: ["am a loser"],
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: ["I have the thought of"],
+    rewrite_position: "before",
+    brief_feedback:
+      "Negative thinking has wide-reaching implications for your mental health. When they become a pattern, they can turn into depressed or anxious thinking. Cognitive defusion can help deal with this.",
+    longer_feedback:
+      "The purpose of cognitive defusion is to enable you to be aware of the actual process of your thinking so you are better able to reflect objectively and problem solve effectively before taking any action.",
+    color: "#2daf33",
+  },
+  {
+    strategy_code: "L2a",
+    category_number: 4,
+    semantic_anchor: "Negative Emotions",
+    popup_title: "Cognitive Distortion",
+    sidebar_title: "Cognitive Defusion",
+    words: ["lost all"],
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "But the reality is more complicated than just white or black, there are exceptions:",
+    ],
+    rewrite_position: "after",
+    brief_feedback: "All or nothing thinking.",
+    longer_feedback: "Seeking for exceptions",
+    color: "#2daf33",
+  },
+  {
+    strategy_code: "L2a",
+    category_number: 5,
+    semantic_anchor: "Negative Emotions",
+    popup_title: "Cognitive Distortion",
+    sidebar_title: "Cognitive Defusion",
+    words: ["didn't deserve it"],
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: ["but I understand my thought simply aren't facts"],
+    rewrite_position: "after",
+    brief_feedback: "All or nothing thinking.",
+    longer_feedback: "Seeking for exceptions",
+    color: "#2daf33",
+  },
+  {
+    strategy_code: "L2a",
+    category_number: 6,
+    semantic_anchor: "Negative Emotions",
+    popup_title: "Should Statement",
+    sidebar_title: "Cognitive Defusion",
+    words: ["should"],
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [""],
+    rewrite_position: "replace",
+    brief_feedback:
+      "A “should statement” is a type of negative thinking pattern that can cause feelings of doubt and fear in a person. These types of statements are a form of cognitive distortion.",
+    longer_feedback:
+      'Avoid limiting yourself by setting should and should not; you are in charge of your life. Instead, use "I accept, I choose, I plan, I want"',
+    color: "#597dce",
+  },
+  {
+    strategy_code: "L2a",
+    category_number: 6,
+    semantic_anchor: "Negative Emotions",
+    popup_title: "Should Statement",
+    sidebar_title: "Cognitive Defusion",
+    words: ["should not"],
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: ["I accept myself when"],
+    rewrite_position: "before",
+    brief_feedback:
+      'A "should statement" is a type of negative thinking pattern that can cause feelings of doubt and fear in a person. These types of statements are a form of cognitive distortion.',
+    longer_feedback:
+      'Avoid limiting yourself by setting should and should not; you are in charge of your life. Instead, use "I accept, I choose, I plan, I want"',
+    color: "#597dce",
+  },
+];
+
 /*************************************************************************** NEW ADDS */
 
 function get_ngram(alist, n) {
@@ -516,8 +649,6 @@ function get_ngram(alist, n) {
 }
 
 function analyzeText() {
-  // ---------------------------------------------------------------------------------------TODO missing wordnet extension
-
   global_feedback = [];
   word_counter = {};
 
@@ -534,11 +665,15 @@ function analyzeText() {
 
   allText = allText.concat(get_ngram(allText, 2), get_ngram(allText, 3));
 
+  // console.log(allText);
+
   // param needed for search
   let start = CodeMirror.Pos(cm.firstLine(), 0);
 
   // store categories for matched words
   let categories = [];
+
+  //
 
   // filter words not in dict
   allText = allText.filter(function (element) {
@@ -607,6 +742,8 @@ function analyzeText() {
       word: currentElement,
       color: obj_filt.color,
       title: obj_filt.semantic_anchor,
+      popup_title: obj_filt.popup_title,
+      sidebar_title: obj_filt.sidebar_title,
       brief_feedback: obj_filt.brief_feedback,
       longer_feedback: obj_filt.longer_feedback,
       rewrite: obj_filt.rewrite,
@@ -621,42 +758,6 @@ function analyzeText() {
   return returnArr;
 }
 
-function killSequence() {
-  // remove periodic intervals
-  if (L2interval_ID !== null) {
-    toggleL2();
-  }
-
-  // remove highlihgts
-  cleanMarks();
-
-  // close popup
-  if (document.getElementsByClassName("L2-popup")) {
-    document.getElementsByClassName("L2-popup")[0].style.display = "none";
-  }
-
-  // closeright bar
-  // document.getElementById("rightsidebar").style.width = "0px";
-  document.getElementById("myBottombar").style.right = "-250px";
-
-  word_counter = {};
-  global_feedback = [];
-
-  // rm all squares
-  clearSquares();
-}
-
-function clearSquares() {
-  let squarelist = document.getElementsByClassName("clickable-marker");
-  if (squarelist) {
-    Array.from(squarelist).forEach(function (element) {
-      element.remove();
-    });
-  }
-  return;
-}
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // https://discuss.codemirror.net/t/programmatically-search-and-select-a-keyword/1666
 function search(astring, start, offset = 0) {
   // uses offset to differentiate among multiple matches
@@ -680,9 +781,7 @@ function search(astring, start, offset = 0) {
   }
 }
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-function showSquare(args, index = "", nearestPeriod = false) {
+function showSquare(args, index = "") {
   var cords = cm.cursorCoords(args.search_coords.to);
   var color = args.color;
 
@@ -720,6 +819,15 @@ function showSquare(args, index = "", nearestPeriod = false) {
   document.body.appendChild(marker);
 }
 
+function clearSquares() {
+  let squarelist = document.getElementsByClassName("clickable-marker");
+  if (squarelist) {
+    Array.from(squarelist).forEach(function (element) {
+      element.remove();
+    });
+  }
+  return;
+}
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 var rephrase_lastTagObj = null; // is this really necessary? if not delete
@@ -760,9 +868,17 @@ function highlightText(args, index = "") {
   // add popup onclick
   let hls = document.getElementsByClassName("L2-highlight");
   for (let i = 0; i < hls.length; i++) {
-    hls[i].addEventListener("click", function () {
+    hls[i].addEventListener("click", function (evt) {
       showEditorPopUp(args);
+      // logPopup(evt);
     });
+    // hls[i].addEventListener(
+    //   "click",
+    //   (evt) => {
+    //     logPopup(evt);
+    //   },
+    //   args
+    // );
     hls[i].addEventListener("mouseover", function () {
       document.documentElement.style.setProperty(
         "--L2-highlight-color",
@@ -783,8 +899,10 @@ function highlightText(args, index = "") {
 function showEditorPopUp(contents) {
   let box = document.getElementsByClassName("L2-popup")[0];
   var cords = cm.cursorCoords(true);
+  logPopup(contents);
 
-  document.getElementById("popup-header").textContent = contents.title;
+  // document.getElementById("popup-header").textContent = contents.title;
+  document.getElementById("popup-header").textContent = contents.popup_title;
   document.getElementById("popup-content").textContent =
     contents.brief_feedback;
 
@@ -819,10 +937,14 @@ function closeNewPopup() {
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 function showRightbar(contents) {
-  document.querySelector(".right-sidebar h3").textContent = contents.title;
+  // document.querySelector(".right-sidebar h3").textContent = contents.title;
+  document.querySelector(".right-sidebar h3").textContent =
+    contents.sidebar_title;
   document.querySelector(".right-sidebar p").textContent =
     contents.longer_feedback;
   document.getElementById("rightsidebar").style.right = "0px";
+
+  logSidebar(contents);
 
   let b_rewrite = false;
   if (contents.rewrite !== null) {
@@ -846,53 +968,52 @@ function showRightbar(contents) {
 
 function closeRightBar() {
   // document.getElementById("rightsidebar").style.width = "0px";
-  document.getElementById("rightsidebar").style.right = "-250px";
+
+  let rightbar = document.getElementById("rightsidebar");
+  if (rightbar) {
+    rightbar.style.right = "-250px";
+  }
   // document.getElementById("myBottombar").style.right = "0px";
   cleanMarks();
 }
 
 function triggerRewrite(contents) {
-  console.log(contents.rewrite, contents.rewrite_position);
   if (placeholder_active) {
     return false;
   }
+
+  let period_cords = null;
+  let curr_doc = cm.getDoc();
 
   // IMPLEMENT HERE IF NEED TO DECIDE ON MULTIPLE REWRITE OPTIONS FROM DICT ARRAYS
   // currently, just extracting the one item
   let rewrite_content =
     contents.rewrite[Math.floor(Math.random() * contents.rewrite.length)];
-  // let rewrite_position = contents.rewrite_position;
-  // console.log(rewrite_content, rewrite_position);
 
-  let curr_doc = cm.getDoc();
-
+  // check for ". " to avoid introducing unecessary ones + insert good ones
   switch (contents.rewrite_position) {
+    // for L1
     case "end":
-      placeholder_location = "end";
-
-      cm.replaceRange(". " + rewrite_content + " ", contents.search_coords);
+      cm.replaceRange(rewrite_content + " ", contents.search_coords);
       cm_placeholder = cm.markText(
         {
           line: contents.search_coords.line,
-          ch: contents.search_coords.ch + 2,
+          ch: contents.search_coords.ch,
         },
         {
           line: contents.search_coords.line,
-          ch: contents.search_coords.ch + rewrite_content.length + 2,
+          ch: contents.search_coords.ch + rewrite_content.length,
         },
-        { className: "placeholder" }
+        { className: "placeholder", atomic: toggleAtomic }
       );
-
-      // console.log("cm_placeholder", cm_placeholder);
 
       cm.focus();
       cm.setCursor({
         line: contents.search_coords.line,
-        ch: contents.search_coords.ch + 2,
+        ch: contents.search_coords.ch,
       });
 
       before_change_flag = true;
-
       placeholder_active = true;
       placeholder_coords = {
         from: contents.search_coords,
@@ -908,98 +1029,61 @@ function triggerRewrite(contents) {
       break;
 
     case "after":
-      // need to handle if there is text after current marker.
-      // currently only implemented after placeholder for after document ends.
-      placeholder_location = "after";
+      period_cords = null;
+      period_cords = findPeriod(contents);
 
-      // 1. check if at end of document or not
-      // 2. if not at end use cm placeholder option <--------
-      let implementation = "cm";
-
-      if (implementation === "cm") {
-        let period_cords = null;
-        period_cords = findPeriodAfter(contents);
-
-        if (period_cords === null) {
-          // no period after target word. Set target ch = line.length;
-          let linelength = cm.getLine(contents.search_coords.from.line).length;
-          period_cords = {
-            line: contents.search_coords.from.line,
-            ch: linelength,
-          }; //
-        }
-
-        // add space
-        // cm.replaceRange(" ", period_cords);
-
-        // insert placeholder
-        cm.replaceRange(" " + rewrite_content + " ", period_cords);
-        period_cords["ch"] += 1; // adjust for initial space
-        cm_placeholder = cm.markText(
-          period_cords,
-          {
-            line: period_cords.line,
-            ch: period_cords.ch + rewrite_content.length,
-          },
-          { className: "placeholder" }
-        );
-
-        console.log("cm_placeholder", cm_placeholder);
-
-        cm.focus();
-        cm.setCursor(period_cords);
-
-        before_change_flag = true;
-
-        placeholder_active = true;
-        placeholder_coords = {
-          from: period_cords,
-          to: {
-            line: period_cords.line,
-            ch: period_cords.ch + rewrite_content.length,
-          },
+      if (period_cords === null) {
+        // no period after target word. Set target ch = line.length;
+        let linelength = cm.getLine(contents.search_coords.from.line).length;
+        period_cords = {
+          line: contents.search_coords.from.line,
+          ch: linelength,
         };
-        suggestion = rewrite_content;
-        delta_edits_suggestion = "";
-        suggestion_cursor = 0;
-      } else {
-        let end_line = curr_doc.lineCount() - 1;
-        let end_ch = cm.getLine(end_line).length;
-
-        let last_char = curr_doc.getRange(
-          { line: end_line, ch: end_ch - 1 },
-          { line: end_line, ch: end_ch }
-        );
-
-        if (!(last_char === " " || last_char === "")) {
-          curr_doc.replaceRange(" ", { line: end_line, ch: end_ch++ });
-        }
-        cm.focus();
-        cm.setCursor({ line: end_line, ch: end_ch });
-
-        suggestion = rewrite_content;
-        delta_edits_suggestion = "";
-
-        showPlaceholder(rewrite_content, { line: end_line, ch: end_ch });
-
-        placeholder_active = true;
       }
+
+      // add space
+      // cm.replaceRange(" ", period_cords);
+
+      // insert placeholder
+      cm.replaceRange(" " + rewrite_content + " ", period_cords);
+      period_cords["ch"] += 1; // adjust for initial space
+      cm_placeholder = cm.markText(
+        period_cords,
+        {
+          line: period_cords.line,
+          ch: period_cords.ch + rewrite_content.length,
+        },
+        { className: "placeholder", atomic: toggleAtomic }
+      );
+
+      console.log("cm_placeholder", cm_placeholder);
+
+      cm.focus();
+      cm.setCursor(period_cords);
+
+      before_change_flag = true;
+
+      placeholder_active = true;
+      placeholder_coords = {
+        from: period_cords,
+        to: {
+          line: period_cords.line,
+          ch: period_cords.ch + rewrite_content.length,
+        },
+      };
+      suggestion = rewrite_content;
+      delta_edits_suggestion = "";
+      suggestion_cursor = 0;
 
       break;
     case "before":
-      placeholder_location = "before";
-      let period_cords = null;
-
-      // search previous period by comparing with target text cords
-      period_cords = findPeriodBefore(contents);
+      period_cords = null;
+      period_cords = findPeriod(contents, true);
 
       if (period_cords === null) {
         // no period before sentence. Set target ch = 0;
-        console.log("no period found - beforetrigger");
         period_cords = { line: contents.search_coords.from.line, ch: 0 };
       } else {
-        console.log("period found - beforetrigger", period_cords);
-
         period_cords["ch"] += 1;
       }
 
@@ -1011,7 +1095,7 @@ function triggerRewrite(contents) {
           line: period_cords.line,
           ch: period_cords.ch + rewrite_content.length,
         },
-        { className: "placeholder" }
+        { className: "placeholder", atomic: toggleAtomic }
       );
 
       cm.focus();
@@ -1033,8 +1117,6 @@ function triggerRewrite(contents) {
 
       break;
     case "replace":
-      placeholder_location = "replace";
-      // find target word
       console.log("word to delete: ", contents.word);
       console.log("word to type: ", rewrite_content);
 
@@ -1067,7 +1149,7 @@ function triggerRewrite(contents) {
           line: search_coords.from.line,
           ch: search_coords.from.ch + rewrite_content.length,
         },
-        { className: "placeholder" }
+        { className: "placeholder", atomic: toggleAtomic }
       );
 
       cm.focus();
@@ -1087,8 +1169,6 @@ function triggerRewrite(contents) {
       suggestion = rewrite_content;
       delta_edits_suggestion = "";
       suggestion_cursor = 0;
-      // then -- track changes
-      // - see if target word is being reached
 
       break;
     default:
@@ -1098,7 +1178,7 @@ function triggerRewrite(contents) {
   return true;
 }
 
-function findPeriodBefore(contents) {
+function findPeriod(contents, before = false) {
   let result = null;
   let cursor;
 
@@ -1106,9 +1186,13 @@ function findPeriodBefore(contents) {
     cursor = cm.getSearchCursor(".", contents.search_coords.from, {
       multiline: "disable",
     });
-    cursor.findPrevious(false);
+    if (before) {
+      cursor.findPrevious(false);
+    } else {
+      cursor.find(false);
+    }
   } catch (e) {
-    console.log("error in findPeriodBefore search", e);
+    console.log("error in findPeriod search", e);
   }
 
   result = cursor.to();
@@ -1117,65 +1201,6 @@ function findPeriodBefore(contents) {
   }
 
   return result;
-}
-
-function findPeriodAfter(contents) {
-  let result = null;
-  let cursor;
-
-  try {
-    cursor = cm.getSearchCursor(".", contents.search_coords.from, {
-      multiline: "disable",
-    });
-    cursor.find(false);
-  } catch (e) {
-    console.log("error in findPerioAfter search", e);
-    result = null;
-  }
-
-  result = cursor.to();
-  if (cursor.to().line !== contents.search_coords.from.line) {
-    result = null;
-  }
-
-  return result;
-}
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-function showPlaceholder(sug, target_editor_location = {}) {
-  if (placeholder_active) {
-    return;
-  }
-
-  let cmbox = document
-    .querySelector("pre.CodeMirror-line")
-    .getBoundingClientRect();
-
-  let target_cord = cm.charCoords(target_editor_location);
-
-  placeholder_coords = { from: target_editor_location };
-
-  let x = document.createElement("div");
-  x.id = "dynamic_placeholder";
-
-  x.style.position = "absolute";
-  x.style.left = (cmbox.left - 0.1).toString() + "px";
-  x.style.width = (cmbox.width - 8).toString() + "px";
-  x.style.top = (target_cord.top + 1).toString() + "px";
-  x.style.textIndent = (target_cord.left - cmbox.left - 3).toString() + "px";
-  x.style.height = (target_cord.bottom - target_cord.top).toString() + "px";
-  x.style.fontSize = "18px";
-  x.style.zIndex = "1";
-  x.style.color = "lightgrey";
-  x.style.padding = "0px 3.3px";
-  x.style.overflowWrap = "break-word";
-  x.style.lineHeight = "28px";
-  x.style.display = "inline-block";
-
-  // x.style.border = "solid 1px rgba(255,0,0,70)";
-
-  x.textContent = sug;
-  document.body.appendChild(x);
 }
 
 function hidePlaceholder() {
@@ -1183,13 +1208,6 @@ function hidePlaceholder() {
   let placeh = document.querySelector("#dynamic_placeholder");
   if (placeh) {
     placeh.style.visibility = "hidden";
-  }
-}
-
-function reShowPlaceholder() {
-  let placeh = document.querySelector("#dynamic_placeholder");
-  if (placeh) {
-    placeh.style.visibility = "";
   }
 }
 
@@ -1204,29 +1222,22 @@ function dismissPlaceholder() {
     placeh.remove();
   }
 
-  // cm solution
-  if (Object.keys(cm_placeholder).length !== 0) {
-    let mark_locations = cm_placeholder.find();
-
-    if (typeof mark_locations != "undefined") {
-      cm.replaceRange("", mark_locations.from, mark_locations.to);
-      cm_placeholder = {};
+  cm.doc.getAllMarks().forEach((marker) => {
+    console.log("marker", marker);
+    if (marker.className === "placeholder") {
+      cm.replaceRange("", marker.find().from, marker.find().to);
     }
-  }
-  if (Object.keys(cm_placeholder_toreplace).length !== 0) {
-    let mark_locations = cm_placeholder_toreplace.find();
+    // marker.clear();
+  });
 
-    if (typeof mark_locations != "undefined") {
-      cm.replaceRange("", mark_locations.from, mark_locations.to);
-      cm_placeholder_toreplace = {};
-    }
-  }
-
+  cm_placeholder = {};
   delta_edits_suggestion = "";
   placeholder_active = false;
   placeholder_coords = {};
   suggestion_cursor = 0;
 }
+
+// for db stuff
 
 /************************* End new adds */
 
@@ -1422,6 +1433,7 @@ function openEntry(id) {
 }
 
 function saveEntry() {
+  //                                 <<<<<<----------------------------------------
   let title = fetchTitle();
   let content = fetchContent();
   let marks = fetchMarks();
@@ -1429,10 +1441,35 @@ function saveEntry() {
   let id = currentID;
   let flag = currentFlag;
   let date = currentDate;
+
   if (isNaN(id)) {
-    addData(0, flag, title, content, date, marks, mouselog, keyboardlog);
+    addData(
+      0,
+      flag,
+      title,
+      content,
+      date,
+      marks,
+      mouselog,
+      keyboardlog,
+      toggleLog,
+      popupLog,
+      sidebarLog
+    );
   } else {
-    addData(id, flag, title, content, date, marks, mouselog, keyboardlog);
+    addData(
+      id,
+      flag,
+      title,
+      content,
+      date,
+      marks,
+      mouselog,
+      keyboardlog,
+      toggleLog,
+      popupLog,
+      sidebarLog
+    );
   }
 }
 
@@ -1458,17 +1495,17 @@ function loadContentRecall(id, data) {
   if (date != null) {
     $("#entrydate").text(date);
   }
-  let marks = data["marks"];
-  for (m of marks) {
-    tag = m["tag"];
-    from = m["from"];
-    to = m["to"];
-    if (tag === "autosuggest-font") {
-      promptInstance = cm.markText(from, to, { className: tag });
-    } else {
-      cm.markText(from, to, { className: tag });
-    }
-  }
+  // let marks = data["marks"];
+  // for (m of marks) {
+  //   tag = m["tag"];
+  //   from = m["from"];
+  //   to = m["to"];
+  //   if (tag === "autosuggest-font") {
+  //     promptInstance = cm.markText(from, to, { className: tag });
+  //   } else {
+  //     cm.markText(from, to, { className: tag });
+  //   }
+  // }
   cleanMarks(); // ------------------------------------------------------- ATTENTION when reviewing writitng+reflection
   //saveEntry();
 }
@@ -1697,8 +1734,11 @@ cm.on("keyup", function () {
 });
 
 cm.on("beforeChange", function (cm, changeObj) {
-  console.log("beforeChange changeObj", changeObj);
-  // send one for input
+  if (noEdit) {
+    return;
+  }
+
+  // insert-like input
   if (
     placeholder_active &&
     before_change_flag &&
@@ -1707,16 +1747,15 @@ cm.on("beforeChange", function (cm, changeObj) {
     changeObj.cancel();
     newEdit(changeObj);
   }
-  // send one for removing
+
+  // Readding placeholder letters
   if (
     placeholder_active &&
     before_change_flag &&
     changeObj.origin === "+delete"
   ) {
-    console.log("beforchange delete");
     backspacePlaceholder(changeObj);
   }
-  // If change occurs somewhere else, query mark and clear it. --> aka dismiss
 });
 
 // USE FLAG TO AVOID INFINITE LOOP
@@ -1735,18 +1774,40 @@ function newEdit(prevChangeObj) {
 }
 
 function backspacePlaceholder(prevChangeObj) {
-  // ---------------------------------------------------------------------------------------- TODO:
-  // use suggestion cursor to get backspaced letter
-  console.log(
-    "backspacePlaceholder suggestion[suggestion_cursor]",
-    suggestion[suggestion_cursor]
-  );
+  // catch if deleting at invocation to dismiss - or if not even active
+  if (suggestion_cursor === 0 || !placeholder_active) {
+    console.log("bypassing backspace ---");
+    return;
+  }
+
+  noEdit = true;
+  suggestion_cursor--;
   before_change_flag = false;
-  // cm.replaceRange(suggestion[suggestion_cursor], prevChangeObj.from);
-  // then insert with placeholder mark
+
+  console.log("---replacing w ", suggestion[suggestion_cursor]);
+  cm.replaceRange(suggestion[suggestion_cursor], prevChangeObj.from);
 
   setTimeout(() => {
     before_change_flag = true;
+    let marker_cords = null;
+    cm.doc.getAllMarks().forEach((marker) => {
+      if (marker.className === "placeholder") {
+        marker_cords = marker.find();
+        marker.clear();
+      }
+    });
+
+    cm.getDoc().setCursor(prevChangeObj.from.line, prevChangeObj.from.ch);
+    cm.markText(
+      { line: marker_cords.from.line, ch: marker_cords.from.ch - 1 },
+      marker_cords.to,
+      {
+        className: "placeholder",
+        atomic: toggleAtomic,
+      }
+    );
+
+    noEdit = false;
   }, 5);
 }
 
@@ -1755,13 +1816,13 @@ let before_change_flag = false;
 let cm_placeholder = {};
 let cm_placeholder_toreplace = {};
 let placeholder_active = false;
-let placeholder_location = "";
 let placeholder_coords = {}; // two coords objects if bounded by two. one if at the end
 
 let suggestion = "";
 let delta_edits_suggestion = "";
 let suggestion_cursor = 0;
 let typo_counter = 0;
+let noEdit = false;
 
 function resetPHStates() {
   delta_edits_suggestion = "";
@@ -1770,12 +1831,14 @@ function resetPHStates() {
   suggestion_cursor = 0;
 }
 
-// if input --> changeObj.origin === "+input"
-// if delete --> changeObj.origin === "+delete"
 cm.on("change", function (cm, changeObj) {
   // watchL1();
   if (L1_active) {
     clearL1interval();
+  }
+
+  if (noEdit) {
+    return;
   }
 
   // console.log("inside onchange func", changeObj);
@@ -1804,37 +1867,30 @@ cm.on("change", function (cm, changeObj) {
       before_change_flag = false;
     }
 
-    // backspace -- dismiss for simplicity -----------------------------------------------------
-    else if (input[0] === "" && removed[0] !== "" && removed[0].length === 1) {
-      console.log("BACKSPACE --> dimissing PH");
-      closePH_lose();
-    }
+    // backspace in separate func ^ --------------------------------------------------
 
     // on correct --------------------------------------------------------------------------
     else if (input[0] === suggestion[suggestion_cursor]) {
       console.log("good", input[0]);
       suggestion_cursor++;
       delta_edits_suggestion += input[0];
-      if (typo_counter > 0) {
+
+      if (typo_counter > 0 && suggestion.includes(delta_edits_suggestion)) {
         typo_counter = 0;
-        reShowPlaceholder();
+        // reShowPlaceholder();
       }
     }
-    // if typo -- hide ----------------------------------------------------------------------
+    // if typo ----------------------------------------------------------------------
     else if (input[0] !== "" && input[0] !== suggestion[suggestion_cursor]) {
-      // {
-      //   hidePlaceholder();
-      //   delta_edits_suggestion += input[0];
-      //   suggestion_cursor++;
-      //   typo_counter++;
-      // }
+      suggestion_cursor++;
+      typo_counter++;
 
       // console.log("typo_counter", typo_counter);
-      // if (typo_counter >= 1)
-      console.log("TYPO - dismissing PH");
-      // console.log("max errors reached. dismissing");
-      closePH_lose();
-      before_change_flag = false;
+      if (typo_counter >= nTyposPossible) {
+        console.log("max errors reached. dismissing");
+        closePH_lose();
+        before_change_flag = false;
+      }
     }
 
     // if success! ------------------------------------------
@@ -1858,10 +1914,6 @@ function closePH_win() {
   resetPHStates();
 }
 
-/**
- * input_cat :  is used to select what analysis category to focus on
- *              By default this string is empty which selects all
- */
 function manualAnalyzeTrigger(force_cook = false) {
   let previous_feedback = global_feedback;
 
@@ -1903,8 +1955,8 @@ function toggleL2() {
 }
 
 const L1_T_low = 5000;
-const L1_T_high = 100000;
-let L1_T_current;
+const L1_T_high = 10000;
+let L1_T_current = L1_T_low;
 let L1_active = false;
 
 // let L1interval_ID = setInterval(watchL1, L1_T_high);
@@ -1917,41 +1969,57 @@ function clearL1interval() {
   L1interval_ID = setInterval(watchL1, L1_T_current);
 }
 
+const expressiveness_prompts = [
+  "I can write down more details about one specific event and my thoughts/feelings:",
+  "I will try to pull out everything running in my mind:",
+  "To be specific,",
+  "Such thoughts make me feel",
+  "What caused me to feel this way is",
+];
+let L1_prompt_marker = 0;
+
 function watchL1() {
   if (nWords_fulldoc > L1_words_thresh && L1_T_current !== L1_T_high) {
     // flip switch
     console.log("Above thresh: flipping L1 period from low to high");
     clearInterval(L1interval_ID);
     L1_T_current = L1_T_high;
-    L1interval_ID = setInterval(watchL1, L1_T_high);
+    L1interval_ID = setInterval(watchL1, L1_T_current);
   } else if (nWords_fulldoc < L1_words_thresh && L1_T_current !== L1_T_low) {
     console.log("Below thresh: flipping L1 period from high to low");
     clearInterval(L1interval_ID);
     L1interval_ID = setInterval(watchL1, L1_T_low);
     L1_T_current = L1_T_low;
   }
+  console.log("in watchL1, L1interval", L1_T_current);
 
   console.log("called L1");
   if (!placeholder_active) {
     console.log("created L1 Placeholder");
+    let text = expressiveness_prompts[L1_prompt_marker % 5];
+    L1_prompt_marker++;
     let end_line = cm.getDoc().lastLine();
     let end_ch = cm.getLine(end_line).length;
     triggerRewrite({
       search_coords: { line: end_line, ch: end_ch },
-      rewrite: ["I am having the thought of"],
+      // rewrite: ["I am having the thought of"],
+      rewrite: [text],
       rewrite_position: "end",
     });
   }
 }
+
+document.querySelector("button.L1Button").addEventListener("click", onL1Toggle);
+document.querySelector("button.L2Button").addEventListener("click", onL2Toggle);
 
 function toggleL1() {
   let btn = document.querySelector("button.L1Button");
   if (btn.textContent === "Expressiveness off") {
     btn.textContent = "Expressiveness on";
     btn.style.opacity = 0.8;
-    L1_T_current = L1_T_high;
+    L1_T_current = L1_T_low;
     L1_active = true;
-    L1interval_ID = setInterval(watchL1, L1_T_high);
+    L1interval_ID = setInterval(watchL1, L1_T_current);
   } else {
     btn.textContent = "Expressiveness off";
     dismissPlaceholder();
@@ -1965,4 +2033,20 @@ function toggleL1() {
 if (window.location.href.includes("rephrase")) {
   toggleL2();
   toggleL1();
+}
+
+$(window).resize(function () {
+  manualAnalyzeTrigger(true);
+  // could make L2 popup move here to follow text
+});
+
+// saving json
+function generateFile() {
+  console.log("calling generateFile");
+  generatePackOne();
+}
+
+function generatePackRecall(file) {
+  console.log(file);
+  download(JSON.stringify(file), "report.json");
 }

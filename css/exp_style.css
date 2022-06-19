@@ -37,9 +37,9 @@ a {
     cursor: pointer;
 }
 
-p {
+/* p {
     cursor: pointer;
-}
+} */
 
 .page {
     width: 100vw;
@@ -97,20 +97,24 @@ p {
 }
 
 .sidebar {
-  border-right-style: solid;
-  border-color: rgb(255, 76, 76);
-
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 3;
-  top: 0;
-  left: 0;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-  overflow-y:hidden;
-}
+    /* border-right-style: solid;
+    border-width: 5px; */
+    /* border-color: rgb(232, 228, 255); */
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0px;
+    transition: 0.5s;
+    padding-top: 8px;
+    white-space: nowrap;
+    /* ------ */
+    margin-top: 70px;
+    width: 220px;
+    /* border-image: linear-gradient(to top, rgb(232, 228, 255), white) 1; */
+    /* background-image: linear-gradient(to right top, #e8e4ff, #ece9ff, #f0eeff, #f5f3ff, #f9f8ff, #fbfaff, #fdfdff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff); */
+    background: linear-gradient(45deg, rgba(232,228,255,1) 0%, rgba(233,229,255,1) 50%, rgba(254,253,255,1) 80%, rgba(255,255,255,1) 100%); }
+  
 
 .sidebar a {
     padding: 8px 8px 15px 32px;

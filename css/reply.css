@@ -1,6 +1,7 @@
-input {
+/* input {
     margin-left: 16px;
-}
+} */
+
 
 .float-wrapper-mid {
     margin-left: 25px;
@@ -21,6 +22,47 @@ input {
     cursor: pointer;
 }
 
-#files {
-    padding-left: 6px;
+/* new adds */
+#mySidebar {
+    margin: 0;
+    padding-left: 5px;
+}
+
+#mySidebar h1 {
+    color: rgb(188, 119, 252);
+}
+
+.bigButton {
+    background-color: #673dc3;
+    color: ghostwhite;
+    width: 100%;
+    padding: 4px 0 4px 0;
+    margin: 4px 0;
+    border: none;
+    font-size: 24px;
+}
+
+.bigButton:hover{
+    background-color: #9484b6;
+}
+
+.timeline-buttons {
+    display:flex;
+    flex-direction: column;
+    margin-top: 30px;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+}
+    
+.timer-wrapper {
+    font-size: 34px;
+    font-weight: 100;
+    text-align: right;
+    margin: 8px 30px;
+}
+
+.timer-wrapper p {
+    font-size: 48px;
+    font-weight: 100;
 }

@@ -27,31 +27,30 @@
 
 <body>
 	<div id="mySidebar" class="sidebar">
-		<button type="button" class="collapsible btnhover" onclick="changeMode()" id="changeModeBtn">Preview Mode</button>
-		<button type="button" class="collapsible btnhover" onclick="stopAnimation()">Manual Stop</button>
-		<button type="button" class="collapsible abtn">Delay Threshold:</button>
-		<div class="float-wrapper-mid">
-			<textarea id="delayThreshold" rows="1" cols="10"></textarea>
-			<button onclick="setThreshold()">Change</button>
-		</div>
+		<h1><b>REPLAY MODE</b></h1>
+			
+		<!-- <button type="button" class="collapsible">Load Data:</button> -->
+		<h3><b>Load Data:<b/></h3>
+		<input id="file-loader" type="file" name="files[]" multiple/>
+		<hr>
+		<h3><b>Entries:</b></h3>
+		<div class="content" id="entryTitles"></div>
 
-		<HR>
-		<button type="button" class="collapsible">Load Data:</button>
-		<input type="file" id="files" name="files[]" multiple/>
-		<HR>
+		<div class="timeline-buttons">
+			<button class="bigButton" onclick="nextFrame()">Next Frame</button>
+			<button class="bigButton" onclick="pauseAnimation()">Pause</button>
+			<button class="bigButton" onclick="stopAnimation()">Stop</button>
+			<button class="bigButton" onclick="restartAnimation()">Restart</button>
+			<div class="timer-wrapper"><p id="timer_display">0</p> sec</div>
+		</div>
 		
-		<div class="content" id="entryTitles">
-		</div>
 
-		<div class="switch-wrapper">
-			<div class="timer-wrapper">Time: <p id="timer_display">0</p> sec</div>
-		</div>
+		<!-- <div class="switch-wrapper"> -->
+		<!-- </div> -->
 	</div>
 
+
 	<div id="container">
-		<div class="btbar">
-			<button class="openbtn" id="opnsidebar" onclick="openNav()"></button>
-		</div>
 
 		<div class="pop-up2" id="popUpWindow">
 			<div class="close-pop-up2">

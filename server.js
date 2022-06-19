@@ -7,7 +7,8 @@ var favicon = require("serve-favicon");
 
 // The page for User
 app.get("/", function (req, res) {
-  res.sendFile(__dirname + "/index.html");
+  // res.sendFile(__dirname + "/index.html");
+  res.sendFile(__dirname + "/rephrase.html");
 });
 // The page for Expert
 app.get("/exp", function (req, res) {

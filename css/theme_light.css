@@ -19,8 +19,9 @@ html, body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
-    height: 100%;
-  width: 100%;
+    /* height: 100%; */
+    /* float: left; */
+  width: 95%;
   margin: 0;
 
 }
@@ -128,11 +129,10 @@ html, body {
 }
 
 .CodeMirror {
-
     margin-top: 12px;
     background-color: transparent;
-    color: #828282;
-
+    color: #4f4f4f;
+    font-weight: 100;
     /* margin-right: 250px;  */
     /* border: solid 1px red; */
 
@@ -325,7 +325,7 @@ a {
     border: solid 2px rgb(147, 147, 147); /* PARAMETRIZE INTO STYLE */
     flex-direction: column;
     justify-content: flex-start;
-    height: 12em;
+    /* height: 12em; */
 }
 
 .L2-popup h4 {
@@ -333,7 +333,7 @@ a {
 }
 
 .L2-popup p {
-    margin: 4px 18px 0px 18px;
+    margin: 4px 18px 12px 18px;
     cursor: unset;
 }
 
@@ -423,6 +423,7 @@ a {
 .placeholder {
     background-color: rgb(255, 255, 255);
     color: lightgray;
+    cursor:default;
 }
 
 
@@ -435,6 +436,7 @@ div#container {
     margin: 0 250px auto 220px;
     display: block;
     height: 100%;
+    /* width: calc(100% - 220px); */
 }
 
 
@@ -460,4 +462,14 @@ div#container {
 .replace_ph {
     text-decoration: line-through !important;
     color:#aeaeae !important;
+}
+
+
+.download-btn {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    margin-bottom: 50px;
+    margin-right: 50px;
+    background-color: #00BD4B;
 }
