@@ -470,7 +470,7 @@ p {
         flex-direction: row;
         justify-content:space-between;
         padding: 48px 64px 16px 64px;
-        max-height: 120px;
+        /* max-height: 120px; */
     }
 
     .onboard-button-text{
@@ -485,6 +485,12 @@ p {
         opacity: 50%;
         display: flex;
         flex-direction: column;
+        align-items: center;
+    }
+
+    .embtn img {
+        width: 80%;
+        height: auto;
     }
     
     .embtn:hover {

@@ -16,7 +16,7 @@
  * /_____/____/ .___/_/   \___/____/____/\____/
  *           /_/
  *
- *  Latest updates: 06/07/22
+ *  Latest updates: 06/19/22
  *
  * Fixes:
  * - replace word interaction (when to delete strikethrough letter)
@@ -28,12 +28,13 @@
  *
  * Recent features:
  * - save json
- *
- * Next features:
  * - save use of project features --> need DB understanding
- *  - accepted rewrites
  *  - clicks on buttons to toggle popups/or rewrites
  * - implement dismissing analysis and saving that to cache - dict
+ *
+ * Next features:
+ * - log accepted/dismissed rewrites
+ * - bugs :(
  *
  * future items:
  * - logo
@@ -56,6 +57,7 @@ var cm = CodeMirror.fromTextArea(write, {
  * initializing globals for tweaking interaction parameters.
  *
  */
+let dismisslist = [];
 let word_counter = {}; // <--- dict needed to capture right place of word.
 let global_feedback = [];
 let nTyposPossible = 3;
@@ -720,7 +722,7 @@ function analyzeText() {
       word_counter[currentElement] = 0;
     }
 
-    let search_coords;
+    let search_coords = null;
     try {
       search_coords = search(currentElement, start, offset);
     } catch (e) {
@@ -748,10 +750,25 @@ function analyzeText() {
       longer_feedback: obj_filt.longer_feedback,
       rewrite: obj_filt.rewrite,
       rewrite_position: obj_filt.rewrite_position,
+      // offset
+      offset: offset,
+      display: true,
     });
     return previousElement;
   },
   []);
+
+  // dismiss here
+  returnArr.forEach((element) => {
+    const found = dismisslist.find(
+      (d_element) =>
+        d_element.word === element.word && d_element.offset === element.offset
+    );
+    if (found) {
+      // console.log("hiding an element");
+      element.display = false;
+    }
+  });
 
   // console.log("analysis returnarr", returnArr);
 
@@ -782,6 +799,9 @@ function search(astring, start, offset = 0) {
 }
 
 function showSquare(args, index = "") {
+  if (!args.display) {
+    return;
+  }
   var cords = cm.cursorCoords(args.search_coords.to);
   var color = args.color;
 
@@ -870,15 +890,8 @@ function highlightText(args, index = "") {
   for (let i = 0; i < hls.length; i++) {
     hls[i].addEventListener("click", function (evt) {
       showEditorPopUp(args);
-      // logPopup(evt);
     });
-    // hls[i].addEventListener(
-    //   "click",
-    //   (evt) => {
-    //     logPopup(evt);
-    //   },
-    //   args
-    // );
+
     hls[i].addEventListener("mouseover", function () {
       document.documentElement.style.setProperty(
         "--L2-highlight-color",
@@ -909,8 +922,8 @@ function showEditorPopUp(contents) {
   let window_width = window.innerWidth;
 
   if (window_width - cords.left < 400) {
-    // distance to
-    console.log("TOO TO THE RIGHT - adjusting");
+    // distance to avoid colliding with rightbar
+    // console.log("TOO TO THE RIGHT - adjusting");
     box.style.left = (cords.left - 200).toString() + "px";
   } else {
     box.style.left = (cords.left - 100).toString() + "px";
@@ -919,11 +932,25 @@ function showEditorPopUp(contents) {
   box.style.display = "flex";
 
   // remove previous event listeners.
-  var old_element = document.querySelector(".readmore-container button");
+  var old_element = document.querySelector(".readmore-button");
   var new_element = old_element.cloneNode(true);
   old_element.parentNode.replaceChild(new_element, old_element);
   new_element.addEventListener("click", function () {
     showRightbar(contents);
+  });
+
+  // remove previous event listeners -- dismiss
+  var old_element = document.querySelector(".dismiss-button");
+  var new_element = old_element.cloneNode(true);
+  old_element.parentNode.replaceChild(new_element, old_element);
+
+  new_element.addEventListener("click", function () {
+    dismisslist.push({ word: contents.word, offset: contents.offset });
+    cm.getAllMarks().forEach((mark) => {
+      if (mark.className === "L2-highlight") mark.clear();
+    });
+    closeNewPopup();
+    manualAnalyzeTrigger(true);
   });
 }
 
@@ -1237,8 +1264,6 @@ function dismissPlaceholder() {
   suggestion_cursor = 0;
 }
 
-// for db stuff
-
 /************************* End new adds */
 
 var feedbackMsg = "";
@@ -1454,7 +1479,10 @@ function saveEntry() {
       keyboardlog,
       toggleLog,
       popupLog,
-      sidebarLog
+      sidebarLog,
+      dismissLog,
+      acceptLog,
+      dismisslist
     );
   } else {
     addData(
@@ -1468,7 +1496,10 @@ function saveEntry() {
       keyboardlog,
       toggleLog,
       popupLog,
-      sidebarLog
+      sidebarLog,
+      dismissLog,
+      acceptLog,
+      dismisslist
     );
   }
 }
@@ -1905,11 +1936,20 @@ cm.on("change", function (cm, changeObj) {
 function closePH_lose() {
   // log how much of the rewrite was done
   // words that came next can be found in rest of logs by checking timestamps.
+  dismissLog.push({
+    time: Date.now(),
+    suggestion: suggestion,
+    completed_amount: suggestion_cursor - 1,
+  });
   dismissPlaceholder();
   resetPHStates();
 }
 
 function closePH_win() {
+  acceptLog.push({
+    time: Date.now(),
+    suggestion: suggestion,
+  });
   dismissPlaceholder();
   resetPHStates();
 }

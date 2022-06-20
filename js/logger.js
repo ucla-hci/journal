@@ -14,6 +14,9 @@ var keyboardlog = new Array();
 var toggleLog = new Array();
 var popupLog = new Array();
 var sidebarLog = new Array();
+var dismissLog = new Array();
+var acceptLog = new Array();
+// var l2dismissLog = new Array();
 
 function startTimer() {
   let dateTime = Date.now();
@@ -48,29 +51,41 @@ $(document).keyup(function (evt) {
     text: fetchContent(),
     marks: fetchMarks(),
     placeholder: ph,
+    dismisses: dismissLog,
+    accepts: acceptLog,
+    l2dismisses: dismisslist,
   });
 });
 
 // Mouse Movement logger
-$(document).mousemove(function (evt) {
-  if (UnixZero == -1) {
-    initialization();
-  }
-  t = evt.timeStamp;
-  mouselog.push({ timestamp: t, type: "move", x: evt.pageX, y: evt.pageY });
-});
+// $(document).mousemove(function (evt) {
+//   if (UnixZero == -1) {
+//     initialization();
+//   }
+//   t = evt.timeStamp;
+//   mouselog.push({ timestamp: t, type: "move", x: evt.pageX, y: evt.pageY });
+// });
 
-$(document).mousedown(function (evt) {
+$(document).mouseup(function (evt) {
   if (UnixZero == -1) {
     initialization();
   }
   t = evt.timeStamp;
+  let ph = "";
+  if (placeholder_active) {
+    ph = suggestion;
+  }
 
   mouselog.push({
     timestamp: t,
     type: "click",
     x: evt.pageX,
     y: evt.pageY,
+    marks: fetchMarks(),
+    placeholder: ph,
+    dismisses: dismissLog,
+    accepts: acceptLog,
+    l2dismisses: dismisslist,
     // marks: cm.getAllMarks(),
   });
 });
