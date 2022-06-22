@@ -626,6 +626,7 @@ button:hover {
     /* border-style: none; */
     opacity: 60%;
     cursor: pointer;
+    margin-top: 20px;
 }
 
 .close-btn:hover {
