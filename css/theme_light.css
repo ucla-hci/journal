@@ -277,6 +277,7 @@ a {
     padding:6px 8px 6px 8px;
     margin-left: 14px;
     margin-bottom: 14px;
+    opacity: 0.8;
     /* font-weight: unset; */
 }
 .L2Button {
@@ -308,11 +309,6 @@ a {
     cursor: pointer;
     /* opacity: 0.4; */
 }
-
-/* .L2-highlight:hover {
-    filter: brightness(110%);
-    opacity: 0.7; 
-} */
 
 
 .L2-popup {
@@ -382,7 +378,7 @@ a {
 .right-sidebar {
     white-space: normal;
     /* border-left-style: solid; */
-    height:auto;
+    height:80%;
     width: 300px;
     position: fixed;
     /* top: 80px; */
@@ -398,6 +394,7 @@ a {
     overflow-y:auto;
     padding-top: 20px;
     padding-bottom: 20px;
+    margin-bottom: 20px;
     /* border-image: linear-gradient(to top, rgb(232, 228, 255), white) 1; */
     background: linear-gradient(315deg, rgba(232,228,255,1) 0%, rgba(233,229,255,1) 25%, rgba(254,253,255,1) 60%, rgba(255,255,255,1) 100%);
 }

@@ -584,7 +584,7 @@ button {
     font-size: 16px;
     font-weight: 300;
     cursor: pointer;
-    opacity: 70%;
+    /* opacity: 70%; */
 }
 
 
@@ -626,7 +626,7 @@ button:hover {
     /* border-style: none; */
     opacity: 60%;
     cursor: pointer;
-    margin-top: 20px;
+    /* margin-top: 20px; */
 }
 
 .close-btn:hover {

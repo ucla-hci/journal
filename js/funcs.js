@@ -43,6 +43,8 @@
  *
  */
 
+// const e = require("express");
+
 // init codeMirror
 var write = document.getElementById("write");
 var cm = CodeMirror.fromTextArea(write, {
@@ -66,57 +68,18 @@ let toggleAtomic = true;
 
 let dict_temp = [
   {
-    strategy_code: "L1b",
-    category_number: 1,
-    semantic_anchor: "Dysfunctional Self-Talk",
-    words: [
-      "loser",
-      "hate",
-      "lazy",
-      "the worst",
-      "suck",
-      "failure",
-      "pathetic",
-      "good-for-nothing",
-      "dumb",
-      "stupid",
-      "useless",
-    ],
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback: null,
-    Sidebar_feedback: null,
-    color: null,
-  },
-  {
-    strategy_code: "L1b",
-    category_number: 2,
-    semantic_anchor: "Negative Emotion",
-    words: ["sad, depressed, heartbreak, heartbroken"],
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "I have these feelings maybe because I value ...",
-      "I have these feelings maybe because I need ...",
-      "I have these feelings maybe because I want ...",
-      "I have these feelings maybe because I lack …",
-      " Take a step back, I'm feeling like this because...",
-    ],
-    rewrite_position: "after",
-    popup_title: null,
-    popup_feedback: null,
-    Sidebar_feedback: null,
-    color: null,
-  },
-  {
     strategy_code: "L2a",
     category_number: 1,
     semantic_anchor: "Positive Adjectives",
     words: [
-      "altruistic, diligent, high-principled, right, fair, perfect, wonderful, confident",
+      "altruistic",
+      "high-rpincipled",
+      "right",
+      "fair",
+      "perfect",
+      "wonderful",
+      "confident",
+      "diligent",
       "brave",
     ],
     wordnet_ext: [],
@@ -130,47 +93,63 @@ let dict_temp = [
       "she is far from brave",
       "they are far from brave",
     ],
-    rewrite: ["Without this judgment, I will"],
+    rewrite: null,
     rewrite_position: "After",
     popup_title: "Judgment",
     popup_feedback:
       "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
     Sidebar_feedback:
       '<h3>More About Judgments</h3>\n<p>Maybe you look out the window, see rain and wind, and make the judgment that the weather is bad. These negative judgments aren\'t right or wrong, but they are often unconscious and often unproductive. Negative judgments often make us feel bad and make us less effective at managing the situation.</p>\n<ul>\n<li>Yes, I can have judgments!</li>\n<li>Does the judgment make me feel bad?</li>\n<li>Take a step back, write down the situation, the resulting emotion, and the outcome of the judgment</li>\n<li>Yeah, I become more aware of how unwanted negative judgments are becoming part of my thoughts!</li>\n</ul>\n<h3>Reframe Negative Judgments</h3>\n<ul>\n<li>Turn a judgment into a nonjudgmental descriptive statement</li>\n</ul>\n<p>The idea is to try to rewrite our negative judgments in a form that is nonjudgmental. You will still express what happened, how you felt, and what you thought, but this time without using words that will express a negative and judging attitude. Describe the situation factually, write down what feeling you had, and write down what you were thinking about.</p>\n<p>Reference: <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindfulness-of-negative-judgments/" target="_blank" rel="noopener">Negative Judgments</a>, <a href="https://dialecticalbehaviortherapy.com/mindfulness/letting-go/" target="_blank" rel="noopener">Letting Go of Judgments</a></p>',
-    color: "#287db6",
+    color: "#287db5",
   },
   {
     strategy_code: "L2a",
     category_number: 2,
     semantic_anchor: "Negative Adjectives",
     words: [
-      "wrong, unfair, stupid, lazy, bad, terrible, mean, tenderhearted, despotic,\negoistic, ill-famed, unkind, selfish,arrogant, bragging, fake, weak, unimpressive",
       "egoistic",
+      "wrong",
+      "unfair",
+      "stupid",
+      "lazy",
+      "bad",
+      "terrible",
+      "mean",
+      "tenderhearted",
+      "despotic",
     ],
     wordnet_ext: [],
     phrase_ext: [
-      "(expand)",
       "he is egoistic",
       "she is egoistic",
       "i am egoistic",
       "they are egoistic",
+      "(expand)",
     ],
-    rewrite: ["Without this judgment, I will"],
+    rewrite: null,
     rewrite_position: "After",
     popup_title: "Judgment",
     popup_feedback:
       "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
     Sidebar_feedback:
       '<h3>More About Judgments</h3>\n<p>Maybe you look out the window, see rain and wind, and make the judgment that the weather is bad. These negative judgments aren\'t right or wrong, but they are often unconscious and often unproductive. Negative judgments often make us feel bad and make us less effective at managing the situation.</p>\n<ul>\n<li>Yes, I can have judgments!</li>\n<li>Does the judgment make me feel bad?</li>\n<li>Take a step back, write down the situation, the resulting emotion, and the outcome of the judgment</li>\n<li>Yeah, I become more aware of how unwanted negative judgments are becoming part of my thoughts!</li>\n</ul>\n<h3>Reframe Negative Judgments</h3>\n<ul>\n<li>Turn a judgment into a nonjudgmental descriptive statement</li>\n</ul>\n<p>The idea is to try to rewrite our negative judgments in a form that is nonjudgmental. You will still express what happened, how you felt, and what you thought, but this time without using words that will express a negative and judging attitude. Describe the situation factually, write down what feeling you had, and write down what you were thinking about.</p>\n<p>Reference: <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindfulness-of-negative-judgments/" target="_blank" rel="noopener">Negative Judgments</a>, <a href="https://dialecticalbehaviortherapy.com/mindfulness/letting-go/" target="_blank" rel="noopener">Letting Go of Judgments</a></p>',
-    color: "#287db8",
+    color: "#287db5",
   },
   {
     strategy_code: "L2b",
     category_number: 1,
     semantic_anchor: "Should Statement",
     words: [
-      "should, ought, supposed, must, have to",
-      "should, ought, supposed, must, have to",
+      "have to",
+      "should",
+      "should",
+      "have to",
+      "must",
+      "supposed",
+      "ought",
+      "supposed",
+      "must",
+      "ought",
     ],
     wordnet_ext: [],
     phrase_ext: [],
@@ -179,30 +158,30 @@ let dict_temp = [
     popup_title: "Should Statment",
     popup_feedback: "Come on! Things don't have to be a certain way.",
     Sidebar_feedback: null,
-    color: null,
+    color: "#287db5",
   },
   {
     strategy_code: "L2b",
     category_number: 2,
     semantic_anchor: "All or Nothing Thinking / Overgeneralization",
     words: [
-      "anyone",
-      "anything",
-      "only",
-      "totally",
-      "no one",
-      "nothing",
-      "everything",
-      "none",
-      "everyone",
+      "all",
       "again",
       "forever",
       "always",
       "never",
-      "all",
+      "anyone",
+      "anything",
+      "everyone",
+      "everything",
+      "nothing",
+      "none",
+      "no one",
+      "totally",
+      "only",
     ],
     wordnet_ext: ["anybody", "everybody"],
-    phrase_ext: [],
+    phrase_ext: ["every time", "any time"],
     rewrite: [
       "however, to be more realistic",
       " however, there is exception when",
@@ -213,19 +192,19 @@ let dict_temp = [
     popup_feedback:
       "A common cognitive distortion that will extrapolate one thing.",
     Sidebar_feedback: null,
-    color: null,
+    color: "#287db5",
   },
   {
     strategy_code: "L2b",
     category_number: 3,
     semantic_anchor: "Catastrophizing",
     words: [
-      "will bet",
-      "what if",
-      "panic",
-      "worry",
-      "will probably",
       "ruined all efforts",
+      "will probably",
+      "will bet",
+      "worry",
+      "panic",
+      "what if",
       "panicked",
     ],
     wordnet_ext: [],
@@ -303,24 +282,48 @@ let dict_temp = [
   {
     strategy_code: "L2c",
     category_number: 1,
-    semantic_anchor: "Dysfunctional Self-Talk",
+    semantic_anchor: "Negative Self-Talk",
+    words: ["failure", " loser", " loser"],
+    wordnet_ext: [],
+    phrase_ext: ["I will disappoint", "I am a loser", "what a loser"],
+    rewrite: ["a person who "],
+    rewrite_position: "Replace",
+    popup_title: null,
+    popup_feedback: null,
+    Sidebar_feedback: null,
+    color: null,
+  },
+  {
+    strategy_code: "L2c",
+    category_number: 1,
+    semantic_anchor: "Negative Self-Talk",
     words: [
-      "hate",
-      "lazy",
-      "the worst",
-      "useless",
+      "idiot",
+      "stupid",
+      "dumb",
       "good-for-nothing",
       "pathetic",
+      "lazy",
+      "useless",
+      "the worst",
+      "hate",
       "suck",
-      "dumb",
       "failure",
-      " loser",
-      "stupid",
     ],
     wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: ["but I am so close to …"],
-    rewrite_position: "after",
+    phrase_ext: [
+      "It is impossible for me to",
+      "I screwed up",
+      "what an idiot",
+      "I am an idiot",
+      "I am lazy",
+      "I am useless",
+      "I am the worst",
+      "failed myself",
+      "embarrassed myself",
+    ],
+    rewrite: null,
+    rewrite_position: null,
     popup_title: null,
     popup_feedback: null,
     Sidebar_feedback: null,
@@ -338,7 +341,8 @@ let dict_temp = [
       "grim",
       "blue",
       "dispirited",
-      "down",
+      "feeling down",
+      "feel down",
       "downcast",
       "downhearted",
       "down in the mouth",
@@ -682,9 +686,41 @@ let dict_temp = [
     strategy_code: "L2d",
     category_number: 8,
     semantic_anchor: "Signs of Depression -> Suicidal ideation",
-    words: ["Bury, coffin, kill, suicide, suicidal, die"],
-    wordnet_ext: ["self-destruction", "self-annihilation", "felo-de-se"],
-    phrase_ext: ["kill myself", "end my life"],
+    words: ["Bury", "die", "suicidal", "suicide", "kill", "coffin"],
+    wordnet_ext: [
+      "self-destruction",
+      "self-annihilation",
+      "felo-de-se",
+      "self-destruction",
+      "self-annihilation",
+      "felo-de-se",
+      "self-destruction",
+      "self-annihilation",
+      "felo-de-se",
+      "self-destruction",
+      "self-annihilation",
+      "felo-de-se",
+      "self-destruction",
+      "self-annihilation",
+      "felo-de-se",
+      "self-destruction",
+      "self-annihilation",
+      "felo-de-se",
+    ],
+    phrase_ext: [
+      "kill myself",
+      "end my life",
+      "kill myself",
+      "end my life",
+      "kill myself",
+      "end my life",
+      "kill myself",
+      "end my life",
+      "kill myself",
+      "end my life",
+      "kill myself",
+      "end my life",
+    ],
     rewrite: null,
     rewrite_position: null,
     popup_title: null,
@@ -747,7 +783,13 @@ let dict_temp = [
     strategy_code: "L2d",
     category_number: 9,
     semantic_anchor: "Signs of Anxiety -> Unexplained body pains",
-    words: ["headaches, muscle aches, stomachaches, body pain, chest pain, "],
+    words: [
+      "chest pain",
+      "body pain",
+      "stomachaches",
+      "muscle aches",
+      "headaches",
+    ],
     wordnet_ext: [],
     phrase_ext: [],
     rewrite: null,
@@ -785,27 +827,29 @@ let dict_temp = [
     strategy_code: "L2e",
     category_number: 1,
     semantic_anchor: "First Pronoun",
-    words: ["myself", "I", "me", "my", "self", "mine"],
+    words: ["self", "myself", "mine", "I", "me", "my"],
     wordnet_ext: [],
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
-    popup_feedback: null,
+    popup_title: "First Pronoun",
+    popup_feedback:
+      "This indicates a viewpoint of your own. You may have high level of self-awareness.",
     Sidebar_feedback: null,
     color: null,
   },
   {
     strategy_code: "L2f",
     category_number: 1,
-    semantic_anchor: "Insights words",
-    words: ["understand", "realize"],
+    semantic_anchor: "Insight words",
+    words: ["think", "realize", "understand", "believe"],
     wordnet_ext: [],
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
-    popup_feedback: null,
+    popup_title: "Insight Words",
+    popup_feedback:
+      "You will benefit from using these words to construct a coherent story, experience insights, and find a path forward.",
     Sidebar_feedback: null,
     color: null,
   },
@@ -813,13 +857,14 @@ let dict_temp = [
     strategy_code: "L2f",
     category_number: 2,
     semantic_anchor: "Coherent narrative words",
-    words: ["therefore", "because", "hence"],
+    words: ["hence", "because", "therefore"],
     wordnet_ext: [],
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
-    popup_feedback: null,
+    popup_title: "Coherent narrative words",
+    popup_feedback:
+      "You will benefit from using these words to construct a coherent story, experience insights, and find a path forward.",
     Sidebar_feedback: null,
     color: null,
   },
@@ -827,7 +872,7 @@ let dict_temp = [
     strategy_code: "L2f",
     category_number: 3,
     semantic_anchor: "Constructive Self-Talk",
-    words: ["work on", "improve", "help"],
+    words: ["improve", "help", "work on"],
     wordnet_ext: [],
     phrase_ext: [],
     rewrite: null,
@@ -837,141 +882,166 @@ let dict_temp = [
     Sidebar_feedback: null,
     color: null,
   },
-  {
-    strategy_code: "L2f",
-    category_number: 4,
-    semantic_anchor: "Cognitive Defusion",
-    words: [],
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: ["I am having the thought of"],
-    rewrite_position: "before",
-    popup_title: null,
-    popup_feedback: null,
-    Sidebar_feedback: null,
-    color: null,
-  },
 ];
 
-let dict_temp_demo = [
+let l1_dict = [
   {
-    strategy_code: "L2a",
-    category_number: 1,
-    semantic_anchor: "Negative Emotions",
-    popup_title: "Negative Emotions",
-    sidebar_title: "Negative Emotions",
-    words: ["hurt", "lack of confidence", "sad", "worried"],
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "First I accept all my emotions whether they are positive or negative, I also realize there are some actions I can make rather than let the emotions control me, such as",
+    Word: "loser",
+    Reprogramming: ["My inner value behind these is"],
+    ReprogramType: "end",
+  },
+  {
+    Word: "sad",
+    Reprogramming: [
+      "I have these feelings maybe because I value ...",
+      "I have these feelings maybe because I need ...",
+      "I have these feelings maybe because I want ...",
+      "I have these feelings maybe because I lack …",
+      " Take a step back, I'm feeling like this because...",
+      " I will feel better if ",
     ],
-    rewrite_position: "after",
-    popup_feedback: null,
-    Sidebar_feedback: null,
-    color: "#4b93ff",
+    ReprogramType: "end",
   },
   {
-    strategy_code: "L2a",
-    category_number: 2,
-    semantic_anchor: "Negative Emotions",
-    popup_title: "Cognitive distortion",
-    sidebar_title: "Cognitive Defusion",
-    words: ["a bad way"],
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: ["A different perspective might be"],
-    rewrite_position: "after",
-    popup_feedback: "",
-    Sidebar_feedback:
-      "The purpose of cognitive defusion is to enable you to be aware of the actual process of your thinking so you are better able to reflect objectively and problem solve effectively before taking any action.",
-    color: "#2daf33",
-  },
-  {
-    strategy_code: "L2a",
-    category_number: 3,
-    semantic_anchor: "Negative Emotions",
-    popup_title: "Dysfunctional self-talk",
-    sidebar_title: "Cognitive Defusion",
-    words: ["am a loser"],
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: ["I have the thought of"],
-    rewrite_position: "before",
-    popup_feedback:
-      "Negative thinking has wide-reaching implications for your mental health. When they become a pattern, they can turn into depressed or anxious thinking. Cognitive defusion can help deal with this.",
-    Sidebar_feedback:
-      "The purpose of cognitive defusion is to enable you to be aware of the actual process of your thinking so you are better able to reflect objectively and problem solve effectively before taking any action.",
-    color: "#2daf33",
-  },
-  {
-    strategy_code: "L2a",
-    category_number: 4,
-    semantic_anchor: "Negative Emotions",
-    popup_title: "Cognitive Distortion",
-    sidebar_title: "Cognitive Defusion",
-    words: ["lost all"],
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "But the reality is more complicated than just white or black, there are exceptions:",
+    Word: "depressed",
+    Reprogramming: [
+      "I have these feelings maybe because I value ...",
+      "I have these feelings maybe because I need ...",
+      "I have these feelings maybe because I want ...",
+      "I have these feelings maybe because I lack …",
+      " Take a step back, I'm feeling like this because...",
+      " I will feel better if ",
     ],
-    rewrite_position: "after",
-    popup_feedback: "All or nothing thinking.",
-    Sidebar_feedback: "Seeking for exceptions",
-    color: "#2daf33",
+    ReprogramType: "end",
   },
   {
-    strategy_code: "L2a",
-    category_number: 5,
-    semantic_anchor: "Negative Emotions",
-    popup_title: "Cognitive Distortion",
-    sidebar_title: "Cognitive Defusion",
-    words: ["didn't deserve it"],
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: ["but I understand my thought simply aren't facts"],
-    rewrite_position: "after",
-    popup_feedback: "All or nothing thinking.",
-    Sidebar_feedback: "Seeking for exceptions",
-    color: "#2daf33",
+    Word: "heartbreak",
+    Reprogramming: [
+      "I have these feelings maybe because I value ...",
+      "I have these feelings maybe because I need ...",
+      "I have these feelings maybe because I want ...",
+      "I have these feelings maybe because I lack …",
+      " Take a step back, I'm feeling like this because...",
+      " I will feel better if ",
+    ],
+    ReprogramType: "end",
   },
   {
-    strategy_code: "L2a",
-    category_number: 6,
-    semantic_anchor: "Negative Emotions",
-    popup_title: "Should Statement",
-    sidebar_title: "Cognitive Defusion",
-    words: ["should"],
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [""],
-    rewrite_position: "replace",
-    popup_feedback:
-      "A “should statement” is a type of negative thinking pattern that can cause feelings of doubt and fear in a person. These types of statements are a form of cognitive distortion.",
-    Sidebar_feedback:
-      'Avoid limiting yourself by setting should and should not; you are in charge of your life. Instead, use "I accept, I choose, I plan, I want"',
-    color: "#597dce",
+    Word: "heartbroken",
+    Reprogramming: [
+      "I have these feelings maybe because I value ...",
+      "I have these feelings maybe because I need ...",
+      "I have these feelings maybe because I want ...",
+      "I have these feelings maybe because I lack …",
+      " Take a step back, I'm feeling like this because...",
+      " I will feel better if ",
+    ],
+    ReprogramType: "end",
   },
   {
-    strategy_code: "L2a",
-    category_number: 6,
-    semantic_anchor: "Negative Emotions",
-    popup_title: "Should Statement",
-    sidebar_title: "Cognitive Defusion",
-    words: ["should not"],
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: ["I accept myself when"],
-    rewrite_position: "before",
-    popup_feedback:
-      'A "should statement" is a type of negative thinking pattern that can cause feelings of doubt and fear in a person. These types of statements are a form of cognitive distortion.',
-    Sidebar_feedback:
-      'Avoid limiting yourself by setting should and should not; you are in charge of your life. Instead, use "I accept, I choose, I plan, I want"',
-    color: "#597dce",
+    Word: "angry",
+    Reprogramming: [
+      "I have these feelings maybe because I value ...",
+      "I have these feelings maybe because I need ...",
+      "I have these feelings maybe because I want ...",
+      "I have these feelings maybe because I lack …",
+      " Take a step back, I'm feeling like this because...",
+      " I will feel better if ",
+    ],
+    ReprogramType: "end",
+  },
+  {
+    Word: "lonely",
+    Reprogramming: [
+      "I have these feelings maybe because I value ...",
+      "I have these feelings maybe because I need ...",
+      "I have these feelings maybe because I want ...",
+      "I have these feelings maybe because I lack …",
+      " Take a step back, I'm feeling like this because...",
+      " I will feel better if ",
+    ],
+    ReprogramType: "end",
+  },
+  {
+    Word: "panic",
+    Reprogramming: [
+      "I have these feelings maybe because I value ...",
+      "I have these feelings maybe because I need ...",
+      "I have these feelings maybe because I want ...",
+      "I have these feelings maybe because I lack …",
+      " Take a step back, I'm feeling like this because...",
+      " I will feel better if ",
+    ],
+    ReprogramType: "end",
+  },
+  {
+    Word: "worry",
+    Reprogramming: [
+      "I have these feelings maybe because I value ...",
+      "I have these feelings maybe because I need ...",
+      "I have these feelings maybe because I want ...",
+      "I have these feelings maybe because I lack …",
+      " Take a step back, I'm feeling like this because...",
+      " I will feel better if ",
+    ],
+    ReprogramType: "end",
+  },
+  {
+    Word: null,
+    Reprogramming: ["When I say this, I mean..."],
+    ReprogramType: "end",
+  },
+  {
+    Word: null,
+    Reprogramming: ["To explain it further ..."],
+    ReprogramType: "end",
+  },
+  {
+    Word: null,
+    Reprogramming: ["A different point of view can be..."],
+    ReprogramType: "end",
+  },
+  { Word: null, Reprogramming: ["To be specific,"], ReprogramType: "end" },
+  {
+    Word: null,
+    Reprogramming: ["An example to support this is..."],
+    ReprogramType: "end",
+  },
+  {
+    Word: null,
+    Reprogramming: ["Someone else may respond to this in a different way:"],
+    ReprogramType: "end",
+  },
+  {
+    Word: null,
+    Reprogramming: ["The long-term implications of this can be..."],
+    ReprogramType: "end",
+  },
+  {
+    Word: "feel",
+    Reprogramming: ["how do I feel about having these emotions?"],
+    ReprogramType: "end",
+  },
+  {
+    Word: "feel",
+    Reprogramming: ["can I accept my feelings without judgment?"],
+    ReprogramType: "end",
+  },
+  {
+    Word: "feel",
+    Reprogramming: [
+      "Do I feel comfortable with expressing my emotions authentically? Why or why not?",
+    ],
+    ReprogramType: "end",
+  },
+  {
+    Word: "feel",
+    Reprogramming: [
+      "I can write down more details separately about the event, my feelings, my opinions and evidences for/against my opinions as follows:",
+    ],
+    ReprogramType: "end",
   },
 ];
-
 /*************************************************************************** NEW ADDS */
 
 function get_ngram(alist, n) {
@@ -1003,15 +1073,11 @@ function analyzeText() {
 
   allText = allText.concat(get_ngram(allText, 2), get_ngram(allText, 3));
 
-  // console.log(allText);
-
   // param needed for search
   let start = CodeMirror.Pos(cm.firstLine(), 0);
 
   // store categories for matched words
   let categories = [];
-
-  //
 
   // filter words not in dict
   allText = allText.filter(function (element) {
@@ -2102,16 +2168,21 @@ cm.on("keyup", function () {
 });
 
 cm.on("beforeChange", function (cm, changeObj) {
+  console.log("before change,", changeObj);
   if (noEdit) {
     return;
   }
 
-  // insert-like input
+  if (changeObj.text[0] === "\t") {
+    changeObj.cancel();
+  }
+
   if (
     placeholder_active &&
     before_change_flag &&
     changeObj.origin !== "+delete"
   ) {
+    // insert-like input
     changeObj.cancel();
     newEdit(changeObj);
   }
@@ -2201,9 +2272,9 @@ function resetPHStates() {
 
 cm.on("change", function (cm, changeObj) {
   // watchL1();
-  if (L1_active) {
-    clearL1interval();
-  }
+  // if (L1_active) {
+  //   clearL1interval();
+  // }
 
   if (noEdit) {
     return;
@@ -2331,93 +2402,90 @@ function toggleL2() {
   }
 }
 
-const L1_T_low = 5000;
-const L1_T_high = 10000;
-let L1_T_current = L1_T_low;
-let L1_active = false;
+// to be used with the actual dictionary - called via keypress
+function triggerL1() {
+  console.log("inside triggerL1");
+  // read last sentence and check if any of the L1 keywords are included
 
-// let L1interval_ID = setInterval(watchL1, L1_T_high);
-let L1interval_ID = null;
-let nWords_fulldoc = 0;
-const L1_words_thresh = 10;
+  let shuffled_l1_dict = shuffleArray(l1_dict);
 
-function clearL1interval() {
-  clearInterval(L1interval_ID);
-  L1interval_ID = setInterval(watchL1, L1_T_current);
-}
+  let sentence = isolateCurrentSentence();
+  let found = shuffled_l1_dict.find((o) => sentence.includes(o.Word)); // want the object
 
-const expressiveness_prompts = [
-  "I can write down more details about one specific event and my thoughts/feelings:",
-  "I will try to pull out everything running in my mind:",
-  "To be specific,",
-  "Such thoughts make me feel",
-  "What caused me to feel this way is",
-];
-let L1_prompt_marker = 0;
+  if (found) {
+    console.log("found:", found);
+    // reprogramming options:
+    let n_options = found.Reprogramming.length; // arr
+    let random_selection = getRandomInt(n_options);
 
-function watchL1() {
-  if (nWords_fulldoc > L1_words_thresh && L1_T_current !== L1_T_high) {
-    // flip switch
-    console.log("Above thresh: flipping L1 period from low to high");
-    clearInterval(L1interval_ID);
-    L1_T_current = L1_T_high;
-    L1interval_ID = setInterval(watchL1, L1_T_current);
-  } else if (nWords_fulldoc < L1_words_thresh && L1_T_current !== L1_T_low) {
-    console.log("Below thresh: flipping L1 period from high to low");
-    clearInterval(L1interval_ID);
-    L1interval_ID = setInterval(watchL1, L1_T_low);
-    L1_T_current = L1_T_low;
-  }
-  console.log("in watchL1, L1interval", L1_T_current);
-
-  console.log("called L1");
-  if (!placeholder_active) {
-    console.log("created L1 Placeholder");
-    let text = expressiveness_prompts[L1_prompt_marker % 5];
-    L1_prompt_marker++;
     let end_line = cm.getDoc().lastLine();
     let end_ch = cm.getLine(end_line).length;
     triggerRewrite({
       search_coords: { line: end_line, ch: end_ch },
-      // rewrite: ["I am having the thought of"],
-      rewrite: [text],
+      rewrite: [found.Reprogramming[random_selection]],
+      rewrite_position: "end",
+    });
+
+    // if yes, map with relevant suggestive text
+  } else {
+    // else, choose from the null ones
+    console.log("not found, using null options");
+    let l1_options = shuffled_l1_dict
+      .filter((entry) => entry.Word === null)
+      .map((el) => el.Reprogramming[0]);
+    console.log("l1_options", l1_options);
+
+    let n_options = l1_options.length; // arr
+    let random_selection = getRandomInt(n_options);
+
+    let end_line = cm.getDoc().lastLine();
+    let end_ch = cm.getLine(end_line).length;
+    triggerRewrite({
+      search_coords: { line: end_line, ch: end_ch },
+      rewrite: [l1_options[random_selection]],
       rewrite_position: "end",
     });
   }
+  L1_active = true;
 }
 
-document.querySelector("button.L1Button").addEventListener("click", onL1Toggle);
-document.querySelector("button.L2Button").addEventListener("click", onL2Toggle);
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
 
-function toggleL1() {
-  let btn = document.querySelector("button.L1Button");
-  if (btn.textContent === "Expressiveness off") {
-    btn.textContent = "Expressiveness on";
-    btn.style.opacity = 0.8;
-    L1_T_current = L1_T_low;
-    L1_active = true;
-    L1interval_ID = setInterval(watchL1, L1_T_current);
+function isolateCurrentSentence() {
+  // let cur = cm.getCursor(); // should be end
+  let end_line = cm.getDoc().lastLine();
+  let end_ch = cm.getLine(end_line).length;
+  // console.log("cur", cur);
+  var cursor = cm.getSearchCursor(
+    ".",
+    { line: end_line, ch: end_ch },
+    {
+      caseFold: true,
+      multiline: true,
+    }
+  );
+
+  let start = null;
+  if (cursor.findPrevious()) {
+    start = cursor.to();
   } else {
-    btn.textContent = "Expressiveness off";
-    dismissPlaceholder();
-    resetPHStates();
-    L1_active = false;
-    btn.style.opacity = 0.3;
-    clearInterval(L1interval_ID);
+    start = { line: end_line, ch: 0 };
   }
+
+  return cm.getRange(start, { line: end_line, ch: end_ch });
 }
 
-if (window.location.href.includes("rephrase")) {
-  toggleL2();
-  toggleL1();
-}
+// document.querySelector("button.L1Button").addEventListener("click", onL1Toggle);
+document.querySelector("button.L2Button").addEventListener("click", onL2Toggle);
 
 $(window).resize(function () {
   manualAnalyzeTrigger(true);
   // could make L2 popup move here to follow text
 });
 
-// saving json
+// saving json -----------------------------------------------------
 function generateFile() {
   console.log("calling generateFile");
   generatePackOne();
@@ -2426,4 +2494,34 @@ function generateFile() {
 function generatePackRecall(file) {
   console.log(file);
   download(JSON.stringify(file), "report.json");
+}
+
+// --------
+
+document.addEventListener("keydown", (evt) => {
+  // change color of button and make a subtle transition back after a timeout
+
+  if (evt.key === "Tab") {
+    triggerL1();
+  }
+});
+
+function shuffleArray(array) {
+  let currentIndex = array.length,
+    randomIndex;
+
+  // While there remain elements to shuffle.
+  while (currentIndex != 0) {
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
+
+  return array;
 }
