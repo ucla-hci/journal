@@ -68,34 +68,15 @@ let toggleAtomic = true;
 
 let dict_temp = [
   {
-    strategy_code: "L2a",
-    category_number: 1,
-    semantic_anchor: "Positive Adjectives",
-    words: [
-      "altruistic",
-      "high-rpincipled",
-      "right",
-      "fair",
-      "perfect",
-      "wonderful",
-      "confident",
-      "diligent",
-      "brave",
-    ],
+    Word: "altruistic",
     wordnet_ext: [],
-    phrase_ext: [
-      "(expand)",
-      "he is not brave",
-      "she is not brave",
-      "they are not brave",
-      "i am not brave",
-      "he is far from brave",
-      "she is far from brave",
-      "they are far from brave",
+    phrase_ext: [],
+    rewrite: [
+      "Without this judgment, I will",
+      " Beyond judgment, the situation and my feelings can be described as:",
     ],
-    rewrite: null,
     rewrite_position: "After",
-    popup_title: "Judgment",
+    Popup_title: "Judgment",
     popup_feedback:
       "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
     Sidebar_feedback:
@@ -103,32 +84,15 @@ let dict_temp = [
     color: "#287db5",
   },
   {
-    strategy_code: "L2a",
-    category_number: 2,
-    semantic_anchor: "Negative Adjectives",
-    words: [
-      "egoistic",
-      "wrong",
-      "unfair",
-      "stupid",
-      "lazy",
-      "bad",
-      "terrible",
-      "mean",
-      "tenderhearted",
-      "despotic",
-    ],
+    Word: "high-rpincipled",
     wordnet_ext: [],
-    phrase_ext: [
-      "he is egoistic",
-      "she is egoistic",
-      "i am egoistic",
-      "they are egoistic",
-      "(expand)",
+    phrase_ext: [],
+    rewrite: [
+      "Without this judgment, I will",
+      " Beyond judgment, the situation and my feelings can be described as:",
     ],
-    rewrite: null,
     rewrite_position: "After",
-    popup_title: "Judgment",
+    Popup_title: "Judgment",
     popup_feedback:
       "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
     Sidebar_feedback:
@@ -136,77 +100,605 @@ let dict_temp = [
     color: "#287db5",
   },
   {
-    strategy_code: "L2b",
-    category_number: 1,
-    semantic_anchor: "Should Statement",
-    words: [
-      "have to",
-      "should",
-      "should",
-      "have to",
-      "must",
-      "supposed",
-      "ought",
-      "supposed",
-      "must",
-      "ought",
+    Word: "right",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "Without this judgment, I will",
+      " Beyond judgment, the situation and my feelings can be described as:",
     ],
+    rewrite_position: "After",
+    Popup_title: "Judgment",
+    popup_feedback:
+      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
+    Sidebar_feedback:
+      '<h3>More About Judgments</h3>\n<p>Maybe you look out the window, see rain and wind, and make the judgment that the weather is bad. These negative judgments aren\'t right or wrong, but they are often unconscious and often unproductive. Negative judgments often make us feel bad and make us less effective at managing the situation.</p>\n<ul>\n<li>Yes, I can have judgments!</li>\n<li>Does the judgment make me feel bad?</li>\n<li>Take a step back, write down the situation, the resulting emotion, and the outcome of the judgment</li>\n<li>Yeah, I become more aware of how unwanted negative judgments are becoming part of my thoughts!</li>\n</ul>\n<h3>Reframe Negative Judgments</h3>\n<ul>\n<li>Turn a judgment into a nonjudgmental descriptive statement</li>\n</ul>\n<p>The idea is to try to rewrite our negative judgments in a form that is nonjudgmental. You will still express what happened, how you felt, and what you thought, but this time without using words that will express a negative and judging attitude. Describe the situation factually, write down what feeling you had, and write down what you were thinking about.</p>\n<p>Reference: <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindfulness-of-negative-judgments/" target="_blank" rel="noopener">Negative Judgments</a>, <a href="https://dialecticalbehaviortherapy.com/mindfulness/letting-go/" target="_blank" rel="noopener">Letting Go of Judgments</a></p>',
+    color: "#287db5",
+  },
+  {
+    Word: "fair",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "Without this judgment, I will",
+      " Beyond judgment, the situation and my feelings can be described as:",
+    ],
+    rewrite_position: "After",
+    Popup_title: "Judgment",
+    popup_feedback:
+      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
+    Sidebar_feedback:
+      '<h3>More About Judgments</h3>\n<p>Maybe you look out the window, see rain and wind, and make the judgment that the weather is bad. These negative judgments aren\'t right or wrong, but they are often unconscious and often unproductive. Negative judgments often make us feel bad and make us less effective at managing the situation.</p>\n<ul>\n<li>Yes, I can have judgments!</li>\n<li>Does the judgment make me feel bad?</li>\n<li>Take a step back, write down the situation, the resulting emotion, and the outcome of the judgment</li>\n<li>Yeah, I become more aware of how unwanted negative judgments are becoming part of my thoughts!</li>\n</ul>\n<h3>Reframe Negative Judgments</h3>\n<ul>\n<li>Turn a judgment into a nonjudgmental descriptive statement</li>\n</ul>\n<p>The idea is to try to rewrite our negative judgments in a form that is nonjudgmental. You will still express what happened, how you felt, and what you thought, but this time without using words that will express a negative and judging attitude. Describe the situation factually, write down what feeling you had, and write down what you were thinking about.</p>\n<p>Reference: <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindfulness-of-negative-judgments/" target="_blank" rel="noopener">Negative Judgments</a>, <a href="https://dialecticalbehaviortherapy.com/mindfulness/letting-go/" target="_blank" rel="noopener">Letting Go of Judgments</a></p>',
+    color: "#287db5",
+  },
+  {
+    Word: "perfect",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "Without this judgment, I will",
+      " Beyond judgment, the situation and my feelings can be described as:",
+    ],
+    rewrite_position: "After",
+    Popup_title: "Judgment",
+    popup_feedback:
+      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
+    Sidebar_feedback:
+      '<h3>More About Judgments</h3>\n<p>Maybe you look out the window, see rain and wind, and make the judgment that the weather is bad. These negative judgments aren\'t right or wrong, but they are often unconscious and often unproductive. Negative judgments often make us feel bad and make us less effective at managing the situation.</p>\n<ul>\n<li>Yes, I can have judgments!</li>\n<li>Does the judgment make me feel bad?</li>\n<li>Take a step back, write down the situation, the resulting emotion, and the outcome of the judgment</li>\n<li>Yeah, I become more aware of how unwanted negative judgments are becoming part of my thoughts!</li>\n</ul>\n<h3>Reframe Negative Judgments</h3>\n<ul>\n<li>Turn a judgment into a nonjudgmental descriptive statement</li>\n</ul>\n<p>The idea is to try to rewrite our negative judgments in a form that is nonjudgmental. You will still express what happened, how you felt, and what you thought, but this time without using words that will express a negative and judging attitude. Describe the situation factually, write down what feeling you had, and write down what you were thinking about.</p>\n<p>Reference: <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindfulness-of-negative-judgments/" target="_blank" rel="noopener">Negative Judgments</a>, <a href="https://dialecticalbehaviortherapy.com/mindfulness/letting-go/" target="_blank" rel="noopener">Letting Go of Judgments</a></p>',
+    color: "#287db5",
+  },
+  {
+    Word: "wonderful",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "Without this judgment, I will",
+      " Beyond judgment, the situation and my feelings can be described as:",
+    ],
+    rewrite_position: "After",
+    Popup_title: "Judgment",
+    popup_feedback:
+      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
+    Sidebar_feedback:
+      '<h3>More About Judgments</h3>\n<p>Maybe you look out the window, see rain and wind, and make the judgment that the weather is bad. These negative judgments aren\'t right or wrong, but they are often unconscious and often unproductive. Negative judgments often make us feel bad and make us less effective at managing the situation.</p>\n<ul>\n<li>Yes, I can have judgments!</li>\n<li>Does the judgment make me feel bad?</li>\n<li>Take a step back, write down the situation, the resulting emotion, and the outcome of the judgment</li>\n<li>Yeah, I become more aware of how unwanted negative judgments are becoming part of my thoughts!</li>\n</ul>\n<h3>Reframe Negative Judgments</h3>\n<ul>\n<li>Turn a judgment into a nonjudgmental descriptive statement</li>\n</ul>\n<p>The idea is to try to rewrite our negative judgments in a form that is nonjudgmental. You will still express what happened, how you felt, and what you thought, but this time without using words that will express a negative and judging attitude. Describe the situation factually, write down what feeling you had, and write down what you were thinking about.</p>\n<p>Reference: <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindfulness-of-negative-judgments/" target="_blank" rel="noopener">Negative Judgments</a>, <a href="https://dialecticalbehaviortherapy.com/mindfulness/letting-go/" target="_blank" rel="noopener">Letting Go of Judgments</a></p>',
+    color: "#287db5",
+  },
+  {
+    Word: "confident",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "Without this judgment, I will",
+      " Beyond judgment, the situation and my feelings can be described as:",
+    ],
+    rewrite_position: "After",
+    Popup_title: "Judgment",
+    popup_feedback:
+      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
+    Sidebar_feedback:
+      '<h3>More About Judgments</h3>\n<p>Maybe you look out the window, see rain and wind, and make the judgment that the weather is bad. These negative judgments aren\'t right or wrong, but they are often unconscious and often unproductive. Negative judgments often make us feel bad and make us less effective at managing the situation.</p>\n<ul>\n<li>Yes, I can have judgments!</li>\n<li>Does the judgment make me feel bad?</li>\n<li>Take a step back, write down the situation, the resulting emotion, and the outcome of the judgment</li>\n<li>Yeah, I become more aware of how unwanted negative judgments are becoming part of my thoughts!</li>\n</ul>\n<h3>Reframe Negative Judgments</h3>\n<ul>\n<li>Turn a judgment into a nonjudgmental descriptive statement</li>\n</ul>\n<p>The idea is to try to rewrite our negative judgments in a form that is nonjudgmental. You will still express what happened, how you felt, and what you thought, but this time without using words that will express a negative and judging attitude. Describe the situation factually, write down what feeling you had, and write down what you were thinking about.</p>\n<p>Reference: <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindfulness-of-negative-judgments/" target="_blank" rel="noopener">Negative Judgments</a>, <a href="https://dialecticalbehaviortherapy.com/mindfulness/letting-go/" target="_blank" rel="noopener">Letting Go of Judgments</a></p>',
+    color: "#287db5",
+  },
+  {
+    Word: "egoistic",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "Without this judgment, I will",
+      " Beyond judgment, the situation and my feelings can be described as:",
+    ],
+    rewrite_position: "After",
+    Popup_title: "Judgment",
+    popup_feedback:
+      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
+    Sidebar_feedback:
+      '<h3>More About Judgments</h3>\n<p>Maybe you look out the window, see rain and wind, and make the judgment that the weather is bad. These negative judgments aren\'t right or wrong, but they are often unconscious and often unproductive. Negative judgments often make us feel bad and make us less effective at managing the situation.</p>\n<ul>\n<li>Yes, I can have judgments!</li>\n<li>Does the judgment make me feel bad?</li>\n<li>Take a step back, write down the situation, the resulting emotion, and the outcome of the judgment</li>\n<li>Yeah, I become more aware of how unwanted negative judgments are becoming part of my thoughts!</li>\n</ul>\n<h3>Reframe Negative Judgments</h3>\n<ul>\n<li>Turn a judgment into a nonjudgmental descriptive statement</li>\n</ul>\n<p>The idea is to try to rewrite our negative judgments in a form that is nonjudgmental. You will still express what happened, how you felt, and what you thought, but this time without using words that will express a negative and judging attitude. Describe the situation factually, write down what feeling you had, and write down what you were thinking about.</p>\n<p>Reference: <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindfulness-of-negative-judgments/" target="_blank" rel="noopener">Negative Judgments</a>, <a href="https://dialecticalbehaviortherapy.com/mindfulness/letting-go/" target="_blank" rel="noopener">Letting Go of Judgments</a></p>',
+    color: "#287db5",
+  },
+  {
+    Word: "wrong",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "Without this judgment, I will",
+      " Beyond judgment, the situation and my feelings can be described as:",
+    ],
+    rewrite_position: "After",
+    Popup_title: "Judgment",
+    popup_feedback:
+      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
+    Sidebar_feedback:
+      '<h3>More About Judgments</h3>\n<p>Maybe you look out the window, see rain and wind, and make the judgment that the weather is bad. These negative judgments aren\'t right or wrong, but they are often unconscious and often unproductive. Negative judgments often make us feel bad and make us less effective at managing the situation.</p>\n<ul>\n<li>Yes, I can have judgments!</li>\n<li>Does the judgment make me feel bad?</li>\n<li>Take a step back, write down the situation, the resulting emotion, and the outcome of the judgment</li>\n<li>Yeah, I become more aware of how unwanted negative judgments are becoming part of my thoughts!</li>\n</ul>\n<h3>Reframe Negative Judgments</h3>\n<ul>\n<li>Turn a judgment into a nonjudgmental descriptive statement</li>\n</ul>\n<p>The idea is to try to rewrite our negative judgments in a form that is nonjudgmental. You will still express what happened, how you felt, and what you thought, but this time without using words that will express a negative and judging attitude. Describe the situation factually, write down what feeling you had, and write down what you were thinking about.</p>\n<p>Reference: <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindfulness-of-negative-judgments/" target="_blank" rel="noopener">Negative Judgments</a>, <a href="https://dialecticalbehaviortherapy.com/mindfulness/letting-go/" target="_blank" rel="noopener">Letting Go of Judgments</a></p>',
+    color: "#287db5",
+  },
+  {
+    Word: "unfair",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "Without this judgment, I will",
+      " Beyond judgment, the situation and my feelings can be described as:",
+    ],
+    rewrite_position: "After",
+    Popup_title: "Judgment",
+    popup_feedback:
+      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
+    Sidebar_feedback:
+      '<h3>More About Judgments</h3>\n<p>Maybe you look out the window, see rain and wind, and make the judgment that the weather is bad. These negative judgments aren\'t right or wrong, but they are often unconscious and often unproductive. Negative judgments often make us feel bad and make us less effective at managing the situation.</p>\n<ul>\n<li>Yes, I can have judgments!</li>\n<li>Does the judgment make me feel bad?</li>\n<li>Take a step back, write down the situation, the resulting emotion, and the outcome of the judgment</li>\n<li>Yeah, I become more aware of how unwanted negative judgments are becoming part of my thoughts!</li>\n</ul>\n<h3>Reframe Negative Judgments</h3>\n<ul>\n<li>Turn a judgment into a nonjudgmental descriptive statement</li>\n</ul>\n<p>The idea is to try to rewrite our negative judgments in a form that is nonjudgmental. You will still express what happened, how you felt, and what you thought, but this time without using words that will express a negative and judging attitude. Describe the situation factually, write down what feeling you had, and write down what you were thinking about.</p>\n<p>Reference: <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindfulness-of-negative-judgments/" target="_blank" rel="noopener">Negative Judgments</a>, <a href="https://dialecticalbehaviortherapy.com/mindfulness/letting-go/" target="_blank" rel="noopener">Letting Go of Judgments</a></p>',
+    color: "#287db5",
+  },
+  {
+    Word: "stupid",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "Without this judgment, I will",
+      " Beyond judgment, the situation and my feelings can be described as:",
+    ],
+    rewrite_position: "After",
+    Popup_title: "Judgment",
+    popup_feedback:
+      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
+    Sidebar_feedback:
+      '<h3>More About Judgments</h3>\n<p>Maybe you look out the window, see rain and wind, and make the judgment that the weather is bad. These negative judgments aren\'t right or wrong, but they are often unconscious and often unproductive. Negative judgments often make us feel bad and make us less effective at managing the situation.</p>\n<ul>\n<li>Yes, I can have judgments!</li>\n<li>Does the judgment make me feel bad?</li>\n<li>Take a step back, write down the situation, the resulting emotion, and the outcome of the judgment</li>\n<li>Yeah, I become more aware of how unwanted negative judgments are becoming part of my thoughts!</li>\n</ul>\n<h3>Reframe Negative Judgments</h3>\n<ul>\n<li>Turn a judgment into a nonjudgmental descriptive statement</li>\n</ul>\n<p>The idea is to try to rewrite our negative judgments in a form that is nonjudgmental. You will still express what happened, how you felt, and what you thought, but this time without using words that will express a negative and judging attitude. Describe the situation factually, write down what feeling you had, and write down what you were thinking about.</p>\n<p>Reference: <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindfulness-of-negative-judgments/" target="_blank" rel="noopener">Negative Judgments</a>, <a href="https://dialecticalbehaviortherapy.com/mindfulness/letting-go/" target="_blank" rel="noopener">Letting Go of Judgments</a></p>',
+    color: "#287db5",
+  },
+  {
+    Word: "lazy",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "Without this judgment, I will",
+      " Beyond judgment, the situation and my feelings can be described as:",
+    ],
+    rewrite_position: "After",
+    Popup_title: "Judgment",
+    popup_feedback:
+      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
+    Sidebar_feedback:
+      '<h3>More About Judgments</h3>\n<p>Maybe you look out the window, see rain and wind, and make the judgment that the weather is bad. These negative judgments aren\'t right or wrong, but they are often unconscious and often unproductive. Negative judgments often make us feel bad and make us less effective at managing the situation.</p>\n<ul>\n<li>Yes, I can have judgments!</li>\n<li>Does the judgment make me feel bad?</li>\n<li>Take a step back, write down the situation, the resulting emotion, and the outcome of the judgment</li>\n<li>Yeah, I become more aware of how unwanted negative judgments are becoming part of my thoughts!</li>\n</ul>\n<h3>Reframe Negative Judgments</h3>\n<ul>\n<li>Turn a judgment into a nonjudgmental descriptive statement</li>\n</ul>\n<p>The idea is to try to rewrite our negative judgments in a form that is nonjudgmental. You will still express what happened, how you felt, and what you thought, but this time without using words that will express a negative and judging attitude. Describe the situation factually, write down what feeling you had, and write down what you were thinking about.</p>\n<p>Reference: <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindfulness-of-negative-judgments/" target="_blank" rel="noopener">Negative Judgments</a>, <a href="https://dialecticalbehaviortherapy.com/mindfulness/letting-go/" target="_blank" rel="noopener">Letting Go of Judgments</a></p>',
+    color: "#287db5",
+  },
+  {
+    Word: "bad",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "Without this judgment, I will",
+      " Beyond judgment, the situation and my feelings can be described as:",
+    ],
+    rewrite_position: "After",
+    Popup_title: "Judgment",
+    popup_feedback:
+      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
+    Sidebar_feedback:
+      '<h3>More About Judgments</h3>\n<p>Maybe you look out the window, see rain and wind, and make the judgment that the weather is bad. These negative judgments aren\'t right or wrong, but they are often unconscious and often unproductive. Negative judgments often make us feel bad and make us less effective at managing the situation.</p>\n<ul>\n<li>Yes, I can have judgments!</li>\n<li>Does the judgment make me feel bad?</li>\n<li>Take a step back, write down the situation, the resulting emotion, and the outcome of the judgment</li>\n<li>Yeah, I become more aware of how unwanted negative judgments are becoming part of my thoughts!</li>\n</ul>\n<h3>Reframe Negative Judgments</h3>\n<ul>\n<li>Turn a judgment into a nonjudgmental descriptive statement</li>\n</ul>\n<p>The idea is to try to rewrite our negative judgments in a form that is nonjudgmental. You will still express what happened, how you felt, and what you thought, but this time without using words that will express a negative and judging attitude. Describe the situation factually, write down what feeling you had, and write down what you were thinking about.</p>\n<p>Reference: <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindfulness-of-negative-judgments/" target="_blank" rel="noopener">Negative Judgments</a>, <a href="https://dialecticalbehaviortherapy.com/mindfulness/letting-go/" target="_blank" rel="noopener">Letting Go of Judgments</a></p>',
+    color: "#287db5",
+  },
+  {
+    Word: "terrible",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "Without this judgment, I will",
+      " Beyond judgment, the situation and my feelings can be described as:",
+    ],
+    rewrite_position: "After",
+    Popup_title: "Judgment",
+    popup_feedback:
+      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
+    Sidebar_feedback:
+      '<h3>More About Judgments</h3>\n<p>Maybe you look out the window, see rain and wind, and make the judgment that the weather is bad. These negative judgments aren\'t right or wrong, but they are often unconscious and often unproductive. Negative judgments often make us feel bad and make us less effective at managing the situation.</p>\n<ul>\n<li>Yes, I can have judgments!</li>\n<li>Does the judgment make me feel bad?</li>\n<li>Take a step back, write down the situation, the resulting emotion, and the outcome of the judgment</li>\n<li>Yeah, I become more aware of how unwanted negative judgments are becoming part of my thoughts!</li>\n</ul>\n<h3>Reframe Negative Judgments</h3>\n<ul>\n<li>Turn a judgment into a nonjudgmental descriptive statement</li>\n</ul>\n<p>The idea is to try to rewrite our negative judgments in a form that is nonjudgmental. You will still express what happened, how you felt, and what you thought, but this time without using words that will express a negative and judging attitude. Describe the situation factually, write down what feeling you had, and write down what you were thinking about.</p>\n<p>Reference: <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindfulness-of-negative-judgments/" target="_blank" rel="noopener">Negative Judgments</a>, <a href="https://dialecticalbehaviortherapy.com/mindfulness/letting-go/" target="_blank" rel="noopener">Letting Go of Judgments</a></p>',
+    color: "#287db5",
+  },
+  {
+    Word: "mean",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "Without this judgment, I will",
+      " Beyond judgment, the situation and my feelings can be described as:",
+    ],
+    rewrite_position: "After",
+    Popup_title: "Judgment",
+    popup_feedback:
+      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
+    Sidebar_feedback:
+      '<h3>More About Judgments</h3>\n<p>Maybe you look out the window, see rain and wind, and make the judgment that the weather is bad. These negative judgments aren\'t right or wrong, but they are often unconscious and often unproductive. Negative judgments often make us feel bad and make us less effective at managing the situation.</p>\n<ul>\n<li>Yes, I can have judgments!</li>\n<li>Does the judgment make me feel bad?</li>\n<li>Take a step back, write down the situation, the resulting emotion, and the outcome of the judgment</li>\n<li>Yeah, I become more aware of how unwanted negative judgments are becoming part of my thoughts!</li>\n</ul>\n<h3>Reframe Negative Judgments</h3>\n<ul>\n<li>Turn a judgment into a nonjudgmental descriptive statement</li>\n</ul>\n<p>The idea is to try to rewrite our negative judgments in a form that is nonjudgmental. You will still express what happened, how you felt, and what you thought, but this time without using words that will express a negative and judging attitude. Describe the situation factually, write down what feeling you had, and write down what you were thinking about.</p>\n<p>Reference: <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindfulness-of-negative-judgments/" target="_blank" rel="noopener">Negative Judgments</a>, <a href="https://dialecticalbehaviortherapy.com/mindfulness/letting-go/" target="_blank" rel="noopener">Letting Go of Judgments</a></p>',
+    color: "#287db5",
+  },
+  {
+    Word: "diligent",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "Without this judgment, I will",
+      " Beyond judgment, the situation and my feelings can be described as:",
+    ],
+    rewrite_position: "After",
+    Popup_title: "Judgment",
+    popup_feedback:
+      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
+    Sidebar_feedback:
+      '<h3>More About Judgments</h3>\n<p>Maybe you look out the window, see rain and wind, and make the judgment that the weather is bad. These negative judgments aren\'t right or wrong, but they are often unconscious and often unproductive. Negative judgments often make us feel bad and make us less effective at managing the situation.</p>\n<ul>\n<li>Yes, I can have judgments!</li>\n<li>Does the judgment make me feel bad?</li>\n<li>Take a step back, write down the situation, the resulting emotion, and the outcome of the judgment</li>\n<li>Yeah, I become more aware of how unwanted negative judgments are becoming part of my thoughts!</li>\n</ul>\n<h3>Reframe Negative Judgments</h3>\n<ul>\n<li>Turn a judgment into a nonjudgmental descriptive statement</li>\n</ul>\n<p>The idea is to try to rewrite our negative judgments in a form that is nonjudgmental. You will still express what happened, how you felt, and what you thought, but this time without using words that will express a negative and judging attitude. Describe the situation factually, write down what feeling you had, and write down what you were thinking about.</p>\n<p>Reference: <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindfulness-of-negative-judgments/" target="_blank" rel="noopener">Negative Judgments</a>, <a href="https://dialecticalbehaviortherapy.com/mindfulness/letting-go/" target="_blank" rel="noopener">Letting Go of Judgments</a></p>',
+    color: "#287db5",
+  },
+  {
+    Word: "tenderhearted",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "Without this judgment, I will",
+      " Beyond judgment, the situation and my feelings can be described as:",
+    ],
+    rewrite_position: "After",
+    Popup_title: "Judgment",
+    popup_feedback:
+      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
+    Sidebar_feedback:
+      '<h3>More About Judgments</h3>\n<p>Maybe you look out the window, see rain and wind, and make the judgment that the weather is bad. These negative judgments aren\'t right or wrong, but they are often unconscious and often unproductive. Negative judgments often make us feel bad and make us less effective at managing the situation.</p>\n<ul>\n<li>Yes, I can have judgments!</li>\n<li>Does the judgment make me feel bad?</li>\n<li>Take a step back, write down the situation, the resulting emotion, and the outcome of the judgment</li>\n<li>Yeah, I become more aware of how unwanted negative judgments are becoming part of my thoughts!</li>\n</ul>\n<h3>Reframe Negative Judgments</h3>\n<ul>\n<li>Turn a judgment into a nonjudgmental descriptive statement</li>\n</ul>\n<p>The idea is to try to rewrite our negative judgments in a form that is nonjudgmental. You will still express what happened, how you felt, and what you thought, but this time without using words that will express a negative and judging attitude. Describe the situation factually, write down what feeling you had, and write down what you were thinking about.</p>\n<p>Reference: <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindfulness-of-negative-judgments/" target="_blank" rel="noopener">Negative Judgments</a>, <a href="https://dialecticalbehaviortherapy.com/mindfulness/letting-go/" target="_blank" rel="noopener">Letting Go of Judgments</a></p>',
+    color: "#287db5",
+  },
+  {
+    Word: "despotic",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "Without this judgment, I will",
+      " Beyond judgment, the situation and my feelings can be described as:",
+    ],
+    rewrite_position: "After",
+    Popup_title: "Judgment",
+    popup_feedback:
+      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
+    Sidebar_feedback:
+      '<h3>More About Judgments</h3>\n<p>Maybe you look out the window, see rain and wind, and make the judgment that the weather is bad. These negative judgments aren\'t right or wrong, but they are often unconscious and often unproductive. Negative judgments often make us feel bad and make us less effective at managing the situation.</p>\n<ul>\n<li>Yes, I can have judgments!</li>\n<li>Does the judgment make me feel bad?</li>\n<li>Take a step back, write down the situation, the resulting emotion, and the outcome of the judgment</li>\n<li>Yeah, I become more aware of how unwanted negative judgments are becoming part of my thoughts!</li>\n</ul>\n<h3>Reframe Negative Judgments</h3>\n<ul>\n<li>Turn a judgment into a nonjudgmental descriptive statement</li>\n</ul>\n<p>The idea is to try to rewrite our negative judgments in a form that is nonjudgmental. You will still express what happened, how you felt, and what you thought, but this time without using words that will express a negative and judging attitude. Describe the situation factually, write down what feeling you had, and write down what you were thinking about.</p>\n<p>Reference: <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindfulness-of-negative-judgments/" target="_blank" rel="noopener">Negative Judgments</a>, <a href="https://dialecticalbehaviortherapy.com/mindfulness/letting-go/" target="_blank" rel="noopener">Letting Go of Judgments</a></p>',
+    color: "#287db5",
+  },
+  {
+    Word: "brave",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "Without this judgment, I will",
+      " Beyond judgment, the situation and my feelings can be described as:",
+    ],
+    rewrite_position: "After",
+    Popup_title: "Judgment",
+    popup_feedback:
+      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
+    Sidebar_feedback:
+      '<h3>More About Judgments</h3>\n<p>Maybe you look out the window, see rain and wind, and make the judgment that the weather is bad. These negative judgments aren\'t right or wrong, but they are often unconscious and often unproductive. Negative judgments often make us feel bad and make us less effective at managing the situation.</p>\n<ul>\n<li>Yes, I can have judgments!</li>\n<li>Does the judgment make me feel bad?</li>\n<li>Take a step back, write down the situation, the resulting emotion, and the outcome of the judgment</li>\n<li>Yeah, I become more aware of how unwanted negative judgments are becoming part of my thoughts!</li>\n</ul>\n<h3>Reframe Negative Judgments</h3>\n<ul>\n<li>Turn a judgment into a nonjudgmental descriptive statement</li>\n</ul>\n<p>The idea is to try to rewrite our negative judgments in a form that is nonjudgmental. You will still express what happened, how you felt, and what you thought, but this time without using words that will express a negative and judging attitude. Describe the situation factually, write down what feeling you had, and write down what you were thinking about.</p>\n<p>Reference: <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindfulness-of-negative-judgments/" target="_blank" rel="noopener">Negative Judgments</a>, <a href="https://dialecticalbehaviortherapy.com/mindfulness/letting-go/" target="_blank" rel="noopener">Letting Go of Judgments</a></p>',
+    color: "#287db5",
+  },
+  {
+    Word: "should",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "can",
+      " choose to",
+      " want to",
+      " prefer to",
+      " would like to",
+      " plan to",
+      "",
+    ],
+    rewrite_position: "Replace",
+    Popup_title: "Should Statment",
+    popup_feedback: "Come on! Things don't have to be a certain way.",
+    Sidebar_feedback:
+      "<h3>More About Should Statements</h3>\n<p>Should statements are statements that you make to yourself about what you &ldquo;should&rdquo; do, what you &ldquo;ought&rdquo; to do, or what you &ldquo;must&rdquo; do. They can also be applied to others, imposing a set of expectations that will likely not be met.</p>\n<ul>\n<li>Why do I think that it &ldquo;should&rdquo; be?</li>\n<li>What if I let go of &ldquo;should&rdquo; and &ldquo;shouldn&rsquo;t&rdquo;?</li>\n<li>What if I allowed myself to feel however I feel&mdash;without regrets or expectations or projections of what it &ldquo;should&rdquo; be?</li>\n</ul>\n<h3>Reframe Should Statements</h3>\n<p>Use more compassionate and realistic statements. Try to soften it by replacing &ldquo;should&rdquo;-type words with &ldquo;prefer&rdquo;-type words or empower it by using &ldquo;can/will/choose&rdquo;-type words and think about doable actions.</p>",
+    color: "#287db5",
+  },
+  {
+    Word: "ought",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "can",
+      " choose to",
+      " want to",
+      " prefer to",
+      " would like to",
+      " plan to",
+      "",
+    ],
+    rewrite_position: "Replace",
+    Popup_title: "Should Statment",
+    popup_feedback: "Come on! Things don't have to be a certain way.",
+    Sidebar_feedback:
+      "<h3>More About Should Statements</h3>\n<p>Should statements are statements that you make to yourself about what you &ldquo;should&rdquo; do, what you &ldquo;ought&rdquo; to do, or what you &ldquo;must&rdquo; do. They can also be applied to others, imposing a set of expectations that will likely not be met.</p>\n<ul>\n<li>Why do I think that it &ldquo;should&rdquo; be?</li>\n<li>What if I let go of &ldquo;should&rdquo; and &ldquo;shouldn&rsquo;t&rdquo;?</li>\n<li>What if I allowed myself to feel however I feel&mdash;without regrets or expectations or projections of what it &ldquo;should&rdquo; be?</li>\n</ul>\n<h3>Reframe Should Statements</h3>\n<p>Use more compassionate and realistic statements. Try to soften it by replacing &ldquo;should&rdquo;-type words with &ldquo;prefer&rdquo;-type words or empower it by using &ldquo;can/will/choose&rdquo;-type words and think about doable actions.</p>",
+    color: "#287db5",
+  },
+  {
+    Word: "supposed",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "can",
+      " choose to",
+      " want to",
+      " prefer to",
+      " would like to",
+      " plan to",
+      "",
+    ],
+    rewrite_position: "Replace",
+    Popup_title: "Should Statment",
+    popup_feedback: "Come on! Things don't have to be a certain way.",
+    Sidebar_feedback:
+      "<h3>More About Should Statements</h3>\n<p>Should statements are statements that you make to yourself about what you &ldquo;should&rdquo; do, what you &ldquo;ought&rdquo; to do, or what you &ldquo;must&rdquo; do. They can also be applied to others, imposing a set of expectations that will likely not be met.</p>\n<ul>\n<li>Why do I think that it &ldquo;should&rdquo; be?</li>\n<li>What if I let go of &ldquo;should&rdquo; and &ldquo;shouldn&rsquo;t&rdquo;?</li>\n<li>What if I allowed myself to feel however I feel&mdash;without regrets or expectations or projections of what it &ldquo;should&rdquo; be?</li>\n</ul>\n<h3>Reframe Should Statements</h3>\n<p>Use more compassionate and realistic statements. Try to soften it by replacing &ldquo;should&rdquo;-type words with &ldquo;prefer&rdquo;-type words or empower it by using &ldquo;can/will/choose&rdquo;-type words and think about doable actions.</p>",
+    color: "#287db5",
+  },
+  {
+    Word: "must",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "can",
+      " choose to",
+      " want to",
+      " prefer to",
+      " would like to",
+      " plan to",
+      "",
+    ],
+    rewrite_position: "Replace",
+    Popup_title: "Should Statment",
+    popup_feedback: "Come on! Things don't have to be a certain way.",
+    Sidebar_feedback:
+      "<h3>More About Should Statements</h3>\n<p>Should statements are statements that you make to yourself about what you &ldquo;should&rdquo; do, what you &ldquo;ought&rdquo; to do, or what you &ldquo;must&rdquo; do. They can also be applied to others, imposing a set of expectations that will likely not be met.</p>\n<ul>\n<li>Why do I think that it &ldquo;should&rdquo; be?</li>\n<li>What if I let go of &ldquo;should&rdquo; and &ldquo;shouldn&rsquo;t&rdquo;?</li>\n<li>What if I allowed myself to feel however I feel&mdash;without regrets or expectations or projections of what it &ldquo;should&rdquo; be?</li>\n</ul>\n<h3>Reframe Should Statements</h3>\n<p>Use more compassionate and realistic statements. Try to soften it by replacing &ldquo;should&rdquo;-type words with &ldquo;prefer&rdquo;-type words or empower it by using &ldquo;can/will/choose&rdquo;-type words and think about doable actions.</p>",
+    color: "#287db5",
+  },
+  {
+    Word: "have to",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "can",
+      " choose to",
+      " want to",
+      " prefer to",
+      " would like to",
+      " plan to",
+      "",
+    ],
+    rewrite_position: "Replace",
+    Popup_title: "Should Statment",
+    popup_feedback: "Come on! Things don't have to be a certain way.",
+    Sidebar_feedback:
+      "<h3>More About Should Statements</h3>\n<p>Should statements are statements that you make to yourself about what you &ldquo;should&rdquo; do, what you &ldquo;ought&rdquo; to do, or what you &ldquo;must&rdquo; do. They can also be applied to others, imposing a set of expectations that will likely not be met.</p>\n<ul>\n<li>Why do I think that it &ldquo;should&rdquo; be?</li>\n<li>What if I let go of &ldquo;should&rdquo; and &ldquo;shouldn&rsquo;t&rdquo;?</li>\n<li>What if I allowed myself to feel however I feel&mdash;without regrets or expectations or projections of what it &ldquo;should&rdquo; be?</li>\n</ul>\n<h3>Reframe Should Statements</h3>\n<p>Use more compassionate and realistic statements. Try to soften it by replacing &ldquo;should&rdquo;-type words with &ldquo;prefer&rdquo;-type words or empower it by using &ldquo;can/will/choose&rdquo;-type words and think about doable actions.</p>",
+    color: "#287db5",
+  },
+  {
+    Word: "should",
     wordnet_ext: [],
     phrase_ext: [],
     rewrite: ["The actions I can take are", " My goal is"],
     rewrite_position: "After",
-    popup_title: "Should Statment",
+    Popup_title: "Should Statment",
     popup_feedback: "Come on! Things don't have to be a certain way.",
-    Sidebar_feedback: null,
+    Sidebar_feedback:
+      "<h3>More About Should Statements</h3>\n<p>Should statements are statements that you make to yourself about what you &ldquo;should&rdquo; do, what you &ldquo;ought&rdquo; to do, or what you &ldquo;must&rdquo; do. They can also be applied to others, imposing a set of expectations that will likely not be met.</p>\n<ul>\n<li>Why do I think that it &ldquo;should&rdquo; be?</li>\n<li>What if I let go of &ldquo;should&rdquo; and &ldquo;shouldn&rsquo;t&rdquo;?</li>\n<li>What if I allowed myself to feel however I feel&mdash;without regrets or expectations or projections of what it &ldquo;should&rdquo; be?</li>\n</ul>\n<h3>Reframe Should Statements</h3>\n<p>Use more compassionate and realistic statements. Try to soften it by replacing &ldquo;should&rdquo;-type words with &ldquo;prefer&rdquo;-type words or empower it by using &ldquo;can/will/choose&rdquo;-type words and think about doable actions.</p>",
     color: "#287db5",
   },
   {
-    strategy_code: "L2b",
-    category_number: 2,
-    semantic_anchor: "All or Nothing Thinking / Overgeneralization",
-    words: [
-      "all",
-      "again",
-      "forever",
-      "always",
-      "never",
-      "anyone",
-      "anything",
-      "everyone",
-      "everything",
-      "nothing",
-      "none",
-      "no one",
-      "totally",
-      "only",
-    ],
-    wordnet_ext: ["anybody", "everybody"],
-    phrase_ext: ["every time", "any time"],
+    Word: "ought",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: ["The actions I can take are", " My goal is"],
+    rewrite_position: "After",
+    Popup_title: "Should Statment",
+    popup_feedback: "Come on! Things don't have to be a certain way.",
+    Sidebar_feedback:
+      "<h3>More About Should Statements</h3>\n<p>Should statements are statements that you make to yourself about what you &ldquo;should&rdquo; do, what you &ldquo;ought&rdquo; to do, or what you &ldquo;must&rdquo; do. They can also be applied to others, imposing a set of expectations that will likely not be met.</p>\n<ul>\n<li>Why do I think that it &ldquo;should&rdquo; be?</li>\n<li>What if I let go of &ldquo;should&rdquo; and &ldquo;shouldn&rsquo;t&rdquo;?</li>\n<li>What if I allowed myself to feel however I feel&mdash;without regrets or expectations or projections of what it &ldquo;should&rdquo; be?</li>\n</ul>\n<h3>Reframe Should Statements</h3>\n<p>Use more compassionate and realistic statements. Try to soften it by replacing &ldquo;should&rdquo;-type words with &ldquo;prefer&rdquo;-type words or empower it by using &ldquo;can/will/choose&rdquo;-type words and think about doable actions.</p>",
+    color: "#287db5",
+  },
+  {
+    Word: "supposed",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: ["The actions I can take are", " My goal is"],
+    rewrite_position: "After",
+    Popup_title: "Should Statment",
+    popup_feedback: "Come on! Things don't have to be a certain way.",
+    Sidebar_feedback:
+      "<h3>More About Should Statements</h3>\n<p>Should statements are statements that you make to yourself about what you &ldquo;should&rdquo; do, what you &ldquo;ought&rdquo; to do, or what you &ldquo;must&rdquo; do. They can also be applied to others, imposing a set of expectations that will likely not be met.</p>\n<ul>\n<li>Why do I think that it &ldquo;should&rdquo; be?</li>\n<li>What if I let go of &ldquo;should&rdquo; and &ldquo;shouldn&rsquo;t&rdquo;?</li>\n<li>What if I allowed myself to feel however I feel&mdash;without regrets or expectations or projections of what it &ldquo;should&rdquo; be?</li>\n</ul>\n<h3>Reframe Should Statements</h3>\n<p>Use more compassionate and realistic statements. Try to soften it by replacing &ldquo;should&rdquo;-type words with &ldquo;prefer&rdquo;-type words or empower it by using &ldquo;can/will/choose&rdquo;-type words and think about doable actions.</p>",
+    color: "#287db5",
+  },
+  {
+    Word: "must",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: ["The actions I can take are", " My goal is"],
+    rewrite_position: "After",
+    Popup_title: "Should Statment",
+    popup_feedback: "Come on! Things don't have to be a certain way.",
+    Sidebar_feedback:
+      "<h3>More About Should Statements</h3>\n<p>Should statements are statements that you make to yourself about what you &ldquo;should&rdquo; do, what you &ldquo;ought&rdquo; to do, or what you &ldquo;must&rdquo; do. They can also be applied to others, imposing a set of expectations that will likely not be met.</p>\n<ul>\n<li>Why do I think that it &ldquo;should&rdquo; be?</li>\n<li>What if I let go of &ldquo;should&rdquo; and &ldquo;shouldn&rsquo;t&rdquo;?</li>\n<li>What if I allowed myself to feel however I feel&mdash;without regrets or expectations or projections of what it &ldquo;should&rdquo; be?</li>\n</ul>\n<h3>Reframe Should Statements</h3>\n<p>Use more compassionate and realistic statements. Try to soften it by replacing &ldquo;should&rdquo;-type words with &ldquo;prefer&rdquo;-type words or empower it by using &ldquo;can/will/choose&rdquo;-type words and think about doable actions.</p>",
+    color: "#287db5",
+  },
+  {
+    Word: "everything",
+    wordnet_ext: [],
+    phrase_ext: [],
     rewrite: [
       "however, to be more realistic",
       " however, there is exception when",
       " however, one evidence against it is",
     ],
     rewrite_position: "after",
-    popup_title: "All-or-Nothing",
+    Popup_title: "All-or-Nothing",
     popup_feedback:
       "A common cognitive distortion that will extrapolate one thing.",
+    Sidebar_feedback:
+      "<h3>More About All-or-Nothing and Overgeneralization</h3>\n<p>All or Nothing Thinking is also called Splitting, Black or White Thinking, Polarized Thinking. With this cognitive distortion, not being perfect means a complete failure. One of a few incidents can be extrapolated out as a general never-ending pattern.</p>\n<ul>\n<li>Thoughts are not facts</li>\n<li>Attitude toward negative thoughts matters</li>\n<li>Try thinking in shades of gray instead of black and white</li>\n<li>Try thinking in concrete time (last week) instead of a never-ending pattern (never, forever)</li>\n</ul>\n<h3>Reframe All-or-Nothing</h3>\n<ul>\n<li>Examine the Evidence: performing an accurate analysis of one&rsquo;s situation. Does any evidence support it? Does any evidence against it?</li>\n<li>Assign a percentage value like 30% instead of absolutive 0% or 100%; assign a specific person or situation instead of absolutive everyone or always</li>\n<li>How does this thought make you feel? Without this cognitive distortion, what you will do?</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "never",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "however, to be more realistic",
+      " however, there is exception when",
+      " however, one evidence against it is",
+    ],
+    rewrite_position: "after",
+    Popup_title: "All-or-Nothing",
+    popup_feedback:
+      "A common cognitive distortion that will extrapolate one thing.",
+    Sidebar_feedback:
+      "<h3>More About All-or-Nothing and Overgeneralization</h3>\n<p>All or Nothing Thinking is also called Splitting, Black or White Thinking, Polarized Thinking. With this cognitive distortion, not being perfect means a complete failure. One of a few incidents can be extrapolated out as a general never-ending pattern.</p>\n<ul>\n<li>Thoughts are not facts</li>\n<li>Attitude toward negative thoughts matters</li>\n<li>Try thinking in shades of gray instead of black and white</li>\n<li>Try thinking in concrete time (last week) instead of a never-ending pattern (never, forever)</li>\n</ul>\n<h3>Reframe All-or-Nothing</h3>\n<ul>\n<li>Examine the Evidence: performing an accurate analysis of one&rsquo;s situation. Does any evidence support it? Does any evidence against it?</li>\n<li>Assign a percentage value like 30% instead of absolutive 0% or 100%; assign a specific person or situation instead of absolutive everyone or always</li>\n<li>How does this thought make you feel? Without this cognitive distortion, what you will do?</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "always",
+    wordnet_ext: [],
+    phrase_ext: ["every time", " any time"],
+    rewrite: [
+      "however, to be more realistic",
+      " however, there is exception when",
+      " however, one evidence against it is",
+    ],
+    rewrite_position: "after",
+    Popup_title: "All-or-Nothing",
+    popup_feedback:
+      "A common cognitive distortion that will extrapolate one thing.",
+    Sidebar_feedback:
+      "<h3>More About All-or-Nothing and Overgeneralization</h3>\n<p>All or Nothing Thinking is also called Splitting, Black or White Thinking, Polarized Thinking. With this cognitive distortion, not being perfect means a complete failure. One of a few incidents can be extrapolated out as a general never-ending pattern.</p>\n<ul>\n<li>Thoughts are not facts</li>\n<li>Attitude toward negative thoughts matters</li>\n<li>Try thinking in shades of gray instead of black and white</li>\n<li>Try thinking in concrete time (last week) instead of a never-ending pattern (never, forever)</li>\n</ul>\n<h3>Reframe All-or-Nothing</h3>\n<ul>\n<li>Examine the Evidence: performing an accurate analysis of one&rsquo;s situation. Does any evidence support it? Does any evidence against it?</li>\n<li>Assign a percentage value like 30% instead of absolutive 0% or 100%; assign a specific person or situation instead of absolutive everyone or always</li>\n<li>How does this thought make you feel? Without this cognitive distortion, what you will do?</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "forever",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "however, to be more realistic",
+      " however, there is exception when",
+      " however, one evidence against it is",
+    ],
+    rewrite_position: "after",
+    Popup_title: "All-or-Nothing",
+    popup_feedback:
+      "A common cognitive distortion that will extrapolate one thing.",
+    Sidebar_feedback:
+      "<h3>More About All-or-Nothing and Overgeneralization</h3>\n<p>All or Nothing Thinking is also called Splitting, Black or White Thinking, Polarized Thinking. With this cognitive distortion, not being perfect means a complete failure. One of a few incidents can be extrapolated out as a general never-ending pattern.</p>\n<ul>\n<li>Thoughts are not facts</li>\n<li>Attitude toward negative thoughts matters</li>\n<li>Try thinking in shades of gray instead of black and white</li>\n<li>Try thinking in concrete time (last week) instead of a never-ending pattern (never, forever)</li>\n</ul>\n<h3>Reframe All-or-Nothing</h3>\n<ul>\n<li>Examine the Evidence: performing an accurate analysis of one&rsquo;s situation. Does any evidence support it? Does any evidence against it?</li>\n<li>Assign a percentage value like 30% instead of absolutive 0% or 100%; assign a specific person or situation instead of absolutive everyone or always</li>\n<li>How does this thought make you feel? Without this cognitive distortion, what you will do?</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "again",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "however, to be more realistic",
+      " however, there is exception when",
+      " however, one evidence against it is",
+    ],
+    rewrite_position: "after",
+    Popup_title: "All-or-Nothing",
+    popup_feedback:
+      "A common cognitive distortion that will extrapolate one thing.",
+    Sidebar_feedback:
+      "<h3>More About All-or-Nothing and Overgeneralization</h3>\n<p>All or Nothing Thinking is also called Splitting, Black or White Thinking, Polarized Thinking. With this cognitive distortion, not being perfect means a complete failure. One of a few incidents can be extrapolated out as a general never-ending pattern.</p>\n<ul>\n<li>Thoughts are not facts</li>\n<li>Attitude toward negative thoughts matters</li>\n<li>Try thinking in shades of gray instead of black and white</li>\n<li>Try thinking in concrete time (last week) instead of a never-ending pattern (never, forever)</li>\n</ul>\n<h3>Reframe All-or-Nothing</h3>\n<ul>\n<li>Examine the Evidence: performing an accurate analysis of one&rsquo;s situation. Does any evidence support it? Does any evidence against it?</li>\n<li>Assign a percentage value like 30% instead of absolutive 0% or 100%; assign a specific person or situation instead of absolutive everyone or always</li>\n<li>How does this thought make you feel? Without this cognitive distortion, what you will do?</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "have to",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: ["The actions I can take are", " My goal is"],
+    rewrite_position: "After",
+    Popup_title: "Should Statment",
+    popup_feedback: "Come on! Things don't have to be a certain way.",
+    Sidebar_feedback:
+      "<h3>More About Should Statements</h3>\n<p>Should statements are statements that you make to yourself about what you &ldquo;should&rdquo; do, what you &ldquo;ought&rdquo; to do, or what you &ldquo;must&rdquo; do. They can also be applied to others, imposing a set of expectations that will likely not be met.</p>\n<ul>\n<li>Why do I think that it &ldquo;should&rdquo; be?</li>\n<li>What if I let go of &ldquo;should&rdquo; and &ldquo;shouldn&rsquo;t&rdquo;?</li>\n<li>What if I allowed myself to feel however I feel&mdash;without regrets or expectations or projections of what it &ldquo;should&rdquo; be?</li>\n</ul>\n<h3>Reframe Should Statements</h3>\n<p>Use more compassionate and realistic statements. Try to soften it by replacing &ldquo;should&rdquo;-type words with &ldquo;prefer&rdquo;-type words or empower it by using &ldquo;can/will/choose&rdquo;-type words and think about doable actions.</p>",
+    color: "#287db5",
+  },
+  {
+    Word: "anyone",
+    wordnet_ext: ["anybody"],
+    phrase_ext: [],
+    rewrite: [
+      "however, to be more realistic",
+      " however, there is exception when",
+      " however, one evidence against it is",
+    ],
+    rewrite_position: "after",
+    Popup_title: "All-or-Nothing",
+    popup_feedback:
+      "A common cognitive distortion that will extrapolate one thing.",
+    Sidebar_feedback:
+      "<h3>More About All-or-Nothing and Overgeneralization</h3>\n<p>All or Nothing Thinking is also called Splitting, Black or White Thinking, Polarized Thinking. With this cognitive distortion, not being perfect means a complete failure. One of a few incidents can be extrapolated out as a general never-ending pattern.</p>\n<ul>\n<li>Thoughts are not facts</li>\n<li>Attitude toward negative thoughts matters</li>\n<li>Try thinking in shades of gray instead of black and white</li>\n<li>Try thinking in concrete time (last week) instead of a never-ending pattern (never, forever)</li>\n</ul>\n<h3>Reframe All-or-Nothing</h3>\n<ul>\n<li>Examine the Evidence: performing an accurate analysis of one&rsquo;s situation. Does any evidence support it? Does any evidence against it?</li>\n<li>Assign a percentage value like 30% instead of absolutive 0% or 100%; assign a specific person or situation instead of absolutive everyone or always</li>\n<li>How does this thought make you feel? Without this cognitive distortion, what you will do?</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "all",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "however, to be more realistic",
+      " however, there is exception when",
+      " however, one evidence against it is",
+    ],
+    rewrite_position: "after",
+    Popup_title: "All-or-Nothing",
+    popup_feedback:
+      "A common cognitive distortion that will extrapolate one thing.",
+    Sidebar_feedback:
+      "<h3>More About All-or-Nothing and Overgeneralization</h3>\n<p>All or Nothing Thinking is also called Splitting, Black or White Thinking, Polarized Thinking. With this cognitive distortion, not being perfect means a complete failure. One of a few incidents can be extrapolated out as a general never-ending pattern.</p>\n<ul>\n<li>Thoughts are not facts</li>\n<li>Attitude toward negative thoughts matters</li>\n<li>Try thinking in shades of gray instead of black and white</li>\n<li>Try thinking in concrete time (last week) instead of a never-ending pattern (never, forever)</li>\n</ul>\n<h3>Reframe All-or-Nothing</h3>\n<ul>\n<li>Examine the Evidence: performing an accurate analysis of one&rsquo;s situation. Does any evidence support it? Does any evidence against it?</li>\n<li>Assign a percentage value like 30% instead of absolutive 0% or 100%; assign a specific person or situation instead of absolutive everyone or always</li>\n<li>How does this thought make you feel? Without this cognitive distortion, what you will do?</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "all my faults",
+    wordnet_ext: [],
+    phrase_ext: [
+      "all my fault",
+      " blame myself",
+      " I should have",
+      " I feel guilty",
+      " I am shamed of myself",
+      " I am inadequate",
+      " I didn't live up to",
+    ],
+    rewrite: [
+      "but I can't control",
+      " but I can't predict",
+      " but I accept it when",
+      " but next time I will",
+    ],
+    rewrite_position: "after",
+    Popup_title: "Blaming ourselves",
+    popup_feedback:
+      "A common distrotion that believes only one person is responsible for a situation that they may have little control over.",
     Sidebar_feedback: null,
     color: "#287db5",
   },
   {
-    strategy_code: "L2b",
-    category_number: 3,
-    semantic_anchor: "Catastrophizing",
-    words: [
-      "ruined all efforts",
-      "will probably",
-      "will bet",
-      "worry",
-      "panic",
-      "what if",
-      "panicked",
+    Word: "all his fault",
+    wordnet_ext: [],
+    phrase_ext: [
+      "all her fault",
+      " all their fault",
+      " blame him",
+      " blame her",
+      " blame them",
     ],
+    rewrite: [
+      "I understand that it may happen when",
+      " if my close friend did that accidentally",
+      "",
+    ],
+    rewrite_position: "after",
+    Popup_title: "Blaming others",
+    popup_feedback:
+      "A common distrotion that believes only one person is responsible for a situation that they may have little control over.",
+    Sidebar_feedback: null,
+    color: "#287db5",
+  },
+  {
+    Word: "ruined all efforts",
     wordnet_ext: [],
     phrase_ext: [],
     rewrite: [
@@ -218,141 +710,506 @@ let dict_temp = [
       " I will let go of my worries and foucs my energy on...",
     ],
     rewrite_position: "after",
-    popup_title: "Catastrophizing",
+    Popup_title: "Catastrophizing",
     popup_feedback:
       "A common cognitive distortion that believes in the worst case.",
-    Sidebar_feedback: null,
-    color: null,
+    Sidebar_feedback:
+      "<h3>More About Catastrophizing</h3>\n<p>It often happens in perfectionists. When it actually isn&rsquo;t that bad, thinking the worst-case scenario happens.</p>\n<ul>\n<li>Live in the present</li>\n<li>Accept the current situation</li>\n<li>Separate facts, feelings, and negative thoughts</li>\n</ul>\n<h3>Reframe Catastrophizing</h3>\n<ul>\n<li>Examine the Evidence: performing an accurate analysis of one&rsquo;s situation. Does any evidence support it? Does any evidence against it?</li>\n<li>Putting equal emphasis on the positive and negative of the situation, on possible strength or weakness;</li>\n<li>How does this thought make you feel? Without this cognitive distortion, what you will do?</li>\n<li>How you will respond if a close friend said a similar thing to you?</li>\n</ul>",
+    color: "#287db5",
   },
   {
-    strategy_code: "L2b",
-    category_number: 4,
-    semantic_anchor: "Blaming",
-    words: [],
+    Word: "will probably",
     wordnet_ext: [],
-    phrase_ext: [
-      "all his fault",
-      "all her fault",
-      "all their fault",
-      "blame him",
-      "blame her",
-      "blame them",
-    ],
+    phrase_ext: [],
     rewrite: [
-      "I understand that it may happen when",
-      " if my close friend did that accidentally",
-      "",
+      "however, to be more realistic",
+      " however, there is exception when",
+      " there is a chance but it is a small one of",
+      " I am aware that I am making a mountain out of a molehill. The mountain is... the molehill is...",
+      " I can give the situation a posive name instead:",
+      " I will let go of my worries and foucs my energy on...",
     ],
     rewrite_position: "after",
-    popup_title: "Blaming others",
+    Popup_title: "Catastrophizing",
     popup_feedback:
-      "A common distrotion that believes only one person is responsible for a situation that they may have little control over.",
-    Sidebar_feedback: null,
-    color: null,
+      "A common cognitive distortion that believes in the worst case.",
+    Sidebar_feedback:
+      "<h3>More About Catastrophizing</h3>\n<p>It often happens in perfectionists. When it actually isn&rsquo;t that bad, thinking the worst-case scenario happens.</p>\n<ul>\n<li>Live in the present</li>\n<li>Accept the current situation</li>\n<li>Separate facts, feelings, and negative thoughts</li>\n</ul>\n<h3>Reframe Catastrophizing</h3>\n<ul>\n<li>Examine the Evidence: performing an accurate analysis of one&rsquo;s situation. Does any evidence support it? Does any evidence against it?</li>\n<li>Putting equal emphasis on the positive and negative of the situation, on possible strength or weakness;</li>\n<li>How does this thought make you feel? Without this cognitive distortion, what you will do?</li>\n<li>How you will respond if a close friend said a similar thing to you?</li>\n</ul>",
+    color: "#287db5",
   },
   {
-    strategy_code: "L2b",
-    category_number: 4,
-    semantic_anchor: "Blaming",
-    words: [],
+    Word: "will bet",
     wordnet_ext: [],
-    phrase_ext: [
-      "all my faults",
-      "all my fault",
-      "blame myself",
-      "I should have",
-      "I feel guilty",
-      "I am shamed of myself",
-      "I am inadequate",
-      "I didn't live up to",
-    ],
+    phrase_ext: [],
     rewrite: [
-      "but I can't control",
-      " but I can't predict",
-      " but I accept it when",
-      " but next time I will",
+      "however, to be more realistic",
+      " however, there is exception when",
+      " there is a chance but it is a small one of",
+      " I am aware that I am making a mountain out of a molehill. The mountain is... the molehill is...",
+      " I can give the situation a posive name instead:",
+      " I will let go of my worries and foucs my energy on...",
     ],
     rewrite_position: "after",
-    popup_title: "Blaming ourselves",
+    Popup_title: "Catastrophizing",
     popup_feedback:
-      "A common distrotion that believes only one person is responsible for a situation that they may have little control over.",
-    Sidebar_feedback: null,
-    color: null,
+      "A common cognitive distortion that believes in the worst case.",
+    Sidebar_feedback:
+      "<h3>More About Catastrophizing</h3>\n<p>It often happens in perfectionists. When it actually isn&rsquo;t that bad, thinking the worst-case scenario happens.</p>\n<ul>\n<li>Live in the present</li>\n<li>Accept the current situation</li>\n<li>Separate facts, feelings, and negative thoughts</li>\n</ul>\n<h3>Reframe Catastrophizing</h3>\n<ul>\n<li>Examine the Evidence: performing an accurate analysis of one&rsquo;s situation. Does any evidence support it? Does any evidence against it?</li>\n<li>Putting equal emphasis on the positive and negative of the situation, on possible strength or weakness;</li>\n<li>How does this thought make you feel? Without this cognitive distortion, what you will do?</li>\n<li>How you will respond if a close friend said a similar thing to you?</li>\n</ul>",
+    color: "#287db5",
   },
   {
-    strategy_code: "L2c",
-    category_number: 1,
-    semantic_anchor: "Negative Self-Talk",
-    words: ["failure", " loser", " loser"],
+    Word: "worry",
     wordnet_ext: [],
-    phrase_ext: ["I will disappoint", "I am a loser", "what a loser"],
+    phrase_ext: [],
+    rewrite: [
+      "however, to be more realistic",
+      " however, there is exception when",
+      " there is a chance but it is a small one of",
+      " I am aware that I am making a mountain out of a molehill. The mountain is... the molehill is...",
+      " I can give the situation a posive name instead:",
+      " I will let go of my worries and foucs my energy on...",
+    ],
+    rewrite_position: "after",
+    Popup_title: "Catastrophizing",
+    popup_feedback:
+      "A common cognitive distortion that believes in the worst case.",
+    Sidebar_feedback:
+      "<h3>More About Catastrophizing</h3>\n<p>It often happens in perfectionists. When it actually isn&rsquo;t that bad, thinking the worst-case scenario happens.</p>\n<ul>\n<li>Live in the present</li>\n<li>Accept the current situation</li>\n<li>Separate facts, feelings, and negative thoughts</li>\n</ul>\n<h3>Reframe Catastrophizing</h3>\n<ul>\n<li>Examine the Evidence: performing an accurate analysis of one&rsquo;s situation. Does any evidence support it? Does any evidence against it?</li>\n<li>Putting equal emphasis on the positive and negative of the situation, on possible strength or weakness;</li>\n<li>How does this thought make you feel? Without this cognitive distortion, what you will do?</li>\n<li>How you will respond if a close friend said a similar thing to you?</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "panicked",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "however, to be more realistic",
+      " however, there is exception when",
+      " there is a chance but it is a small one of",
+      " I am aware that I am making a mountain out of a molehill. The mountain is... the molehill is...",
+      " I can give the situation a posive name instead:",
+      " I will let go of my worries and foucs my energy on...",
+    ],
+    rewrite_position: "after",
+    Popup_title: "Catastrophizing",
+    popup_feedback:
+      "A common cognitive distortion that believes in the worst case.",
+    Sidebar_feedback:
+      "<h3>More About Catastrophizing</h3>\n<p>It often happens in perfectionists. When it actually isn&rsquo;t that bad, thinking the worst-case scenario happens.</p>\n<ul>\n<li>Live in the present</li>\n<li>Accept the current situation</li>\n<li>Separate facts, feelings, and negative thoughts</li>\n</ul>\n<h3>Reframe Catastrophizing</h3>\n<ul>\n<li>Examine the Evidence: performing an accurate analysis of one&rsquo;s situation. Does any evidence support it? Does any evidence against it?</li>\n<li>Putting equal emphasis on the positive and negative of the situation, on possible strength or weakness;</li>\n<li>How does this thought make you feel? Without this cognitive distortion, what you will do?</li>\n<li>How you will respond if a close friend said a similar thing to you?</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "everyone",
+    wordnet_ext: ["everybody"],
+    phrase_ext: [],
+    rewrite: [
+      "however, to be more realistic",
+      " however, there is exception when",
+      " however, one evidence against it is",
+    ],
+    rewrite_position: "after",
+    Popup_title: "All-or-Nothing",
+    popup_feedback:
+      "A common cognitive distortion that will extrapolate one thing.",
+    Sidebar_feedback:
+      "<h3>More About All-or-Nothing and Overgeneralization</h3>\n<p>All or Nothing Thinking is also called Splitting, Black or White Thinking, Polarized Thinking. With this cognitive distortion, not being perfect means a complete failure. One of a few incidents can be extrapolated out as a general never-ending pattern.</p>\n<ul>\n<li>Thoughts are not facts</li>\n<li>Attitude toward negative thoughts matters</li>\n<li>Try thinking in shades of gray instead of black and white</li>\n<li>Try thinking in concrete time (last week) instead of a never-ending pattern (never, forever)</li>\n</ul>\n<h3>Reframe All-or-Nothing</h3>\n<ul>\n<li>Examine the Evidence: performing an accurate analysis of one&rsquo;s situation. Does any evidence support it? Does any evidence against it?</li>\n<li>Assign a percentage value like 30% instead of absolutive 0% or 100%; assign a specific person or situation instead of absolutive everyone or always</li>\n<li>How does this thought make you feel? Without this cognitive distortion, what you will do?</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "what if",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "however, to be more realistic",
+      " however, there is exception when",
+      " there is a chance but it is a small one of",
+      " I am aware that I am making a mountain out of a molehill. The mountain is... the molehill is...",
+      " I can give the situation a posive name instead:",
+      " I will let go of my worries and foucs my energy on...",
+    ],
+    rewrite_position: "after",
+    Popup_title: "Catastrophizing",
+    popup_feedback:
+      "A common cognitive distortion that believes in the worst case.",
+    Sidebar_feedback:
+      "<h3>More About Catastrophizing</h3>\n<p>It often happens in perfectionists. When it actually isn&rsquo;t that bad, thinking the worst-case scenario happens.</p>\n<ul>\n<li>Live in the present</li>\n<li>Accept the current situation</li>\n<li>Separate facts, feelings, and negative thoughts</li>\n</ul>\n<h3>Reframe Catastrophizing</h3>\n<ul>\n<li>Examine the Evidence: performing an accurate analysis of one&rsquo;s situation. Does any evidence support it? Does any evidence against it?</li>\n<li>Putting equal emphasis on the positive and negative of the situation, on possible strength or weakness;</li>\n<li>How does this thought make you feel? Without this cognitive distortion, what you will do?</li>\n<li>How you will respond if a close friend said a similar thing to you?</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "nothing",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "however, to be more realistic",
+      " however, there is exception when",
+      " however, one evidence against it is",
+    ],
+    rewrite_position: "after",
+    Popup_title: "All-or-Nothing",
+    popup_feedback:
+      "A common cognitive distortion that will extrapolate one thing.",
+    Sidebar_feedback:
+      "<h3>More About All-or-Nothing and Overgeneralization</h3>\n<p>All or Nothing Thinking is also called Splitting, Black or White Thinking, Polarized Thinking. With this cognitive distortion, not being perfect means a complete failure. One of a few incidents can be extrapolated out as a general never-ending pattern.</p>\n<ul>\n<li>Thoughts are not facts</li>\n<li>Attitude toward negative thoughts matters</li>\n<li>Try thinking in shades of gray instead of black and white</li>\n<li>Try thinking in concrete time (last week) instead of a never-ending pattern (never, forever)</li>\n</ul>\n<h3>Reframe All-or-Nothing</h3>\n<ul>\n<li>Examine the Evidence: performing an accurate analysis of one&rsquo;s situation. Does any evidence support it? Does any evidence against it?</li>\n<li>Assign a percentage value like 30% instead of absolutive 0% or 100%; assign a specific person or situation instead of absolutive everyone or always</li>\n<li>How does this thought make you feel? Without this cognitive distortion, what you will do?</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "none",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "however, to be more realistic",
+      " however, there is exception when",
+      " however, one evidence against it is",
+    ],
+    rewrite_position: "after",
+    Popup_title: "All-or-Nothing",
+    popup_feedback:
+      "A common cognitive distortion that will extrapolate one thing.",
+    Sidebar_feedback:
+      "<h3>More About All-or-Nothing and Overgeneralization</h3>\n<p>All or Nothing Thinking is also called Splitting, Black or White Thinking, Polarized Thinking. With this cognitive distortion, not being perfect means a complete failure. One of a few incidents can be extrapolated out as a general never-ending pattern.</p>\n<ul>\n<li>Thoughts are not facts</li>\n<li>Attitude toward negative thoughts matters</li>\n<li>Try thinking in shades of gray instead of black and white</li>\n<li>Try thinking in concrete time (last week) instead of a never-ending pattern (never, forever)</li>\n</ul>\n<h3>Reframe All-or-Nothing</h3>\n<ul>\n<li>Examine the Evidence: performing an accurate analysis of one&rsquo;s situation. Does any evidence support it? Does any evidence against it?</li>\n<li>Assign a percentage value like 30% instead of absolutive 0% or 100%; assign a specific person or situation instead of absolutive everyone or always</li>\n<li>How does this thought make you feel? Without this cognitive distortion, what you will do?</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "no one",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "however, to be more realistic",
+      " however, there is exception when",
+      " however, one evidence against it is",
+    ],
+    rewrite_position: "after",
+    Popup_title: "All-or-Nothing",
+    popup_feedback:
+      "A common cognitive distortion that will extrapolate one thing.",
+    Sidebar_feedback:
+      "<h3>More About All-or-Nothing and Overgeneralization</h3>\n<p>All or Nothing Thinking is also called Splitting, Black or White Thinking, Polarized Thinking. With this cognitive distortion, not being perfect means a complete failure. One of a few incidents can be extrapolated out as a general never-ending pattern.</p>\n<ul>\n<li>Thoughts are not facts</li>\n<li>Attitude toward negative thoughts matters</li>\n<li>Try thinking in shades of gray instead of black and white</li>\n<li>Try thinking in concrete time (last week) instead of a never-ending pattern (never, forever)</li>\n</ul>\n<h3>Reframe All-or-Nothing</h3>\n<ul>\n<li>Examine the Evidence: performing an accurate analysis of one&rsquo;s situation. Does any evidence support it? Does any evidence against it?</li>\n<li>Assign a percentage value like 30% instead of absolutive 0% or 100%; assign a specific person or situation instead of absolutive everyone or always</li>\n<li>How does this thought make you feel? Without this cognitive distortion, what you will do?</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "totally",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "however, to be more realistic",
+      " however, there is exception when",
+      " however, one evidence against it is",
+    ],
+    rewrite_position: "after",
+    Popup_title: "All-or-Nothing",
+    popup_feedback:
+      "A common cognitive distortion that will extrapolate one thing.",
+    Sidebar_feedback:
+      "<h3>More About All-or-Nothing and Overgeneralization</h3>\n<p>All or Nothing Thinking is also called Splitting, Black or White Thinking, Polarized Thinking. With this cognitive distortion, not being perfect means a complete failure. One of a few incidents can be extrapolated out as a general never-ending pattern.</p>\n<ul>\n<li>Thoughts are not facts</li>\n<li>Attitude toward negative thoughts matters</li>\n<li>Try thinking in shades of gray instead of black and white</li>\n<li>Try thinking in concrete time (last week) instead of a never-ending pattern (never, forever)</li>\n</ul>\n<h3>Reframe All-or-Nothing</h3>\n<ul>\n<li>Examine the Evidence: performing an accurate analysis of one&rsquo;s situation. Does any evidence support it? Does any evidence against it?</li>\n<li>Assign a percentage value like 30% instead of absolutive 0% or 100%; assign a specific person or situation instead of absolutive everyone or always</li>\n<li>How does this thought make you feel? Without this cognitive distortion, what you will do?</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "only",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "however, to be more realistic",
+      " however, there is exception when",
+      " however, one evidence against it is",
+    ],
+    rewrite_position: "after",
+    Popup_title: "All-or-Nothing",
+    popup_feedback:
+      "A common cognitive distortion that will extrapolate one thing.",
+    Sidebar_feedback:
+      "<h3>More About All-or-Nothing and Overgeneralization</h3>\n<p>All or Nothing Thinking is also called Splitting, Black or White Thinking, Polarized Thinking. With this cognitive distortion, not being perfect means a complete failure. One of a few incidents can be extrapolated out as a general never-ending pattern.</p>\n<ul>\n<li>Thoughts are not facts</li>\n<li>Attitude toward negative thoughts matters</li>\n<li>Try thinking in shades of gray instead of black and white</li>\n<li>Try thinking in concrete time (last week) instead of a never-ending pattern (never, forever)</li>\n</ul>\n<h3>Reframe All-or-Nothing</h3>\n<ul>\n<li>Examine the Evidence: performing an accurate analysis of one&rsquo;s situation. Does any evidence support it? Does any evidence against it?</li>\n<li>Assign a percentage value like 30% instead of absolutive 0% or 100%; assign a specific person or situation instead of absolutive everyone or always</li>\n<li>How does this thought make you feel? Without this cognitive distortion, what you will do?</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "anything",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "however, to be more realistic",
+      " however, there is exception when",
+      " however, one evidence against it is",
+    ],
+    rewrite_position: "after",
+    Popup_title: "All-or-Nothing",
+    popup_feedback:
+      "A common cognitive distortion that will extrapolate one thing.",
+    Sidebar_feedback:
+      "<h3>More About All-or-Nothing and Overgeneralization</h3>\n<p>All or Nothing Thinking is also called Splitting, Black or White Thinking, Polarized Thinking. With this cognitive distortion, not being perfect means a complete failure. One of a few incidents can be extrapolated out as a general never-ending pattern.</p>\n<ul>\n<li>Thoughts are not facts</li>\n<li>Attitude toward negative thoughts matters</li>\n<li>Try thinking in shades of gray instead of black and white</li>\n<li>Try thinking in concrete time (last week) instead of a never-ending pattern (never, forever)</li>\n</ul>\n<h3>Reframe All-or-Nothing</h3>\n<ul>\n<li>Examine the Evidence: performing an accurate analysis of one&rsquo;s situation. Does any evidence support it? Does any evidence against it?</li>\n<li>Assign a percentage value like 30% instead of absolutive 0% or 100%; assign a specific person or situation instead of absolutive everyone or always</li>\n<li>How does this thought make you feel? Without this cognitive distortion, what you will do?</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "panic",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "however, to be more realistic",
+      " however, there is exception when",
+      " there is a chance but it is a small one of",
+      " I am aware that I am making a mountain out of a molehill. The mountain is... the molehill is...",
+      " I can give the situation a posive name instead:",
+      " I will let go of my worries and foucs my energy on...",
+    ],
+    rewrite_position: "after",
+    Popup_title: "Catastrophizing",
+    popup_feedback:
+      "A common cognitive distortion that believes in the worst case.",
+    Sidebar_feedback:
+      "<h3>More About Catastrophizing</h3>\n<p>It often happens in perfectionists. When it actually isn&rsquo;t that bad, thinking the worst-case scenario happens.</p>\n<ul>\n<li>Live in the present</li>\n<li>Accept the current situation</li>\n<li>Separate facts, feelings, and negative thoughts</li>\n</ul>\n<h3>Reframe Catastrophizing</h3>\n<ul>\n<li>Examine the Evidence: performing an accurate analysis of one&rsquo;s situation. Does any evidence support it? Does any evidence against it?</li>\n<li>Putting equal emphasis on the positive and negative of the situation, on possible strength or weakness;</li>\n<li>How does this thought make you feel? Without this cognitive distortion, what you will do?</li>\n<li>How you will respond if a close friend said a similar thing to you?</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "stupid",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "I am having the thought of ...",
+      " It is my thought but not fact that",
+    ],
+    rewrite_position: "before",
+    Popup_title: "Negative Self-Talk",
+    popup_feedback:
+      "Time to shift your inner dialogue to be more encouraging and uplifting!",
+    Sidebar_feedback:
+      "<h3>More About Self-Talk</h3>\n<p>Self-talk is something you do naturally throughout your waking hours. Positive self-talk is supportive and affirming. Positive self-talk can help you improve your outlook on life. It can also have lasting positive health benefits, including improved well-being and a better quality of life.</p>\n<p>Rumination is the flip side of positive self-talk. It happens when you replay upsetting or cringe-worthy thoughts or events over and over again in your head. Thinking through a problem can be useful, but if you spend a lot of time ruminating, small issues tend to snowball. Negative thoughts can grow and become self-defeating.</p>\n<ul>\n<li>Listening closely to your inner dialogues.&nbsp;</li>\n<li>Write down important or frequent negative thoughts.</li>\n<li>Be aware of the unbalanced, harmful thoughts.</li>\n</ul>\n<h3>Reframe Negative Self-Talk and Reinforce Positive Self-Talk</h3>\n<ul>\n<li>Look back at the thoughts and reword them in a kinder, more positive light.</li>\n<li>Writing down statements with the growth mindset of accepting the current situation and feelings, and concrete actions to make things better or make you feel better.</li>\n<li>Writing down what you are grateful for.</li>\n<li>Understanding the concept of impermanence and look into future in a positive way.</li>\n<li>Praise yourself when you write down positive self-talk! Try to think about what concrete actions you can take and let&rsquo;s move!</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "dumb",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "I am having the thought of ...",
+      " It is my thought but not fact that",
+    ],
+    rewrite_position: "before",
+    Popup_title: "Negative Self-Talk",
+    popup_feedback:
+      "Time to shift your inner dialogue to be more encouraging and uplifting!",
+    Sidebar_feedback:
+      "<h3>More About Self-Talk</h3>\n<p>Self-talk is something you do naturally throughout your waking hours. Positive self-talk is supportive and affirming. Positive self-talk can help you improve your outlook on life. It can also have lasting positive health benefits, including improved well-being and a better quality of life.</p>\n<p>Rumination is the flip side of positive self-talk. It happens when you replay upsetting or cringe-worthy thoughts or events over and over again in your head. Thinking through a problem can be useful, but if you spend a lot of time ruminating, small issues tend to snowball. Negative thoughts can grow and become self-defeating.</p>\n<ul>\n<li>Listening closely to your inner dialogues.&nbsp;</li>\n<li>Write down important or frequent negative thoughts.</li>\n<li>Be aware of the unbalanced, harmful thoughts.</li>\n</ul>\n<h3>Reframe Negative Self-Talk and Reinforce Positive Self-Talk</h3>\n<ul>\n<li>Look back at the thoughts and reword them in a kinder, more positive light.</li>\n<li>Writing down statements with the growth mindset of accepting the current situation and feelings, and concrete actions to make things better or make you feel better.</li>\n<li>Writing down what you are grateful for.</li>\n<li>Understanding the concept of impermanence and look into future in a positive way.</li>\n<li>Praise yourself when you write down positive self-talk! Try to think about what concrete actions you can take and let&rsquo;s move!</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "pathetic",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: [
+      "I am having the thought of ...",
+      " It is my thought but not fact that",
+    ],
+    rewrite_position: "before",
+    Popup_title: "Negative Self-Talk",
+    popup_feedback:
+      "Time to shift your inner dialogue to be more encouraging and uplifting!",
+    Sidebar_feedback:
+      "<h3>More About Self-Talk</h3>\n<p>Self-talk is something you do naturally throughout your waking hours. Positive self-talk is supportive and affirming. Positive self-talk can help you improve your outlook on life. It can also have lasting positive health benefits, including improved well-being and a better quality of life.</p>\n<p>Rumination is the flip side of positive self-talk. It happens when you replay upsetting or cringe-worthy thoughts or events over and over again in your head. Thinking through a problem can be useful, but if you spend a lot of time ruminating, small issues tend to snowball. Negative thoughts can grow and become self-defeating.</p>\n<ul>\n<li>Listening closely to your inner dialogues.&nbsp;</li>\n<li>Write down important or frequent negative thoughts.</li>\n<li>Be aware of the unbalanced, harmful thoughts.</li>\n</ul>\n<h3>Reframe Negative Self-Talk and Reinforce Positive Self-Talk</h3>\n<ul>\n<li>Look back at the thoughts and reword them in a kinder, more positive light.</li>\n<li>Writing down statements with the growth mindset of accepting the current situation and feelings, and concrete actions to make things better or make you feel better.</li>\n<li>Writing down what you are grateful for.</li>\n<li>Understanding the concept of impermanence and look into future in a positive way.</li>\n<li>Praise yourself when you write down positive self-talk! Try to think about what concrete actions you can take and let&rsquo;s move!</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "good-for-nothing",
+    wordnet_ext: [],
+    phrase_ext: ["in a bad way"],
+    rewrite: [
+      "A different perspective might be",
+      " A better way to look at it might be",
+    ],
+    rewrite_position: "after",
+    Popup_title: "Negative Self-Talk",
+    popup_feedback:
+      "Time to shift your inner dialogue to be more encouraging and uplifting!",
+    Sidebar_feedback:
+      "<h3>More About Self-Talk</h3>\n<p>Self-talk is something you do naturally throughout your waking hours. Positive self-talk is supportive and affirming. Positive self-talk can help you improve your outlook on life. It can also have lasting positive health benefits, including improved well-being and a better quality of life.</p>\n<p>Rumination is the flip side of positive self-talk. It happens when you replay upsetting or cringe-worthy thoughts or events over and over again in your head. Thinking through a problem can be useful, but if you spend a lot of time ruminating, small issues tend to snowball. Negative thoughts can grow and become self-defeating.</p>\n<ul>\n<li>Listening closely to your inner dialogues.&nbsp;</li>\n<li>Write down important or frequent negative thoughts.</li>\n<li>Be aware of the unbalanced, harmful thoughts.</li>\n</ul>\n<h3>Reframe Negative Self-Talk and Reinforce Positive Self-Talk</h3>\n<ul>\n<li>Look back at the thoughts and reword them in a kinder, more positive light.</li>\n<li>Writing down statements with the growth mindset of accepting the current situation and feelings, and concrete actions to make things better or make you feel better.</li>\n<li>Writing down what you are grateful for.</li>\n<li>Understanding the concept of impermanence and look into future in a positive way.</li>\n<li>Praise yourself when you write down positive self-talk! Try to think about what concrete actions you can take and let&rsquo;s move!</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "failed myself",
+    wordnet_ext: [],
+    phrase_ext: [
+      "embarrassed myself",
+      " It is impossible for me to",
+      " no way",
+    ],
+    rewrite: [
+      "but it is still possible for me to",
+      " Actutally, this is a wonderful opportunity for me to",
+    ],
+    rewrite_position: "after",
+    Popup_title: "Negative Self-Talk",
+    popup_feedback:
+      "Time to shift your inner dialogue to be more encouraging and uplifting!",
+    Sidebar_feedback:
+      "<h3>More About Self-Talk</h3>\n<p>Self-talk is something you do naturally throughout your waking hours. Positive self-talk is supportive and affirming. Positive self-talk can help you improve your outlook on life. It can also have lasting positive health benefits, including improved well-being and a better quality of life.</p>\n<p>Rumination is the flip side of positive self-talk. It happens when you replay upsetting or cringe-worthy thoughts or events over and over again in your head. Thinking through a problem can be useful, but if you spend a lot of time ruminating, small issues tend to snowball. Negative thoughts can grow and become self-defeating.</p>\n<ul>\n<li>Listening closely to your inner dialogues.&nbsp;</li>\n<li>Write down important or frequent negative thoughts.</li>\n<li>Be aware of the unbalanced, harmful thoughts.</li>\n</ul>\n<h3>Reframe Negative Self-Talk and Reinforce Positive Self-Talk</h3>\n<ul>\n<li>Look back at the thoughts and reword them in a kinder, more positive light.</li>\n<li>Writing down statements with the growth mindset of accepting the current situation and feelings, and concrete actions to make things better or make you feel better.</li>\n<li>Writing down what you are grateful for.</li>\n<li>Understanding the concept of impermanence and look into future in a positive way.</li>\n<li>Praise yourself when you write down positive self-talk! Try to think about what concrete actions you can take and let&rsquo;s move!</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "useless",
+    wordnet_ext: [],
+    phrase_ext: [
+      "I am useless; I screwed up",
+      " I can't",
+      " I cannot",
+      " I am not able to",
+    ],
+    rewrite: [
+      "I am proud of myself when trying",
+      " next time I am going to try",
+      " at least I can try",
+      " in the past, but in the future",
+    ],
+    rewrite_position: "after",
+    Popup_title: "Negative Self-Talk",
+    popup_feedback:
+      "Time to shift your inner dialogue to be more encouraging and uplifting!",
+    Sidebar_feedback:
+      "<h3>More About Self-Talk</h3>\n<p>Self-talk is something you do naturally throughout your waking hours. Positive self-talk is supportive and affirming. Positive self-talk can help you improve your outlook on life. It can also have lasting positive health benefits, including improved well-being and a better quality of life.</p>\n<p>Rumination is the flip side of positive self-talk. It happens when you replay upsetting or cringe-worthy thoughts or events over and over again in your head. Thinking through a problem can be useful, but if you spend a lot of time ruminating, small issues tend to snowball. Negative thoughts can grow and become self-defeating.</p>\n<ul>\n<li>Listening closely to your inner dialogues.&nbsp;</li>\n<li>Write down important or frequent negative thoughts.</li>\n<li>Be aware of the unbalanced, harmful thoughts.</li>\n</ul>\n<h3>Reframe Negative Self-Talk and Reinforce Positive Self-Talk</h3>\n<ul>\n<li>Look back at the thoughts and reword them in a kinder, more positive light.</li>\n<li>Writing down statements with the growth mindset of accepting the current situation and feelings, and concrete actions to make things better or make you feel better.</li>\n<li>Writing down what you are grateful for.</li>\n<li>Understanding the concept of impermanence and look into future in a positive way.</li>\n<li>Praise yourself when you write down positive self-talk! Try to think about what concrete actions you can take and let&rsquo;s move!</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "suck",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: ["I notice that this is only a thought and I let it go"],
+    rewrite_position: "after",
+    Popup_title: "Negative Self-Talk",
+    popup_feedback:
+      "Time to shift your inner dialogue to be more encouraging and uplifting!",
+    Sidebar_feedback:
+      "<h3>More About Self-Talk</h3>\n<p>Self-talk is something you do naturally throughout your waking hours. Positive self-talk is supportive and affirming. Positive self-talk can help you improve your outlook on life. It can also have lasting positive health benefits, including improved well-being and a better quality of life.</p>\n<p>Rumination is the flip side of positive self-talk. It happens when you replay upsetting or cringe-worthy thoughts or events over and over again in your head. Thinking through a problem can be useful, but if you spend a lot of time ruminating, small issues tend to snowball. Negative thoughts can grow and become self-defeating.</p>\n<ul>\n<li>Listening closely to your inner dialogues.&nbsp;</li>\n<li>Write down important or frequent negative thoughts.</li>\n<li>Be aware of the unbalanced, harmful thoughts.</li>\n</ul>\n<h3>Reframe Negative Self-Talk and Reinforce Positive Self-Talk</h3>\n<ul>\n<li>Look back at the thoughts and reword them in a kinder, more positive light.</li>\n<li>Writing down statements with the growth mindset of accepting the current situation and feelings, and concrete actions to make things better or make you feel better.</li>\n<li>Writing down what you are grateful for.</li>\n<li>Understanding the concept of impermanence and look into future in a positive way.</li>\n<li>Praise yourself when you write down positive self-talk! Try to think about what concrete actions you can take and let&rsquo;s move!</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "lazy",
+    wordnet_ext: [],
+    phrase_ext: ["I am lazy"],
+    rewrite: ["I have the power to"],
+    rewrite_position: "after",
+    Popup_title: "Negative Self-Talk",
+    popup_feedback:
+      "Time to shift your inner dialogue to be more encouraging and uplifting!",
+    Sidebar_feedback:
+      "<h3>More About Self-Talk</h3>\n<p>Self-talk is something you do naturally throughout your waking hours. Positive self-talk is supportive and affirming. Positive self-talk can help you improve your outlook on life. It can also have lasting positive health benefits, including improved well-being and a better quality of life.</p>\n<p>Rumination is the flip side of positive self-talk. It happens when you replay upsetting or cringe-worthy thoughts or events over and over again in your head. Thinking through a problem can be useful, but if you spend a lot of time ruminating, small issues tend to snowball. Negative thoughts can grow and become self-defeating.</p>\n<ul>\n<li>Listening closely to your inner dialogues.&nbsp;</li>\n<li>Write down important or frequent negative thoughts.</li>\n<li>Be aware of the unbalanced, harmful thoughts.</li>\n</ul>\n<h3>Reframe Negative Self-Talk and Reinforce Positive Self-Talk</h3>\n<ul>\n<li>Look back at the thoughts and reword them in a kinder, more positive light.</li>\n<li>Writing down statements with the growth mindset of accepting the current situation and feelings, and concrete actions to make things better or make you feel better.</li>\n<li>Writing down what you are grateful for.</li>\n<li>Understanding the concept of impermanence and look into future in a positive way.</li>\n<li>Praise yourself when you write down positive self-talk! Try to think about what concrete actions you can take and let&rsquo;s move!</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "hate",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: ["I notice that this is only a thought and I let it go"],
+    rewrite_position: "after",
+    Popup_title: "Negative Self-Talk",
+    popup_feedback:
+      "Time to shift your inner dialogue to be more encouraging and uplifting!",
+    Sidebar_feedback:
+      "<h3>More About Self-Talk</h3>\n<p>Self-talk is something you do naturally throughout your waking hours. Positive self-talk is supportive and affirming. Positive self-talk can help you improve your outlook on life. It can also have lasting positive health benefits, including improved well-being and a better quality of life.</p>\n<p>Rumination is the flip side of positive self-talk. It happens when you replay upsetting or cringe-worthy thoughts or events over and over again in your head. Thinking through a problem can be useful, but if you spend a lot of time ruminating, small issues tend to snowball. Negative thoughts can grow and become self-defeating.</p>\n<ul>\n<li>Listening closely to your inner dialogues.&nbsp;</li>\n<li>Write down important or frequent negative thoughts.</li>\n<li>Be aware of the unbalanced, harmful thoughts.</li>\n</ul>\n<h3>Reframe Negative Self-Talk and Reinforce Positive Self-Talk</h3>\n<ul>\n<li>Look back at the thoughts and reword them in a kinder, more positive light.</li>\n<li>Writing down statements with the growth mindset of accepting the current situation and feelings, and concrete actions to make things better or make you feel better.</li>\n<li>Writing down what you are grateful for.</li>\n<li>Understanding the concept of impermanence and look into future in a positive way.</li>\n<li>Praise yourself when you write down positive self-talk! Try to think about what concrete actions you can take and let&rsquo;s move!</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "failure",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: ["but I am so close to …", " soon I will be able to …"],
+    rewrite_position: "after",
+    Popup_title: "Negative Self-Talk",
+    popup_feedback:
+      "Time to shift your inner dialogue to be more encouraging and uplifting!",
+    Sidebar_feedback:
+      "<h3>More About Self-Talk</h3>\n<p>Self-talk is something you do naturally throughout your waking hours. Positive self-talk is supportive and affirming. Positive self-talk can help you improve your outlook on life. It can also have lasting positive health benefits, including improved well-being and a better quality of life.</p>\n<p>Rumination is the flip side of positive self-talk. It happens when you replay upsetting or cringe-worthy thoughts or events over and over again in your head. Thinking through a problem can be useful, but if you spend a lot of time ruminating, small issues tend to snowball. Negative thoughts can grow and become self-defeating.</p>\n<ul>\n<li>Listening closely to your inner dialogues.&nbsp;</li>\n<li>Write down important or frequent negative thoughts.</li>\n<li>Be aware of the unbalanced, harmful thoughts.</li>\n</ul>\n<h3>Reframe Negative Self-Talk and Reinforce Positive Self-Talk</h3>\n<ul>\n<li>Look back at the thoughts and reword them in a kinder, more positive light.</li>\n<li>Writing down statements with the growth mindset of accepting the current situation and feelings, and concrete actions to make things better or make you feel better.</li>\n<li>Writing down what you are grateful for.</li>\n<li>Understanding the concept of impermanence and look into future in a positive way.</li>\n<li>Praise yourself when you write down positive self-talk! Try to think about what concrete actions you can take and let&rsquo;s move!</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "failure",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: ["failure but a valuable experience"],
+    rewrite_position: "Replace",
+    Popup_title: "Negative Self-Talk",
+    popup_feedback:
+      "Time to shift your inner dialogue to be more encouraging and uplifting!",
+    Sidebar_feedback:
+      "<h3>More About Self-Talk</h3>\n<p>Self-talk is something you do naturally throughout your waking hours. Positive self-talk is supportive and affirming. Positive self-talk can help you improve your outlook on life. It can also have lasting positive health benefits, including improved well-being and a better quality of life.</p>\n<p>Rumination is the flip side of positive self-talk. It happens when you replay upsetting or cringe-worthy thoughts or events over and over again in your head. Thinking through a problem can be useful, but if you spend a lot of time ruminating, small issues tend to snowball. Negative thoughts can grow and become self-defeating.</p>\n<ul>\n<li>Listening closely to your inner dialogues.&nbsp;</li>\n<li>Write down important or frequent negative thoughts.</li>\n<li>Be aware of the unbalanced, harmful thoughts.</li>\n</ul>\n<h3>Reframe Negative Self-Talk and Reinforce Positive Self-Talk</h3>\n<ul>\n<li>Look back at the thoughts and reword them in a kinder, more positive light.</li>\n<li>Writing down statements with the growth mindset of accepting the current situation and feelings, and concrete actions to make things better or make you feel better.</li>\n<li>Writing down what you are grateful for.</li>\n<li>Understanding the concept of impermanence and look into future in a positive way.</li>\n<li>Praise yourself when you write down positive self-talk! Try to think about what concrete actions you can take and let&rsquo;s move!</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: " loser",
+    wordnet_ext: [],
+    phrase_ext: ["I will disappoint", " I am a loser", " what a loser"],
+    rewrite: [
+      "I am having the thought of ...",
+      " It is my thought but not fact that",
+    ],
+    rewrite_position: "Before",
+    Popup_title: "Negative Self-Talk",
+    popup_feedback:
+      "Time to shift your inner dialogue to be more encouraging and uplifting!",
+    Sidebar_feedback:
+      "<h3>More About Self-Talk</h3>\n<p>Self-talk is something you do naturally throughout your waking hours. Positive self-talk is supportive and affirming. Positive self-talk can help you improve your outlook on life. It can also have lasting positive health benefits, including improved well-being and a better quality of life.</p>\n<p>Rumination is the flip side of positive self-talk. It happens when you replay upsetting or cringe-worthy thoughts or events over and over again in your head. Thinking through a problem can be useful, but if you spend a lot of time ruminating, small issues tend to snowball. Negative thoughts can grow and become self-defeating.</p>\n<ul>\n<li>Listening closely to your inner dialogues.&nbsp;</li>\n<li>Write down important or frequent negative thoughts.</li>\n<li>Be aware of the unbalanced, harmful thoughts.</li>\n</ul>\n<h3>Reframe Negative Self-Talk and Reinforce Positive Self-Talk</h3>\n<ul>\n<li>Look back at the thoughts and reword them in a kinder, more positive light.</li>\n<li>Writing down statements with the growth mindset of accepting the current situation and feelings, and concrete actions to make things better or make you feel better.</li>\n<li>Writing down what you are grateful for.</li>\n<li>Understanding the concept of impermanence and look into future in a positive way.</li>\n<li>Praise yourself when you write down positive self-talk! Try to think about what concrete actions you can take and let&rsquo;s move!</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "idiot",
+    wordnet_ext: [],
+    phrase_ext: ["what an idiot", " I am an idiot"],
+    rewrite: [
+      "I am having the thought of ...",
+      " It is my thought but not fact that",
+    ],
+    rewrite_position: "Before",
+    Popup_title: "Negative Self-Talk",
+    popup_feedback:
+      "Time to shift your inner dialogue to be more encouraging and uplifting!",
+    Sidebar_feedback:
+      "<h3>More About Self-Talk</h3>\n<p>Self-talk is something you do naturally throughout your waking hours. Positive self-talk is supportive and affirming. Positive self-talk can help you improve your outlook on life. It can also have lasting positive health benefits, including improved well-being and a better quality of life.</p>\n<p>Rumination is the flip side of positive self-talk. It happens when you replay upsetting or cringe-worthy thoughts or events over and over again in your head. Thinking through a problem can be useful, but if you spend a lot of time ruminating, small issues tend to snowball. Negative thoughts can grow and become self-defeating.</p>\n<ul>\n<li>Listening closely to your inner dialogues.&nbsp;</li>\n<li>Write down important or frequent negative thoughts.</li>\n<li>Be aware of the unbalanced, harmful thoughts.</li>\n</ul>\n<h3>Reframe Negative Self-Talk and Reinforce Positive Self-Talk</h3>\n<ul>\n<li>Look back at the thoughts and reword them in a kinder, more positive light.</li>\n<li>Writing down statements with the growth mindset of accepting the current situation and feelings, and concrete actions to make things better or make you feel better.</li>\n<li>Writing down what you are grateful for.</li>\n<li>Understanding the concept of impermanence and look into future in a positive way.</li>\n<li>Praise yourself when you write down positive self-talk! Try to think about what concrete actions you can take and let&rsquo;s move!</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: "the worst",
+    wordnet_ext: [],
+    phrase_ext: ["I am the worst"],
+    rewrite: [
+      "I am having the thought of ...",
+      " It is my thought but not fact that",
+    ],
+    rewrite_position: "before",
+    Popup_title: "Negative Self-Talk",
+    popup_feedback:
+      "Time to shift your inner dialogue to be more encouraging and uplifting!",
+    Sidebar_feedback:
+      "<h3>More About Self-Talk</h3>\n<p>Self-talk is something you do naturally throughout your waking hours. Positive self-talk is supportive and affirming. Positive self-talk can help you improve your outlook on life. It can also have lasting positive health benefits, including improved well-being and a better quality of life.</p>\n<p>Rumination is the flip side of positive self-talk. It happens when you replay upsetting or cringe-worthy thoughts or events over and over again in your head. Thinking through a problem can be useful, but if you spend a lot of time ruminating, small issues tend to snowball. Negative thoughts can grow and become self-defeating.</p>\n<ul>\n<li>Listening closely to your inner dialogues.&nbsp;</li>\n<li>Write down important or frequent negative thoughts.</li>\n<li>Be aware of the unbalanced, harmful thoughts.</li>\n</ul>\n<h3>Reframe Negative Self-Talk and Reinforce Positive Self-Talk</h3>\n<ul>\n<li>Look back at the thoughts and reword them in a kinder, more positive light.</li>\n<li>Writing down statements with the growth mindset of accepting the current situation and feelings, and concrete actions to make things better or make you feel better.</li>\n<li>Writing down what you are grateful for.</li>\n<li>Understanding the concept of impermanence and look into future in a positive way.</li>\n<li>Praise yourself when you write down positive self-talk! Try to think about what concrete actions you can take and let&rsquo;s move!</li>\n</ul>",
+    color: "#287db5",
+  },
+  {
+    Word: " loser",
+    wordnet_ext: [],
+    phrase_ext: [],
     rewrite: ["a person who "],
     rewrite_position: "Replace",
-    popup_title: null,
-    popup_feedback: null,
-    Sidebar_feedback: null,
-    color: null,
+    Popup_title: "Negative Self-Talk",
+    popup_feedback:
+      "Time to shift your inner dialogue to be more encouraging and uplifting!",
+    Sidebar_feedback:
+      "<h3>More About Self-Talk</h3>\n<p>Self-talk is something you do naturally throughout your waking hours. Positive self-talk is supportive and affirming. Positive self-talk can help you improve your outlook on life. It can also have lasting positive health benefits, including improved well-being and a better quality of life.</p>\n<p>Rumination is the flip side of positive self-talk. It happens when you replay upsetting or cringe-worthy thoughts or events over and over again in your head. Thinking through a problem can be useful, but if you spend a lot of time ruminating, small issues tend to snowball. Negative thoughts can grow and become self-defeating.</p>\n<ul>\n<li>Listening closely to your inner dialogues.&nbsp;</li>\n<li>Write down important or frequent negative thoughts.</li>\n<li>Be aware of the unbalanced, harmful thoughts.</li>\n</ul>\n<h3>Reframe Negative Self-Talk and Reinforce Positive Self-Talk</h3>\n<ul>\n<li>Look back at the thoughts and reword them in a kinder, more positive light.</li>\n<li>Writing down statements with the growth mindset of accepting the current situation and feelings, and concrete actions to make things better or make you feel better.</li>\n<li>Writing down what you are grateful for.</li>\n<li>Understanding the concept of impermanence and look into future in a positive way.</li>\n<li>Praise yourself when you write down positive self-talk! Try to think about what concrete actions you can take and let&rsquo;s move!</li>\n</ul>",
+    color: "#287db5",
   },
   {
-    strategy_code: "L2c",
-    category_number: 1,
-    semantic_anchor: "Negative Self-Talk",
-    words: [
-      "idiot",
-      "stupid",
-      "dumb",
-      "good-for-nothing",
-      "pathetic",
-      "lazy",
-      "useless",
-      "the worst",
-      "hate",
-      "suck",
-      "failure",
-    ],
-    wordnet_ext: [],
-    phrase_ext: [
-      "It is impossible for me to",
-      "I screwed up",
-      "what an idiot",
-      "I am an idiot",
-      "I am lazy",
-      "I am useless",
-      "I am the worst",
-      "failed myself",
-      "embarrassed myself",
-    ],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback: null,
-    Sidebar_feedback: null,
-    color: null,
-  },
-  {
-    strategy_code: "L2d",
-    category_number: 1,
-    semantic_anchor: "Signs of Depression -> Depressed Mood or Dyshphoria",
-    words: ["depress"],
+    Word: "depress",
     wordnet_ext: [
       "depressed",
-      "depression",
-      "gloomy",
-      "grim",
-      "blue",
-      "dispirited",
-      "feeling down",
-      "feel down",
-      "downcast",
-      "downhearted",
-      "down in the mouth",
-      "low",
-      "low-spirited",
+      " depression",
+      " gloomy",
+      " grim",
+      " blue",
+      " dispirited",
+      " feeling down",
+      " feel down",
+      " downcast",
+      " downhearted",
+      " down in the mouth",
+      " low",
+      " low-spirited",
     ],
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    Popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -360,24 +1217,40 @@ let dict_temp = [
     color: "#d3cd57",
   },
   {
-    strategy_code: "L2d",
-    category_number: 1,
-    semantic_anchor: "Signs of Depression -> Depressed Mood or Dyshphoria",
-    words: ["dyshphoria"],
+    Word: "stress",
+    wordnet_ext: ["stressful", " stressed", " overwhelmed", " overwhelming"],
+    phrase_ext: [
+      "difficulty breathing",
+      " hard of breathing",
+      " unable to rest",
+      " unable to enjoy",
+      " unable to relax",
+    ],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: null,
+    popup_feedback:
+      "This is a common sign that it is time to care for your mental health. You are not alone!",
+    Sidebar_feedback:
+      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
+    color: "#d3cd57",
+  },
+  {
+    Word: "dyshphoria",
     wordnet_ext: [
       "unhappy",
-      "uneasy",
-      "dissatisfied",
-      "discomfort",
-      "distress",
-      "unease",
-      "fidgeting",
-      "frustration",
+      " uneasy",
+      " dissatisfied",
+      " discomfort",
+      " distress",
+      " unease",
+      " fidgeting",
+      " frustration",
     ],
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    Popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -385,15 +1258,12 @@ let dict_temp = [
     color: "#d3cd57",
   },
   {
-    strategy_code: "L2d",
-    category_number: 2,
-    semantic_anchor: "Signs of Depression -> Hopeless Outlook",
-    words: ["helpless"],
-    wordnet_ext: ["incapacitated"],
-    phrase_ext: ["nobody help", "no one help"],
+    Word: "hopeless",
+    wordnet_ext: ["desperate", " despairing"],
+    phrase_ext: ["no help", " don't help"],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    Popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -401,15 +1271,12 @@ let dict_temp = [
     color: "#d3cd57",
   },
   {
-    strategy_code: "L2d",
-    category_number: 2,
-    semantic_anchor: "Signs of Depression -> Hopeless Outlook",
-    words: ["hopeless"],
-    wordnet_ext: ["desperate", "despairing"],
-    phrase_ext: ["no help", "don't help"],
+    Word: "helpless",
+    wordnet_ext: ["incapacitated "],
+    phrase_ext: ["nobody help", " no one help"],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    Popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -417,62 +1284,27 @@ let dict_temp = [
     color: "#d3cd57",
   },
   {
-    strategy_code: "L2d",
-    category_number: 2,
-    semantic_anchor: "Signs of Depression -> Hopeless Outlook",
-    words: ["guilt"],
-    wordnet_ext: ["guilty", "ashamed", "embarrased"],
-    phrase_ext: ["all my fault", "blame on me"],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback:
-      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
-    color: "#d3cd57",
-  },
-  {
-    strategy_code: "L2d",
-    category_number: 2,
-    semantic_anchor: "Signs of Depression -> Hopeless Outlook",
-    words: ["self-hate"],
-    wordnet_ext: ["self-hatred", "self-loathing", "self-disgust"],
-    phrase_ext: ["hate myself"],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback:
-      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
-    color: "#d3cd57",
-  },
-  {
-    strategy_code: "L2d",
-    category_number: 2,
-    semantic_anchor: "Signs of Depression -> Hopeless Outlook",
-    words: ["worthlessness"],
+    Word: "worthlessness",
     wordnet_ext: [
       "worthless",
-      "despicable",
-      "ugly",
-      "vile",
-      "slimy",
-      "unworthy",
-      "worthless",
-      "wretched",
-      "undeserving",
+      " despicable",
+      " ugly",
+      " vile",
+      " slimy",
+      " unworthy",
+      " worthless",
+      " wretched",
+      " undeserving ",
     ],
     phrase_ext: [
       "what is the point",
-      "there is no point",
-      "worth nothing",
-      "not worthing anything",
+      " there is no point",
+      " worth nothing",
+      " not worthing anything",
     ],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    Popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -480,25 +1312,35 @@ let dict_temp = [
     color: "#d3cd57",
   },
   {
-    strategy_code: "L2d",
-    category_number: 3,
-    semantic_anchor: "Signs of Depression -> Loss of interest in activities",
-    words: [],
-    wordnet_ext: ["indifferent", "apathetic"],
+    Word: "guilt",
+    wordnet_ext: ["guilty", " ashamed", " embarrased"],
+    phrase_ext: ["all my fault", " blame on me"],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: null,
+    popup_feedback:
+      "This is a common sign that it is time to care for your mental health. You are not alone!",
+    Sidebar_feedback:
+      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
+    color: "#d3cd57",
+  },
+  {
+    Word: null,
+    wordnet_ext: ["indifferent", " apathetic"],
     phrase_ext: [
       "loss of interest",
-      "lost interest",
-      "lose interest",
-      "used to be interested",
-      "not interested any more",
-      "can't enjoy",
-      "life is boring",
-      "life is meaningless",
-      "uninterested in life",
+      " lost interest",
+      " lose interest",
+      " used to be interested",
+      " not interested any more",
+      " can't enjoy",
+      " life is boring",
+      " life is meaningless",
+      " uninterested in life",
     ],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    Popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -506,20 +1348,17 @@ let dict_temp = [
     color: "#d3cd57",
   },
   {
-    strategy_code: "L2d",
-    category_number: 3,
-    semantic_anchor: "Signs of Depression -> Loss of interest in activities",
-    words: [],
-    wordnet_ext: ["avolition", "demotivated", "unmotivated"],
+    Word: null,
+    wordnet_ext: ["avolition", " demotivated", " unmotivated"],
     phrase_ext: [
       "loss of motivation",
-      "not motivated",
-      "not motivated any more",
-      "less motivated",
+      " not motivated",
+      " not motivated any more",
+      " less motivated",
     ],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    Popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -527,15 +1366,12 @@ let dict_temp = [
     color: "#d3cd57",
   },
   {
-    strategy_code: "L2d",
-    category_number: 3,
-    semantic_anchor: "Signs of Depression -> Loss of interest in activities",
-    words: [],
+    Word: null,
     wordnet_ext: [],
-    phrase_ext: ["lose sense of humor", "lost my sense of humor"],
+    phrase_ext: ["lose sense of humor", " lost my sense of humor"],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    Popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -543,24 +1379,66 @@ let dict_temp = [
     color: "#d3cd57",
   },
   {
-    strategy_code: "L2d",
-    category_number: 4,
-    semantic_anchor:
-      "Signs of Depression/Anxiety -> Sleep and Appetite Changes",
-    words: [],
+    Word: "insomnia",
+    wordnet_ext: ["sleeplessness"],
+    phrase_ext: ["can't sleep", " sleepless", " difficulty falling asleep"],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: null,
+    popup_feedback:
+      "This is a common sign that it is time to care for your mental health. You are not alone!",
+    Sidebar_feedback:
+      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
+    color: "#d3cd57",
+  },
+  {
+    Word: "disrupted sleep",
+    wordnet_ext: [],
+    phrase_ext: ["wake up in the midnight", " sleeping disorders"],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: null,
+    popup_feedback:
+      "This is a common sign that it is time to care for your mental health. You are not alone!",
+    Sidebar_feedback:
+      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
+    color: "#d3cd57",
+  },
+  {
+    Word: "lethargy",
+    wordnet_ext: [],
+    phrase_ext: [
+      "sleep long",
+      " sleep too long",
+      " sleep too much",
+      " hard to wake up",
+      " hard waking up",
+      " difficulty staying asleep",
+    ],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: null,
+    popup_feedback:
+      "This is a common sign that it is time to care for your mental health. You are not alone!",
+    Sidebar_feedback:
+      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
+    color: "#d3cd57",
+  },
+  {
+    Word: null,
     wordnet_ext: [],
     phrase_ext: [
       "hungrier",
-      "eat less",
-      "eat more",
-      "loss of appetite",
-      "increased appetite",
-      "decreased appetite",
-      "eating disorders",
+      " eat less",
+      " eat more",
+      " loss of appetite",
+      " increased appetite",
+      " decreased appetite",
+      " eating disorders",
     ],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    Popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -568,67 +1446,35 @@ let dict_temp = [
     color: "#d3cd57",
   },
   {
-    strategy_code: "L2d",
-    category_number: 4,
-    semantic_anchor:
-      "Signs of Depression/Anxiety -> Sleep and Appetite Changes",
-    words: ["insomnia", "disrupted sleep", "lethargy"],
-    wordnet_ext: ["sleeplessness"],
-    phrase_ext: [
-      "can't sleep",
-      "sleepless",
-      "difficulty falling asleep",
-      "wake up in the midnight",
-      "sleeping disorders",
-      "sleep long",
-      "sleep too long",
-      "sleep too much",
-      "hard to wake up",
-      "hard waking up",
-      "difficulty staying asleep",
-    ],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback:
-      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
-    color: "#d3cd57",
-  },
-  {
-    strategy_code: "L2d",
-    category_number: 5,
-    semantic_anchor: "Signs of Depression/Anxiety -> Fatigue",
-    words: ["fatigue"],
+    Word: "fatigue",
     wordnet_ext: [
       "weariness",
-      "tiredness\ntire",
-      "pall",
-      "weary",
-      "jade \ntire",
-      "wear upon",
-      "tire out",
-      "wear",
-      "weary",
-      "jade",
-      "wear out",
-      "outwear",
-      "wear down",
-      "fag out",
-      "fag",
-      "lethargy",
+      " tiredness\ntire",
+      " pall",
+      " weary",
+      " jade \ntire",
+      " wear upon",
+      " tire out",
+      " wear",
+      " weary",
+      " jade",
+      " wear out",
+      " outwear",
+      " wear down",
+      " fag out",
+      " fag",
+      " lethargy",
     ],
     phrase_ext: [
       "out of energy",
-      "lack of energy",
-      "little energy",
-      "burn out",
-      "burnout",
+      " lack of energy",
+      " little energy",
+      " burn out",
+      " burnout",
     ],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    Popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -636,20 +1482,17 @@ let dict_temp = [
     color: "#d3cd57",
   },
   {
-    strategy_code: "L2d",
-    category_number: 6,
-    semantic_anchor: "Signs of Depression/Anxiety -> Restlessness",
-    words: ["restlessness"],
-    wordnet_ext: ["uneasiness", "queasiness"],
+    Word: "restlessness",
+    wordnet_ext: ["uneasiness", " queasiness"],
     phrase_ext: [
       "unable to calm",
-      "have to move around",
-      "wound-up",
-      "on-edge",
+      " have to move around",
+      " wound-up",
+      " on-edge",
     ],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    Popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -657,25 +1500,221 @@ let dict_temp = [
     color: "#d3cd57",
   },
   {
-    strategy_code: "L2d",
-    category_number: 7,
-    semantic_anchor: "Signs of Depression/Anxiety -> Concentration Problems",
-    words: ["distract"],
-    wordnet_ext: ["perturb", "unhinge", "disquiet"],
+    Word: "self-hate",
+    wordnet_ext: ["self-hatred", " self-loathing", " self-disgust"],
+    phrase_ext: ["hate myself"],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: null,
+    popup_feedback:
+      "This is a common sign that it is time to care for your mental health. You are not alone!",
+    Sidebar_feedback:
+      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
+    color: "#d3cd57",
+  },
+  {
+    Word: "Bury",
+    wordnet_ext: ["self-destruction", " self-annihilation", " felo-de-se"],
+    phrase_ext: ["kill myself", " end my life"],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: null,
+    popup_feedback:
+      "This is a common sign that it is time to care for your mental health. You are not alone!",
+    Sidebar_feedback:
+      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
+    color: "#d3cd57",
+  },
+  {
+    Word: "chest pain",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: null,
+    popup_feedback:
+      "This is a common sign that it is time to care for your mental health. You are not alone!",
+    Sidebar_feedback:
+      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
+    color: "#d3cd57",
+  },
+  {
+    Word: "body pain",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: null,
+    popup_feedback:
+      "This is a common sign that it is time to care for your mental health. You are not alone!",
+    Sidebar_feedback:
+      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
+    color: "#d3cd57",
+  },
+  {
+    Word: "stomachaches",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: null,
+    popup_feedback:
+      "This is a common sign that it is time to care for your mental health. You are not alone!",
+    Sidebar_feedback:
+      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
+    color: "#d3cd57",
+  },
+  {
+    Word: "muscle aches",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: null,
+    popup_feedback:
+      "This is a common sign that it is time to care for your mental health. You are not alone!",
+    Sidebar_feedback:
+      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
+    color: "#d3cd57",
+  },
+  {
+    Word: "headaches",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: null,
+    popup_feedback:
+      "This is a common sign that it is time to care for your mental health. You are not alone!",
+    Sidebar_feedback:
+      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
+    color: "#d3cd57",
+  },
+  {
+    Word: "worry",
+    wordnet_ext: ["worried"],
+    phrase_ext: [
+      "can't help worrying",
+      " keep worrying",
+      " can't stop worrying",
+    ],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: null,
+    popup_feedback:
+      "This is a common sign that it is time to care for your mental health. You are not alone!",
+    Sidebar_feedback:
+      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
+    color: "#d3cd57",
+  },
+  {
+    Word: "panic",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: null,
+    popup_feedback:
+      "This is a common sign that it is time to care for your mental health. You are not alone!",
+    Sidebar_feedback:
+      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
+    color: "#d3cd57",
+  },
+  {
+    Word: "die",
+    wordnet_ext: ["self-destruction", " self-annihilation", " felo-de-se"],
+    phrase_ext: ["kill myself", " end my life"],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: null,
+    popup_feedback:
+      "This is a common sign that it is time to care for your mental health. You are not alone!",
+    Sidebar_feedback:
+      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
+    color: "#d3cd57",
+  },
+  {
+    Word: "suicidal",
+    wordnet_ext: ["self-destruction", " self-annihilation", " felo-de-se"],
+    phrase_ext: ["kill myself", " end my life"],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: null,
+    popup_feedback:
+      "This is a common sign that it is time to care for your mental health. You are not alone!",
+    Sidebar_feedback:
+      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
+    color: "#d3cd57",
+  },
+  {
+    Word: "suicide",
+    wordnet_ext: ["self-destruction", " self-annihilation", " felo-de-se"],
+    phrase_ext: ["kill myself", " end my life"],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: null,
+    popup_feedback:
+      "This is a common sign that it is time to care for your mental health. You are not alone!",
+    Sidebar_feedback:
+      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
+    color: "#d3cd57",
+  },
+  {
+    Word: "kill",
+    wordnet_ext: ["self-destruction", " self-annihilation", " felo-de-se"],
+    phrase_ext: ["kill myself", " end my life"],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: null,
+    popup_feedback:
+      "This is a common sign that it is time to care for your mental health. You are not alone!",
+    Sidebar_feedback:
+      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
+    color: "#d3cd57",
+  },
+  {
+    Word: "coffin",
+    wordnet_ext: ["self-destruction", " self-annihilation", " felo-de-se"],
+    phrase_ext: ["kill myself", " end my life"],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: null,
+    popup_feedback:
+      "This is a common sign that it is time to care for your mental health. You are not alone!",
+    Sidebar_feedback:
+      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
+    color: "#d3cd57",
+  },
+  {
+    Word: "irritable",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: null,
+    popup_feedback:
+      "This is a common sign that it is time to care for your mental health. You are not alone!",
+    Sidebar_feedback:
+      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
+    color: "#d3cd57",
+  },
+  {
+    Word: "distract",
+    wordnet_ext: ["perturb", " unhinge", " disquiet"],
     phrase_ext: [
       "can't concentrate",
-      "hard to concentrate",
-      "difficulty concentrating",
-      "can't focus",
-      "hard to focus",
-      "difficulty focusing",
-      "can't pay attention",
-      "hard to pay attention",
-      "difficulty paying attention",
+      " hard to concentrate",
+      " difficulty concentrating",
+      " can't focus",
+      " hard to focus",
+      " difficulty focusing",
+      " can't pay attention",
+      " hard to pay attention",
+      " difficulty paying attention",
     ],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    Popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -683,216 +1722,364 @@ let dict_temp = [
     color: "#d3cd57",
   },
   {
-    strategy_code: "L2d",
-    category_number: 8,
-    semantic_anchor: "Signs of Depression -> Suicidal ideation",
-    words: ["Bury", "die", "suicidal", "suicide", "kill", "coffin"],
-    wordnet_ext: [
-      "self-destruction",
-      "self-annihilation",
-      "felo-de-se",
-      "self-destruction",
-      "self-annihilation",
-      "felo-de-se",
-      "self-destruction",
-      "self-annihilation",
-      "felo-de-se",
-      "self-destruction",
-      "self-annihilation",
-      "felo-de-se",
-      "self-destruction",
-      "self-annihilation",
-      "felo-de-se",
-      "self-destruction",
-      "self-annihilation",
-      "felo-de-se",
-    ],
-    phrase_ext: [
-      "kill myself",
-      "end my life",
-      "kill myself",
-      "end my life",
-      "kill myself",
-      "end my life",
-      "kill myself",
-      "end my life",
-      "kill myself",
-      "end my life",
-      "kill myself",
-      "end my life",
-    ],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback:
-      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
-    color: "#d3cd57",
-  },
-  {
-    strategy_code: "L2d",
-    category_number: 9,
-    semantic_anchor: "Signs of Anxiety -> Being irritable",
-    words: ["irritable"],
+    Word: "myself",
     wordnet_ext: [],
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback:
-      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
-    color: "#d3cd57",
-  },
-  {
-    strategy_code: "L2d",
-    category_number: 9,
-    semantic_anchor:
-      "Signs of Anxiety -> Difficulty controlling feelings of worry",
-    words: ["worry"],
-    wordnet_ext: ["worried"],
-    phrase_ext: ["can't help worrying", "keep worrying", "can't stop worrying"],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback:
-      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
-    color: "#d3cd57",
-  },
-  {
-    strategy_code: "L2d",
-    category_number: 9,
-    semantic_anchor: "Signs of Anxiety -> Panic",
-    words: ["panic"],
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback:
-      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
-    color: "#d3cd57",
-  },
-  {
-    strategy_code: "L2d",
-    category_number: 9,
-    semantic_anchor: "Signs of Anxiety -> Unexplained body pains",
-    words: [
-      "chest pain",
-      "body pain",
-      "stomachaches",
-      "muscle aches",
-      "headaches",
-    ],
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback:
-      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
-    color: "#d3cd57",
-  },
-  {
-    strategy_code: "L2d",
-    category_number: 10,
-    semantic_anchor: "Signs of Stress",
-    words: ["stress"],
-    wordnet_ext: ["stressful", "stressed", "overwhelmed", "overwhelming"],
-    phrase_ext: [
-      "difficulty breathing",
-      "hard of breathing",
-      "unable to rest",
-      "unable to enjoy",
-      "unable to relax",
-    ],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback:
-      '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/" target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/" target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
-    color: "#d3cd57",
-  },
-  {
-    strategy_code: "L2e",
-    category_number: 1,
-    semantic_anchor: "First Pronoun",
-    words: ["self", "myself", "mine", "I", "me", "my"],
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: "First Pronoun",
+    Popup_title: "First Pronoun",
     popup_feedback:
       "This indicates a viewpoint of your own. You may have high level of self-awareness.",
-    Sidebar_feedback: null,
-    color: null,
+    Sidebar_feedback:
+      "<p>&ldquo;I&rdquo;-focused language is used to describe one&rsquo;s own viewpoint. Pronouns tell us where people focus their attention. If someone uses the pronoun &ldquo;I,&rdquo; it&rsquo;s a sign of self-focus. It can be a sign of high self-confidence and self-awareness. It can also be a sign of only focusing on one viewpoint.&nbsp;</p>\n<h3>Reframe I-focused View Point</h3>\n<p>People who moved in a positive direction wrote about their situation from multiple perspectives. Try to use&nbsp; &ldquo;he/she/they&rdquo;-oriented language before shifting back to &ldquo;I.&rdquo; This cycle represents the helpful ability to consider different viewpoints &ndash; and is a key factor in helping people process their most difficult experiences.</p>\n<p>If you are using I words to express negative thoughts, try to refer to yourself by a nickname instead. using the third person in self-talk can help you step back and think more objectively about your response and emotions, whether you&rsquo;re thinking about a past event or looking into the future. It can also help you reduce stress and anxiety.</p>",
+    color: "#4b2a7e",
   },
   {
-    strategy_code: "L2f",
-    category_number: 1,
-    semantic_anchor: "Insight words",
-    words: ["think", "realize", "understand", "believe"],
+    Word: "self",
     wordnet_ext: [],
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    popup_title: "Insight Words",
+    Popup_title: "First Pronoun",
+    popup_feedback:
+      "This indicates a viewpoint of your own. You may have high level of self-awareness.",
+    Sidebar_feedback:
+      "<p>&ldquo;I&rdquo;-focused language is used to describe one&rsquo;s own viewpoint. Pronouns tell us where people focus their attention. If someone uses the pronoun &ldquo;I,&rdquo; it&rsquo;s a sign of self-focus. It can be a sign of high self-confidence and self-awareness. It can also be a sign of only focusing on one viewpoint.&nbsp;</p>\n<h3>Reframe I-focused View Point</h3>\n<p>People who moved in a positive direction wrote about their situation from multiple perspectives. Try to use&nbsp; &ldquo;he/she/they&rdquo;-oriented language before shifting back to &ldquo;I.&rdquo; This cycle represents the helpful ability to consider different viewpoints &ndash; and is a key factor in helping people process their most difficult experiences.</p>\n<p>If you are using I words to express negative thoughts, try to refer to yourself by a nickname instead. using the third person in self-talk can help you step back and think more objectively about your response and emotions, whether you&rsquo;re thinking about a past event or looking into the future. It can also help you reduce stress and anxiety.</p>",
+    color: "#4b2a7e",
+  },
+  {
+    Word: "mine",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: "First Pronoun",
+    popup_feedback:
+      "This indicates a viewpoint of your own. You may have high level of self-awareness.",
+    Sidebar_feedback:
+      "<p>&ldquo;I&rdquo;-focused language is used to describe one&rsquo;s own viewpoint. Pronouns tell us where people focus their attention. If someone uses the pronoun &ldquo;I,&rdquo; it&rsquo;s a sign of self-focus. It can be a sign of high self-confidence and self-awareness. It can also be a sign of only focusing on one viewpoint.&nbsp;</p>\n<h3>Reframe I-focused View Point</h3>\n<p>People who moved in a positive direction wrote about their situation from multiple perspectives. Try to use&nbsp; &ldquo;he/she/they&rdquo;-oriented language before shifting back to &ldquo;I.&rdquo; This cycle represents the helpful ability to consider different viewpoints &ndash; and is a key factor in helping people process their most difficult experiences.</p>\n<p>If you are using I words to express negative thoughts, try to refer to yourself by a nickname instead. using the third person in self-talk can help you step back and think more objectively about your response and emotions, whether you&rsquo;re thinking about a past event or looking into the future. It can also help you reduce stress and anxiety.</p>",
+    color: "#4b2a7e",
+  },
+  {
+    Word: "me",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: "First Pronoun",
+    popup_feedback:
+      "This indicates a viewpoint of your own. You may have high level of self-awareness.",
+    Sidebar_feedback:
+      "<p>&ldquo;I&rdquo;-focused language is used to describe one&rsquo;s own viewpoint. Pronouns tell us where people focus their attention. If someone uses the pronoun &ldquo;I,&rdquo; it&rsquo;s a sign of self-focus. It can be a sign of high self-confidence and self-awareness. It can also be a sign of only focusing on one viewpoint.&nbsp;</p>\n<h3>Reframe I-focused View Point</h3>\n<p>People who moved in a positive direction wrote about their situation from multiple perspectives. Try to use&nbsp; &ldquo;he/she/they&rdquo;-oriented language before shifting back to &ldquo;I.&rdquo; This cycle represents the helpful ability to consider different viewpoints &ndash; and is a key factor in helping people process their most difficult experiences.</p>\n<p>If you are using I words to express negative thoughts, try to refer to yourself by a nickname instead. using the third person in self-talk can help you step back and think more objectively about your response and emotions, whether you&rsquo;re thinking about a past event or looking into the future. It can also help you reduce stress and anxiety.</p>",
+    color: "#4b2a7e",
+  },
+  {
+    Word: "I",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: "First Pronoun",
+    popup_feedback:
+      "This indicates a viewpoint of your own. You may have high level of self-awareness.",
+    Sidebar_feedback:
+      "<p>&ldquo;I&rdquo;-focused language is used to describe one&rsquo;s own viewpoint. Pronouns tell us where people focus their attention. If someone uses the pronoun &ldquo;I,&rdquo; it&rsquo;s a sign of self-focus. It can be a sign of high self-confidence and self-awareness. It can also be a sign of only focusing on one viewpoint.&nbsp;</p>\n<h3>Reframe I-focused View Point</h3>\n<p>People who moved in a positive direction wrote about their situation from multiple perspectives. Try to use&nbsp; &ldquo;he/she/they&rdquo;-oriented language before shifting back to &ldquo;I.&rdquo; This cycle represents the helpful ability to consider different viewpoints &ndash; and is a key factor in helping people process their most difficult experiences.</p>\n<p>If you are using I words to express negative thoughts, try to refer to yourself by a nickname instead. using the third person in self-talk can help you step back and think more objectively about your response and emotions, whether you&rsquo;re thinking about a past event or looking into the future. It can also help you reduce stress and anxiety.</p>",
+    color: "#4b2a7e",
+  },
+  {
+    Word: "my",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: "First Pronoun",
+    popup_feedback:
+      "This indicates a viewpoint of your own. You may have high level of self-awareness.",
+    Sidebar_feedback:
+      "<p>&ldquo;I&rdquo;-focused language is used to describe one&rsquo;s own viewpoint. Pronouns tell us where people focus their attention. If someone uses the pronoun &ldquo;I,&rdquo; it&rsquo;s a sign of self-focus. It can be a sign of high self-confidence and self-awareness. It can also be a sign of only focusing on one viewpoint.&nbsp;</p>\n<h3>Reframe I-focused View Point</h3>\n<p>People who moved in a positive direction wrote about their situation from multiple perspectives. Try to use&nbsp; &ldquo;he/she/they&rdquo;-oriented language before shifting back to &ldquo;I.&rdquo; This cycle represents the helpful ability to consider different viewpoints &ndash; and is a key factor in helping people process their most difficult experiences.</p>\n<p>If you are using I words to express negative thoughts, try to refer to yourself by a nickname instead. using the third person in self-talk can help you step back and think more objectively about your response and emotions, whether you&rsquo;re thinking about a past event or looking into the future. It can also help you reduce stress and anxiety.</p>",
+    color: "#4b2a7e",
+  },
+  {
+    Word: "thankful",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: "Positive Self-Talk",
+    popup_feedback:
+      "Make your inner dialogue to be more encouraging and uplifting!",
+    Sidebar_feedback: null,
+    color: "#44aa38",
+  },
+  {
+    Word: "grateful",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: "Positive Self-Talk",
+    popup_feedback:
+      "Make your inner dialogue to be more encouraging and uplifting!",
+    Sidebar_feedback: null,
+    color: "#44aa38",
+  },
+  {
+    Word: "hopefully",
+    wordnet_ext: [],
+    phrase_ext: ["I wish", " I hope"],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: "Positive Self-Talk",
+    popup_feedback:
+      "Make your inner dialogue to be more encouraging and uplifting!",
+    Sidebar_feedback: null,
+    color: "#44aa38",
+  },
+  {
+    Word: "I am capable of",
+    wordnet_ext: [],
+    phrase_ext: [
+      "I am good enough",
+      " I can make it",
+      " I can do it",
+      " I believe in myself",
+      " I have confidence",
+      " I am awesome",
+    ],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: "Positive Self-Talk",
+    popup_feedback:
+      "Make your inner dialogue to be more encouraging and uplifting!",
+    Sidebar_feedback: null,
+    color: "#44aa38",
+  },
+  {
+    Word: "can",
+    wordnet_ext: [],
+    phrase_ext: [
+      "work on",
+      " can try",
+      " choose",
+      " want to",
+      " prefer to",
+      " plan to",
+      " would like to",
+      " will fulfill",
+      " will achieve",
+      " will outcome",
+      " I am going to",
+      " I cannot wait to see",
+      " I wish",
+    ],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: "Positive Self-Talk",
+    popup_feedback:
+      "Make your inner dialogue to be more encouraging and uplifting!",
+    Sidebar_feedback: null,
+    color: "#44aa38",
+  },
+  {
+    Word: "improve",
+    wordnet_ext: [],
+    phrase_ext: ["better"],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: "Positive Self-Talk",
+    popup_feedback:
+      "Make your inner dialogue to be more encouraging and uplifting!",
+    Sidebar_feedback: null,
+    color: "#44aa38",
+  },
+  {
+    Word: "help",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: "Positive Self-Talk",
+    popup_feedback:
+      "Make your inner dialogue to be more encouraging and uplifting!",
+    Sidebar_feedback: null,
+    color: "#44aa38",
+  },
+  {
+    Word: "therefore",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: "Coherent narrative words",
     popup_feedback:
       "You will benefit from using these words to construct a coherent story, experience insights, and find a path forward.",
-    Sidebar_feedback: null,
-    color: null,
+    Sidebar_feedback:
+      '<h3>More About Insight Words and Coherent Narrative Words</h3>\n<p>People who write about things over and over in the same ways aren\'t getting any better. Evidence of a changed perspective can be found in the language people use. The more people use such cause-and-effect words as "realize" and "understand,"&nbsp; the more they appear to benefit. These words helped the writer construct a coherent story, experience insights, and find a path forward. Words such as "hence," "because" and "therefore" might also signal efforts to create a more coherent narrative out of fragmented stressful memories.</p>',
+    color: "#44aa38",
   },
   {
-    strategy_code: "L2f",
-    category_number: 2,
-    semantic_anchor: "Coherent narrative words",
-    words: ["hence", "because", "therefore"],
+    Word: "hence",
     wordnet_ext: [],
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    popup_title: "Coherent narrative words",
+    Popup_title: "Coherent narrative words",
     popup_feedback:
       "You will benefit from using these words to construct a coherent story, experience insights, and find a path forward.",
-    Sidebar_feedback: null,
-    color: null,
+    Sidebar_feedback:
+      '<h3>More About Insight Words and Coherent Narrative Words</h3>\n<p>People who write about things over and over in the same ways aren\'t getting any better. Evidence of a changed perspective can be found in the language people use. The more people use such cause-and-effect words as "realize" and "understand,"&nbsp; the more they appear to benefit. These words helped the writer construct a coherent story, experience insights, and find a path forward. Words such as "hence," "because" and "therefore" might also signal efforts to create a more coherent narrative out of fragmented stressful memories.</p>',
+    color: "#44aa38",
   },
   {
-    strategy_code: "L2f",
-    category_number: 3,
-    semantic_anchor: "Constructive Self-Talk",
-    words: ["improve", "help", "work on"],
+    Word: "believe",
     wordnet_ext: [],
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
-    popup_feedback: null,
+    Popup_title: "Insight Words",
+    popup_feedback:
+      "You will benefit from using these words to construct a coherent story, experience insights, and find a path forward.",
+    Sidebar_feedback:
+      '<h3>More About Insight Words and Coherent Narrative Words</h3>\n<p>People who write about things over and over in the same ways aren\'t getting any better. Evidence of a changed perspective can be found in the language people use. The more people use such cause-and-effect words as "realize" and "understand,"&nbsp; the more they appear to benefit. These words helped the writer construct a coherent story, experience insights, and find a path forward. Words such as "hence," "because" and "therefore" might also signal efforts to create a more coherent narrative out of fragmented stressful memories.</p>',
+    color: "#44aa38",
+  },
+  {
+    Word: "understand",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: "Insight Words",
+    popup_feedback:
+      "You will benefit from using these words to construct a coherent story, experience insights, and find a path forward.",
+    Sidebar_feedback:
+      '<h3>More About Insight Words and Coherent Narrative Words</h3>\n<p>People who write about things over and over in the same ways aren\'t getting any better. Evidence of a changed perspective can be found in the language people use. The more people use such cause-and-effect words as "realize" and "understand,"&nbsp; the more they appear to benefit. These words helped the writer construct a coherent story, experience insights, and find a path forward. Words such as "hence," "because" and "therefore" might also signal efforts to create a more coherent narrative out of fragmented stressful memories.</p>',
+    color: "#44aa38",
+  },
+  {
+    Word: "realize",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: "Insight Words",
+    popup_feedback:
+      "You will benefit from using these words to construct a coherent story, experience insights, and find a path forward.",
+    Sidebar_feedback:
+      '<h3>More About Insight Words and Coherent Narrative Words</h3>\n<p>People who write about things over and over in the same ways aren\'t getting any better. Evidence of a changed perspective can be found in the language people use. The more people use such cause-and-effect words as "realize" and "understand,"&nbsp; the more they appear to benefit. These words helped the writer construct a coherent story, experience insights, and find a path forward. Words such as "hence," "because" and "therefore" might also signal efforts to create a more coherent narrative out of fragmented stressful memories.</p>',
+    color: "#44aa38",
+  },
+  {
+    Word: "think",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: "Insight Words",
+    popup_feedback:
+      "You will benefit from using these words to construct a coherent story, experience insights, and find a path forward.",
+    Sidebar_feedback:
+      '<h3>More About Insight Words and Coherent Narrative Words</h3>\n<p>People who write about things over and over in the same ways aren\'t getting any better. Evidence of a changed perspective can be found in the language people use. The more people use such cause-and-effect words as "realize" and "understand,"&nbsp; the more they appear to benefit. These words helped the writer construct a coherent story, experience insights, and find a path forward. Words such as "hence," "because" and "therefore" might also signal efforts to create a more coherent narrative out of fragmented stressful memories.</p>',
+    color: "#44aa38",
+  },
+  {
+    Word: "lucky",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: "Positive Self-Talk",
+    popup_feedback:
+      "Make your inner dialogue to be more encouraging and uplifting!",
     Sidebar_feedback: null,
-    color: null,
+    color: "#44aa38",
+  },
+  {
+    Word: "because",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: "Coherent narrative words",
+    popup_feedback:
+      "You will benefit from using these words to construct a coherent story, experience insights, and find a path forward.",
+    Sidebar_feedback:
+      '<h3>More About Insight Words and Coherent Narrative Words</h3>\n<p>People who write about things over and over in the same ways aren\'t getting any better. Evidence of a changed perspective can be found in the language people use. The more people use such cause-and-effect words as "realize" and "understand,"&nbsp; the more they appear to benefit. These words helped the writer construct a coherent story, experience insights, and find a path forward. Words such as "hence," "because" and "therefore" might also signal efforts to create a more coherent narrative out of fragmented stressful memories.</p>',
+    color: "#44aa38",
+  },
+  {
+    Word: "Fortunately",
+    wordnet_ext: [],
+    phrase_ext: [],
+    rewrite: null,
+    rewrite_position: null,
+    Popup_title: "Positive Self-Talk",
+    popup_feedback:
+      "Make your inner dialogue to be more encouraging and uplifting!",
+    Sidebar_feedback: null,
+    color: "#44aa38",
   },
 ];
 
 let l1_dict = [
   {
     Word: "loser",
-    Reprogramming: ["My inner value behind these is"],
-    ReprogramType: "end",
+    rewrite: ["My inner value behind these is"],
+    rewrite_position: "end",
+  },
+  {
+    Word: "suck",
+    rewrite: ["My inner value behind these is"],
+    rewrite_position: "end",
+  },
+  {
+    Word: "hate",
+    rewrite: ["My inner value behind these is"],
+    rewrite_position: "end",
+  },
+  {
+    Word: "lazy",
+    rewrite: ["My inner value behind these is"],
+    rewrite_position: "end",
+  },
+  {
+    Word: "the worst",
+    rewrite: ["My inner value behind these is"],
+    rewrite_position: "end",
+  },
+  {
+    Word: "useless",
+    rewrite: ["My inner value behind these is"],
+    rewrite_position: "end",
+  },
+  {
+    Word: "failure",
+    rewrite: ["My inner value behind these is"],
+    rewrite_position: "end",
+  },
+  {
+    Word: "pathetic",
+    rewrite: ["My inner value behind these is"],
+    rewrite_position: "end",
+  },
+  {
+    Word: "good-for-nothing",
+    rewrite: ["My inner value behind these is"],
+    rewrite_position: "end",
+  },
+  {
+    Word: "dumb",
+    rewrite: ["My inner value behind these is"],
+    rewrite_position: "end",
+  },
+  {
+    Word: "stupid",
+    rewrite: ["My inner value behind these is"],
+    rewrite_position: "end",
   },
   {
     Word: "sad",
-    Reprogramming: [
+    rewrite: [
       "I have these feelings maybe because I value ...",
       "I have these feelings maybe because I need ...",
       "I have these feelings maybe because I want ...",
@@ -900,11 +2087,11 @@ let l1_dict = [
       " Take a step back, I'm feeling like this because...",
       " I will feel better if ",
     ],
-    ReprogramType: "end",
+    rewrite_position: "end",
   },
   {
     Word: "depressed",
-    Reprogramming: [
+    rewrite: [
       "I have these feelings maybe because I value ...",
       "I have these feelings maybe because I need ...",
       "I have these feelings maybe because I want ...",
@@ -912,11 +2099,11 @@ let l1_dict = [
       " Take a step back, I'm feeling like this because...",
       " I will feel better if ",
     ],
-    ReprogramType: "end",
+    rewrite_position: "end",
   },
   {
     Word: "heartbreak",
-    Reprogramming: [
+    rewrite: [
       "I have these feelings maybe because I value ...",
       "I have these feelings maybe because I need ...",
       "I have these feelings maybe because I want ...",
@@ -924,11 +2111,11 @@ let l1_dict = [
       " Take a step back, I'm feeling like this because...",
       " I will feel better if ",
     ],
-    ReprogramType: "end",
+    rewrite_position: "end",
   },
   {
     Word: "heartbroken",
-    Reprogramming: [
+    rewrite: [
       "I have these feelings maybe because I value ...",
       "I have these feelings maybe because I need ...",
       "I have these feelings maybe because I want ...",
@@ -936,11 +2123,11 @@ let l1_dict = [
       " Take a step back, I'm feeling like this because...",
       " I will feel better if ",
     ],
-    ReprogramType: "end",
+    rewrite_position: "end",
   },
   {
     Word: "angry",
-    Reprogramming: [
+    rewrite: [
       "I have these feelings maybe because I value ...",
       "I have these feelings maybe because I need ...",
       "I have these feelings maybe because I want ...",
@@ -948,11 +2135,11 @@ let l1_dict = [
       " Take a step back, I'm feeling like this because...",
       " I will feel better if ",
     ],
-    ReprogramType: "end",
+    rewrite_position: "end",
   },
   {
     Word: "lonely",
-    Reprogramming: [
+    rewrite: [
       "I have these feelings maybe because I value ...",
       "I have these feelings maybe because I need ...",
       "I have these feelings maybe because I want ...",
@@ -960,11 +2147,11 @@ let l1_dict = [
       " Take a step back, I'm feeling like this because...",
       " I will feel better if ",
     ],
-    ReprogramType: "end",
+    rewrite_position: "end",
   },
   {
     Word: "panic",
-    Reprogramming: [
+    rewrite: [
       "I have these feelings maybe because I value ...",
       "I have these feelings maybe because I need ...",
       "I have these feelings maybe because I want ...",
@@ -972,11 +2159,11 @@ let l1_dict = [
       " Take a step back, I'm feeling like this because...",
       " I will feel better if ",
     ],
-    ReprogramType: "end",
+    rewrite_position: "end",
   },
   {
     Word: "worry",
-    Reprogramming: [
+    rewrite: [
       "I have these feelings maybe because I value ...",
       "I have these feelings maybe because I need ...",
       "I have these feelings maybe because I want ...",
@@ -984,62 +2171,62 @@ let l1_dict = [
       " Take a step back, I'm feeling like this because...",
       " I will feel better if ",
     ],
-    ReprogramType: "end",
+    rewrite_position: "end",
   },
   {
     Word: null,
-    Reprogramming: ["When I say this, I mean..."],
-    ReprogramType: "end",
+    rewrite: ["When I say this, I mean..."],
+    rewrite_position: "end",
   },
   {
     Word: null,
-    Reprogramming: ["To explain it further ..."],
-    ReprogramType: "end",
+    rewrite: ["To explain it further ..."],
+    rewrite_position: "end",
   },
   {
     Word: null,
-    Reprogramming: ["A different point of view can be..."],
-    ReprogramType: "end",
+    rewrite: ["A different point of view can be..."],
+    rewrite_position: "end",
   },
-  { Word: null, Reprogramming: ["To be specific,"], ReprogramType: "end" },
+  { Word: null, rewrite: ["To be specific,"], rewrite_position: "end" },
   {
     Word: null,
-    Reprogramming: ["An example to support this is..."],
-    ReprogramType: "end",
-  },
-  {
-    Word: null,
-    Reprogramming: ["Someone else may respond to this in a different way:"],
-    ReprogramType: "end",
+    rewrite: ["An example to support this is..."],
+    rewrite_position: "end",
   },
   {
     Word: null,
-    Reprogramming: ["The long-term implications of this can be..."],
-    ReprogramType: "end",
+    rewrite: ["Someone else may respond to this in a different way:"],
+    rewrite_position: "end",
+  },
+  {
+    Word: null,
+    rewrite: ["The long-term implications of this can be..."],
+    rewrite_position: "end",
   },
   {
     Word: "feel",
-    Reprogramming: ["how do I feel about having these emotions?"],
-    ReprogramType: "end",
+    rewrite: ["how do I feel about having these emotions?"],
+    rewrite_position: "end",
   },
   {
     Word: "feel",
-    Reprogramming: ["can I accept my feelings without judgment?"],
-    ReprogramType: "end",
+    rewrite: ["can I accept my feelings without judgment?"],
+    rewrite_position: "end",
   },
   {
     Word: "feel",
-    Reprogramming: [
+    rewrite: [
       "Do I feel comfortable with expressing my emotions authentically? Why or why not?",
     ],
-    ReprogramType: "end",
+    rewrite_position: "end",
   },
   {
     Word: "feel",
-    Reprogramming: [
+    rewrite: [
       "I can write down more details separately about the event, my feelings, my opinions and evidences for/against my opinions as follows:",
     ],
-    ReprogramType: "end",
+    rewrite_position: "end",
   },
 ];
 /*************************************************************************** NEW ADDS */
@@ -1082,7 +2269,8 @@ function analyzeText() {
   // filter words not in dict
   allText = allText.filter(function (element) {
     for (let i = 0; i < dict_temp.length; i++) {
-      if (dict_temp[i].words.indexOf(element.toLowerCase()) > -1) {
+      // if (dict_temp[i].words.indexOf(element.toLowerCase()) > -1) {
+      if (dict_temp[i].Word === element.toLowerCase()) {
         categories.push({
           strategy_code: dict_temp[i].strategy_code,
           category_number: dict_temp[i].category_number,
@@ -1134,24 +2322,33 @@ function analyzeText() {
       }
     }
 
-    let obj_filt = dict_temp.filter(
-      (entry) =>
-        entry.strategy_code === categories[index].strategy_code &&
-        entry.category_number === categories[index].category_number
-    )[0];
+    // find matching words in dict
+    const word_options = dict_temp.filter(
+      (dict_entry) => dict_entry.Word === currentElement
+    );
+    // - put into array
+
+    // choose at random from array and use that selection to populate previousElement.push(...)
+    let chosen = word_options[getRandomInt(word_options.length)];
+
+    // let obj_filt = dict_temp.filter(
+    //   (entry) =>
+    //     entry.strategy_code === categories[index].strategy_code &&
+    //     entry.category_number === categories[index].category_number
+    // )[0];
 
     previousElement.push({
       // maybe add normalization marker here?
       search_coords: search_coords,
       word: currentElement,
-      color: obj_filt.color,
-      title: obj_filt.semantic_anchor,
-      popup_title: obj_filt.popup_title,
-      sidebar_title: obj_filt.sidebar_title,
-      popup_feedback: obj_filt.popup_feedback,
-      Sidebar_feedback: obj_filt.Sidebar_feedback,
-      rewrite: obj_filt.rewrite,
-      rewrite_position: obj_filt.rewrite_position,
+      color: chosen.color,
+      // title: obj_filt.semantic_anchor,
+      popup_title: chosen.popup_title,
+      sidebar_title: chosen.sidebar_title,
+      popup_feedback: chosen.popup_feedback,
+      Sidebar_feedback: chosen.Sidebar_feedback,
+      rewrite: chosen.rewrite,
+      rewrite_position: chosen.rewrite_position,
       // offset
       offset: offset,
       display: true,
@@ -1369,13 +2566,13 @@ function showRightbar(contents) {
   // document.querySelector(".right-sidebar h3").textContent = contents.title;
   // document.querySelector(".right-sidebar h3").textContent =
   //   contents.sidebar_title;
-  document.querySelector(".right-sidebar .target-cont").innerHTML =
-    contents.Sidebar_feedback;
+  document.querySelector(".target-cont").innerHTML = contents.Sidebar_feedback;
   document.getElementById("rightsidebar").style.right = "0px";
 
   logSidebar(contents);
 
   let b_rewrite = false;
+  console.log("in sidebar-contents ", contents);
   if (contents.rewrite !== null) {
     b_rewrite = contents.rewrite.length > 0;
   }
@@ -2415,14 +3612,14 @@ function triggerL1() {
   if (found) {
     console.log("found:", found);
     // reprogramming options:
-    let n_options = found.Reprogramming.length; // arr
+    let n_options = found.rewrite.length; // arr
     let random_selection = getRandomInt(n_options);
 
     let end_line = cm.getDoc().lastLine();
     let end_ch = cm.getLine(end_line).length;
     triggerRewrite({
       search_coords: { line: end_line, ch: end_ch },
-      rewrite: [found.Reprogramming[random_selection]],
+      rewrite: [found.rewrite[random_selection]],
       rewrite_position: "end",
     });
 
@@ -2432,7 +3629,7 @@ function triggerL1() {
     console.log("not found, using null options");
     let l1_options = shuffled_l1_dict
       .filter((entry) => entry.Word === null)
-      .map((el) => el.Reprogramming[0]);
+      .map((el) => el.rewrite[0]);
     console.log("l1_options", l1_options);
 
     let n_options = l1_options.length; // arr
