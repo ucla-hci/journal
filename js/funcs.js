@@ -76,7 +76,7 @@ let dict_temp = [
       " Beyond judgment, the situation and my feelings can be described as:",
     ],
     rewrite_position: "After",
-    Popup_title: "Judgment",
+    popup_title: "Judgment",
     popup_feedback:
       "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
     Sidebar_feedback:
@@ -92,7 +92,7 @@ let dict_temp = [
       " Beyond judgment, the situation and my feelings can be described as:",
     ],
     rewrite_position: "After",
-    Popup_title: "Judgment",
+    popup_title: "Judgment",
     popup_feedback:
       "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
     Sidebar_feedback:
@@ -108,7 +108,7 @@ let dict_temp = [
       " Beyond judgment, the situation and my feelings can be described as:",
     ],
     rewrite_position: "After",
-    Popup_title: "Judgment",
+    popup_title: "Judgment",
     popup_feedback:
       "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
     Sidebar_feedback:
@@ -124,7 +124,7 @@ let dict_temp = [
       " Beyond judgment, the situation and my feelings can be described as:",
     ],
     rewrite_position: "After",
-    Popup_title: "Judgment",
+    popup_title: "Judgment",
     popup_feedback:
       "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
     Sidebar_feedback:
@@ -140,7 +140,7 @@ let dict_temp = [
       " Beyond judgment, the situation and my feelings can be described as:",
     ],
     rewrite_position: "After",
-    Popup_title: "Judgment",
+    popup_title: "Judgment",
     popup_feedback:
       "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
     Sidebar_feedback:
@@ -156,7 +156,7 @@ let dict_temp = [
       " Beyond judgment, the situation and my feelings can be described as:",
     ],
     rewrite_position: "After",
-    Popup_title: "Judgment",
+    popup_title: "Judgment",
     popup_feedback:
       "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
     Sidebar_feedback:
@@ -172,7 +172,7 @@ let dict_temp = [
       " Beyond judgment, the situation and my feelings can be described as:",
     ],
     rewrite_position: "After",
-    Popup_title: "Judgment",
+    popup_title: "Judgment",
     popup_feedback:
       "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
     Sidebar_feedback:
@@ -188,7 +188,7 @@ let dict_temp = [
       " Beyond judgment, the situation and my feelings can be described as:",
     ],
     rewrite_position: "After",
-    Popup_title: "Judgment",
+    popup_title: "Judgment",
     popup_feedback:
       "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
     Sidebar_feedback:
@@ -204,7 +204,7 @@ let dict_temp = [
       " Beyond judgment, the situation and my feelings can be described as:",
     ],
     rewrite_position: "After",
-    Popup_title: "Judgment",
+    popup_title: "Judgment",
     popup_feedback:
       "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
     Sidebar_feedback:
@@ -220,7 +220,7 @@ let dict_temp = [
       " Beyond judgment, the situation and my feelings can be described as:",
     ],
     rewrite_position: "After",
-    Popup_title: "Judgment",
+    popup_title: "Judgment",
     popup_feedback:
       "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
     Sidebar_feedback:
@@ -236,7 +236,7 @@ let dict_temp = [
       " Beyond judgment, the situation and my feelings can be described as:",
     ],
     rewrite_position: "After",
-    Popup_title: "Judgment",
+    popup_title: "Judgment",
     popup_feedback:
       "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
     Sidebar_feedback:
@@ -252,7 +252,7 @@ let dict_temp = [
       " Beyond judgment, the situation and my feelings can be described as:",
     ],
     rewrite_position: "After",
-    Popup_title: "Judgment",
+    popup_title: "Judgment",
     popup_feedback:
       "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
     Sidebar_feedback:
@@ -268,7 +268,7 @@ let dict_temp = [
       " Beyond judgment, the situation and my feelings can be described as:",
     ],
     rewrite_position: "After",
-    Popup_title: "Judgment",
+    popup_title: "Judgment",
     popup_feedback:
       "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
     Sidebar_feedback:
@@ -284,7 +284,7 @@ let dict_temp = [
       " Beyond judgment, the situation and my feelings can be described as:",
     ],
     rewrite_position: "After",
-    Popup_title: "Judgment",
+    popup_title: "Judgment",
     popup_feedback:
       "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
     Sidebar_feedback:
@@ -300,7 +300,7 @@ let dict_temp = [
       " Beyond judgment, the situation and my feelings can be described as:",
     ],
     rewrite_position: "After",
-    Popup_title: "Judgment",
+    popup_title: "Judgment",
     popup_feedback:
       "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
     Sidebar_feedback:
@@ -316,7 +316,7 @@ let dict_temp = [
       " Beyond judgment, the situation and my feelings can be described as:",
     ],
     rewrite_position: "After",
-    Popup_title: "Judgment",
+    popup_title: "Judgment",
     popup_feedback:
       "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
     Sidebar_feedback:
@@ -332,7 +332,7 @@ let dict_temp = [
       " Beyond judgment, the situation and my feelings can be described as:",
     ],
     rewrite_position: "After",
-    Popup_title: "Judgment",
+    popup_title: "Judgment",
     popup_feedback:
       "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
     Sidebar_feedback:
@@ -348,7 +348,7 @@ let dict_temp = [
       " Beyond judgment, the situation and my feelings can be described as:",
     ],
     rewrite_position: "After",
-    Popup_title: "Judgment",
+    popup_title: "Judgment",
     popup_feedback:
       "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
     Sidebar_feedback:
@@ -364,7 +364,7 @@ let dict_temp = [
       " Beyond judgment, the situation and my feelings can be described as:",
     ],
     rewrite_position: "After",
-    Popup_title: "Judgment",
+    popup_title: "Judgment",
     popup_feedback:
       "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
     Sidebar_feedback:
@@ -385,7 +385,7 @@ let dict_temp = [
       "",
     ],
     rewrite_position: "Replace",
-    Popup_title: "Should Statment",
+    popup_title: "Should Statment",
     popup_feedback: "Come on! Things don't have to be a certain way.",
     Sidebar_feedback:
       "<h3>More About Should Statements</h3>\n<p>Should statements are statements that you make to yourself about what you &ldquo;should&rdquo; do, what you &ldquo;ought&rdquo; to do, or what you &ldquo;must&rdquo; do. They can also be applied to others, imposing a set of expectations that will likely not be met.</p>\n<ul>\n<li>Why do I think that it &ldquo;should&rdquo; be?</li>\n<li>What if I let go of &ldquo;should&rdquo; and &ldquo;shouldn&rsquo;t&rdquo;?</li>\n<li>What if I allowed myself to feel however I feel&mdash;without regrets or expectations or projections of what it &ldquo;should&rdquo; be?</li>\n</ul>\n<h3>Reframe Should Statements</h3>\n<p>Use more compassionate and realistic statements. Try to soften it by replacing &ldquo;should&rdquo;-type words with &ldquo;prefer&rdquo;-type words or empower it by using &ldquo;can/will/choose&rdquo;-type words and think about doable actions.</p>",
@@ -405,7 +405,7 @@ let dict_temp = [
       "",
     ],
     rewrite_position: "Replace",
-    Popup_title: "Should Statment",
+    popup_title: "Should Statment",
     popup_feedback: "Come on! Things don't have to be a certain way.",
     Sidebar_feedback:
       "<h3>More About Should Statements</h3>\n<p>Should statements are statements that you make to yourself about what you &ldquo;should&rdquo; do, what you &ldquo;ought&rdquo; to do, or what you &ldquo;must&rdquo; do. They can also be applied to others, imposing a set of expectations that will likely not be met.</p>\n<ul>\n<li>Why do I think that it &ldquo;should&rdquo; be?</li>\n<li>What if I let go of &ldquo;should&rdquo; and &ldquo;shouldn&rsquo;t&rdquo;?</li>\n<li>What if I allowed myself to feel however I feel&mdash;without regrets or expectations or projections of what it &ldquo;should&rdquo; be?</li>\n</ul>\n<h3>Reframe Should Statements</h3>\n<p>Use more compassionate and realistic statements. Try to soften it by replacing &ldquo;should&rdquo;-type words with &ldquo;prefer&rdquo;-type words or empower it by using &ldquo;can/will/choose&rdquo;-type words and think about doable actions.</p>",
@@ -425,7 +425,7 @@ let dict_temp = [
       "",
     ],
     rewrite_position: "Replace",
-    Popup_title: "Should Statment",
+    popup_title: "Should Statment",
     popup_feedback: "Come on! Things don't have to be a certain way.",
     Sidebar_feedback:
       "<h3>More About Should Statements</h3>\n<p>Should statements are statements that you make to yourself about what you &ldquo;should&rdquo; do, what you &ldquo;ought&rdquo; to do, or what you &ldquo;must&rdquo; do. They can also be applied to others, imposing a set of expectations that will likely not be met.</p>\n<ul>\n<li>Why do I think that it &ldquo;should&rdquo; be?</li>\n<li>What if I let go of &ldquo;should&rdquo; and &ldquo;shouldn&rsquo;t&rdquo;?</li>\n<li>What if I allowed myself to feel however I feel&mdash;without regrets or expectations or projections of what it &ldquo;should&rdquo; be?</li>\n</ul>\n<h3>Reframe Should Statements</h3>\n<p>Use more compassionate and realistic statements. Try to soften it by replacing &ldquo;should&rdquo;-type words with &ldquo;prefer&rdquo;-type words or empower it by using &ldquo;can/will/choose&rdquo;-type words and think about doable actions.</p>",
@@ -445,7 +445,7 @@ let dict_temp = [
       "",
     ],
     rewrite_position: "Replace",
-    Popup_title: "Should Statment",
+    popup_title: "Should Statment",
     popup_feedback: "Come on! Things don't have to be a certain way.",
     Sidebar_feedback:
       "<h3>More About Should Statements</h3>\n<p>Should statements are statements that you make to yourself about what you &ldquo;should&rdquo; do, what you &ldquo;ought&rdquo; to do, or what you &ldquo;must&rdquo; do. They can also be applied to others, imposing a set of expectations that will likely not be met.</p>\n<ul>\n<li>Why do I think that it &ldquo;should&rdquo; be?</li>\n<li>What if I let go of &ldquo;should&rdquo; and &ldquo;shouldn&rsquo;t&rdquo;?</li>\n<li>What if I allowed myself to feel however I feel&mdash;without regrets or expectations or projections of what it &ldquo;should&rdquo; be?</li>\n</ul>\n<h3>Reframe Should Statements</h3>\n<p>Use more compassionate and realistic statements. Try to soften it by replacing &ldquo;should&rdquo;-type words with &ldquo;prefer&rdquo;-type words or empower it by using &ldquo;can/will/choose&rdquo;-type words and think about doable actions.</p>",
@@ -465,7 +465,7 @@ let dict_temp = [
       "",
     ],
     rewrite_position: "Replace",
-    Popup_title: "Should Statment",
+    popup_title: "Should Statment",
     popup_feedback: "Come on! Things don't have to be a certain way.",
     Sidebar_feedback:
       "<h3>More About Should Statements</h3>\n<p>Should statements are statements that you make to yourself about what you &ldquo;should&rdquo; do, what you &ldquo;ought&rdquo; to do, or what you &ldquo;must&rdquo; do. They can also be applied to others, imposing a set of expectations that will likely not be met.</p>\n<ul>\n<li>Why do I think that it &ldquo;should&rdquo; be?</li>\n<li>What if I let go of &ldquo;should&rdquo; and &ldquo;shouldn&rsquo;t&rdquo;?</li>\n<li>What if I allowed myself to feel however I feel&mdash;without regrets or expectations or projections of what it &ldquo;should&rdquo; be?</li>\n</ul>\n<h3>Reframe Should Statements</h3>\n<p>Use more compassionate and realistic statements. Try to soften it by replacing &ldquo;should&rdquo;-type words with &ldquo;prefer&rdquo;-type words or empower it by using &ldquo;can/will/choose&rdquo;-type words and think about doable actions.</p>",
@@ -477,7 +477,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: ["The actions I can take are", " My goal is"],
     rewrite_position: "After",
-    Popup_title: "Should Statment",
+    popup_title: "Should Statment",
     popup_feedback: "Come on! Things don't have to be a certain way.",
     Sidebar_feedback:
       "<h3>More About Should Statements</h3>\n<p>Should statements are statements that you make to yourself about what you &ldquo;should&rdquo; do, what you &ldquo;ought&rdquo; to do, or what you &ldquo;must&rdquo; do. They can also be applied to others, imposing a set of expectations that will likely not be met.</p>\n<ul>\n<li>Why do I think that it &ldquo;should&rdquo; be?</li>\n<li>What if I let go of &ldquo;should&rdquo; and &ldquo;shouldn&rsquo;t&rdquo;?</li>\n<li>What if I allowed myself to feel however I feel&mdash;without regrets or expectations or projections of what it &ldquo;should&rdquo; be?</li>\n</ul>\n<h3>Reframe Should Statements</h3>\n<p>Use more compassionate and realistic statements. Try to soften it by replacing &ldquo;should&rdquo;-type words with &ldquo;prefer&rdquo;-type words or empower it by using &ldquo;can/will/choose&rdquo;-type words and think about doable actions.</p>",
@@ -489,7 +489,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: ["The actions I can take are", " My goal is"],
     rewrite_position: "After",
-    Popup_title: "Should Statment",
+    popup_title: "Should Statment",
     popup_feedback: "Come on! Things don't have to be a certain way.",
     Sidebar_feedback:
       "<h3>More About Should Statements</h3>\n<p>Should statements are statements that you make to yourself about what you &ldquo;should&rdquo; do, what you &ldquo;ought&rdquo; to do, or what you &ldquo;must&rdquo; do. They can also be applied to others, imposing a set of expectations that will likely not be met.</p>\n<ul>\n<li>Why do I think that it &ldquo;should&rdquo; be?</li>\n<li>What if I let go of &ldquo;should&rdquo; and &ldquo;shouldn&rsquo;t&rdquo;?</li>\n<li>What if I allowed myself to feel however I feel&mdash;without regrets or expectations or projections of what it &ldquo;should&rdquo; be?</li>\n</ul>\n<h3>Reframe Should Statements</h3>\n<p>Use more compassionate and realistic statements. Try to soften it by replacing &ldquo;should&rdquo;-type words with &ldquo;prefer&rdquo;-type words or empower it by using &ldquo;can/will/choose&rdquo;-type words and think about doable actions.</p>",
@@ -501,7 +501,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: ["The actions I can take are", " My goal is"],
     rewrite_position: "After",
-    Popup_title: "Should Statment",
+    popup_title: "Should Statment",
     popup_feedback: "Come on! Things don't have to be a certain way.",
     Sidebar_feedback:
       "<h3>More About Should Statements</h3>\n<p>Should statements are statements that you make to yourself about what you &ldquo;should&rdquo; do, what you &ldquo;ought&rdquo; to do, or what you &ldquo;must&rdquo; do. They can also be applied to others, imposing a set of expectations that will likely not be met.</p>\n<ul>\n<li>Why do I think that it &ldquo;should&rdquo; be?</li>\n<li>What if I let go of &ldquo;should&rdquo; and &ldquo;shouldn&rsquo;t&rdquo;?</li>\n<li>What if I allowed myself to feel however I feel&mdash;without regrets or expectations or projections of what it &ldquo;should&rdquo; be?</li>\n</ul>\n<h3>Reframe Should Statements</h3>\n<p>Use more compassionate and realistic statements. Try to soften it by replacing &ldquo;should&rdquo;-type words with &ldquo;prefer&rdquo;-type words or empower it by using &ldquo;can/will/choose&rdquo;-type words and think about doable actions.</p>",
@@ -513,7 +513,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: ["The actions I can take are", " My goal is"],
     rewrite_position: "After",
-    Popup_title: "Should Statment",
+    popup_title: "Should Statment",
     popup_feedback: "Come on! Things don't have to be a certain way.",
     Sidebar_feedback:
       "<h3>More About Should Statements</h3>\n<p>Should statements are statements that you make to yourself about what you &ldquo;should&rdquo; do, what you &ldquo;ought&rdquo; to do, or what you &ldquo;must&rdquo; do. They can also be applied to others, imposing a set of expectations that will likely not be met.</p>\n<ul>\n<li>Why do I think that it &ldquo;should&rdquo; be?</li>\n<li>What if I let go of &ldquo;should&rdquo; and &ldquo;shouldn&rsquo;t&rdquo;?</li>\n<li>What if I allowed myself to feel however I feel&mdash;without regrets or expectations or projections of what it &ldquo;should&rdquo; be?</li>\n</ul>\n<h3>Reframe Should Statements</h3>\n<p>Use more compassionate and realistic statements. Try to soften it by replacing &ldquo;should&rdquo;-type words with &ldquo;prefer&rdquo;-type words or empower it by using &ldquo;can/will/choose&rdquo;-type words and think about doable actions.</p>",
@@ -529,7 +529,7 @@ let dict_temp = [
       " however, one evidence against it is",
     ],
     rewrite_position: "after",
-    Popup_title: "All-or-Nothing",
+    popup_title: "All-or-Nothing",
     popup_feedback:
       "A common cognitive distortion that will extrapolate one thing.",
     Sidebar_feedback:
@@ -546,7 +546,7 @@ let dict_temp = [
       " however, one evidence against it is",
     ],
     rewrite_position: "after",
-    Popup_title: "All-or-Nothing",
+    popup_title: "All-or-Nothing",
     popup_feedback:
       "A common cognitive distortion that will extrapolate one thing.",
     Sidebar_feedback:
@@ -563,7 +563,7 @@ let dict_temp = [
       " however, one evidence against it is",
     ],
     rewrite_position: "after",
-    Popup_title: "All-or-Nothing",
+    popup_title: "All-or-Nothing",
     popup_feedback:
       "A common cognitive distortion that will extrapolate one thing.",
     Sidebar_feedback:
@@ -580,7 +580,7 @@ let dict_temp = [
       " however, one evidence against it is",
     ],
     rewrite_position: "after",
-    Popup_title: "All-or-Nothing",
+    popup_title: "All-or-Nothing",
     popup_feedback:
       "A common cognitive distortion that will extrapolate one thing.",
     Sidebar_feedback:
@@ -597,7 +597,7 @@ let dict_temp = [
       " however, one evidence against it is",
     ],
     rewrite_position: "after",
-    Popup_title: "All-or-Nothing",
+    popup_title: "All-or-Nothing",
     popup_feedback:
       "A common cognitive distortion that will extrapolate one thing.",
     Sidebar_feedback:
@@ -610,7 +610,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: ["The actions I can take are", " My goal is"],
     rewrite_position: "After",
-    Popup_title: "Should Statment",
+    popup_title: "Should Statment",
     popup_feedback: "Come on! Things don't have to be a certain way.",
     Sidebar_feedback:
       "<h3>More About Should Statements</h3>\n<p>Should statements are statements that you make to yourself about what you &ldquo;should&rdquo; do, what you &ldquo;ought&rdquo; to do, or what you &ldquo;must&rdquo; do. They can also be applied to others, imposing a set of expectations that will likely not be met.</p>\n<ul>\n<li>Why do I think that it &ldquo;should&rdquo; be?</li>\n<li>What if I let go of &ldquo;should&rdquo; and &ldquo;shouldn&rsquo;t&rdquo;?</li>\n<li>What if I allowed myself to feel however I feel&mdash;without regrets or expectations or projections of what it &ldquo;should&rdquo; be?</li>\n</ul>\n<h3>Reframe Should Statements</h3>\n<p>Use more compassionate and realistic statements. Try to soften it by replacing &ldquo;should&rdquo;-type words with &ldquo;prefer&rdquo;-type words or empower it by using &ldquo;can/will/choose&rdquo;-type words and think about doable actions.</p>",
@@ -626,7 +626,7 @@ let dict_temp = [
       " however, one evidence against it is",
     ],
     rewrite_position: "after",
-    Popup_title: "All-or-Nothing",
+    popup_title: "All-or-Nothing",
     popup_feedback:
       "A common cognitive distortion that will extrapolate one thing.",
     Sidebar_feedback:
@@ -643,7 +643,7 @@ let dict_temp = [
       " however, one evidence against it is",
     ],
     rewrite_position: "after",
-    Popup_title: "All-or-Nothing",
+    popup_title: "All-or-Nothing",
     popup_feedback:
       "A common cognitive distortion that will extrapolate one thing.",
     Sidebar_feedback:
@@ -669,7 +669,7 @@ let dict_temp = [
       " but next time I will",
     ],
     rewrite_position: "after",
-    Popup_title: "Blaming ourselves",
+    popup_title: "Blaming ourselves",
     popup_feedback:
       "A common distrotion that believes only one person is responsible for a situation that they may have little control over.",
     Sidebar_feedback: null,
@@ -691,7 +691,7 @@ let dict_temp = [
       "",
     ],
     rewrite_position: "after",
-    Popup_title: "Blaming others",
+    popup_title: "Blaming others",
     popup_feedback:
       "A common distrotion that believes only one person is responsible for a situation that they may have little control over.",
     Sidebar_feedback: null,
@@ -710,7 +710,7 @@ let dict_temp = [
       " I will let go of my worries and foucs my energy on...",
     ],
     rewrite_position: "after",
-    Popup_title: "Catastrophizing",
+    popup_title: "Catastrophizing",
     popup_feedback:
       "A common cognitive distortion that believes in the worst case.",
     Sidebar_feedback:
@@ -730,7 +730,7 @@ let dict_temp = [
       " I will let go of my worries and foucs my energy on...",
     ],
     rewrite_position: "after",
-    Popup_title: "Catastrophizing",
+    popup_title: "Catastrophizing",
     popup_feedback:
       "A common cognitive distortion that believes in the worst case.",
     Sidebar_feedback:
@@ -750,7 +750,7 @@ let dict_temp = [
       " I will let go of my worries and foucs my energy on...",
     ],
     rewrite_position: "after",
-    Popup_title: "Catastrophizing",
+    popup_title: "Catastrophizing",
     popup_feedback:
       "A common cognitive distortion that believes in the worst case.",
     Sidebar_feedback:
@@ -770,7 +770,7 @@ let dict_temp = [
       " I will let go of my worries and foucs my energy on...",
     ],
     rewrite_position: "after",
-    Popup_title: "Catastrophizing",
+    popup_title: "Catastrophizing",
     popup_feedback:
       "A common cognitive distortion that believes in the worst case.",
     Sidebar_feedback:
@@ -790,7 +790,7 @@ let dict_temp = [
       " I will let go of my worries and foucs my energy on...",
     ],
     rewrite_position: "after",
-    Popup_title: "Catastrophizing",
+    popup_title: "Catastrophizing",
     popup_feedback:
       "A common cognitive distortion that believes in the worst case.",
     Sidebar_feedback:
@@ -807,7 +807,7 @@ let dict_temp = [
       " however, one evidence against it is",
     ],
     rewrite_position: "after",
-    Popup_title: "All-or-Nothing",
+    popup_title: "All-or-Nothing",
     popup_feedback:
       "A common cognitive distortion that will extrapolate one thing.",
     Sidebar_feedback:
@@ -827,7 +827,7 @@ let dict_temp = [
       " I will let go of my worries and foucs my energy on...",
     ],
     rewrite_position: "after",
-    Popup_title: "Catastrophizing",
+    popup_title: "Catastrophizing",
     popup_feedback:
       "A common cognitive distortion that believes in the worst case.",
     Sidebar_feedback:
@@ -844,7 +844,7 @@ let dict_temp = [
       " however, one evidence against it is",
     ],
     rewrite_position: "after",
-    Popup_title: "All-or-Nothing",
+    popup_title: "All-or-Nothing",
     popup_feedback:
       "A common cognitive distortion that will extrapolate one thing.",
     Sidebar_feedback:
@@ -861,7 +861,7 @@ let dict_temp = [
       " however, one evidence against it is",
     ],
     rewrite_position: "after",
-    Popup_title: "All-or-Nothing",
+    popup_title: "All-or-Nothing",
     popup_feedback:
       "A common cognitive distortion that will extrapolate one thing.",
     Sidebar_feedback:
@@ -878,7 +878,7 @@ let dict_temp = [
       " however, one evidence against it is",
     ],
     rewrite_position: "after",
-    Popup_title: "All-or-Nothing",
+    popup_title: "All-or-Nothing",
     popup_feedback:
       "A common cognitive distortion that will extrapolate one thing.",
     Sidebar_feedback:
@@ -895,7 +895,7 @@ let dict_temp = [
       " however, one evidence against it is",
     ],
     rewrite_position: "after",
-    Popup_title: "All-or-Nothing",
+    popup_title: "All-or-Nothing",
     popup_feedback:
       "A common cognitive distortion that will extrapolate one thing.",
     Sidebar_feedback:
@@ -912,7 +912,7 @@ let dict_temp = [
       " however, one evidence against it is",
     ],
     rewrite_position: "after",
-    Popup_title: "All-or-Nothing",
+    popup_title: "All-or-Nothing",
     popup_feedback:
       "A common cognitive distortion that will extrapolate one thing.",
     Sidebar_feedback:
@@ -929,7 +929,7 @@ let dict_temp = [
       " however, one evidence against it is",
     ],
     rewrite_position: "after",
-    Popup_title: "All-or-Nothing",
+    popup_title: "All-or-Nothing",
     popup_feedback:
       "A common cognitive distortion that will extrapolate one thing.",
     Sidebar_feedback:
@@ -949,7 +949,7 @@ let dict_temp = [
       " I will let go of my worries and foucs my energy on...",
     ],
     rewrite_position: "after",
-    Popup_title: "Catastrophizing",
+    popup_title: "Catastrophizing",
     popup_feedback:
       "A common cognitive distortion that believes in the worst case.",
     Sidebar_feedback:
@@ -965,7 +965,7 @@ let dict_temp = [
       " It is my thought but not fact that",
     ],
     rewrite_position: "before",
-    Popup_title: "Negative Self-Talk",
+    popup_title: "Negative Self-Talk",
     popup_feedback:
       "Time to shift your inner dialogue to be more encouraging and uplifting!",
     Sidebar_feedback:
@@ -981,7 +981,7 @@ let dict_temp = [
       " It is my thought but not fact that",
     ],
     rewrite_position: "before",
-    Popup_title: "Negative Self-Talk",
+    popup_title: "Negative Self-Talk",
     popup_feedback:
       "Time to shift your inner dialogue to be more encouraging and uplifting!",
     Sidebar_feedback:
@@ -997,7 +997,7 @@ let dict_temp = [
       " It is my thought but not fact that",
     ],
     rewrite_position: "before",
-    Popup_title: "Negative Self-Talk",
+    popup_title: "Negative Self-Talk",
     popup_feedback:
       "Time to shift your inner dialogue to be more encouraging and uplifting!",
     Sidebar_feedback:
@@ -1013,7 +1013,7 @@ let dict_temp = [
       " A better way to look at it might be",
     ],
     rewrite_position: "after",
-    Popup_title: "Negative Self-Talk",
+    popup_title: "Negative Self-Talk",
     popup_feedback:
       "Time to shift your inner dialogue to be more encouraging and uplifting!",
     Sidebar_feedback:
@@ -1033,7 +1033,7 @@ let dict_temp = [
       " Actutally, this is a wonderful opportunity for me to",
     ],
     rewrite_position: "after",
-    Popup_title: "Negative Self-Talk",
+    popup_title: "Negative Self-Talk",
     popup_feedback:
       "Time to shift your inner dialogue to be more encouraging and uplifting!",
     Sidebar_feedback:
@@ -1056,7 +1056,7 @@ let dict_temp = [
       " in the past, but in the future",
     ],
     rewrite_position: "after",
-    Popup_title: "Negative Self-Talk",
+    popup_title: "Negative Self-Talk",
     popup_feedback:
       "Time to shift your inner dialogue to be more encouraging and uplifting!",
     Sidebar_feedback:
@@ -1069,7 +1069,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: ["I notice that this is only a thought and I let it go"],
     rewrite_position: "after",
-    Popup_title: "Negative Self-Talk",
+    popup_title: "Negative Self-Talk",
     popup_feedback:
       "Time to shift your inner dialogue to be more encouraging and uplifting!",
     Sidebar_feedback:
@@ -1082,7 +1082,7 @@ let dict_temp = [
     phrase_ext: ["I am lazy"],
     rewrite: ["I have the power to"],
     rewrite_position: "after",
-    Popup_title: "Negative Self-Talk",
+    popup_title: "Negative Self-Talk",
     popup_feedback:
       "Time to shift your inner dialogue to be more encouraging and uplifting!",
     Sidebar_feedback:
@@ -1095,7 +1095,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: ["I notice that this is only a thought and I let it go"],
     rewrite_position: "after",
-    Popup_title: "Negative Self-Talk",
+    popup_title: "Negative Self-Talk",
     popup_feedback:
       "Time to shift your inner dialogue to be more encouraging and uplifting!",
     Sidebar_feedback:
@@ -1108,7 +1108,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: ["but I am so close to …", " soon I will be able to …"],
     rewrite_position: "after",
-    Popup_title: "Negative Self-Talk",
+    popup_title: "Negative Self-Talk",
     popup_feedback:
       "Time to shift your inner dialogue to be more encouraging and uplifting!",
     Sidebar_feedback:
@@ -1121,7 +1121,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: ["failure but a valuable experience"],
     rewrite_position: "Replace",
-    Popup_title: "Negative Self-Talk",
+    popup_title: "Negative Self-Talk",
     popup_feedback:
       "Time to shift your inner dialogue to be more encouraging and uplifting!",
     Sidebar_feedback:
@@ -1137,7 +1137,7 @@ let dict_temp = [
       " It is my thought but not fact that",
     ],
     rewrite_position: "Before",
-    Popup_title: "Negative Self-Talk",
+    popup_title: "Negative Self-Talk",
     popup_feedback:
       "Time to shift your inner dialogue to be more encouraging and uplifting!",
     Sidebar_feedback:
@@ -1153,7 +1153,7 @@ let dict_temp = [
       " It is my thought but not fact that",
     ],
     rewrite_position: "Before",
-    Popup_title: "Negative Self-Talk",
+    popup_title: "Negative Self-Talk",
     popup_feedback:
       "Time to shift your inner dialogue to be more encouraging and uplifting!",
     Sidebar_feedback:
@@ -1169,7 +1169,7 @@ let dict_temp = [
       " It is my thought but not fact that",
     ],
     rewrite_position: "before",
-    Popup_title: "Negative Self-Talk",
+    popup_title: "Negative Self-Talk",
     popup_feedback:
       "Time to shift your inner dialogue to be more encouraging and uplifting!",
     Sidebar_feedback:
@@ -1182,7 +1182,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: ["a person who "],
     rewrite_position: "Replace",
-    Popup_title: "Negative Self-Talk",
+    popup_title: "Negative Self-Talk",
     popup_feedback:
       "Time to shift your inner dialogue to be more encouraging and uplifting!",
     Sidebar_feedback:
@@ -1209,7 +1209,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1228,7 +1228,7 @@ let dict_temp = [
     ],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1250,7 +1250,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1263,7 +1263,7 @@ let dict_temp = [
     phrase_ext: ["no help", " don't help"],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1276,7 +1276,7 @@ let dict_temp = [
     phrase_ext: ["nobody help", " no one help"],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1304,7 +1304,7 @@ let dict_temp = [
     ],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1317,7 +1317,7 @@ let dict_temp = [
     phrase_ext: ["all my fault", " blame on me"],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1340,7 +1340,7 @@ let dict_temp = [
     ],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1358,7 +1358,7 @@ let dict_temp = [
     ],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1371,7 +1371,7 @@ let dict_temp = [
     phrase_ext: ["lose sense of humor", " lost my sense of humor"],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1384,7 +1384,7 @@ let dict_temp = [
     phrase_ext: ["can't sleep", " sleepless", " difficulty falling asleep"],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1397,7 +1397,7 @@ let dict_temp = [
     phrase_ext: ["wake up in the midnight", " sleeping disorders"],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1417,7 +1417,7 @@ let dict_temp = [
     ],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1438,7 +1438,7 @@ let dict_temp = [
     ],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1474,7 +1474,7 @@ let dict_temp = [
     ],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1492,7 +1492,7 @@ let dict_temp = [
     ],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1505,7 +1505,7 @@ let dict_temp = [
     phrase_ext: ["hate myself"],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1518,7 +1518,7 @@ let dict_temp = [
     phrase_ext: ["kill myself", " end my life"],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1531,7 +1531,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1544,7 +1544,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1557,7 +1557,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1570,7 +1570,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1583,7 +1583,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1600,7 +1600,7 @@ let dict_temp = [
     ],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1613,7 +1613,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1626,7 +1626,7 @@ let dict_temp = [
     phrase_ext: ["kill myself", " end my life"],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1639,7 +1639,7 @@ let dict_temp = [
     phrase_ext: ["kill myself", " end my life"],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1652,7 +1652,7 @@ let dict_temp = [
     phrase_ext: ["kill myself", " end my life"],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1665,7 +1665,7 @@ let dict_temp = [
     phrase_ext: ["kill myself", " end my life"],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1678,7 +1678,7 @@ let dict_temp = [
     phrase_ext: ["kill myself", " end my life"],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1691,7 +1691,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1714,7 +1714,7 @@ let dict_temp = [
     ],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: null,
+    popup_title: null,
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -1727,7 +1727,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: "First Pronoun",
+    popup_title: "First Pronoun",
     popup_feedback:
       "This indicates a viewpoint of your own. You may have high level of self-awareness.",
     Sidebar_feedback:
@@ -1740,7 +1740,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: "First Pronoun",
+    popup_title: "First Pronoun",
     popup_feedback:
       "This indicates a viewpoint of your own. You may have high level of self-awareness.",
     Sidebar_feedback:
@@ -1753,7 +1753,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: "First Pronoun",
+    popup_title: "First Pronoun",
     popup_feedback:
       "This indicates a viewpoint of your own. You may have high level of self-awareness.",
     Sidebar_feedback:
@@ -1766,7 +1766,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: "First Pronoun",
+    popup_title: "First Pronoun",
     popup_feedback:
       "This indicates a viewpoint of your own. You may have high level of self-awareness.",
     Sidebar_feedback:
@@ -1779,7 +1779,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: "First Pronoun",
+    popup_title: "First Pronoun",
     popup_feedback:
       "This indicates a viewpoint of your own. You may have high level of self-awareness.",
     Sidebar_feedback:
@@ -1792,7 +1792,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: "First Pronoun",
+    popup_title: "First Pronoun",
     popup_feedback:
       "This indicates a viewpoint of your own. You may have high level of self-awareness.",
     Sidebar_feedback:
@@ -1805,7 +1805,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: "Positive Self-Talk",
+    popup_title: "Positive Self-Talk",
     popup_feedback:
       "Make your inner dialogue to be more encouraging and uplifting!",
     Sidebar_feedback: null,
@@ -1817,7 +1817,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: "Positive Self-Talk",
+    popup_title: "Positive Self-Talk",
     popup_feedback:
       "Make your inner dialogue to be more encouraging and uplifting!",
     Sidebar_feedback: null,
@@ -1829,7 +1829,7 @@ let dict_temp = [
     phrase_ext: ["I wish", " I hope"],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: "Positive Self-Talk",
+    popup_title: "Positive Self-Talk",
     popup_feedback:
       "Make your inner dialogue to be more encouraging and uplifting!",
     Sidebar_feedback: null,
@@ -1848,7 +1848,7 @@ let dict_temp = [
     ],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: "Positive Self-Talk",
+    popup_title: "Positive Self-Talk",
     popup_feedback:
       "Make your inner dialogue to be more encouraging and uplifting!",
     Sidebar_feedback: null,
@@ -1874,7 +1874,7 @@ let dict_temp = [
     ],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: "Positive Self-Talk",
+    popup_title: "Positive Self-Talk",
     popup_feedback:
       "Make your inner dialogue to be more encouraging and uplifting!",
     Sidebar_feedback: null,
@@ -1886,7 +1886,7 @@ let dict_temp = [
     phrase_ext: ["better"],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: "Positive Self-Talk",
+    popup_title: "Positive Self-Talk",
     popup_feedback:
       "Make your inner dialogue to be more encouraging and uplifting!",
     Sidebar_feedback: null,
@@ -1898,7 +1898,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: "Positive Self-Talk",
+    popup_title: "Positive Self-Talk",
     popup_feedback:
       "Make your inner dialogue to be more encouraging and uplifting!",
     Sidebar_feedback: null,
@@ -1910,7 +1910,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: "Coherent narrative words",
+    popup_title: "Coherent narrative words",
     popup_feedback:
       "You will benefit from using these words to construct a coherent story, experience insights, and find a path forward.",
     Sidebar_feedback:
@@ -1923,7 +1923,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: "Coherent narrative words",
+    popup_title: "Coherent narrative words",
     popup_feedback:
       "You will benefit from using these words to construct a coherent story, experience insights, and find a path forward.",
     Sidebar_feedback:
@@ -1936,7 +1936,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: "Insight Words",
+    popup_title: "Insight Words",
     popup_feedback:
       "You will benefit from using these words to construct a coherent story, experience insights, and find a path forward.",
     Sidebar_feedback:
@@ -1949,7 +1949,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: "Insight Words",
+    popup_title: "Insight Words",
     popup_feedback:
       "You will benefit from using these words to construct a coherent story, experience insights, and find a path forward.",
     Sidebar_feedback:
@@ -1962,7 +1962,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: "Insight Words",
+    popup_title: "Insight Words",
     popup_feedback:
       "You will benefit from using these words to construct a coherent story, experience insights, and find a path forward.",
     Sidebar_feedback:
@@ -1975,7 +1975,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: "Insight Words",
+    popup_title: "Insight Words",
     popup_feedback:
       "You will benefit from using these words to construct a coherent story, experience insights, and find a path forward.",
     Sidebar_feedback:
@@ -1988,7 +1988,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: "Positive Self-Talk",
+    popup_title: "Positive Self-Talk",
     popup_feedback:
       "Make your inner dialogue to be more encouraging and uplifting!",
     Sidebar_feedback: null,
@@ -2000,7 +2000,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: "Coherent narrative words",
+    popup_title: "Coherent narrative words",
     popup_feedback:
       "You will benefit from using these words to construct a coherent story, experience insights, and find a path forward.",
     Sidebar_feedback:
@@ -2013,7 +2013,7 @@ let dict_temp = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    Popup_title: "Positive Self-Talk",
+    popup_title: "Positive Self-Talk",
     popup_feedback:
       "Make your inner dialogue to be more encouraging and uplifting!",
     Sidebar_feedback: null,
@@ -2621,15 +2621,40 @@ function triggerRewrite(contents) {
   switch (contents.rewrite_position) {
     // for L1
     case "end":
+      // check if need to add space or not.
+      // get end cursor
+      let last_char = cm.getRange(
+        {
+          line: contents.search_coords.line,
+          ch: contents.search_coords.ch - 1,
+        },
+        contents.search_coords
+      );
+
+      console.log("A: last_char", last_char);
+
+      let rewrite_offset = 0;
+
+      if (last_char === " ") {
+        console.log("B: (space)");
+        // setup rewrite to not add space beginning
+      } else if (last_char !== " ") {
+        console.log("B: ", last_char);
+        // setup rewrite to add space beginning
+        rewrite_content = " " + rewrite_content;
+        rewrite_offset++;
+      }
+
       cm.replaceRange(rewrite_content + " ", contents.search_coords);
       cm_placeholder = cm.markText(
         {
           line: contents.search_coords.line,
-          ch: contents.search_coords.ch,
+          ch: contents.search_coords.ch + rewrite_offset,
         },
         {
           line: contents.search_coords.line,
-          ch: contents.search_coords.ch + rewrite_content.length,
+          ch:
+            contents.search_coords.ch + rewrite_offset + rewrite_content.length,
         },
         { className: "placeholder", atomic: toggleAtomic }
       );
@@ -2637,7 +2662,7 @@ function triggerRewrite(contents) {
       cm.focus();
       cm.setCursor({
         line: contents.search_coords.line,
-        ch: contents.search_coords.ch,
+        ch: contents.search_coords.ch + rewrite_offset,
       });
 
       before_change_flag = true;
@@ -2649,7 +2674,11 @@ function triggerRewrite(contents) {
           ch: contents.search_coords.ch + rewrite_content.length,
         },
       };
-      suggestion = rewrite_content;
+      if (rewrite_offset === 1) {
+        suggestion = rewrite_content.slice(1);
+      } else {
+        suggestion = rewrite_content;
+      }
       delta_edits_suggestion = "";
       suggestion_cursor = 0;
 
@@ -2659,7 +2688,7 @@ function triggerRewrite(contents) {
       period_cords = null;
       period_cords = findPeriod(contents);
 
-      if (period_cords === null) {
+      if (period_cords == null) {
         // no period after target word. Set target ch = line.length;
         let linelength = cm.getLine(contents.search_coords.from.line).length;
         period_cords = {
@@ -2671,6 +2700,7 @@ function triggerRewrite(contents) {
       // add space
       // cm.replaceRange(" ", period_cords);
 
+      // console.log("period_cords", period_cords);
       // insert placeholder
       cm.replaceRange(" " + rewrite_content + " ", period_cords);
       period_cords["ch"] += 1; // adjust for initial space
@@ -2818,13 +2848,13 @@ function findPeriod(contents, before = false) {
     } else {
       cursor.find(false);
     }
+
+    result = cursor.to();
+    if (cursor.to().line !== contents.search_coords.from.line) {
+      result = null;
+    }
   } catch (e) {
     console.log("error in findPeriod search", e);
-  }
-
-  result = cursor.to();
-  if (cursor.to().line !== contents.search_coords.from.line) {
-    result = null;
   }
 
   return result;
@@ -2854,8 +2884,9 @@ function dismissPlaceholder() {
     if (marker.className === "placeholder") {
       cm.replaceRange("", marker.find().from, marker.find().to);
     }
-    // marker.clear();
   });
+
+  manualAnalyzeTrigger(true);
 
   cm_placeholder = {};
   delta_edits_suggestion = "";
@@ -3366,32 +3397,42 @@ cm.on("keyup", function () {
 
 cm.on("beforeChange", function (cm, changeObj) {
   console.log("before change,", changeObj);
+
+  // sends changeObj unaltered.
   if (noEdit) {
+    console.log("beforechange noedit. bypassing");
     return;
   }
 
+  // on tab (for L1)
   if (changeObj.text[0] === "\t") {
     changeObj.cancel();
   }
 
+  // insert-like input
   if (
     placeholder_active &&
     before_change_flag &&
     changeObj.origin !== "+delete"
   ) {
-    // insert-like input
     changeObj.cancel();
     newEdit(changeObj);
   }
 
-  // Readding placeholder letters
+  // Re-adding placeholder letters
   if (
     placeholder_active &&
     before_change_flag &&
     changeObj.origin === "+delete"
   ) {
+    console.log("readding letter");
+    // newEdit(changeObj);
     backspacePlaceholder(changeObj);
   }
+
+  // if(redo_placeholder){
+
+  // }
 });
 
 // USE FLAG TO AVOID INFINITE LOOP
@@ -3400,38 +3441,64 @@ function newEdit(prevChangeObj) {
   before_change_flag = false;
 
   cm.replaceRange(prevChangeObj.text[0], prevChangeObj.from, {
-    line: prevChangeObj.to.line,
-    ch: prevChangeObj.to.ch + 1,
+    line: prevChangeObj.from.line,
+    ch: prevChangeObj.from.ch + 1,
   });
 
   setTimeout(() => {
     before_change_flag = true;
-  }, 5);
+  }, 2);
 }
+
+let redo_placeholder = false;
 
 function backspacePlaceholder(prevChangeObj) {
   // catch if deleting at invocation to dismiss - or if not even active
   if (suggestion_cursor === 0 || !placeholder_active) {
     console.log("bypassing backspace ---");
+    // resetPHStates();
+    closePH_lose();
+    return;
+  }
+
+  // check if it was deleted by querying mark
+  let markPresentFlag = false;
+  cm.doc.getAllMarks().forEach((marker) => {
+    if (marker.className === "placeholder") {
+      markPresentFlag = true;
+    }
+  });
+
+  if (!markPresentFlag) {
+    console.log("!!!breaking backspace placeholder");
+    // resetPHStates();
+    closePH_lose();
     return;
   }
 
   noEdit = true;
   suggestion_cursor--;
-  before_change_flag = false;
+  typo_counter--;
+  before_change_flag = true;
 
   console.log("---replacing w ", suggestion[suggestion_cursor]);
+  // redo_placeholder = true;
   cm.replaceRange(suggestion[suggestion_cursor], prevChangeObj.from);
+  // redo_placeholder = false;
+  // cm.replaceRange(suggestion[suggestion_cursor], prevChangeObj.from, {
+  //   line: prevChangeObj.from.line,
+  //   ch: prevChangeObj.from.ch + 1,
+  // });
 
-  setTimeout(() => {
-    before_change_flag = true;
-    let marker_cords = null;
-    cm.doc.getAllMarks().forEach((marker) => {
-      if (marker.className === "placeholder") {
-        marker_cords = marker.find();
-        marker.clear();
-      }
-    });
+  // setTimeout(() => {
+  before_change_flag = true;
+  let marker_cords = null;
+  cm.doc.getAllMarks().forEach((marker) => {
+    if (marker.className === "placeholder") {
+      marker_cords = marker.find();
+      marker.clear();
+    }
+    // });
 
     cm.getDoc().setCursor(prevChangeObj.from.line, prevChangeObj.from.ch);
     cm.markText(
@@ -3465,6 +3532,8 @@ function resetPHStates() {
   placeholder_active = false;
   placeholder_coords = {};
   suggestion_cursor = 0;
+  typo_counter = 0;
+  suggestion = "";
 }
 
 cm.on("change", function (cm, changeObj) {
@@ -3472,6 +3541,11 @@ cm.on("change", function (cm, changeObj) {
   // if (L1_active) {
   //   clearL1interval();
   // }
+
+  if (redo_placeholder) {
+    console.log("redo -bypassong");
+    return;
+  }
 
   if (noEdit) {
     return;
@@ -3521,7 +3595,15 @@ cm.on("change", function (cm, changeObj) {
       suggestion_cursor++;
       typo_counter++;
 
-      // console.log("typo_counter", typo_counter);
+      console.log(
+        "hit typo",
+        input[0],
+        "-- target:",
+        suggestion[suggestion_cursor]
+      );
+      console.log("sugg:", suggestion);
+      console.log("typo_counter", typo_counter);
+
       if (typo_counter >= nTyposPossible) {
         console.log("max errors reached. dismissing");
         closePH_lose();
