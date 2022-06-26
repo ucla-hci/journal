@@ -2463,9 +2463,16 @@ function hexToRgb(hex) {
 }
 
 function highlightText(args, index = "") {
-  cleanMarks();
   closeRightBar();
   closeNewPopup();
+
+  console.log("highlighting text");
+  console.log("placeholder_active", placeholder_active);
+  // if (placeholder_active) {
+  // closePH_lose();
+  // }
+  // cleanMarks();
+
   var col = hexToRgb(args.color);
   // console.log(args.search_coords);
   let target_col = "rgba(" + col.r + "," + col.g + "," + col.b + ",0.4)";
@@ -2869,20 +2876,27 @@ function hidePlaceholder() {
 }
 
 function dismissPlaceholder() {
+  console.log("called dismiss Placeholder");
+  console.log("placeholder_active", placeholder_active);
+
   if (!placeholder_active) {
     return;
   }
 
   //hacky solution
-  let placeh = document.querySelector("#dynamic_placeholder");
-  if (placeh) {
-    placeh.remove();
-  }
+  // let placeh = document.querySelector("#dynamic_placeholder");
+  // if (placeh) {
+  //   placeh.remove();
+  // }
+  // let end_cord;
+  let end_line = cm.getDoc().lastLine();
+  let end_ch = cm.getLine(end_line).length;
 
   cm.doc.getAllMarks().forEach((marker) => {
     console.log("marker", marker);
+    let marker_cords = marker.find();
     if (marker.className === "placeholder") {
-      cm.replaceRange("", marker.find().from, marker.find().to);
+      cm.replaceRange("", marker_cords.from, marker_cords.to);
     }
   });
 
@@ -3184,6 +3198,12 @@ function fetchContent() {
 }
 
 function cleanMarks() {
+  if (placeholder_active) {
+    // console.log("cleanmarks , closing ph lose");
+    noEdit = true;
+    closePH_lose();
+  }
+
   cm.getAllMarks().forEach((mark) => {
     mark.clear();
   });
@@ -3396,12 +3416,12 @@ cm.on("keyup", function () {
 });
 
 cm.on("beforeChange", function (cm, changeObj) {
-  console.log("before change,", changeObj);
+  // console.log("before change,", changeObj);
 
   // sends changeObj unaltered.
   if (noEdit) {
     console.log("beforechange noedit. bypassing");
-    return;
+    // return;
   }
 
   // on tab (for L1)
@@ -3415,6 +3435,7 @@ cm.on("beforeChange", function (cm, changeObj) {
     before_change_flag &&
     changeObj.origin !== "+delete"
   ) {
+    console.log("beforeChange: insert-like input");
     changeObj.cancel();
     newEdit(changeObj);
   }
@@ -3425,19 +3446,14 @@ cm.on("beforeChange", function (cm, changeObj) {
     before_change_flag &&
     changeObj.origin === "+delete"
   ) {
-    console.log("readding letter");
-    // newEdit(changeObj);
+    console.log("beforeChange: readding PH letter");
     backspacePlaceholder(changeObj);
   }
-
-  // if(redo_placeholder){
-
-  // }
 });
 
 // USE FLAG TO AVOID INFINITE LOOP
 function newEdit(prevChangeObj) {
-  console.log("in new edit, prevChangeObj", prevChangeObj);
+  // console.log("in new edit, prevChangeObj", prevChangeObj);
   before_change_flag = false;
 
   cm.replaceRange(prevChangeObj.text[0], prevChangeObj.from, {
@@ -3455,8 +3471,6 @@ let redo_placeholder = false;
 function backspacePlaceholder(prevChangeObj) {
   // catch if deleting at invocation to dismiss - or if not even active
   if (suggestion_cursor === 0 || !placeholder_active) {
-    console.log("bypassing backspace ---");
-    // resetPHStates();
     closePH_lose();
     return;
   }
@@ -3478,27 +3492,35 @@ function backspacePlaceholder(prevChangeObj) {
 
   noEdit = true;
   suggestion_cursor--;
-  typo_counter--;
-  before_change_flag = true;
+  // if (typo_counter > 0) {
+  //   typo_counter--;
+  // }
+  before_change_flag = false;
 
   console.log("---replacing w ", suggestion[suggestion_cursor]);
-  // redo_placeholder = true;
-  cm.replaceRange(suggestion[suggestion_cursor], prevChangeObj.from);
-  // redo_placeholder = false;
+  redo_placeholder = true;
+  noEdit = true;
+  cm.replaceRange(suggestion[suggestion_cursor], prevChangeObj.to);
+
   // cm.replaceRange(suggestion[suggestion_cursor], prevChangeObj.from, {
   //   line: prevChangeObj.from.line,
   //   ch: prevChangeObj.from.ch + 1,
   // });
 
+  setTimeout(() => {
+    before_change_flag = true;
+    noEdit = false;
+    redo_placeholder = false;
+  }, 2);
   // setTimeout(() => {
-  before_change_flag = true;
+  // before_change_flag = true;
   let marker_cords = null;
   cm.doc.getAllMarks().forEach((marker) => {
     if (marker.className === "placeholder") {
       marker_cords = marker.find();
       marker.clear();
     }
-    // });
+    // }, 5);
 
     cm.getDoc().setCursor(prevChangeObj.from.line, prevChangeObj.from.ch);
     cm.markText(
@@ -3510,7 +3532,7 @@ function backspacePlaceholder(prevChangeObj) {
       }
     );
 
-    noEdit = false;
+    // noEdit = false;
   }, 5);
 }
 
@@ -3542,8 +3564,9 @@ cm.on("change", function (cm, changeObj) {
   //   clearL1interval();
   // }
 
+  console.log("change-redo_placeholder", redo_placeholder);
   if (redo_placeholder) {
-    console.log("redo -bypassong");
+    console.log("--------------------------------------redo -bypassong");
     return;
   }
 

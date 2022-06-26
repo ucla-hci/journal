@@ -34,7 +34,7 @@ function initialization() {
 
 // Keyboard Operations logger ----> keyup executes after the press is handled.
 $(document).keyup(function (evt) {
-  console.log("inside logger keyup");
+  // console.log("inside logger keyup");
   if (UnixZero == -1) {
     initialization();
   }
