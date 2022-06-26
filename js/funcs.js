@@ -3490,7 +3490,7 @@ function backspacePlaceholder(prevChangeObj) {
     return;
   }
 
-  noEdit = true;
+  // noEdit = true;
   suggestion_cursor--;
   // if (typo_counter > 0) {
   //   typo_counter--;
@@ -3512,25 +3512,30 @@ function backspacePlaceholder(prevChangeObj) {
     noEdit = false;
     redo_placeholder = false;
   }, 2);
-  // setTimeout(() => {
-  // before_change_flag = true;
-  let marker_cords = null;
+
   cm.doc.getAllMarks().forEach((marker) => {
+    let marker_cords = null;
     if (marker.className === "placeholder") {
       marker_cords = marker.find();
       marker.clear();
     }
-    // }, 5);
+    //
 
-    cm.getDoc().setCursor(prevChangeObj.from.line, prevChangeObj.from.ch);
-    cm.markText(
-      { line: marker_cords.from.line, ch: marker_cords.from.ch - 1 },
-      marker_cords.to,
-      {
-        className: "placeholder",
-        atomic: toggleAtomic,
+    try {
+      cm.getDoc().setCursor(prevChangeObj.from.line, prevChangeObj.from.ch);
+      cm.markText(
+        { line: marker_cords.from.line, ch: marker_cords.from.ch - 1 },
+        marker_cords.to,
+        {
+          className: "placeholder",
+          atomic: toggleAtomic,
+        }
+      );
+    } catch (error) {
+      if (error instanceof TypeError) {
+        console.log("typeerror in backspace ph");
       }
-    );
+    }
 
     // noEdit = false;
   }, 5);
@@ -3559,16 +3564,7 @@ function resetPHStates() {
 }
 
 cm.on("change", function (cm, changeObj) {
-  // watchL1();
-  // if (L1_active) {
-  //   clearL1interval();
-  // }
-
   console.log("change-redo_placeholder", redo_placeholder);
-  if (redo_placeholder) {
-    console.log("--------------------------------------redo -bypassong");
-    return;
-  }
 
   if (noEdit) {
     return;
@@ -3591,6 +3587,10 @@ cm.on("change", function (cm, changeObj) {
       console.log("EDIT OUSTIDE OF BOUNDS - dimissing ph");
       closePH_lose();
       before_change_flag = false;
+    }
+    if (redo_placeholder) {
+      console.log("--------------------------------------redo -bypassong");
+      return;
     }
 
     // detect newline -------------------------------------------------------------------------
