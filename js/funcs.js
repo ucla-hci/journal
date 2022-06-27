@@ -3398,7 +3398,7 @@ cm.on("keyup", function () {
 });
 
 cm.on("beforeChange", function (cm, changeObj) {
-  console.log("before change,", changeObj);
+  // console.log("before change,", changeObj);
 
   // sends changeObj unaltered.
   if (noEdit) {
@@ -3707,13 +3707,13 @@ function L1autoController() {
 class Timer {
   constructor(fn, t) {
     var timerObj = setInterval(fn, t);
-    var active = false;
+    this.active = true;
 
     this.stop = function () {
       if (timerObj) {
         clearInterval(timerObj);
         timerObj = null;
-        active = false;
+        this.active = false;
       }
       return this;
     };
@@ -3731,7 +3731,7 @@ class Timer {
       if (!timerObj) {
         this.stop();
         timerObj = setInterval(fn, t);
-        active = true;
+        this.active = true;
       }
       return this;
     };
@@ -3739,7 +3739,7 @@ class Timer {
     // start with new or original interval, stop current interval
     this.reset = function (newT = t) {
       t = newT;
-      active = true;
+      this.active = true;
       return this.stop().start();
     };
   }
