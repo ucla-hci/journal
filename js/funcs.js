@@ -2570,9 +2570,6 @@ function closeNewPopup() {
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 function showRightbar(contents) {
-  // document.querySelector(".right-sidebar h3").textContent = contents.title;
-  // document.querySelector(".right-sidebar h3").textContent =
-  //   contents.sidebar_title;
   document.querySelector(".target-cont").innerHTML = contents.Sidebar_feedback;
   document.getElementById("rightsidebar").style.right = "0px";
 
@@ -2600,13 +2597,11 @@ function showRightbar(contents) {
 }
 
 function closeRightBar() {
-  // document.getElementById("rightsidebar").style.width = "0px";
-
   let rightbar = document.getElementById("rightsidebar");
   if (rightbar) {
     rightbar.style.right = "-300px";
   }
-  // document.getElementById("myBottombar").style.right = "0px";
+
   cleanMarks();
 }
 
@@ -2638,14 +2633,9 @@ function triggerRewrite(contents) {
         contents.search_coords
       );
 
-      console.log("A: last_char", last_char);
-
       let rewrite_offset = 0;
 
-      if (last_char === " ") {
-        console.log("B: (space)");
-        // setup rewrite to not add space beginning
-      } else if (last_char !== " ") {
+      if (last_char !== " ") {
         console.log("B: ", last_char);
         // setup rewrite to add space beginning
         rewrite_content = " " + rewrite_content;
@@ -2883,15 +2873,6 @@ function dismissPlaceholder() {
     return;
   }
 
-  //hacky solution
-  // let placeh = document.querySelector("#dynamic_placeholder");
-  // if (placeh) {
-  //   placeh.remove();
-  // }
-  // let end_cord;
-  let end_line = cm.getDoc().lastLine();
-  let end_ch = cm.getLine(end_line).length;
-
   cm.doc.getAllMarks().forEach((marker) => {
     console.log("marker", marker);
     let marker_cords = marker.find();
@@ -2900,7 +2881,8 @@ function dismissPlaceholder() {
     }
   });
 
-  manualAnalyzeTrigger(true);
+  if (document.querySelector("button.L2Button").textContent === "Analysis on")
+    manualAnalyzeTrigger(true);
 
   cm_placeholder = {};
   delta_edits_suggestion = "";
@@ -3416,7 +3398,7 @@ cm.on("keyup", function () {
 });
 
 cm.on("beforeChange", function (cm, changeObj) {
-  // console.log("before change,", changeObj);
+  console.log("before change,", changeObj);
 
   // sends changeObj unaltered.
   if (noEdit) {
@@ -3429,12 +3411,12 @@ cm.on("beforeChange", function (cm, changeObj) {
     changeObj.cancel();
   }
 
-  // insert-like input
   if (
     placeholder_active &&
     before_change_flag &&
     changeObj.origin !== "+delete"
   ) {
+    // insert-like input
     console.log("beforeChange: insert-like input");
     changeObj.cancel();
     newEdit(changeObj);
@@ -3471,6 +3453,7 @@ let redo_placeholder = false;
 function backspacePlaceholder(prevChangeObj) {
   // catch if deleting at invocation to dismiss - or if not even active
   if (suggestion_cursor === 0 || !placeholder_active) {
+    before_change_flag = false;
     closePH_lose();
     return;
   }
@@ -3490,22 +3473,13 @@ function backspacePlaceholder(prevChangeObj) {
     return;
   }
 
-  // noEdit = true;
   suggestion_cursor--;
-  // if (typo_counter > 0) {
-  //   typo_counter--;
-  // }
   before_change_flag = false;
 
   console.log("---replacing w ", suggestion[suggestion_cursor]);
   redo_placeholder = true;
   noEdit = true;
   cm.replaceRange(suggestion[suggestion_cursor], prevChangeObj.to);
-
-  // cm.replaceRange(suggestion[suggestion_cursor], prevChangeObj.from, {
-  //   line: prevChangeObj.from.line,
-  //   ch: prevChangeObj.from.ch + 1,
-  // });
 
   setTimeout(() => {
     before_change_flag = true;
@@ -3564,7 +3538,12 @@ function resetPHStates() {
 }
 
 cm.on("change", function (cm, changeObj) {
-  console.log("change-redo_placeholder", redo_placeholder);
+  // console.log("change-redo_placeholder", redo_placeholder);
+
+  if (L1timer.active) {
+    console.log("resetting timer");
+    L1timer.reset(L1interval * 1000);
+  }
 
   if (noEdit) {
     return;
@@ -3704,11 +3683,87 @@ function toggleL2() {
   }
 }
 
+var L1interval = 5; // seconds
+// var L1interval_ID = null;
+
+function L1autoController() {
+  // handle on and off states
+  let temp = document.querySelector("button.L1ButtonAuto");
+  if (temp.textContent === "Auto Expressiveness off") {
+    temp.textContent = "Auto Expressiveness on";
+    temp.style.opacity = 0.8;
+    L1timer.start();
+  } else {
+    temp.textContent = "Auto Expressiveness off";
+    before_change_flag = false;
+    closePH_lose();
+    temp.style.opacity = 0.3;
+    L1timer.stop();
+  }
+  // should have a time off parameter
+  // timer should reset at each edit
+}
+
+class Timer {
+  constructor(fn, t) {
+    var timerObj = setInterval(fn, t);
+    var active = false;
+
+    this.stop = function () {
+      if (timerObj) {
+        clearInterval(timerObj);
+        timerObj = null;
+        active = false;
+      }
+      return this;
+    };
+
+    // this.active = function () {
+    //   if (timerObj) {
+    //     return true;
+    //   } else {
+    //     false;
+    //   }
+    // };
+
+    // start timer using current settings (if it's not already running)
+    this.start = function () {
+      if (!timerObj) {
+        this.stop();
+        timerObj = setInterval(fn, t);
+        active = true;
+      }
+      return this;
+    };
+
+    // start with new or original interval, stop current interval
+    this.reset = function (newT = t) {
+      t = newT;
+      active = true;
+      return this.stop().start();
+    };
+  }
+}
+var L1timer = new Timer(triggerL1, L1interval * 1000);
+L1timer.stop();
+
 // to be used with the actual dictionary - called via keypress
 function triggerL1() {
   console.log("inside triggerL1");
-  // read last sentence and check if any of the L1 keywords are included
 
+  if (placeholder_active) {
+    return;
+  }
+
+  let temp = document.querySelector("button.L1Button");
+  temp.style.opacity = 0.8;
+  temp.style.animationDuration = "5s";
+  setTimeout(() => {
+    temp.style.opacity = 0.3;
+    temp.style.animationDuration = "1s";
+  }, 100);
+
+  // read last sentence and check if any of the L1 keywords are included
   let shuffled_l1_dict = shuffleArray(l1_dict);
 
   let sentence = isolateCurrentSentence();
@@ -3783,22 +3838,11 @@ function isolateCurrentSentence() {
 document.querySelector("button.L2Button").addEventListener("click", onL2Toggle);
 
 $(window).resize(function () {
-  manualAnalyzeTrigger(true);
+  // if analysis is on
+  if (document.querySelector("button.L2Button").textContent === "Analysis on")
+    manualAnalyzeTrigger(true);
   // could make L2 popup move here to follow text
 });
-
-// saving json -----------------------------------------------------
-function generateFile() {
-  console.log("calling generateFile");
-  generatePackOne();
-}
-
-function generatePackRecall(file) {
-  console.log(file);
-  download(JSON.stringify(file), "report.json");
-}
-
-// --------
 
 document.addEventListener("keydown", (evt) => {
   // change color of button and make a subtle transition back after a timeout
@@ -3826,4 +3870,15 @@ function shuffleArray(array) {
   }
 
   return array;
+}
+
+// saving json -----------------------------------------------------
+function generateFile() {
+  console.log("calling generateFile");
+  generatePackOne();
+}
+
+function generatePackRecall(file) {
+  console.log(file);
+  download(JSON.stringify(file), "report.json");
 }

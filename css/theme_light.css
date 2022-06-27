@@ -270,6 +270,19 @@ a {
 /* .debug-buttons button { */
 .L1Button {
     border: none ;
+    background-color: #814ceb;
+    color: ghostwhite;
+    cursor: pointer;
+    border-radius: 25px;
+    padding:6px 8px 6px 8px;
+    margin-left: 14px;
+    margin-bottom: 14px;
+    animation-duration: 5s;
+    /* opacity: 0.8; */
+    /* font-weight: unset; */
+}
+.L1ButtonAuto {
+    border: none ;
     background-color: #434343;
     color: ghostwhite;
     cursor: pointer;
@@ -277,7 +290,8 @@ a {
     padding:6px 8px 6px 8px;
     margin-left: 14px;
     margin-bottom: 14px;
-    opacity: 0.8;
+    animation-duration: 5s;
+    /* opacity: 0.8; */
     /* font-weight: unset; */
 }
 .L2Button {
