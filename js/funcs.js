@@ -1808,7 +1808,8 @@ let dict_temp = [
     popup_title: "Positive Self-Talk",
     popup_feedback:
       "Make your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: null,
+    Sidebar_feedback:
+      "<h3>More About Self-Talk</h3><p>Self-talk is something you do naturally throughout your waking hours. Positive self-talk is supportive and affirming. Positive self-talk can help you improve your outlook on life. It can also have lasting positive health benefits, including improved well-being and a better quality of life.</p><p>Rumination is the flip side of positive self-talk. It happens when you replay upsetting or cringe-worthy thoughts or events over and over again in your head. Thinking through a problem can be useful, but if you spend a lot of time ruminating, small issues tend to snowball. Negative thoughts can grow and become self-defeating.</p><ul><li>Listening closely to your inner dialogues.&nbsp;</li><li>Write down important or frequent negative thoughts.</li><li>Be aware of the unbalanced, harmful thoughts.</li></ul><h3>Reframe Negative Self-Talk and Reinforce Positive Self-Talk</h3><ul><li>Look back at the thoughts and reword them in a kinder, more positive light.</li><li>Writing down statements with the growth mindset of accepting the current situation and feelings, and concrete actions to make things better or make you feel better.</li><li>Writing down what you are grateful for.</li><li>Understanding the concept of impermanence and look into future in a positive way.</li><li>Praise yourself when you write down positive self-talk! Try to think about what concrete actions you can take and let&rsquo;s move!</li></ul>",
     color: "#44aa38",
   },
   {
@@ -1820,7 +1821,8 @@ let dict_temp = [
     popup_title: "Positive Self-Talk",
     popup_feedback:
       "Make your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: null,
+    Sidebar_feedback:
+      "<h3>More About Self-Talk</h3><p>Self-talk is something you do naturally throughout your waking hours. Positive self-talk is supportive and affirming. Positive self-talk can help you improve your outlook on life. It can also have lasting positive health benefits, including improved well-being and a better quality of life.</p><p>Rumination is the flip side of positive self-talk. It happens when you replay upsetting or cringe-worthy thoughts or events over and over again in your head. Thinking through a problem can be useful, but if you spend a lot of time ruminating, small issues tend to snowball. Negative thoughts can grow and become self-defeating.</p><ul><li>Listening closely to your inner dialogues.&nbsp;</li><li>Write down important or frequent negative thoughts.</li><li>Be aware of the unbalanced, harmful thoughts.</li></ul><h3>Reframe Negative Self-Talk and Reinforce Positive Self-Talk</h3><ul><li>Look back at the thoughts and reword them in a kinder, more positive light.</li><li>Writing down statements with the growth mindset of accepting the current situation and feelings, and concrete actions to make things better or make you feel better.</li><li>Writing down what you are grateful for.</li><li>Understanding the concept of impermanence and look into future in a positive way.</li><li>Praise yourself when you write down positive self-talk! Try to think about what concrete actions you can take and let&rsquo;s move!</li></ul>",
     color: "#44aa38",
   },
   {
@@ -1832,7 +1834,8 @@ let dict_temp = [
     popup_title: "Positive Self-Talk",
     popup_feedback:
       "Make your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: null,
+    Sidebar_feedback:
+      "<h3>More About Self-Talk</h3><p>Self-talk is something you do naturally throughout your waking hours. Positive self-talk is supportive and affirming. Positive self-talk can help you improve your outlook on life. It can also have lasting positive health benefits, including improved well-being and a better quality of life.</p><p>Rumination is the flip side of positive self-talk. It happens when you replay upsetting or cringe-worthy thoughts or events over and over again in your head. Thinking through a problem can be useful, but if you spend a lot of time ruminating, small issues tend to snowball. Negative thoughts can grow and become self-defeating.</p><ul><li>Listening closely to your inner dialogues.&nbsp;</li><li>Write down important or frequent negative thoughts.</li><li>Be aware of the unbalanced, harmful thoughts.</li></ul><h3>Reframe Negative Self-Talk and Reinforce Positive Self-Talk</h3><ul><li>Look back at the thoughts and reword them in a kinder, more positive light.</li><li>Writing down statements with the growth mindset of accepting the current situation and feelings, and concrete actions to make things better or make you feel better.</li><li>Writing down what you are grateful for.</li><li>Understanding the concept of impermanence and look into future in a positive way.</li><li>Praise yourself when you write down positive self-talk! Try to think about what concrete actions you can take and let&rsquo;s move!</li></ul>",
     color: "#44aa38",
   },
   {
@@ -1851,7 +1854,8 @@ let dict_temp = [
     popup_title: "Positive Self-Talk",
     popup_feedback:
       "Make your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: null,
+    Sidebar_feedback:
+      "<h3>More About Self-Talk</h3><p>Self-talk is something you do naturally throughout your waking hours. Positive self-talk is supportive and affirming. Positive self-talk can help you improve your outlook on life. It can also have lasting positive health benefits, including improved well-being and a better quality of life.</p><p>Rumination is the flip side of positive self-talk. It happens when you replay upsetting or cringe-worthy thoughts or events over and over again in your head. Thinking through a problem can be useful, but if you spend a lot of time ruminating, small issues tend to snowball. Negative thoughts can grow and become self-defeating.</p><ul><li>Listening closely to your inner dialogues.&nbsp;</li><li>Write down important or frequent negative thoughts.</li><li>Be aware of the unbalanced, harmful thoughts.</li></ul><h3>Reframe Negative Self-Talk and Reinforce Positive Self-Talk</h3><ul><li>Look back at the thoughts and reword them in a kinder, more positive light.</li><li>Writing down statements with the growth mindset of accepting the current situation and feelings, and concrete actions to make things better or make you feel better.</li><li>Writing down what you are grateful for.</li><li>Understanding the concept of impermanence and look into future in a positive way.</li><li>Praise yourself when you write down positive self-talk! Try to think about what concrete actions you can take and let&rsquo;s move!</li></ul>",
     color: "#44aa38",
   },
   {
@@ -1877,7 +1881,8 @@ let dict_temp = [
     popup_title: "Positive Self-Talk",
     popup_feedback:
       "Make your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: null,
+    Sidebar_feedback:
+      "<h3>More About Self-Talk</h3><p>Self-talk is something you do naturally throughout your waking hours. Positive self-talk is supportive and affirming. Positive self-talk can help you improve your outlook on life. It can also have lasting positive health benefits, including improved well-being and a better quality of life.</p><p>Rumination is the flip side of positive self-talk. It happens when you replay upsetting or cringe-worthy thoughts or events over and over again in your head. Thinking through a problem can be useful, but if you spend a lot of time ruminating, small issues tend to snowball. Negative thoughts can grow and become self-defeating.</p><ul><li>Listening closely to your inner dialogues.&nbsp;</li><li>Write down important or frequent negative thoughts.</li><li>Be aware of the unbalanced, harmful thoughts.</li></ul><h3>Reframe Negative Self-Talk and Reinforce Positive Self-Talk</h3><ul><li>Look back at the thoughts and reword them in a kinder, more positive light.</li><li>Writing down statements with the growth mindset of accepting the current situation and feelings, and concrete actions to make things better or make you feel better.</li><li>Writing down what you are grateful for.</li><li>Understanding the concept of impermanence and look into future in a positive way.</li><li>Praise yourself when you write down positive self-talk! Try to think about what concrete actions you can take and let&rsquo;s move!</li></ul>",
     color: "#44aa38",
   },
   {
@@ -1889,7 +1894,8 @@ let dict_temp = [
     popup_title: "Positive Self-Talk",
     popup_feedback:
       "Make your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: null,
+    Sidebar_feedback:
+      "<h3>More About Self-Talk</h3><p>Self-talk is something you do naturally throughout your waking hours. Positive self-talk is supportive and affirming. Positive self-talk can help you improve your outlook on life. It can also have lasting positive health benefits, including improved well-being and a better quality of life.</p><p>Rumination is the flip side of positive self-talk. It happens when you replay upsetting or cringe-worthy thoughts or events over and over again in your head. Thinking through a problem can be useful, but if you spend a lot of time ruminating, small issues tend to snowball. Negative thoughts can grow and become self-defeating.</p><ul><li>Listening closely to your inner dialogues.&nbsp;</li><li>Write down important or frequent negative thoughts.</li><li>Be aware of the unbalanced, harmful thoughts.</li></ul><h3>Reframe Negative Self-Talk and Reinforce Positive Self-Talk</h3><ul><li>Look back at the thoughts and reword them in a kinder, more positive light.</li><li>Writing down statements with the growth mindset of accepting the current situation and feelings, and concrete actions to make things better or make you feel better.</li><li>Writing down what you are grateful for.</li><li>Understanding the concept of impermanence and look into future in a positive way.</li><li>Praise yourself when you write down positive self-talk! Try to think about what concrete actions you can take and let&rsquo;s move!</li></ul>",
     color: "#44aa38",
   },
   {
@@ -1901,7 +1907,8 @@ let dict_temp = [
     popup_title: "Positive Self-Talk",
     popup_feedback:
       "Make your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: null,
+    Sidebar_feedback:
+      "<h3>More About Self-Talk</h3><p>Self-talk is something you do naturally throughout your waking hours. Positive self-talk is supportive and affirming. Positive self-talk can help you improve your outlook on life. It can also have lasting positive health benefits, including improved well-being and a better quality of life.</p><p>Rumination is the flip side of positive self-talk. It happens when you replay upsetting or cringe-worthy thoughts or events over and over again in your head. Thinking through a problem can be useful, but if you spend a lot of time ruminating, small issues tend to snowball. Negative thoughts can grow and become self-defeating.</p><ul><li>Listening closely to your inner dialogues.&nbsp;</li><li>Write down important or frequent negative thoughts.</li><li>Be aware of the unbalanced, harmful thoughts.</li></ul><h3>Reframe Negative Self-Talk and Reinforce Positive Self-Talk</h3><ul><li>Look back at the thoughts and reword them in a kinder, more positive light.</li><li>Writing down statements with the growth mindset of accepting the current situation and feelings, and concrete actions to make things better or make you feel better.</li><li>Writing down what you are grateful for.</li><li>Understanding the concept of impermanence and look into future in a positive way.</li><li>Praise yourself when you write down positive self-talk! Try to think about what concrete actions you can take and let&rsquo;s move!</li></ul>",
     color: "#44aa38",
   },
   {
@@ -1991,7 +1998,8 @@ let dict_temp = [
     popup_title: "Positive Self-Talk",
     popup_feedback:
       "Make your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: null,
+    Sidebar_feedback:
+      "<h3>More About Self-Talk</h3><p>Self-talk is something you do naturally throughout your waking hours. Positive self-talk is supportive and affirming. Positive self-talk can help you improve your outlook on life. It can also have lasting positive health benefits, including improved well-being and a better quality of life.</p><p>Rumination is the flip side of positive self-talk. It happens when you replay upsetting or cringe-worthy thoughts or events over and over again in your head. Thinking through a problem can be useful, but if you spend a lot of time ruminating, small issues tend to snowball. Negative thoughts can grow and become self-defeating.</p><ul><li>Listening closely to your inner dialogues.&nbsp;</li><li>Write down important or frequent negative thoughts.</li><li>Be aware of the unbalanced, harmful thoughts.</li></ul><h3>Reframe Negative Self-Talk and Reinforce Positive Self-Talk</h3><ul><li>Look back at the thoughts and reword them in a kinder, more positive light.</li><li>Writing down statements with the growth mindset of accepting the current situation and feelings, and concrete actions to make things better or make you feel better.</li><li>Writing down what you are grateful for.</li><li>Understanding the concept of impermanence and look into future in a positive way.</li><li>Praise yourself when you write down positive self-talk! Try to think about what concrete actions you can take and let&rsquo;s move!</li></ul>",
     color: "#44aa38",
   },
   {
@@ -2016,7 +2024,8 @@ let dict_temp = [
     popup_title: "Positive Self-Talk",
     popup_feedback:
       "Make your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: null,
+    Sidebar_feedback:
+      "<h3>More About Self-Talk</h3><p>Self-talk is something you do naturally throughout your waking hours. Positive self-talk is supportive and affirming. Positive self-talk can help you improve your outlook on life. It can also have lasting positive health benefits, including improved well-being and a better quality of life.</p><p>Rumination is the flip side of positive self-talk. It happens when you replay upsetting or cringe-worthy thoughts or events over and over again in your head. Thinking through a problem can be useful, but if you spend a lot of time ruminating, small issues tend to snowball. Negative thoughts can grow and become self-defeating.</p><ul><li>Listening closely to your inner dialogues.&nbsp;</li><li>Write down important or frequent negative thoughts.</li><li>Be aware of the unbalanced, harmful thoughts.</li></ul><h3>Reframe Negative Self-Talk and Reinforce Positive Self-Talk</h3><ul><li>Look back at the thoughts and reword them in a kinder, more positive light.</li><li>Writing down statements with the growth mindset of accepting the current situation and feelings, and concrete actions to make things better or make you feel better.</li><li>Writing down what you are grateful for.</li><li>Understanding the concept of impermanence and look into future in a positive way.</li><li>Praise yourself when you write down positive self-talk! Try to think about what concrete actions you can take and let&rsquo;s move!</li></ul>",
     color: "#44aa38",
   },
 ];
