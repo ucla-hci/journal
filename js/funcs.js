@@ -667,7 +667,8 @@ let dict_temp = [
     popup_title: "Blaming ourselves",
     popup_feedback:
       "A common distrotion that believes only one person is responsible for a situation that they may have little control over.",
-    Sidebar_feedback: null,
+    Sidebar_feedback:
+      "<h3>More About Blaming</h3><p>It often happens in perfectionists. When it actually isn&rsquo;t that bad, thinking the worst-case scenario happens.</p><h3>Reframe Blaming</h3><ul><li>Examine the Evidence: performing an accurate analysis of one&rsquo;s situation. Does any evidence support it? Does any evidence against it?</li><li>Putting equal emphasis on the positive and negative of the situation, on possible strength or weakness;</li><li>How does this thought make you feel? Without this cognitive distortion, what you will do?</li><li>How you will respond if a close friend said a similar thing to you?</li></ul>",
     color: "#287db5",
   },
   {
@@ -688,7 +689,8 @@ let dict_temp = [
     popup_title: "Blaming others",
     popup_feedback:
       "A common distrotion that believes only one person is responsible for a situation that they may have little control over.",
-    Sidebar_feedback: null,
+    Sidebar_feedback:
+      "<h3>More About Blaming</h3><p>It often happens in perfectionists. When it actually isn&rsquo;t that bad, thinking the worst-case scenario happens.</p><h3>Reframe Blaming</h3><ul><li>Examine the Evidence: performing an accurate analysis of one&rsquo;s situation. Does any evidence support it? Does any evidence against it?</li><li>Putting equal emphasis on the positive and negative of the situation, on possible strength or weakness;</li><li>How does this thought make you feel? Without this cognitive distortion, what you will do?</li><li>How you will respond if a close friend said a similar thing to you?</li></ul>",
     color: "#287db5",
   },
   {
