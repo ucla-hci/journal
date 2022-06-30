@@ -382,7 +382,6 @@ let dict_temp = [
       " prefer to",
       " would like to",
       " plan to",
-      "",
     ],
     rewrite_position: "Replace",
     popup_title: "Should Statment",
@@ -402,7 +401,6 @@ let dict_temp = [
       " prefer to",
       " would like to",
       " plan to",
-      "",
     ],
     rewrite_position: "Replace",
     popup_title: "Should Statment",
@@ -422,7 +420,6 @@ let dict_temp = [
       " prefer to",
       " would like to",
       " plan to",
-      "",
     ],
     rewrite_position: "Replace",
     popup_title: "Should Statment",
@@ -442,7 +439,6 @@ let dict_temp = [
       " prefer to",
       " would like to",
       " plan to",
-      "",
     ],
     rewrite_position: "Replace",
     popup_title: "Should Statment",
@@ -462,7 +458,6 @@ let dict_temp = [
       " prefer to",
       " would like to",
       " plan to",
-      "",
     ],
     rewrite_position: "Replace",
     popup_title: "Should Statment",
@@ -688,7 +683,6 @@ let dict_temp = [
     rewrite: [
       "I understand that it may happen when",
       " if my close friend did that accidentally",
-      "",
     ],
     rewrite_position: "after",
     popup_title: "Blaming others",
@@ -2629,7 +2623,7 @@ function triggerRewrite(contents) {
     ].trim();
 
   // check for ". " to avoid introducing unecessary ones + insert good ones
-  switch (contents.rewrite_position) {
+  switch (contents.rewrite_position.toLowerCase()) {
     // for L1
     case "end":
       // check if need to add space or not.
