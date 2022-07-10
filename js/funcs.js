@@ -3036,6 +3036,7 @@ function newEntry() {
   cm.setValue("");
   currentDate = getTime();
   currentFlag = 1;
+  initialization();
   document.getElementById("toast").style.display = "none";
   document.getElementById("temp").style.display = "block";
   document.getElementById("main").style.display = "none";
@@ -3075,10 +3076,14 @@ function deleteEntryRecall() {
 
 function openEntry(id) {
   // cleanMarks();
+  dismisslist = [];
+  word_counter = {}; // <--- dict needed to capture right place of word.
+  global_feedback = [];
   dismissPlaceholder();
   closeNewPopup();
   clearSquares();
   closeRightBar();
+  // initialization();
   document.getElementById("toast").style.display = "block";
   // console.log("Open entry #" + id);
   if (id <= maxID) {
@@ -3109,6 +3114,7 @@ function saveEntry() {
       marks,
       mouselog,
       keyboardlog,
+
       toggleLog,
       popupLog,
       sidebarLog,
@@ -3149,6 +3155,11 @@ function loadContentRecall(id, data) {
   let flag = data["flag"];
   mouselog = data["mouseLog"];
   keyboardlog = data["keyLog"];
+  toggleLog = data["toggleLog"];
+  popupLog = data["popupLog"];
+  sidebarLog = data["sidebarLog"];
+  dismissLog = data["dismissLog"];
+  acceptLog = data["acceptLog"];
   currentFlag = flag;
   refreshFlagColor();
   cm.setValue(text);
@@ -3884,6 +3895,7 @@ function generateFile() {
 }
 
 function generatePackRecall(file) {
+  console.log("in pack recall2");
   console.log(file);
   download(JSON.stringify(file), "report.json");
 }
