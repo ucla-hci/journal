@@ -2328,13 +2328,17 @@ function analyzeText() {
     }
 
     // find matching words in dict
-    const word_options = dict_temp.filter(
-      (dict_entry) => dict_entry.Word === currentElement
-    );
+    const word_options = dict_temp.filter((dict_entry) => {
+      if (dict_entry.Word === currentElement) return true;
+      else if (dict_entry.wordnet_ext.includes(currentElement)) return true;
+      else if (dict_entry.phrase_ext.includes(currentElement)) return true;
+      else return false;
+    });
     // - put into array
 
-    // choose at random from array and use that selection to populate previousElement.push(...)
-    let chosen = word_options[getRandomInt(word_options.length)];
+    // fix so that color doesnt flicker.
+    // let chosen = word_options[getRandomInt(word_options.length)];
+    let chosen = word_options[0];
 
     // let obj_filt = dict_temp.filter(
     //   (entry) =>
@@ -3642,7 +3646,9 @@ function closePH_lose() {
   // log how much of the rewrite was done
   // words that came next can be found in rest of logs by checking timestamps.
   dismissLog.push({
-    time: Date.now(),
+    time: event.timeStamp,
+    content: cm.getValue(),
+    marks: fetchMarks(),
     suggestion: suggestion,
     completed_amount: suggestion_cursor - 1,
   });
@@ -3652,8 +3658,10 @@ function closePH_lose() {
 
 function closePH_win() {
   acceptLog.push({
-    time: Date.now(),
+    time: event.timeStamp,
     suggestion: suggestion,
+    content: cm.getValue(),
+    marks: fetchMarks(),
   });
   dismissPlaceholder();
   resetPHStates();
