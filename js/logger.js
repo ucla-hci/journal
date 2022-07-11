@@ -178,21 +178,19 @@ function download(text, filename) {
 
 function onL1Toggle(evt) {
   console.log("inside onL1toggle logger");
+  // console.log("logging", evt.target.innerText);
 
   if (UnixZero == -1) {
     initialization();
   }
   t = evt.timeStamp;
-  let state = null;
-  if (evt.target.innerText === "Expressiveness on") {
-    state = true;
-  } else {
-    state = false;
-  }
+  let auto_b = evt.target.innerText.toLowerCase().includes("auto");
+
   toggleLog.push({
     type: "toggleL1",
     timestamp: t,
-    activated: state,
+    auto: auto_b,
+    state: evt.target.innerText,
   });
 }
 

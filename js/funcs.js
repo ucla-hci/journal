@@ -3646,7 +3646,7 @@ function closePH_lose() {
   // log how much of the rewrite was done
   // words that came next can be found in rest of logs by checking timestamps.
   dismissLog.push({
-    time: event.timeStamp,
+    timestamp: event.timeStamp,
     content: cm.getValue(),
     marks: fetchMarks(),
     suggestion: suggestion,
@@ -3658,7 +3658,7 @@ function closePH_lose() {
 
 function closePH_win() {
   acceptLog.push({
-    time: event.timeStamp,
+    timestamp: event.timeStamp,
     suggestion: suggestion,
     content: cm.getValue(),
     marks: fetchMarks(),
@@ -3858,7 +3858,10 @@ function isolateCurrentSentence() {
   return cm.getRange(start, { line: end_line, ch: end_ch });
 }
 
-// document.querySelector("button.L1Button").addEventListener("click", onL1Toggle);
+document.querySelector("button.L1Button").addEventListener("click", onL1Toggle);
+document
+  .querySelector("button.L1ButtonAuto")
+  .addEventListener("click", onL1Toggle);
 document.querySelector("button.L2Button").addEventListener("click", onL2Toggle);
 
 $(window).resize(function () {
