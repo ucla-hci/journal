@@ -2328,13 +2328,17 @@ function analyzeText() {
     }
 
     // find matching words in dict
-    const word_options = dict_temp.filter(
-      (dict_entry) => dict_entry.Word === currentElement
-    );
+    const word_options = dict_temp.filter((dict_entry) => {
+      if (dict_entry.Word === currentElement) return true;
+      else if (dict_entry.wordnet_ext.includes(currentElement)) return true;
+      else if (dict_entry.phrase_ext.includes(currentElement)) return true;
+      else return false;
+    });
     // - put into array
 
-    // choose at random from array and use that selection to populate previousElement.push(...)
-    let chosen = word_options[getRandomInt(word_options.length)];
+    // fix so that color doesnt flicker.
+    // let chosen = word_options[getRandomInt(word_options.length)];
+    let chosen = word_options[0];
 
     // let obj_filt = dict_temp.filter(
     //   (entry) =>
@@ -3036,6 +3040,7 @@ function newEntry() {
   cm.setValue("");
   currentDate = getTime();
   currentFlag = 1;
+  initialization();
   document.getElementById("toast").style.display = "none";
   document.getElementById("temp").style.display = "block";
   document.getElementById("main").style.display = "none";
@@ -3075,10 +3080,14 @@ function deleteEntryRecall() {
 
 function openEntry(id) {
   // cleanMarks();
+  dismisslist = [];
+  word_counter = {}; // <--- dict needed to capture right place of word.
+  global_feedback = [];
   dismissPlaceholder();
   closeNewPopup();
   clearSquares();
   closeRightBar();
+  // initialization();
   document.getElementById("toast").style.display = "block";
   // console.log("Open entry #" + id);
   if (id <= maxID) {
@@ -3109,6 +3118,7 @@ function saveEntry() {
       marks,
       mouselog,
       keyboardlog,
+
       toggleLog,
       popupLog,
       sidebarLog,
@@ -3149,6 +3159,11 @@ function loadContentRecall(id, data) {
   let flag = data["flag"];
   mouselog = data["mouseLog"];
   keyboardlog = data["keyLog"];
+  toggleLog = data["toggleLog"];
+  popupLog = data["popupLog"];
+  sidebarLog = data["sidebarLog"];
+  dismissLog = data["dismissLog"];
+  acceptLog = data["acceptLog"];
   currentFlag = flag;
   refreshFlagColor();
   cm.setValue(text);
@@ -3631,7 +3646,9 @@ function closePH_lose() {
   // log how much of the rewrite was done
   // words that came next can be found in rest of logs by checking timestamps.
   dismissLog.push({
-    time: Date.now(),
+    timestamp: event.timeStamp,
+    content: cm.getValue(),
+    marks: fetchMarks(),
     suggestion: suggestion,
     completed_amount: suggestion_cursor - 1,
   });
@@ -3641,8 +3658,10 @@ function closePH_lose() {
 
 function closePH_win() {
   acceptLog.push({
-    time: Date.now(),
+    timestamp: event.timeStamp,
     suggestion: suggestion,
+    content: cm.getValue(),
+    marks: fetchMarks(),
   });
   dismissPlaceholder();
   resetPHStates();
@@ -3839,7 +3858,10 @@ function isolateCurrentSentence() {
   return cm.getRange(start, { line: end_line, ch: end_ch });
 }
 
-// document.querySelector("button.L1Button").addEventListener("click", onL1Toggle);
+document.querySelector("button.L1Button").addEventListener("click", onL1Toggle);
+document
+  .querySelector("button.L1ButtonAuto")
+  .addEventListener("click", onL1Toggle);
 document.querySelector("button.L2Button").addEventListener("click", onL2Toggle);
 
 $(window).resize(function () {
@@ -3884,6 +3906,7 @@ function generateFile() {
 }
 
 function generatePackRecall(file) {
+  console.log("in pack recall2");
   console.log(file);
   download(JSON.stringify(file), "report.json");
 }

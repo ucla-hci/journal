@@ -16,7 +16,7 @@ var popupLog = new Array();
 var sidebarLog = new Array();
 var dismissLog = new Array();
 var acceptLog = new Array();
-// var l2dismissLog = new Array();
+var l2dismissLog = new Array();
 
 function startTimer() {
   let dateTime = Date.now();
@@ -25,11 +25,22 @@ function startTimer() {
 }
 
 function initialization() {
+  console.log("called logger.js initialization()");
   startTimer();
-  mouselog = new Array();
-  keyboardlog = new Array();
+  mouselog = [];
+  keyboardlog = [];
+  toggleLog = [];
+  popupLog = [];
+  sidebarLog = [];
+  dismissLog = [];
+  acceptLog = [];
   keyboardlog.push({ timestamp: UnixZero, type: "start" });
   mouselog.push({ timestamp: UnixZero, type: "start" });
+  toggleLog.push({ timestamp: UnixZero, type: "start" });
+  popupLog.push({ timestamp: UnixZero, type: "start" });
+  sidebarLog.push({ timestamp: UnixZero, type: "start" });
+  dismissLog.push({ timestamp: UnixZero, type: "start" });
+  acceptLog.push({ timestamp: UnixZero, type: "start" });
 }
 
 // Keyboard Operations logger ----> keyup executes after the press is handled.
@@ -167,21 +178,19 @@ function download(text, filename) {
 
 function onL1Toggle(evt) {
   console.log("inside onL1toggle logger");
+  // console.log("logging", evt.target.innerText);
 
   if (UnixZero == -1) {
     initialization();
   }
   t = evt.timeStamp;
-  let state = null;
-  if (evt.target.innerText === "Expressiveness on") {
-    state = true;
-  } else {
-    state = false;
-  }
+  let auto_b = evt.target.innerText.toLowerCase().includes("auto");
+
   toggleLog.push({
     type: "toggleL1",
     timestamp: t,
-    activated: state,
+    auto: auto_b,
+    state: evt.target.innerText,
   });
 }
 
@@ -220,7 +229,8 @@ function logPopup(contents) {
 
   popupLog.push({
     type: "popup",
-    timestamp: Date.now(),
+    // timestamp: Date.now(),
+    timestamp: event.timeStamp,
     search_cords: contents.search_cords,
     word: contents.word,
     popup_title: contents.popup_title,
@@ -236,7 +246,7 @@ let sidebarLogMark = null;
 function stopLogTimerPopup(duration) {
   console.log("inside stopLogTimerPopup logger. duration in ms:", duration);
   popupLog.push({
-    timestamp: Date.now(),
+    timestamp: event.timeStamp,
     type: "popup",
     duration: duration,
     state: "stop",
@@ -245,8 +255,8 @@ function stopLogTimerPopup(duration) {
 
 function stopLogTimerSidebar(duration) {
   console.log("inside stopLogTimerSidebar logger. duration in ms:", duration);
-  popupLog.push({
-    timestamp: Date.now(),
+  sidebarLog.push({
+    timestamp: event.timeStamp,
     type: "sidebar",
     duration: duration,
     state: "stop",
@@ -262,7 +272,7 @@ function logSidebar(contents) {
 
   sidebarLog.push({
     type: "sidebar",
-    timestamp: Date.now(),
+    timestamp: event.timeStamp,
     word: contents.word,
     sidebar_title: contents.sidebar_title,
     state: "start",

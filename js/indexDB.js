@@ -28,7 +28,22 @@ openRequest.addEventListener("upgradeneeded", (e) => {
 });
 
 // 向indexedDB中添加一条记录（一个新entry）
-function addData(id, flag, title, content, date, mark, mouse, key) {
+function addData(
+  id,
+  flag,
+  title,
+  content,
+  date,
+  mark,
+  mouse,
+  key,
+  toggle,
+  popup,
+  sidebar,
+  dismiss,
+  accept,
+  dismisslist
+) {
   let request = inDB
     .transaction(["data"], "readwrite")
     .objectStore("data")
@@ -41,6 +56,13 @@ function addData(id, flag, title, content, date, mark, mouse, key) {
       marks: mark,
       mouseLog: mouse,
       keyLog: key,
+
+      toggleLog: toggle,
+      popupLog: popup,
+      sidebarLog: sidebar,
+      dismissLog: dismiss,
+      acceptLog: accept,
+      dismisslist: dismisslist,
     });
 
   request.onsuccess = function (event) {
@@ -51,12 +73,42 @@ function addData(id, flag, title, content, date, mark, mouse, key) {
   request.onerror = function (event) {
     // console.log("add failed");
     // 添加失败说明已存在同id，故转更新
-    updateData(id, flag, title, content, date, mark, mouse, key);
+    updateData(
+      id,
+      flag,
+      title,
+      content,
+      date,
+      mark,
+      mouse,
+      key,
+      toggle,
+      popup,
+      sidebar,
+      dismiss,
+      accept,
+      dismisslist
+    );
   };
 }
 
 // 更新记录
-function updateData(id, flag, title, content, date, mark, mouse, key) {
+function updateData(
+  id,
+  flag,
+  title,
+  content,
+  date,
+  mark,
+  mouse,
+  key,
+  toggle,
+  popup,
+  sidebar,
+  dismiss,
+  accept,
+  dismisslist
+) {
   let request = inDB
     .transaction(["data"], "readwrite")
     .objectStore("data")
@@ -69,6 +121,12 @@ function updateData(id, flag, title, content, date, mark, mouse, key) {
       marks: mark,
       mouseLog: mouse,
       keyLog: key,
+      toggleLog: toggle,
+      popupLog: popup,
+      sidebarLog: sidebar,
+      dismissLog: dismiss,
+      acceptLog: accept,
+      dismisslist: dismisslist,
     });
 
   request.onsuccess = function (event) {
@@ -249,6 +307,12 @@ function checkInitialDB() {
       marks: null,
       mouseLog: null,
       keyLog: null,
+      sidebarLog: null,
+      popupLog: null,
+      toggleLog: null,
+      dismissLog: null,
+      acceptLog: null,
+      dismisslist: null,
     });
 
   request.onerror = function (event) {
@@ -459,13 +523,20 @@ function generatePackOne() {
           marks: cursor.value.marks,
           mouse: cursor.value.mouseLog,
           key: cursor.value.keyLog,
+          sidebar: cursor.value.sidebarLog,
+          popup: cursor.value.popupLog,
+          toggle: cursor.value.toggleLog,
+          dismiss: cursor.value.dismissLog,
+          accept: cursor.value.acceptLog,
+          dismisslist: cursor.value.dismisslist,
         };
         returnPack[id] = { data: data, mark: null };
       }
       cursor.continue();
     } else {
       console.log("DB1 traverse finished");
-      generatePackTwo(returnPack);
+      // generatePackTwo(returnPack);
+      generatePackRecall(returnPack);
     }
   };
 
