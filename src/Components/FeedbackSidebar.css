@@ -1,0 +1,6 @@
+.feedback-sidebar {
+  flex: 1;
+  border: var(--borderdebug) blue;
+  background-color: var(--bgcolshadow);
+  color: var(--bgcolmid);
+}
