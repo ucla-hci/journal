@@ -13,8 +13,8 @@
   --fontcolmid: #000059;
   --fontcollight: #2e1380;
 
-  --borderdebug: 0px none;
-  /* --borderdebug: 1px solid; */
+  /* --borderdebug: 0px none; */
+  --borderdebug: 1px solid;
 }
 
 .App {
@@ -45,11 +45,6 @@
 
 .App-link {
   color: #61dafb;
-}
-
-h1 {
-  align-self: flex-start;
-  margin-left: 20px;
 }
 
 @keyframes App-logo-spin {

@@ -9,9 +9,20 @@
   padding-right: 5px;
 }
 
+.menu-sidebar.off {
+  max-width: 30px;
+}
+
 .menu-sidebar header {
   display: flex;
   flex-direction: row;
+}
+.menu-sidebar header h1 {
+  flex: 1;
+}
+
+.menu-sidebar header > * {
+  border: var(--borderdebug) rgb(106, 255, 250);
 }
 
 .menu-sidebar > * {

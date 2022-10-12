@@ -33,7 +33,7 @@ function App() {
           backgroundColor: "var(--bgcollight)",
         }}
       >
-        <h1>xprss yrslf 2</h1>
+        <h1>Expresso 2</h1>
         <Editor setView={setView} />
         {/* <GideonDemo /> */}
       </header>

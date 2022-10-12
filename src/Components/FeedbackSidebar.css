@@ -1,6 +1,43 @@
 .feedback-sidebar {
-  flex: 1;
   border: var(--borderdebug) blue;
   background-color: var(--bgcolshadow);
   color: var(--bgcolmid);
+  display: flex;
+  flex-direction: column;
+  padding-left: 5px;
+  padding-right: 5px;
+  align-items: flex-start;
+}
+
+.feedback-sidebar.off {
+  max-width: 30px;
+}
+
+.feedback-sidebar header {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.Feedback {
+  flex: 1;
+}
+
+.rewrite-btn {
+  margin-bottom: 16px;
+  margin-top: 16px;
+  align-self: center;
+}
+
+.feedback-sidebar.off > * {
+  border: var(--borderdebug) blue;
+}
+
+.feedback-sidebar.on > * {
+  border: var(--borderdebug) rgb(255, 157, 0);
+}
+
+.feedback-sidebar.on header > * {
+  border: var(--borderdebug) rgb(131, 255, 122);
 }
