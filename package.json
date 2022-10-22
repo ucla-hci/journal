@@ -4,7 +4,8 @@
   "description": "simple test for adding ot.js to journal webapp",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --testPathIgnorePatterns=.*e2e.test.js",
+    "test:e2e": "jest --testPathPattern=.*e2e.test.js$",
     "start": "nodemon server.js"
   },
   "repository": {
@@ -18,7 +19,7 @@
     "transformation",
     "OT"
   ],
-  "author": "Yifan Xu <yifax10@gmail.com>",
+  "author": "Roy Jara <rmjara@g.ucla.edu>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ucla-hci/journal/issues"
@@ -34,6 +35,11 @@
     "socket.io": "^2.0.4"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "@babel/preset-env": "^7.19.3",
+    "@tmdt-buw/gideon-replay": "^0.3.2",
+    "babel": "^6.23.0",
+    "jest": "^29.1.2",
+    "nodemon": "^2.0.15",
+    "puppeteer": "^18.0.5"
   }
 }

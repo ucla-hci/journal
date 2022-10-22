@@ -16,6 +16,7 @@
   <script src="node_modules/codemirror/addon/display/placeholder.js"></script>
   <script src="node_modules/codemirror/addon/display/rulers.js"></script>
   <!-- <script src="node_modules/codemirror-record/src/CodeRecord.js"></script> -->
+  <!-- <script src="node_modules/@tmdt-buw/gideon-replay/tmdt-buw-gideon-replay.d.ts"></script> -->
   
   <script src="node_modules/leven/index.js"></script>
   <!-- <script src="https://unpkg.com/compromise"></script> -->
@@ -36,7 +37,7 @@
     <button style="opacity: 0.3;" class="L2Button" onclick="toggleL2()" title="Click to toggle">Analysis off</button>
     <button style="opacity: 0.3;" class="L1ButtonAuto" onclick="L1autoController()" title="Periodic expressiveness assistance">Auto Expressiveness off</button>
     <button style="opacity: 0.3;" class="L1Button" onclick="triggerL1()" title="Also activate by pressing tab">Assist Expressiveness</button>
-    <a class="support-btn" href="mailto:sigchi@ucla.edu" target="_blank" title="Contact UCLA HCI if you need help about using Espresso">Need help?</a>
+    <a class="support-btn" href="mailto:sigchi@ucla.edu" target="_blank" title="Contact UCLA HCI if you need help about using Expresso">Need help?</a>
   </div>
 </div>
 
@@ -60,13 +61,13 @@
   <!-- END DEBUG BUTTONS ----------------------------------------------------->
   <a id="toast" href="javascript:void(0)" onclick = "manualSave()">Save</a>
   <div>
-    <a href="javascript:void(0)" class="mode-label">Espresso</a>
+    <a href="javascript:void(0)" class="mode-label">Expresso</a>
   </div>
 </div>
 <div id="container">
   <div class="onboard" id="temp">
     <!-- Welcome to Journal! -->
-    <div id="welcome">Espresso Notes</div>
+    <div id="welcome">Expresso Notes</div>
     <!-- How is your day today? -->
     <div id="query" onclick="toEntry()">How is your day today? Pick a mood:</div>
 
@@ -128,6 +129,7 @@
 </body>
 
 <!-- Espresso.js -->
+<script src="js/analysis.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/logger.js"></script>
 <script type="text/javascript" src="js/funcs.js"></script>
 <!-- <script type="text/javascript" src="js/expert.js"></script> -->
