@@ -8,6 +8,34 @@ migration from vanilla js version to use webpack, React/ES6, and codemirror6.
 
 ## Development Diary
 
+(11/01/2022)
+- analysis flow is almost ready, missing rewrite and dismiss (in popup)
+- used dexie db to hold state of popup's display:"none" style
+  - Needed to handle state with app outside of react
+  - alternative? - use cm editor inline extension with setState from parent, passed via props 
+- For now, just developing base atomic insertions into editor
+
+(10/18/22)
+- DemoTooltip.tsx shows how to insert div above
+  - currently hardcoded to work with the word "test"
+
+
+
+(10/12/22)
+- worked through basic Dexie.js example
+- use 209 project as reference for note management
+- but briefly:
+  - editor starts empty
+  - Note management:
+    - onload, we fetch from db to populate sidebar with notes
+      - props can be surfaced to parent so parent also knows of notelist 
+    - notelist onclick () => select note and launch editor 
+  - Note saving
+    - use timeout 3s for saving
+
+Recommendation: start with managing entries with title+date to begin. then add editor stuff + logging
+
+
 (10/08/22)
 - got basic search working in updatelisteners.tsx
 - ![get dom coords at cursor position](https://codemirror.net/docs/ref/#view.EditorView.coordsAtPos)

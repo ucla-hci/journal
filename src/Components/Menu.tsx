@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Menu.css";
 import {
   Button,
@@ -11,27 +11,61 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import ClearIcon from "@mui/icons-material/Clear";
 import MenuIcon from "@mui/icons-material/Menu";
+import HomeIcon from "@mui/icons-material/Home";
 
-// const colors =
-let ele = document.querySelector(":root")!;
-let cs = getComputedStyle(ele);
+import NoteList from "./NoteList";
+import { db } from "./Dexie/db";
 
 const theme = createTheme({
   palette: {
     primary: {
-      // main: cs.getPropertyValue("--bgcolmid"),
       main: "#123123",
     },
     secondary: {
-      // main: cs.getPropertyValue("--fontcolmid"),
       main: "#123123",
     },
   },
 });
 
-export default function Menu() {
+interface MenuProps {
+  setCurrentNote: React.Dispatch<React.SetStateAction<Number | null>>;
+  setShowmenu: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function Menu({ setCurrentNote, setShowmenu }: MenuProps) {
   const [showbar, setShowbar] = useState<"hide" | "show">("hide");
-  var noteentries = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+  async function addNote() {
+    let existent = await db.notes.toArray();
+    let untitled = existent
+      .filter((val) => {
+        return val.title.includes("untitled note");
+      })
+      .sort();
+
+    try {
+      // add new blank note
+      const id = await db.notes.add({
+        title: "untitled note " + untitled.length,
+        content: "",
+        creationdate: Date.now(),
+        lastedit: Date.now(),
+        timeduration: 0,
+        stats: {},
+      });
+
+      console.log("added new note with id", id);
+      return id;
+    } catch (error) {
+      console.log(`Failed to add new note: ${error}`);
+      return null;
+    }
+  }
+  useEffect(() => {
+    let barstate = showbar === "hide" ? false : true;
+    console.log("in showbareffect menu: state", barstate);
+    setShowmenu(barstate);
+  }, [showbar]);
 
   return (
     <>
@@ -45,7 +79,7 @@ export default function Menu() {
                     setShowbar(showbar === "hide" ? "show" : "hide");
                   }}
                   aria-label="delete"
-                  color="primary"
+                  color="inherit"
                 >
                   <MenuIcon />
                 </IconButton>
@@ -55,6 +89,17 @@ export default function Menu() {
           show: (
             <div className="menu-sidebar on">
               <header>
+                <ThemeProvider theme={theme}>
+                  <IconButton
+                    aria-label="delete"
+                    color="inherit"
+                    onClick={() => {
+                      setCurrentNote(null);
+                    }}
+                  >
+                    <HomeIcon />
+                  </IconButton>
+                </ThemeProvider>
                 <h1>Menu</h1>
                 <ThemeProvider theme={theme}>
                   <IconButton
@@ -62,7 +107,7 @@ export default function Menu() {
                       setShowbar(showbar === "hide" ? "show" : "hide");
                     }}
                     aria-label="delete"
-                    color="primary"
+                    color="inherit"
                   >
                     <ClearIcon />
                   </IconButton>
@@ -71,6 +116,14 @@ export default function Menu() {
               <div>
                 <ThemeProvider theme={theme}>
                   <Button
+                    onClick={() => {
+                      addNote().then((id) => {
+                        if (id) {
+                          console.log("in promise chain");
+                          setCurrentNote(id as number);
+                        }
+                      });
+                    }}
                     variant="contained"
                     color="secondary"
                     endIcon={<NoteAddIcon />}
@@ -79,12 +132,10 @@ export default function Menu() {
                   </Button>
                 </ThemeProvider>
               </div>
-              <div className="notelist">
-                {noteentries.map((x) => {
-                  return <div key={String(x)}>x{x}</div>;
-                })}
-              </div>
-
+              <NoteList
+                setCurrentNote={setCurrentNote}
+                setShowbar={setShowbar}
+              />
               <div className="featuretoggles">
                 <ThemeProvider theme={theme}>
                   <FormGroup>

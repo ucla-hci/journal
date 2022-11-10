@@ -1,16 +1,36 @@
 .feedback-sidebar {
-  border: var(--borderdebug) blue;
-  background-color: var(--bgcolshadow);
-  color: var(--bgcolmid);
+  /* border: var(--borderdebug) blue; */
+  /* border-left: solid 3px var(--softgrey); */
+  box-shadow: 0px 0px 3px 3px var(--softgrey);
+  background-color: var(--bgcollight);
+  color: var(--bgcolshadow);
   display: flex;
+  position: fixed;
+  right: 0;
   flex-direction: column;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
   align-items: flex-start;
+  transition: right 0.4s;
+  width: 300px;
+  height: 100%;
+  overflow-y: scroll;
 }
 
 .feedback-sidebar.off {
-  max-width: 30px;
+  right: -280px;
+  transition: right 0.4s;
+  background-color: var(--bgcollight);
+  background-image: linear-gradient(
+    225deg,
+    var(--bgcollight) 0%,
+    var(--bgcollighter) 100%
+  );
+}
+.feedback-sidebar.off > * {
+  position: absolute;
+  top: 0px;
+  left: 0px;
 }
 
 .feedback-sidebar header {
@@ -18,10 +38,34 @@
   display: flex;
   flex-direction: column;
   text-align: left;
+  width: 100%;
+}
+
+.feedback-sidebar header h1 {
+  align-self: center;
 }
 
 .Feedback {
+  /* border: 3px solid blue; */
   flex: 1;
+  /* text-align: left; */
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.card {
+  width: 86%;
+  align-self: center;
+  box-shadow: 0px 2px 3px 2px var(--softgrey);
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5%;
+}
+
+.card p {
+  text-align: left;
 }
 
 .rewrite-btn {
@@ -34,9 +78,9 @@
   border: var(--borderdebug) blue;
 }
 
-.feedback-sidebar.on > * {
+/* .feedback-sidebar.on > * {
   border: var(--borderdebug) rgb(255, 157, 0);
-}
+} */
 
 .feedback-sidebar.on header > * {
   border: var(--borderdebug) rgb(131, 255, 122);

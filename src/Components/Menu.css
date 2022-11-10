@@ -1,4 +1,5 @@
 .menu-sidebar {
+  z-index: 3;
   flex: 1;
   background-color: var(--bgcolshadow);
   border: var(--borderdebug) blue;
@@ -7,15 +8,30 @@
   color: var(--bgcollighter);
   padding-left: 5px;
   padding-right: 5px;
+  position: fixed;
+  height: 100%;
+  transition: left 0.4s;
+  left: 0px;
+  width: 260px;
+  overflow-wrap: break-word;
 }
 
 .menu-sidebar.off {
-  max-width: 30px;
+  left: -230px;
+  transition: left 0.4s;
+}
+
+.menu-sidebar.off > * {
+  position: absolute;
+  top: 0px;
+  right: 0px;
 }
 
 .menu-sidebar header {
   display: flex;
   flex-direction: row;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 .menu-sidebar header h1 {
   flex: 1;
@@ -30,28 +46,68 @@
 }
 
 .menu-sidebar button {
-  font-size: larger;
+  align-self: center;
 }
 
 .notelist {
-  overflow-y: scroll;
+  overflow-y: auto;
+  height: 54vh;
   display: flex;
   flex-direction: column;
-  flex: 1;
-  width: 100%;
-  align-self: center;
   margin-top: 14px;
+  border: var(--borderdebug) rgba(248, 248, 248, 0.699);
+  align-items: center;
 }
 
-.notelist div {
-  border: 2px solid var(--highlight);
+.notebrief {
+  display: flex;
+  flex-direction: row;
+  width: 95%;
+  cursor: default;
+  border: 2px solid var(--fontcolmid);
+}
+
+.notebrief:hover {
+  /* background-color: black; */
+  background-color: var(--fontcoldark);
+}
+
+.notebrief p {
+  margin: 0px;
+  flex: 1;
+  text-align: left;
+  padding-left: 10px;
+  align-self: center;
+}
+
+.notebrief .date {
+  text-align: right;
+  font-size: small;
+  color: var(--bgcolmid);
+  align-self: center;
+}
+
+.notebrief button {
+  background-color: unset;
+  border: none;
+  color: var(--bgcolmid);
+  cursor: pointer;
+  font-size: large;
+  align-self: center;
+}
+
+.notelist > * {
+  /* border: 2px solid var(--highlight); */
   box-sizing: border-box;
   border-radius: 5px;
 }
 
 .featuretoggles {
+  /* flex: 1; */
   border: var(--borderdebug) rgba(255, 0, 200, 0.699);
   display: flex;
   flex-direction: column;
   margin-top: auto;
+  margin-left: 20px;
+  margin-right: 20px;
 }

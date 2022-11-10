@@ -3,7 +3,7 @@
 :root {
   --bgcolmid: #e6a1cf;
   --bgcolshadow: #4d4d80;
-  --bgcollight: #ffe6ea;
+  --bgcollight: #ffffff;
   --bgcollighter: #fff8f9;
 
   --highlight: #ff00ff;
@@ -13,24 +13,14 @@
   --fontcolmid: #000059;
   --fontcollight: #2e1380;
 
-  /* --borderdebug: 0px none; */
-  --borderdebug: 1px solid;
+  --borderdebug: 0px none;
+  /* --borderdebug: 3px dashed; */
+  --softgrey: rgba(68, 68, 68, 0.206);
 }
 
 .App {
   text-align: center;
   font-family: "Roboto Mono", monospace;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
 }
 
 .App-header {
@@ -41,17 +31,4 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   overflow: hidden;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
