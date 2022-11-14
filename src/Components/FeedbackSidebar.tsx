@@ -106,7 +106,7 @@ export default function FeedbackSidebar({
         </div>
       ) : (
         <div className="feedback-sidebar off">
-          {data?.display !== null ? (
+          {data?.display !== undefined && currentNote !== null ? (
             <ThemeProvider theme={theme}>
               <IconButton
                 onClick={() => setFeedbackbar(true)}

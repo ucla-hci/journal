@@ -53,40 +53,36 @@ export class Searcher {
         }
 
       case "after":
-        if (search1.length > 0) {
-          // console.log("punct+space");
-          let idx1 = search1
-            .filter((val) => val.to > oglocation)
-            .map((val) => val.to);
+        let after_idx1 = search1
+          .filter((val) => val.to > oglocation)
+          .map((val) => val.to);
+        let after_idx2 = search2
+          .filter((val) => val.to > oglocation)
+          .map((val) => val.to);
 
-          return idx1[0];
-        } else if (search2.length > 0) {
-          // console.log("punct w/o space");
-          let idx2 = search2
-            .filter((val) => val.to > oglocation)
-            .map((val) => val.to);
-          return idx2[0];
+        if (after_idx1.length > 0) {
+          return after_idx1[0];
+        } else if (after_idx2.length > 0) {
+          return after_idx2[0];
         } else {
-          // console.log("no space");
+          console.log("no space");
           return this.state.doc.toString().length;
         }
       case "before":
-        if (search1.length > 0) {
-          // console.log("punct+space");
-          let idx1 = search1
-            .filter((val) => val.to < oglocation)
-            .map((val) => val.to);
-
-          return idx1.reverse()[0];
-        } else if (search2.length > 0) {
-          // console.log("punct w/o space");
-          let idx2 = search2
-            .filter((val) => val.to < oglocation)
-            .map((val) => val.to);
-          return idx2.reverse()[0];
+        let before_idx1 = search1
+          .filter((val) => val.to < oglocation)
+          .map((val) => val.to)
+          .reverse();
+        let before_idx2 = search2
+          .filter((val) => val.to < oglocation)
+          .map((val) => val.to)
+          .reverse();
+        if (before_idx1.length > 0) {
+          return before_idx1[0];
+        } else if (before_idx2.length > 0) {
+          return before_idx2[0];
         } else {
-          // console.log("no space");
-          return this.state.doc.toString().length;
+          return 0;
         }
       default:
         break;

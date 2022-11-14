@@ -7,7 +7,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { EditorView } from "@codemirror/view";
-import { EditorState, Extension } from "@codemirror/state";
+import { EditorSelection, EditorState, Extension } from "@codemirror/state";
 
 import { keymaps } from "./keymaps";
 import { db, Note, Placeholder } from "../Dexie/db";
@@ -74,6 +74,9 @@ export function Editor({ setView, currentNote }: editorProps) {
   const [noteLength, setNoteLength] = useState<number>(0);
   const [placeholderActive, setPlaceholderActive] = useState<boolean>(false);
 
+  // persist through editor reconfig
+  const [cursor, setCursor] = useState<number>(0);
+
   const fetchNote = async () => {
     if (currentNote === null) return;
     var response = await db.notes.get(currentNote!);
@@ -92,7 +95,21 @@ export function Editor({ setView, currentNote }: editorProps) {
     }
   });
 
-  // React.useEffect(() => {}, [placeholderActive]);
+  function getLocation() {
+    if (placeholderActive) {
+      return suggestion!.location;
+    } else {
+      if (cursor === 0) {
+        return noteLength;
+      } else {
+        return cursor;
+      }
+    }
+  }
+
+  React.useEffect(() => {
+    console.log("setting cursor");
+  }, [cursor]);
 
   // 1. Fetch contents
   React.useEffect(() => {
@@ -109,7 +126,9 @@ export function Editor({ setView, currentNote }: editorProps) {
 
     const state = EditorState.create({
       doc: fetchedNote?.content,
-      selection: { anchor: noteLength }, // auto cursor at end of notes
+      selection: {
+        anchor: getLocation(),
+      }, // auto cursor at end of notes
       extensions: [
         // base ------------------------------------------------------------
         myTheme,
@@ -134,6 +153,7 @@ export function Editor({ setView, currentNote }: editorProps) {
 
         // onchange listener ------------------------------------------------
         EditorView.updateListener.of(({ state, view, changes }) => {
+          setCursor(state.selection.ranges[0].to);
           let field = state.field(cursorTooltipField, false);
           if (field) {
             setNanalyses(field.length);

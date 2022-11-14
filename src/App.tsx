@@ -21,7 +21,9 @@ function App() {
 
   useEffect(() => {
     // on first load clear popups, sidebars, placeholders tables
+    setFeedbackbar(false);
     if (currentNote === null) {
+      console.log("clearing state dbs");
       db.sidebars.clear();
       db.placeholders.clear();
       db.popups.clear();
