@@ -1,3 +1,8 @@
+/**
+ * Extension that will prepare and provide the analysis marks
+ * - Also, populates the sidebar
+ */
+
 import { Tooltip, showTooltip, EditorView } from "@codemirror/view";
 import { StateField, EditorState } from "@codemirror/state";
 import { Searcher, ExtendedSearchResult } from "../cmhelpers";
@@ -5,10 +10,11 @@ import { db } from "../../Dexie/db";
 
 async function togglePopup(item: ExtendedSearchResult, event: MouseEvent) {
   try {
-    const arr = await db.popups.toArray();
-    if (arr.length === 0) {
+    const ret = await db.popups.get(1);
+    if (ret === undefined) {
       // create item
-      const id = await db.popups.add({
+      await db.popups.add({
+        id: 1,
         title: item.popupcontent.title,
         content: item.popupcontent.content,
         display: true,
@@ -16,13 +22,12 @@ async function togglePopup(item: ExtendedSearchResult, event: MouseEvent) {
       });
       // console.log("added new popup with id", id);
     } else {
-      const ret = await db.popups.update(1, {
+      await db.popups.update(1, {
         title: item.popupcontent.title,
         content: item.popupcontent.content,
+        display: true,
         location: { x: event.clientX, y: event.clientY },
-        display: !arr[0].display,
       });
-      console.log("popup updated, return:", ret);
     }
   } catch (error) {
     console.log(`Failed to add new popup: ${error}`);
@@ -31,22 +36,59 @@ async function togglePopup(item: ExtendedSearchResult, event: MouseEvent) {
 
 async function loadSidebar(item: ExtendedSearchResult) {
   try {
-    const arr = await db.sidebars.toArray();
-    console.log("sidebars get array", arr);
-    if (arr.length === 0) {
-      const id = await db.sidebars.add({
+    const ret = await db.sidebars.get(1);
+    // console.log("sidebars get array", arr);
+    if (ret === undefined) {
+      await db.sidebars.add({
+        id: 1,
         title: item.sidebarcontent.title,
         content: item.sidebarcontent.content,
         display: false,
+        rephrase: item.sidebarcontent.rephrase,
       });
     } else {
-      const ret = await db.sidebars.update(1, {
+      console.log("updating sidebar");
+      await db.sidebars.update(1, {
         title: item.sidebarcontent.title,
         content: item.sidebarcontent.content,
+        display: false,
+        rephrase: item.sidebarcontent.rephrase,
       });
     }
   } catch (error) {
-    console.log(`Failed to add new sidebar: ${error}`);
+    console.log(`Failed to add sidebar content: ${error}`);
+  }
+}
+
+async function loadPlaceholder(item: ExtendedSearchResult) {
+  if (item.placeholdercontent.suggestion === null) {
+    console.log("in loadPlaceholder, but siggestion is null", item);
+    return;
+  }
+  console.log("about to push ph with", item.placeholdercontent);
+
+  try {
+    // ph
+    const ret = await db.placeholders.get(1);
+    console.log("return get id 1", ret);
+    if (ret === undefined) {
+      // add
+      db.placeholders.add({
+        id: 1,
+        active: false,
+        suggestion: item.placeholdercontent.suggestion,
+        location: item.placeholdercontent.location,
+      });
+    } else {
+      // update
+      await db.placeholders.update(1, {
+        active: false,
+        suggestion: item.placeholdercontent.suggestion,
+        location: item.placeholdercontent.location,
+      });
+    }
+  } catch (error) {
+    console.log(`Failed to add placeholder content ${error}`);
   }
 }
 
@@ -96,6 +138,10 @@ function getCursorTooltips(state: EditorState): readonly Tooltip[] {
           // alternatively, could post state to dexie!
           togglePopup(item, event);
           loadSidebar(item);
+          if (item.placeholdercontent.suggestion !== null) {
+            console.log("loading placeholder");
+            loadPlaceholder(item);
+          }
         };
 
         dom.className = "cm-tooltip-cursor " + index;
@@ -108,5 +154,6 @@ function getCursorTooltips(state: EditorState): readonly Tooltip[] {
 }
 
 export function cursorTooltip() {
+  // db.sidebars.update(1, { display: false, content: {} });
   return [cursorTooltipField, cursorTooltipBaseTheme];
 }

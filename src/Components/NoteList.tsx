@@ -48,7 +48,6 @@ export default function NoteList({
           key={note.id}
           onClick={() => {
             setCurrentNote(note.id!);
-            // hide menu
             setShowbar("hide");
           }}
         >
@@ -60,6 +59,7 @@ export default function NoteList({
             onClick={async () => {
               await deleteNote(note.id);
               await updateNotes();
+              setShowbar("show");
             }}
             aria-label="delete"
             color="primary"

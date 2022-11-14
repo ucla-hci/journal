@@ -57,27 +57,14 @@ export const placeholders = ViewPlugin.fromClass(
         if (tr.isUserEvent("input.type")) {
           let useraction = tr.changes.toJSON();
 
-          // TODO: start of doc edge case
-          // beginning of note
           let delta: any;
           if (useraction.length === 1) {
             delta = useraction[0];
-            // if (useraction[0].length === 1) {
-            //   // basically: user is trying to delete suggestion
-            //   db.placeholders.update(1, { active: false });
-            // } else if (useraction[0].length === 2) {
-            //   // user following suggestion at index:0
-            //   console.log("added first char", useraction[0][1]);
-            //   console.log("good", delta[1]);
-            //   this.ph_cursor++;
-            //   this.suggestion = this.suggestion.slice(1);
-            //   this.from = this.from + 1;
-            // }
           } else {
             delta = useraction[1];
           }
           if (delta.length === 2) {
-            if (delta[1] === this.suggestion[0]) {
+            if (delta[1] === this.suggestion[0] && this.typo_counter === 0) {
               console.log("good", delta[1]);
               this.ph_cursor++;
               this.suggestion = this.suggestion.slice(1);

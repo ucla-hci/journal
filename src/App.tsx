@@ -4,20 +4,29 @@
  * Entrypoint - KEEP IT MINIMAL
  */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { EditorView } from "@codemirror/view";
 import Menu from "./Components/Menu";
 import FeedbackSidebar from "./Components/FeedbackSidebar";
 import { Editor } from "./Components/Codemirror/Editor";
 import "./App.css";
 import Popup from "./Components/Popup";
-import GideonDemo from "./Components/Logging/GideonDemo";
+import { db } from "./Components/Dexie/db";
 
 function App() {
   const [view, setView] = useState<EditorView | null>(null);
   const [currentNote, setCurrentNote] = useState<Number | null>(null);
   const [showmenu, setShowmenu] = useState<boolean>(false);
   const [feedbackbar, setFeedbackbar] = useState<boolean>(false);
+
+  useEffect(() => {
+    // on first load clear popups, sidebars, placeholders tables
+    if (currentNote === null) {
+      db.sidebars.clear();
+      db.placeholders.clear();
+      db.popups.clear();
+    }
+  }, [currentNote]);
 
   return (
     <div

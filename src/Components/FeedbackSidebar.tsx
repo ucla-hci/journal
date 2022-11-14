@@ -5,7 +5,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ClearIcon from "@mui/icons-material/Clear";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useLiveQuery } from "dexie-react-hooks";
-import { db } from "./Dexie/db";
+import { db, Sidebar } from "./Dexie/db";
 
 const theme = createTheme({
   palette: {
@@ -26,20 +26,25 @@ export default function FeedbackSidebar({
   setFeedbackbar,
   feedbackbar,
 }: FeedbackSidebarProps) {
-  const [content, setContent] = useState<{ [key: string]: string } | null>(
-    null
-  );
+  const [data, setData] = useState<Sidebar | null>(null);
 
   useEffect(() => {
-    // console.log("feedbackbar in fbsidebar", feedbackbar);
-  }, [feedbackbar]);
+    // console.log("feedbackbar change in content", data);
+    setFeedbackbar(data?.display!);
+  }, [data]);
 
-  useLiveQuery(async () => {
+  let display = useLiveQuery(async () => {
     const result = await db.sidebars.get(1);
     if (result !== undefined) {
-      setContent(result.content);
+      setFeedbackbar(result.display!);
+      setData(result);
+      return result.display;
     }
   });
+
+  useEffect(() => {
+    console.log("fedbakcdisplay livequery update");
+  }, [display]);
 
   return (
     <>
@@ -62,9 +67,9 @@ export default function FeedbackSidebar({
             </h1>
           </header>
           <div className="Feedback">
-            {content
-              ? Object.entries(content).map((pair, idx) => {
-                  console.log(`${pair[0]}: ${pair[1]}`);
+            {data?.content
+              ? Object.entries(data.content).map((pair, idx) => {
+                  // console.log(`${pair[0]}: ${pair[1]}`);
                   return (
                     <div className="card">
                       <h3>{pair[0]}</h3>
@@ -75,11 +80,8 @@ export default function FeedbackSidebar({
               : null}
             <div className="card">
               <h3>Shortcuts</h3>
-              <p>* cmd+s to search</p>
-              <p>* cmd+i to insert text {"-->"} placeholder</p>
-              <p>* cmd+p send to python</p>
-              <p>* hover over "test" for tooltip</p>
-              <p>* ctrl+space for autocompletion</p>
+              <p>* cmd+o for analysis</p>
+              <p>* ctrl+space for placeholder</p>
             </div>
             <div className="card">
               <h3>LIWC Analysis</h3>
@@ -87,14 +89,24 @@ export default function FeedbackSidebar({
             </div>
           </div>
           <div className="rewrite-btn">
-            <ThemeProvider theme={theme}>
-              <Button variant="contained">Rewrite</Button>
-            </ThemeProvider>
+            {data!.rephrase ? (
+              <ThemeProvider theme={theme}>
+                <Button
+                  onClick={() => {
+                    console.log("on rewrite click");
+                    db.placeholders.update(1, { active: true });
+                  }}
+                  variant="contained"
+                >
+                  Rewrite
+                </Button>
+              </ThemeProvider>
+            ) : null}
           </div>
         </div>
       ) : (
         <div className="feedback-sidebar off">
-          {currentNote ? (
+          {data?.display !== null ? (
             <ThemeProvider theme={theme}>
               <IconButton
                 onClick={() => setFeedbackbar(true)}

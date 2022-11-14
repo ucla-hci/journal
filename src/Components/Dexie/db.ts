@@ -10,11 +10,19 @@ export interface Note {
   stats: {};
 }
 
+export interface Timelog {
+  id?: number;
+  note: number;
+  pause: number | null;
+  timestep: number;
+}
+
 export interface Sidebar {
   id?: number;
   title: string;
-  content: {};
+  content: { [key: string]: string };
   display: boolean;
+  rephrase: boolean;
 }
 export interface Popup {
   id?: number;
@@ -28,6 +36,7 @@ export interface Placeholder {
   id?: number;
   active: boolean;
   suggestion: string;
+  location: number;
 }
 
 export class MySubClassedDexie extends Dexie {
@@ -35,6 +44,7 @@ export class MySubClassedDexie extends Dexie {
   sidebars!: Table<Sidebar>;
   popups!: Table<Popup>;
   placeholders!: Table<Placeholder>;
+  timelogs!: Table<Timelog>;
 
   constructor() {
     super("myDatabase");
@@ -47,6 +57,9 @@ export class MySubClassedDexie extends Dexie {
     });
     this.version(7).stores({
       placeholders: "++id, active, suggestion",
+    });
+    this.version(8).stores({
+      timelogs: "++id, note, pause, timestep",
     });
   }
 }

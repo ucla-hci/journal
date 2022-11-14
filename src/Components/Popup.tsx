@@ -35,20 +35,19 @@ export default function Popup({ setFeedbackbar }: popupprops) {
       const ret = await db.popups.update(1, {
         display: false,
       });
-      console.log("closepopup ret:", ret);
     }
   }
 
   useLiveQuery(async () => {
     const result = await db.popups.get(1);
-    // console.log("popup query result", result?.display);
-    if (result?.display) {
-      setContents(result);
-      setShow(true);
-    } else {
-      setShow(false);
+    if (result !== undefined) {
+      if (result.display) {
+        setContents(result);
+        setShow(true);
+      } else {
+        setShow(false);
+      }
     }
-    return result;
   });
 
   return (

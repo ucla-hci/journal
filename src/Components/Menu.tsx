@@ -119,8 +119,9 @@ export default function Menu({ setCurrentNote, setShowmenu }: MenuProps) {
                     onClick={() => {
                       addNote().then((id) => {
                         if (id) {
-                          console.log("in promise chain");
+                          // console.log("in promise chain");
                           setCurrentNote(id as number);
+                          setShowbar("hide");
                         }
                       });
                     }}

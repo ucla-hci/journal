@@ -7,10 +7,10 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { EditorView } from "@codemirror/view";
-import { EditorState } from "@codemirror/state";
+import { EditorState, Extension } from "@codemirror/state";
 
 import { keymaps } from "./keymaps";
-import { db, Note } from "../Dexie/db";
+import { db, Note, Placeholder } from "../Dexie/db";
 import { IndexableType } from "dexie";
 
 import "./Editor.css";
@@ -24,6 +24,7 @@ import { setSuggestionFacet } from "./Extensions/facets";
 import { placeholders } from "./Extensions/phViewPlugin";
 import { useLiveQuery } from "dexie-react-hooks";
 import { debounce } from "lodash";
+import { timeChecker } from "./Extensions/checkPauses";
 
 let myTheme = EditorView.theme(
   {
@@ -60,13 +61,6 @@ interface editorProps {
   currentNote: Number | null;
 }
 
-async function clearPopupSidebar() {
-  var ret = await db.popups.clear();
-  console.log("return popups clear", ret);
-  ret = await db.sidebars.clear();
-  console.log("return sidebar clear", ret);
-}
-
 export function Editor({ setView, currentNote }: editorProps) {
   const editorRef = useRef<HTMLElement>(null);
   const [fetchedNote, setfetchedNote] = useState<Note | undefined>(undefined);
@@ -76,9 +70,7 @@ export function Editor({ setView, currentNote }: editorProps) {
   const [nanalyses, setNanalyses] = useState<number>(0);
 
   //placeholderstuff
-  const [suggestion, setSuggestion] = useState<string | null>(
-    "nosuggestionyet"
-  );
+  const [suggestion, setSuggestion] = useState<Placeholder | null>(null);
   const [noteLength, setNoteLength] = useState<number>(0);
   const [placeholderActive, setPlaceholderActive] = useState<boolean>(false);
 
@@ -92,32 +84,29 @@ export function Editor({ setView, currentNote }: editorProps) {
   };
 
   useLiveQuery(async () => {
-    const res = await db.placeholders.toArray();
-    if (res.length > 0) {
-      setPlaceholderActive(!res[0].active);
-      setTimeout(() => {
-        setPlaceholderActive(res[0].active);
-        setSuggestion(res[0].suggestion);
-      }, 10);
+    const res = await db.placeholders.get(1);
+    if (res !== undefined) {
+      console.log("livequery setting suggestion");
+      setSuggestion(res);
+      setPlaceholderActive(res.active);
     }
   });
 
+  // React.useEffect(() => {}, [placeholderActive]);
+
   // 1. Fetch contents
   React.useEffect(() => {
-    fetchNote().catch(console.error); // might need to chain promises to wait for DB load
+    fetchNote().catch(console.error);
     setMarksActive(false);
-  }, [currentNote, placeholderActive]);
+  }, [currentNote, placeholderActive, suggestion]);
 
   // 2. After contents have loaded, remake the editor
   React.useEffect(() => {
     if (editorRef.current === null) return;
     if (fetchedNote === undefined) return;
 
-    console.log("rebuilding editor with: fetched:", fetchedNote);
     setTitle(fetchedNote?.title);
-    // setNoteLength(fetchedNote?.content.length);
 
-    console.log("creating editorstate with notelength=", noteLength);
     const state = EditorState.create({
       doc: fetchedNote?.content,
       selection: { anchor: noteLength }, // auto cursor at end of notes
@@ -128,23 +117,25 @@ export function Editor({ setView, currentNote }: editorProps) {
         EditorView.lineWrapping,
 
         // custom for expresso ------------------------------------------------
-        toggleWith("Mod-o", cursorTooltip(), marksActive, setMarksActive), // toggles marks
+        toggleWith("Mod-o", cursorTooltip(), setMarksActive), // toggles marks
         keymaps,
         placeholderActive
           ? setSuggestionFacet({
-              target: suggestion!,
-              from: noteLength,
-              to: suggestion!.length,
+              target: suggestion!.suggestion,
+              from: suggestion!.location,
+              to: suggestion!.suggestion.length,
             })
           : [],
         // display ph
         placeholderActive ? placeholders : [],
 
+        // use dom handlers to check for pauses
+        timeChecker(fetchedNote),
+
         // onchange listener ------------------------------------------------
         EditorView.updateListener.of(({ state, view, changes }) => {
           let field = state.field(cursorTooltipField, false);
           if (field) {
-            console.log("field length", field.length);
             setNanalyses(field.length);
           }
           saveNoteContents(state.doc.toString());
