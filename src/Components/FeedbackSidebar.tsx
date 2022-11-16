@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import { useLiveQuery } from "dexie-react-hooks";
+import { db, Sidebar } from "./Dexie/db";
 import "./FeedbackSidebar.css";
+
 import { Button, IconButton } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ClearIcon from "@mui/icons-material/Clear";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useLiveQuery } from "dexie-react-hooks";
-import { db, Sidebar } from "./Dexie/db";
 
 const theme = createTheme({
   palette: {
@@ -16,15 +17,17 @@ const theme = createTheme({
 });
 
 interface FeedbackSidebarProps {
-  currentNote: Number | null;
+  currentNote: number | null;
   setFeedbackbar: React.Dispatch<React.SetStateAction<boolean>>;
   feedbackbar: boolean;
+  timespent: number;
 }
 
 export default function FeedbackSidebar({
   currentNote,
   setFeedbackbar,
   feedbackbar,
+  timespent,
 }: FeedbackSidebarProps) {
   const [data, setData] = useState<Sidebar | null>(null);
 
@@ -33,7 +36,29 @@ export default function FeedbackSidebar({
     setFeedbackbar(data?.display!);
   }, [data]);
 
-  let display = useLiveQuery(async () => {
+  useEffect(() => {
+    if (currentNote !== null) {
+      if (feedbackbar) {
+        db.logs.add({
+          assocnote: currentNote!,
+          timestamp: timespent,
+          feature: "L2sidebar",
+          featurestate: "enable",
+          comments: `title: ${data!.title}`,
+        });
+      } else {
+        db.logs.add({
+          assocnote: currentNote!,
+          timestamp: timespent,
+          feature: "L2sidebar",
+          featurestate: "disable",
+          comments: null,
+        });
+      }
+    }
+  }, [feedbackbar]);
+
+  useLiveQuery(async () => {
     const result = await db.sidebars.get(1);
     if (result !== undefined) {
       setFeedbackbar(result.display!);
@@ -41,10 +66,6 @@ export default function FeedbackSidebar({
       return result.display;
     }
   });
-
-  useEffect(() => {
-    console.log("fedbakcdisplay livequery update");
-  }, [display]);
 
   return (
     <>

@@ -5,7 +5,7 @@ import { IconButton } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 
 interface NoteListProps {
-  setCurrentNote: React.Dispatch<React.SetStateAction<Number | null>>;
+  setCurrentNote: React.Dispatch<React.SetStateAction<number | null>>;
   setShowbar: React.Dispatch<React.SetStateAction<"hide" | "show">>;
 }
 

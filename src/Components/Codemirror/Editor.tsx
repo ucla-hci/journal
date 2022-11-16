@@ -7,19 +7,19 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { EditorView } from "@codemirror/view";
-import { EditorSelection, EditorState, Extension } from "@codemirror/state";
+import { EditorState } from "@codemirror/state";
 
-import { keymaps } from "./keymaps";
+import { annotation1, keymaps, toggleSuggestion } from "./keymaps";
 import { db, Note, Placeholder } from "../Dexie/db";
 import { IndexableType } from "dexie";
 
 import "./Editor.css";
-import { cursorTooltip, cursorTooltipField } from "./Extensions/CookMarks";
+import { cursorTooltip } from "./Extensions/CookMarks";
 
 import { history } from "@codemirror/commands";
 
-import { toggleWith } from "./Extensions/toggleWith";
-import { setSuggestionFacet } from "./Extensions/facets";
+import { toggleWith, toggleWith2 } from "./Extensions/toggleWith";
+import { metadatafacet, suggestionfacet } from "./Extensions/facets";
 
 import { placeholders } from "./Extensions/phViewPlugin";
 import { useLiveQuery } from "dexie-react-hooks";
@@ -52,6 +52,10 @@ let myTheme = EditorView.theme(
     ".cm-atomic": {
       backgroundColor: "cornsilk",
     },
+    ".cm-replace": {
+      backgroundColor: "pink",
+      textDecoration: "line-through",
+    },
   },
   { dark: false }
 );
@@ -59,20 +63,35 @@ let myTheme = EditorView.theme(
 interface editorProps {
   setView: React.Dispatch<React.SetStateAction<EditorView | null>>;
   currentNote: Number | null;
+  L2active: boolean;
+  L1active: boolean;
+  setL1active: React.Dispatch<React.SetStateAction<boolean>>;
+  setL2active: React.Dispatch<React.SetStateAction<boolean>>;
+  timespent: number;
+  setTimespent: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export function Editor({ setView, currentNote }: editorProps) {
+export function Editor({
+  setView,
+  currentNote,
+  L2active,
+  L1active,
+  setL1active,
+  setL2active,
+  timespent,
+  setTimespent,
+}: editorProps) {
   const editorRef = useRef<HTMLElement>(null);
   const [fetchedNote, setfetchedNote] = useState<Note | undefined>(undefined);
   const [title, setTitle] = useState<string | undefined>(undefined);
   const [showSave, setShowSave] = useState<boolean>(false);
-  const [marksActive, setMarksActive] = useState<boolean>(false);
-  const [nanalyses, setNanalyses] = useState<number>(0);
+  // const [timespent, setTimespent] = useState<number>(0);
 
   //placeholderstuff
   const [suggestion, setSuggestion] = useState<Placeholder | null>(null);
   const [noteLength, setNoteLength] = useState<number>(0);
   const [placeholderActive, setPlaceholderActive] = useState<boolean>(false);
+  const [wordcount, setWordcount] = useState<number>(0);
 
   // persist through editor reconfig
   const [cursor, setCursor] = useState<number>(0);
@@ -83,19 +102,52 @@ export function Editor({ setView, currentNote }: editorProps) {
     if (response !== undefined) {
       setfetchedNote(response);
       setNoteLength(response.content.length);
+      setTimespent(response.timeduration);
     }
   };
 
   useLiveQuery(async () => {
     const res = await db.placeholders.get(1);
     if (res !== undefined) {
-      console.log("livequery setting suggestion");
       setSuggestion(res);
       setPlaceholderActive(res.active);
     }
   });
 
-  function getLocation() {
+  useEffect(() => {
+    if (suggestion !== null) {
+      db.logs.add({
+        assocnote: fetchedNote?.id!,
+        timestamp: timespent,
+        feature:
+          suggestion.origin === "L1" ? "L1singleexpressiveness" : "L3rephrase",
+        featurestate: "toggle",
+        comments: `new suggestion ${suggestion.suggestion}`,
+      });
+    }
+  }, [suggestion]);
+
+  useEffect(() => {
+    if (L2active) {
+      db.logs.add({
+        assocnote: fetchedNote?.id!,
+        timestamp: timespent,
+        feature: "L2autoanalysis",
+        featurestate: "enable",
+        comments: null,
+      });
+    } else {
+      db.logs.add({
+        assocnote: fetchedNote?.id!,
+        timestamp: timespent,
+        feature: "L2autoanalysis",
+        featurestate: "disable",
+        comments: null,
+      });
+    }
+  }, [L2active]);
+
+  function getCursorLocation() {
     if (placeholderActive) {
       return suggestion!.location;
     } else {
@@ -107,15 +159,10 @@ export function Editor({ setView, currentNote }: editorProps) {
     }
   }
 
-  React.useEffect(() => {
-    console.log("setting cursor");
-  }, [cursor]);
-
   // 1. Fetch contents
   React.useEffect(() => {
     fetchNote().catch(console.error);
-    setMarksActive(false);
-  }, [currentNote, placeholderActive, suggestion]);
+  }, [currentNote, placeholderActive, suggestion, L2active]);
 
   // 2. After contents have loaded, remake the editor
   React.useEffect(() => {
@@ -127,8 +174,8 @@ export function Editor({ setView, currentNote }: editorProps) {
     const state = EditorState.create({
       doc: fetchedNote?.content,
       selection: {
-        anchor: getLocation(),
-      }, // auto cursor at end of notes
+        anchor: getCursorLocation(),
+      },
       extensions: [
         // base ------------------------------------------------------------
         myTheme,
@@ -136,28 +183,38 @@ export function Editor({ setView, currentNote }: editorProps) {
         EditorView.lineWrapping,
 
         // custom for expresso ------------------------------------------------
-        toggleWith("Mod-o", cursorTooltip(), setMarksActive), // toggles marks
+        timeChecker(fetchedNote, setTimespent),
+        metadatafacet.of({ noteid: fetchedNote?.id!, timeduration: timespent }),
+
+        L2active
+          ? toggleWith2("Mod-o", cursorTooltip(), setL2active)
+          : toggleWith("Mod-o", cursorTooltip(), setL2active), // toggles marks
+
         keymaps,
         placeholderActive
-          ? setSuggestionFacet({
+          ? suggestionfacet.of({
               target: suggestion!.suggestion,
               from: suggestion!.location,
               to: suggestion!.suggestion.length,
+              replace: suggestion!.replace,
+              origin: suggestion!.origin,
             })
           : [],
+
         // display ph
         placeholderActive ? placeholders : [],
 
-        // use dom handlers to check for pauses
-        timeChecker(fetchedNote),
-
         // onchange listener ------------------------------------------------
-        EditorView.updateListener.of(({ state, view, changes }) => {
+        EditorView.updateListener.of(({ state, view, transactions }) => {
+          transactions.forEach((tr) => {
+            if (tr.annotation(annotation1) === "esc") {
+              setL2active(false);
+            }
+          });
+
+          let nwords = state.doc.toJSON().join("").split(" ").length;
+          setWordcount(nwords);
           setCursor(state.selection.ranges[0].to);
-          let field = state.field(cursorTooltipField, false);
-          if (field) {
-            setNanalyses(field.length);
-          }
           saveNoteContents(state.doc.toString());
           setNoteLength(state.doc.length);
         }),
@@ -222,10 +279,11 @@ export function Editor({ setView, currentNote }: editorProps) {
     >
       <div className="notifiers">
         {showSave ? <p>Saving</p> : <p />}
-        {marksActive ? <p>marks on</p> : <p />}
-        {marksActive ? <p>{nanalyses} found</p> : <p />}
+        {L2active ? <p>marks on</p> : <p />}
         {placeholderActive ? <p>placeholder on</p> : <p />}
-        {placeholderActive ? <p>1/2</p> : <p />}
+        <p>Word Count: {wordcount}</p>
+        {/* TIME IS NOT UPDATING AUTOMATICALLY --------------------- */}
+        <p>Write Time: {Math.floor(timespent / 60000)} min</p>
       </div>
       <div className="note-header">
         <input

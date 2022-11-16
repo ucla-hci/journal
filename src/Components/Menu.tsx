@@ -12,9 +12,10 @@ import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import ClearIcon from "@mui/icons-material/Clear";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
 
 import NoteList from "./NoteList";
-import { db } from "./Dexie/db";
+import { db, downloadDB } from "./Dexie/db";
 
 const theme = createTheme({
   palette: {
@@ -28,11 +29,24 @@ const theme = createTheme({
 });
 
 interface MenuProps {
-  setCurrentNote: React.Dispatch<React.SetStateAction<Number | null>>;
+  setCurrentNote: React.Dispatch<React.SetStateAction<number | null>>;
+  currentNote: number | null;
   setShowmenu: React.Dispatch<React.SetStateAction<boolean>>;
+  setL1active: React.Dispatch<React.SetStateAction<boolean>>;
+  setL2active: React.Dispatch<React.SetStateAction<boolean>>;
+  L1active: boolean;
+  L2active: boolean;
 }
 
-export default function Menu({ setCurrentNote, setShowmenu }: MenuProps) {
+export default function Menu({
+  setCurrentNote,
+  currentNote,
+  setShowmenu,
+  setL1active,
+  setL2active,
+  L1active,
+  L2active,
+}: MenuProps) {
   const [showbar, setShowbar] = useState<"hide" | "show">("hide");
 
   async function addNote() {
@@ -63,7 +77,6 @@ export default function Menu({ setCurrentNote, setShowmenu }: MenuProps) {
   }
   useEffect(() => {
     let barstate = showbar === "hide" ? false : true;
-    console.log("in showbareffect menu: state", barstate);
     setShowmenu(barstate);
   }, [showbar]);
 
@@ -113,8 +126,11 @@ export default function Menu({ setCurrentNote, setShowmenu }: MenuProps) {
                   </IconButton>
                 </ThemeProvider>
               </header>
-              <div>
+              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
                 <ThemeProvider theme={theme}>
+                  <IconButton onClick={downloadDB}>
+                    <FileDownloadIcon />
+                  </IconButton>
                   <Button
                     onClick={() => {
                       addNote().then((id) => {
@@ -137,22 +153,56 @@ export default function Menu({ setCurrentNote, setShowmenu }: MenuProps) {
                 setCurrentNote={setCurrentNote}
                 setShowbar={setShowbar}
               />
-              <div className="featuretoggles">
-                <ThemeProvider theme={theme}>
-                  <FormGroup>
-                    <FormControlLabel
-                      control={<Switch />}
-                      label="Auto Expressiveness"
-                    />
-                    <FormControlLabel
-                      control={<Switch />}
-                      label="Auto Analysis"
-                    />
-                    <Button variant="contained">Express now</Button>
-                  </FormGroup>
-                </ThemeProvider>
-              </div>
-              <p>hci@ucla</p>
+              {currentNote !== null ? (
+                <>
+                  <div className="featuretoggles">
+                    <ThemeProvider theme={theme}>
+                      <FormGroup>
+                        <FormControlLabel
+                          control={
+                            <Switch
+                              checked={L1active}
+                              onChange={(event, checked) => {
+                                console.log("L1 value", checked);
+                                // enable auto expressiveness! periodic suggestions!
+                                setL1active(checked);
+                              }}
+                            />
+                          }
+                          label="Auto Expressiveness"
+                        />
+                        <FormControlLabel
+                          control={
+                            <Switch
+                              checked={L2active}
+                              onChange={(event, checked) => {
+                                setL2active(checked);
+                                // enable marks!
+                              }}
+                            />
+                          }
+                          label="Auto Analysis"
+                        />
+                        <Button variant="contained" onClick={() => {}}>
+                          Stuck?
+                        </Button>
+                      </FormGroup>
+                    </ThemeProvider>
+                  </div>
+
+                  <p style={{}}>hci@ucla</p>
+                </>
+              ) : (
+                <p
+                  style={{
+                    position: "absolute",
+                    width: "100%",
+                    bottom: "0px",
+                  }}
+                >
+                  hci@ucla
+                </p>
+              )}
             </div>
           ),
         }[showbar]

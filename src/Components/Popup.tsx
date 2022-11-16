@@ -10,9 +10,15 @@ export async function addSidebar() {}
 
 interface popupprops {
   setFeedbackbar: React.Dispatch<React.SetStateAction<boolean>>;
+  currentNote: number | null;
+  timespent: number;
 }
 
-export default function Popup({ setFeedbackbar }: popupprops) {
+export default function Popup({
+  setFeedbackbar,
+  currentNote,
+  timespent,
+}: popupprops) {
   const [show, setShow] = React.useState<boolean>(false);
   const [contents, setContents] = React.useState<popuptype | null>(null);
   const ref = useRef<HTMLInputElement>(null);
@@ -37,6 +43,26 @@ export default function Popup({ setFeedbackbar }: popupprops) {
       });
     }
   }
+
+  useEffect(() => {
+    if (show) {
+      db.logs.add({
+        assocnote: currentNote!,
+        timestamp: timespent,
+        feature: "L2popup",
+        featurestate: "enable",
+        comments: `title ${contents?.title!}`,
+      });
+    } else {
+      db.logs.add({
+        assocnote: currentNote!,
+        timestamp: timespent,
+        feature: "L2popup",
+        featurestate: "disable",
+        comments: null,
+      });
+    }
+  }, [show]);
 
   useLiveQuery(async () => {
     const result = await db.popups.get(1);

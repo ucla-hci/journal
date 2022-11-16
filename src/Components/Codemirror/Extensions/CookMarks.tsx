@@ -1,6 +1,6 @@
 /**
  * Extension that will prepare and provide the analysis marks
- * - Also, populates the sidebar
+ * - Also, populates the sidebar and placeholder
  */
 
 import { Tooltip, showTooltip, EditorView } from "@codemirror/view";
@@ -75,16 +75,20 @@ async function loadPlaceholder(item: ExtendedSearchResult) {
       // add
       db.placeholders.add({
         id: 1,
+        origin: "L3",
         active: false,
         suggestion: item.placeholdercontent.suggestion,
         location: item.placeholdercontent.location,
+        replace: item.placeholdercontent.replace,
       });
     } else {
       // update
       await db.placeholders.update(1, {
         active: false,
+        origin: "L3",
         suggestion: item.placeholdercontent.suggestion,
         location: item.placeholdercontent.location,
+        replace: item.placeholdercontent.replace,
       });
     }
   } catch (error) {
@@ -112,7 +116,9 @@ const cursorTooltipBaseTheme = EditorView.baseTheme({
 });
 
 export const cursorTooltipField = StateField.define<readonly Tooltip[]>({
-  create: getCursorTooltips,
+  create(state) {
+    return getCursorTooltips(state);
+  },
 
   update(tooltips, tr) {
     if (!tr.docChanged && !tr.selection) return tooltips; // if unchanged, return prev
@@ -139,7 +145,7 @@ function getCursorTooltips(state: EditorState): readonly Tooltip[] {
           togglePopup(item, event);
           loadSidebar(item);
           if (item.placeholdercontent.suggestion !== null) {
-            console.log("loading placeholder");
+            console.log("loading placeholder", item.placeholdercontent);
             loadPlaceholder(item);
           }
         };

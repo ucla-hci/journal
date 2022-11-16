@@ -1,4 +1,6 @@
 import Dexie, { Table } from "dexie";
+import "dexie-export-import";
+import download from "downloadjs";
 
 export interface Note {
   id?: number;
@@ -15,6 +17,21 @@ export interface Timelog {
   note: number;
   pause: number | null;
   timestep: number;
+}
+
+export interface Logs {
+  id?: number;
+  assocnote: number;
+  timestamp: number;
+  feature:
+    | "L1autoexpressiveness"
+    | "L1singleexpressiveness"
+    | "L2autoanalysis"
+    | "L2popup"
+    | "L2sidebar"
+    | "L3rephrase";
+  featurestate: "enable" | "dismiss" | "complete" | "disable" | "toggle";
+  comments: any | null;
 }
 
 export interface Sidebar {
@@ -34,9 +51,11 @@ export interface Popup {
 
 export interface Placeholder {
   id?: number;
+  origin: "L1" | "L3";
   active: boolean;
   suggestion: string;
   location: number;
+  replace: { from: number; to: number } | null;
 }
 
 export class MySubClassedDexie extends Dexie {
@@ -45,6 +64,7 @@ export class MySubClassedDexie extends Dexie {
   popups!: Table<Popup>;
   placeholders!: Table<Placeholder>;
   timelogs!: Table<Timelog>;
+  logs!: Table<Logs>;
 
   constructor() {
     super("myDatabase");
@@ -61,7 +81,19 @@ export class MySubClassedDexie extends Dexie {
     this.version(8).stores({
       timelogs: "++id, note, pause, timestep",
     });
+    this.version(9).stores({
+      logs: "++id, assocnote, timestamp, feature",
+    });
   }
 }
 
 export const db = new MySubClassedDexie();
+
+export const downloadDB = async () => {
+  try {
+    const blob = await db.export({ prettyJson: true });
+    download(blob, "dexie-export.json", "application/json");
+  } catch (error) {
+    console.error("" + error);
+  }
+};

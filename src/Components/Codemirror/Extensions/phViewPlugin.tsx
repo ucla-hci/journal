@@ -8,9 +8,7 @@ import {
   WidgetType,
 } from "@codemirror/view";
 import { db } from "../../Dexie/db";
-import { suggestionfacet } from "./facets";
-
-export var editvalue = "";
+import { metadatafacet, notemetadata, suggestionfacet } from "./facets";
 
 export const placeholders = ViewPlugin.fromClass(
   class {
@@ -21,15 +19,39 @@ export const placeholders = ViewPlugin.fromClass(
     to: number;
     ph_cursor: number;
     typo_counter: number;
+    replace: { from: number; to: number } | null;
+    inittimestamp: number;
+    starttime: number;
+    metadata: notemetadata;
+    origin: "L1" | "L3";
     constructor(view: EditorView) {
+      this.metadata = view.state.facet(metadatafacet)!;
+
       // on plugin load
       this.suggestionfull = view.state.facet(suggestionfacet).target!;
       this.suggestion = view.state.facet(suggestionfacet).target!;
       this.from = view.state.facet(suggestionfacet).from!;
       this.to = view.state.facet(suggestionfacet).to!;
+      this.replace = view.state.facet(suggestionfacet).replace!;
 
       this.ph_cursor = 0;
       this.typo_counter = 0;
+
+      this.starttime = Date.now();
+      this.inittimestamp = this.metadata.timeduration;
+      this.origin = view.state.facet(suggestionfacet).origin!;
+
+      db.logs.add({
+        assocnote: this.metadata.noteid,
+        timestamp: this.metadata.timeduration,
+        feature: this.origin === "L1" ? "L1singleexpressiveness" : "L3rephrase",
+        featurestate: "enable",
+        comments:
+          this.replace !== null
+            ? "replacing: " +
+              view.state.sliceDoc(this.replace?.from!, this.replace?.to!)
+            : null,
+      });
 
       let e = new RangeSetBuilder<Decoration>();
       e.add(
@@ -127,17 +149,93 @@ export const placeholders = ViewPlugin.fromClass(
         this.ph_cursor === this.suggestionfull.length ||
         this.typo_counter >= 2
       ) {
-        console.log("deactviating placeholder");
+        console.log("deactviating placeholder"); // <---------------- this becomes "onLose"
+        let timestamp = Date.now() - this.starttime + this.inittimestamp;
+
+        db.logs.add({
+          assocnote: this.metadata.noteid,
+          timestamp: timestamp,
+          feature:
+            this.origin! === "L1" ? "L1singleexpressiveness" : "L3rephrase",
+          featurestate: "dismiss",
+          comments: `completion: ${this.suggestionfull.slice(
+            0,
+            this.ph_cursor
+          )}/${this.suggestionfull}`,
+        });
+
         db.placeholders.update(1, { active: false });
       }
     }
   },
   {
     decorations: (instance) => instance.placeholders,
-    provide: (plugin) =>
+    provide: (plugin) => [
       EditorView.atomicRanges.of((view) => {
         return view.plugin(plugin)?.placeholders || Decoration.none;
       }),
+      EditorView.decorations.of((view) => {
+        let replace = view.plugin(plugin)?.replace;
+        if (replace !== null) {
+          return Decoration.set(
+            Decoration.mark({ class: "cm-replace" }).range(
+              replace?.from!,
+              replace?.to!
+            )
+          );
+        } else {
+          return Decoration.none;
+        }
+      }),
+
+      EditorView.inputHandler.of((view, from, to, text) => {
+        // <----- <----- this becomes <----- "on win"
+        let replace = view.plugin(plugin)?.replace;
+        let trigger =
+          view.plugin(plugin)?.ph_cursor ===
+          view.plugin(plugin)?.suggestionfull.length! - 1; // do last char check here too
+
+        if (replace !== null && trigger) {
+          let timestamp =
+            Date.now() -
+            view.plugin(plugin)?.starttime! +
+            view.plugin(plugin)?.inittimestamp!;
+
+          db.logs.add({
+            assocnote: view.plugin(plugin)?.metadata.noteid!,
+            timestamp: timestamp,
+            feature:
+              view.plugin(plugin)?.origin! === "L1"
+                ? "L1singleexpressiveness"
+                : "L3rephrase",
+            featurestate: "complete",
+            comments: `completion: ${
+              view
+                .plugin(plugin)
+                ?.suggestionfull.slice(0, view.plugin(plugin)?.ph_cursor) + text
+            }/${view.plugin(plugin)?.suggestionfull}`,
+          });
+
+          let changes = [
+            { from: from, insert: text },
+            { from: replace?.from!, to: replace?.to! },
+          ];
+
+          view.dispatch({
+            changes,
+            selection: {
+              anchor:
+                replace?.from! + view.plugin(plugin)?.suggestionfull?.length!,
+            },
+            sequential: true,
+          });
+          db.placeholders.update(1, { active: false });
+
+          return true;
+        }
+        return false;
+      }),
+    ],
   }
 );
 

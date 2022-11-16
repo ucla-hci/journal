@@ -15,9 +15,12 @@ import { db } from "./Components/Dexie/db";
 
 function App() {
   const [view, setView] = useState<EditorView | null>(null);
-  const [currentNote, setCurrentNote] = useState<Number | null>(null);
+  const [currentNote, setCurrentNote] = useState<number | null>(null);
   const [showmenu, setShowmenu] = useState<boolean>(false);
   const [feedbackbar, setFeedbackbar] = useState<boolean>(false);
+  const [L2active, setL2active] = useState<boolean>(false);
+  const [L1active, setL1active] = useState<boolean>(false);
+  const [timespent, setTimespent] = useState<number>(0);
 
   useEffect(() => {
     // on first load clear popups, sidebars, placeholders tables
@@ -25,8 +28,11 @@ function App() {
     if (currentNote === null) {
       console.log("clearing state dbs");
       db.sidebars.clear();
+      db.placeholders.update(1, { display: false });
       db.placeholders.clear();
       db.popups.clear();
+      setL2active(false);
+      setL1active(false);
     }
   }, [currentNote]);
 
@@ -38,8 +44,20 @@ function App() {
         flexDirection: "row",
       }}
     >
-      <Popup setFeedbackbar={setFeedbackbar} />
-      <Menu setCurrentNote={setCurrentNote} setShowmenu={setShowmenu} />
+      <Popup
+        setFeedbackbar={setFeedbackbar}
+        currentNote={currentNote}
+        timespent={timespent}
+      />
+      <Menu
+        setCurrentNote={setCurrentNote}
+        currentNote={currentNote}
+        setShowmenu={setShowmenu}
+        setL1active={setL1active}
+        setL2active={setL2active}
+        L1active={L1active}
+        L2active={L2active}
+      />
       <header
         className="App-header"
         style={{
@@ -72,7 +90,16 @@ function App() {
               </div>
             </>
           ) : (
-            <Editor setView={setView} currentNote={currentNote} />
+            <Editor
+              setView={setView}
+              currentNote={currentNote}
+              L2active={L2active}
+              L1active={L1active}
+              setL1active={setL1active}
+              setL2active={setL2active}
+              timespent={timespent}
+              setTimespent={setTimespent}
+            />
           )}
         </div>
       </header>
@@ -80,6 +107,7 @@ function App() {
         currentNote={currentNote}
         setFeedbackbar={setFeedbackbar}
         feedbackbar={feedbackbar}
+        timespent={timespent}
       />
     </div>
   );

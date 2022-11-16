@@ -7,7 +7,10 @@
 import { EditorView } from "@codemirror/view";
 import { db, Note } from "../../Dexie/db";
 
-export function timeChecker(note: Note) {
+export function timeChecker(
+  note: Note,
+  setTimespent: React.Dispatch<React.SetStateAction<number>>
+) {
   var timeaccumulator = note.timeduration; //start =0
   var lasttime = Date.now();
   var pauseThreshold_ms = 3000;
@@ -27,6 +30,7 @@ export function timeChecker(note: Note) {
         });
       }
       // keep track of writeduration
+      setTimespent(timeaccumulator);
       db.notes.update(note.id!, { timeduration: timeaccumulator });
       lasttime = timenow;
     },

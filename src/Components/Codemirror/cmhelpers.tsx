@@ -12,7 +12,11 @@ export interface ExtendedSearchResult {
   color: string;
   popupcontent: { title: string; content: string };
   sidebarcontent: Sidebar;
-  placeholdercontent: { suggestion: string | null; location: number };
+  placeholdercontent: {
+    suggestion: string | null;
+    location: number;
+    replace: { from: number; to: number } | null;
+  };
 }
 
 export class Searcher {
@@ -65,7 +69,7 @@ export class Searcher {
         } else if (after_idx2.length > 0) {
           return after_idx2[0];
         } else {
-          console.log("no space");
+          // console.log("no space");
           return this.state.doc.toString().length;
         }
       case "before":
@@ -103,15 +107,21 @@ export class Searcher {
         // get phlocation here!
         let phlocation = cursor.value.to;
         let rewrite_contents = null as null | string;
+        let replace = null as { from: number; to: number } | null;
 
         if (element.rewrite !== null) {
-          phlocation = this.getPHlocation(
-            element.rewrite_position,
-            cursor.value.to
-          );
+          if (element.rewrite_position.toLowerCase() === "replace") {
+            // find word to replace
+            replace = { from: cursor.value.from, to: cursor.value.to };
+            phlocation = cursor.value.to;
+          } else {
+            phlocation = this.getPHlocation(
+              element.rewrite_position,
+              cursor.value.to
+            );
+          }
           rewrite_contents =
             element.rewrite[Math.floor(Math.random() * element.rewrite.length)]; // curently pick at random. But can be tuned!
-          console.log("rewrite_contents", rewrite_contents);
         }
 
         if (cursor.value.from < cursor.value.to) {
@@ -131,6 +141,7 @@ export class Searcher {
             placeholdercontent: {
               suggestion: rewrite_contents,
               location: phlocation,
+              replace: replace !== null ? replace : null,
             },
           });
         }
