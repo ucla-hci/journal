@@ -1,6 +1,12 @@
 import { EditorView, Decoration, DecorationSet } from "@codemirror/view";
-import { StateField, StateEffect } from "@codemirror/state";
+import {
+  StateField,
+  StateEffect,
+  EditorSelection,
+  SelectionRange,
+} from "@codemirror/state";
 import { annotation1 } from "../keymaps";
+import { Highlight } from "../../Dexie/db";
 
 const addUnderline = StateEffect.define<{ from: number; to: number }>({
   map: ({ from, to }, change) => ({
@@ -32,14 +38,32 @@ const underlineTheme = EditorView.baseTheme({
   ".cm-underline": { textDecoration: "underline 3px red" },
 });
 
-export function underlineSelection(view: EditorView) {
-  let effects: StateEffect<unknown>[] = view.state.selection.ranges
-    .filter((r) => !r.empty)
-    .map(({ from, to }) => addUnderline.of({ from, to }));
-  if (!effects.length) return false;
+export function underlineSelection(view: EditorView, highlight: Highlight) {
+  // let deco = Decoration.mark({ class: "cm-underline" }).range(
+  //   highlight.pos.from,
+  //   highlight.pos.to
+  // );
+  // return Decoration.set(deco);
+
+  // make selection
+  let sel = EditorSelection.create([
+    SelectionRange.fromJSON({
+      from: highlight!.pos.from,
+      to: highlight!.pos.to,
+    }),
+  ]);
+
+  let effects: StateEffect<unknown>[] = sel.ranges.map(({ from, to }) =>
+    addUnderline.of({ from, to })
+  );
+
+  view.dispatch({ effects });
+
+  // let effects: StateEffect<unknown>[] = addUnderline.of({from: highlight!.pos.from, to:highlight!.pos.to });
+  if (!effects.length) return [];
 
   if (!view.state.field(underlineField, false))
     effects.push(StateEffect.appendConfig.of([underlineField, underlineTheme]));
   view.dispatch({ effects });
-  return true;
+  return [];
 }

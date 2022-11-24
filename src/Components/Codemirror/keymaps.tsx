@@ -25,6 +25,14 @@ export const keymaps = keymap.of([
     },
   },
   {
+    key: "Control-`",
+    preventDefault: true,
+    run: (view: EditorView) => {
+      console.log("control `!");
+      return false;
+    },
+  },
+  {
     key: "Mod-p",
     preventDefault: true,
     run: sendToPy,

@@ -6,11 +6,22 @@
  */
 
 import React, { useEffect, useRef, useState } from "react";
-import { EditorView } from "@codemirror/view";
-import { EditorState } from "@codemirror/state";
+import {
+  Decoration,
+  DecorationSet,
+  EditorView,
+  ViewPlugin,
+  ViewUpdate,
+} from "@codemirror/view";
+import {
+  EditorState,
+  RangeSet,
+  RangeSetBuilder,
+  SelectionRange,
+} from "@codemirror/state";
 
 import { annotation1, keymaps, toggleSuggestion } from "./keymaps";
-import { db, Note, Placeholder } from "../Dexie/db";
+import { db, Highlight, Note, Placeholder } from "../Dexie/db";
 import { IndexableType } from "dexie";
 
 import "./Editor.css";
@@ -23,8 +34,9 @@ import { metadatafacet, suggestionfacet } from "./Extensions/facets";
 
 import { placeholders } from "./Extensions/phViewPlugin";
 import { useLiveQuery } from "dexie-react-hooks";
-import { debounce } from "lodash";
+import { debounce, update } from "lodash";
 import { timeChecker } from "./Extensions/checkPauses";
+import { underlineSelection } from "./Extensions/textMarker";
 
 let myTheme = EditorView.theme(
   {
@@ -56,11 +68,16 @@ let myTheme = EditorView.theme(
       backgroundColor: "pink",
       textDecoration: "line-through",
     },
+
+    ".cm-underline": {
+      textDecoration: "underline 3px green",
+    },
   },
   { dark: false }
 );
 
 interface editorProps {
+  view: EditorView | null;
   setView: React.Dispatch<React.SetStateAction<EditorView | null>>;
   currentNote: Number | null;
   L2active: boolean;
@@ -69,9 +86,12 @@ interface editorProps {
   setL2active: React.Dispatch<React.SetStateAction<boolean>>;
   timespent: number;
   setTimespent: React.Dispatch<React.SetStateAction<number>>;
+  L1trigger: boolean;
+  setL1trigger: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export function Editor({
+  view,
   setView,
   currentNote,
   L2active,
@@ -80,6 +100,8 @@ export function Editor({
   setL2active,
   timespent,
   setTimespent,
+  L1trigger,
+  setL1trigger,
 }: editorProps) {
   const editorRef = useRef<HTMLElement>(null);
   const [fetchedNote, setfetchedNote] = useState<Note | undefined>(undefined);
@@ -89,20 +111,21 @@ export function Editor({
 
   //placeholderstuff
   const [suggestion, setSuggestion] = useState<Placeholder | null>(null);
-  const [noteLength, setNoteLength] = useState<number>(0);
   const [placeholderActive, setPlaceholderActive] = useState<boolean>(false);
   const [wordcount, setWordcount] = useState<number>(0);
 
   // persist through editor reconfig
   const [cursor, setCursor] = useState<number>(0);
+  const [waitTime, setWaitTime] = useState<number | null>(10000);
+  const [highlight, setHighlight] = useState<Highlight | null>(null);
 
   const fetchNote = async () => {
     if (currentNote === null) return;
     var response = await db.notes.get(currentNote!);
     if (response !== undefined) {
       setfetchedNote(response);
-      setNoteLength(response.content.length);
       setTimespent(response.timeduration);
+      setCursor(response.content.length);
     }
   };
 
@@ -113,11 +136,39 @@ export function Editor({
       setPlaceholderActive(res.active);
     }
   });
+  useLiveQuery(async () => {
+    const res = await db.highlights.get(1);
+    if (res !== undefined) {
+      setHighlight(res);
+    }
+  });
+
+  // use for single expressiveness triggers
+  useEffect(() => {
+    if (L1trigger && view !== null) {
+      toggleSuggestion(view);
+    }
+  }, [L1trigger]);
+
+  useInterval(
+    () => {
+      if (!placeholderActive) {
+        setTimeout(() => {
+          setL1trigger(false);
+        }, 15);
+        setL1trigger(true);
+        // 2. push display=true
+        db.placeholders.update(1, { active: true });
+      }
+    },
+    L1active ? waitTime : null
+  );
 
   useEffect(() => {
     if (suggestion !== null) {
       db.logs.add({
-        assocnote: fetchedNote?.id!,
+        note: fetchedNote?.id!,
+        realtime: Date.now(),
         timestamp: timespent,
         feature:
           suggestion.origin === "L1" ? "L1singleexpressiveness" : "L3rephrase",
@@ -130,7 +181,8 @@ export function Editor({
   useEffect(() => {
     if (L2active) {
       db.logs.add({
-        assocnote: fetchedNote?.id!,
+        note: fetchedNote?.id!,
+        realtime: Date.now(),
         timestamp: timespent,
         feature: "L2autoanalysis",
         featurestate: "enable",
@@ -138,7 +190,8 @@ export function Editor({
       });
     } else {
       db.logs.add({
-        assocnote: fetchedNote?.id!,
+        note: fetchedNote?.id!,
+        realtime: Date.now(),
         timestamp: timespent,
         feature: "L2autoanalysis",
         featurestate: "disable",
@@ -149,20 +202,18 @@ export function Editor({
 
   function getCursorLocation() {
     if (placeholderActive) {
+      console.log("returning cursorlocation", suggestion!.location);
       return suggestion!.location;
     } else {
-      if (cursor === 0) {
-        return noteLength;
-      } else {
-        return cursor;
-      }
+      console.log("returning cursorlocation", cursor);
+      return cursor;
     }
   }
 
   // 1. Fetch contents
   React.useEffect(() => {
     fetchNote().catch(console.error);
-  }, [currentNote, placeholderActive, suggestion, L2active]);
+  }, [currentNote, placeholderActive, suggestion, L2active, highlight]);
 
   // 2. After contents have loaded, remake the editor
   React.useEffect(() => {
@@ -175,6 +226,7 @@ export function Editor({
       doc: fetchedNote?.content,
       selection: {
         anchor: getCursorLocation(),
+        // anchor: 0,
       },
       extensions: [
         // base ------------------------------------------------------------
@@ -187,8 +239,21 @@ export function Editor({
         metadatafacet.of({ noteid: fetchedNote?.id!, timeduration: timespent }),
 
         L2active
-          ? toggleWith2("Mod-o", cursorTooltip(), setL2active)
-          : toggleWith("Mod-o", cursorTooltip(), setL2active), // toggles marks
+          ? toggleWith2("Mod-o", cursorTooltip("dummy"), setL2active)
+          : toggleWith("Mod-o", cursorTooltip("dummy"), setL2active), // toggles marks
+
+        // next try use viewplugin
+        L2active && highlight?.active
+          ? [
+              EditorView.decorations.of((view) => {
+                let deco = Decoration.mark({ class: "cm-underline" }).range(
+                  highlight.pos.from,
+                  highlight.pos.to
+                );
+                return Decoration.set(deco);
+              }),
+            ]
+          : [],
 
         keymaps,
         placeholderActive
@@ -206,7 +271,18 @@ export function Editor({
 
         // onchange listener ------------------------------------------------
         EditorView.updateListener.of(({ state, view, transactions }) => {
+          if (waitTime !== null) {
+            setTimeout(() => {
+              setWaitTime(10000);
+            }, 10000);
+            setWaitTime(null);
+          }
+
           transactions.forEach((tr) => {
+            if (tr.docChanged && L1active) {
+              // reset timeout
+            }
+
             if (tr.annotation(annotation1) === "esc") {
               setL2active(false);
             }
@@ -216,7 +292,6 @@ export function Editor({
           setWordcount(nwords);
           setCursor(state.selection.ranges[0].to);
           saveNoteContents(state.doc.toString());
-          setNoteLength(state.doc.length);
         }),
       ],
     });
@@ -315,4 +390,24 @@ export function Editor({
       />
     </div>
   );
+}
+
+function useInterval(callback: any, delay: number | null) {
+  const savedCallback = useRef<any>();
+
+  // Remember the latest callback.
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+
+  // Set up the interval.
+  useEffect(() => {
+    function tick() {
+      savedCallback.current();
+    }
+    if (delay !== null) {
+      let id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Menu.css";
+import "../Styles/Menu.css";
 import {
   Button,
   FormControlLabel,
@@ -13,17 +13,18 @@ import ClearIcon from "@mui/icons-material/Clear";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 
 import NoteList from "./NoteList";
-import { db, downloadDB } from "./Dexie/db";
+import { db, downloadDB } from "../Dexie/db";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#123123",
+      main: "#e6a1cf",
     },
     secondary: {
-      main: "#123123",
+      main: "#000059",
     },
   },
 });
@@ -36,6 +37,8 @@ interface MenuProps {
   setL2active: React.Dispatch<React.SetStateAction<boolean>>;
   L1active: boolean;
   L2active: boolean;
+  setL1trigger: React.Dispatch<React.SetStateAction<boolean>>;
+  setViewHelp: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function Menu({
@@ -46,6 +49,8 @@ export default function Menu({
   setL2active,
   L1active,
   L2active,
+  setL1trigger,
+  setViewHelp,
 }: MenuProps) {
   const [showbar, setShowbar] = useState<"hide" | "show">("hide");
 
@@ -53,14 +58,14 @@ export default function Menu({
     let existent = await db.notes.toArray();
     let untitled = existent
       .filter((val) => {
-        return val.title.includes("untitled note");
+        return val.title.toLowerCase().includes("untitled note");
       })
       .sort();
 
     try {
       // add new blank note
       const id = await db.notes.add({
-        title: "untitled note " + untitled.length,
+        title: "Untitled Note " + untitled.length,
         content: "",
         creationdate: Date.now(),
         lastedit: Date.now(),
@@ -76,7 +81,7 @@ export default function Menu({
     }
   }
   useEffect(() => {
-    let barstate = showbar === "hide" ? false : true;
+    let barstate = showbar === "hide" || currentNote === null ? false : true;
     setShowmenu(barstate);
   }, [showbar]);
 
@@ -183,7 +188,18 @@ export default function Menu({
                           }
                           label="Auto Analysis"
                         />
-                        <Button variant="contained" onClick={() => {}}>
+                        <Button
+                          variant="contained"
+                          onClick={() => {
+                            // 1. prepare placeholder
+                            setTimeout(() => {
+                              setL1trigger(false);
+                            }, 15);
+                            setL1trigger(true);
+                            // 2. push display=true
+                            db.placeholders.update(1, { active: true });
+                          }}
+                        >
                           Stuck?
                         </Button>
                       </FormGroup>
@@ -193,15 +209,46 @@ export default function Menu({
                   <p style={{}}>hci@ucla</p>
                 </>
               ) : (
-                <p
-                  style={{
-                    position: "absolute",
-                    width: "100%",
-                    bottom: "0px",
-                  }}
-                >
-                  hci@ucla
-                </p>
+                <>
+                  <p
+                    style={{
+                      position: "absolute",
+                      width: "100%",
+                      bottom: "0px",
+                    }}
+                  >
+                    hci@ucla
+                  </p>
+                  {/* // <div */}
+                  {/* //   style={{
+                //     position: "absolute",
+                //     width: "100%",
+                //     bottom: "0px",
+                //     display: "flex",
+                //     justifyContent: "center",
+                //     alignItems: "center",
+                //   }}
+                // > */}
+                  <div
+                    style={{
+                      position: "absolute",
+                      // width: "100%",
+                      bottom: "0px",
+                      right: "30px",
+                    }}
+                  >
+                    <ThemeProvider theme={theme}>
+                      <IconButton
+                        onClick={() => {
+                          setViewHelp(true);
+                        }}
+                      >
+                        <HelpOutlineIcon />
+                      </IconButton>
+                    </ThemeProvider>
+                  </div>
+                  {/* // </div> */}
+                </>
               )}
             </div>
           ),

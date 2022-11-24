@@ -10,6 +10,8 @@ import { Sidebar } from "../Dexie/db";
 export interface ExtendedSearchResult {
   range: SelectionRange;
   color: string;
+  triggerword: string;
+  wordlocations?: { from: number; to: number }[];
   popupcontent: { title: string; content: string };
   sidebarcontent: Sidebar;
   placeholdercontent: {
@@ -128,6 +130,10 @@ export class Searcher {
           searchresults.push({
             range: EditorSelection.range(cursor.value.from, cursor.value.to),
             color: element.color,
+            triggerword: this.state.sliceDoc(
+              cursor.value.from,
+              cursor.value.to
+            ),
             popupcontent: {
               title: element.popup_title!,
               content: element.popup_feedback!,

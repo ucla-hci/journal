@@ -14,21 +14,26 @@
   --fontcollight: #2e1380;
 
   --borderdebug: 0px none;
-  /* --borderdebug: 3px dashed; */
+  /* --borderdebug: 2px dashed; */
   --softgrey: rgba(68, 68, 68, 0.206);
 }
 
 .App {
   text-align: center;
   font-family: "Roboto Mono", monospace;
+  display: flex;
+  flex-direction: row;
 }
 
 .App-header {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: flex-start;
+  /* justify-content: flex-starts; */
+  /* font-size: calc(10px + 2vmin); */
   overflow: hidden;
+  flex-grow: 1;
+  /* min-width: 100%; */
+  /* left: 0; */
 }

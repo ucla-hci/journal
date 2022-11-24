@@ -2,6 +2,12 @@ import Dexie, { Table } from "dexie";
 import "dexie-export-import";
 import download from "downloadjs";
 
+// export interface UserReminders {
+//   id?: number;
+//   onboard: boolean;
+//   disclaimer: boolean;
+//   completion: boolean;
+// }
 export interface Note {
   id?: number;
   title: string;
@@ -10,6 +16,33 @@ export interface Note {
   lastedit: number;
   timeduration: number;
   stats: {};
+}
+
+interface NoteSnapshots {
+  id?: number;
+  note: number;
+  wordcount: number;
+  realtime: number;
+  timestamp: number;
+  dismisslist: { word: string; pos: { from: number; to: number } }[];
+  reframecount: number;
+  expressivenesscount: number;
+  feedbackusetime: number;
+}
+
+interface DismissLog {
+  id?: number;
+  note: number;
+  word: string;
+  timestamp: number;
+  realtime: number;
+  pos: { from: number; to: number };
+}
+
+export interface Highlight {
+  id?: number;
+  pos: { from: number; to: number };
+  active: boolean;
 }
 
 export interface Timelog {
@@ -21,17 +54,19 @@ export interface Timelog {
 
 export interface Logs {
   id?: number;
-  assocnote: number;
+  note: number;
+  realtime: number;
   timestamp: number;
   feature:
+    | "noteopen"
     | "L1autoexpressiveness"
     | "L1singleexpressiveness"
     | "L2autoanalysis"
     | "L2popup"
     | "L2sidebar"
     | "L3rephrase";
-  featurestate: "enable" | "dismiss" | "complete" | "disable" | "toggle";
-  comments: any | null;
+  featurestate?: "enable" | "dismiss" | "complete" | "disable" | "toggle";
+  comments?: any | null;
 }
 
 export interface Sidebar {
@@ -46,11 +81,14 @@ export interface Popup {
   title: string;
   content: string;
   display: boolean;
+  triggerword: string;
+  wordlocation: { from: number; to: number };
   location: { x: number; y: number };
 }
 
 export interface Placeholder {
   id?: number;
+  prepare?: boolean;
   origin: "L1" | "L3";
   active: boolean;
   suggestion: string;
@@ -65,6 +103,9 @@ export class MySubClassedDexie extends Dexie {
   placeholders!: Table<Placeholder>;
   timelogs!: Table<Timelog>;
   logs!: Table<Logs>;
+  highlights!: Table<Highlight>;
+  snapshots!: Table<NoteSnapshots>;
+  dismiss!: Table<DismissLog>;
 
   constructor() {
     super("myDatabase");
@@ -82,7 +123,16 @@ export class MySubClassedDexie extends Dexie {
       timelogs: "++id, note, pause, timestep",
     });
     this.version(9).stores({
-      logs: "++id, assocnote, timestamp, feature",
+      logs: "++id, note, timestamp, feature",
+    });
+    this.version(10).stores({
+      highlights: "++id",
+    });
+    this.version(11).stores({
+      snapshots: "++id, note",
+    });
+    this.version(12).stores({
+      dismiss: "++id, note",
     });
   }
 }

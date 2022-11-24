@@ -3,8 +3,8 @@
  * - Also, populates the sidebar and placeholder
  */
 
-import { Tooltip, showTooltip, EditorView } from "@codemirror/view";
-import { StateField, EditorState } from "@codemirror/state";
+import { Tooltip, showTooltip, EditorView, Decoration } from "@codemirror/view";
+import { StateField, EditorState, StateEffect } from "@codemirror/state";
 import { Searcher, ExtendedSearchResult } from "../cmhelpers";
 import { db } from "../../Dexie/db";
 
@@ -19,6 +19,8 @@ async function togglePopup(item: ExtendedSearchResult, event: MouseEvent) {
         content: item.popupcontent.content,
         display: true,
         location: { x: event.clientX, y: event.clientY },
+        triggerword: item.triggerword,
+        wordlocation: item.range,
       });
       // console.log("added new popup with id", id);
     } else {
@@ -27,6 +29,8 @@ async function togglePopup(item: ExtendedSearchResult, event: MouseEvent) {
         content: item.popupcontent.content,
         display: true,
         location: { x: event.clientX, y: event.clientY },
+        triggerword: item.triggerword,
+        wordlocation: item.range,
       });
     }
   } catch (error) {
@@ -115,7 +119,21 @@ const cursorTooltipBaseTheme = EditorView.baseTheme({
   },
 });
 
-export const cursorTooltipField = StateField.define<readonly Tooltip[]>({
+function fieldMaker(str: string) {
+  return StateField.define<readonly Tooltip[]>({
+    create(state) {
+      return getCursorTooltips(state);
+    },
+
+    update(tooltips, tr) {
+      if (!tr.docChanged && !tr.selection) return tooltips; // if unchanged, return prev
+      return getCursorTooltips(tr.state); // if change, recompute
+    },
+
+    provide: (f) => showTooltip.computeN([f], (state) => state.field(f)),
+  });
+}
+const cursorTooltipField = StateField.define<readonly Tooltip[]>({
   create(state) {
     return getCursorTooltips(state);
   },
@@ -132,7 +150,33 @@ function getCursorTooltips(state: EditorState): readonly Tooltip[] {
   var s = new Searcher({ state: state });
   var searchresults = s.searchDict();
 
-  return searchresults.map((item, index) => {
+  // preprocess search results - avoid duplicates, etc.
+  var filtered = searchresults.reduce(
+    (accumulator, currentValue, currentIndex) => {
+      if (
+        accumulator.filter((e) => {
+          if (
+            e.triggerword === currentValue.triggerword &&
+            e.range.from === currentValue.range.from &&
+            e.range.to === currentValue.range.to
+          ) {
+            return true;
+          }
+          return false;
+        }).length > 0
+      ) {
+        // console.log("got multiple dictionary entries for: ", currentValue);
+        // TODO: handle duplicates!
+      } else {
+        accumulator.push(currentValue);
+      }
+
+      return accumulator;
+    },
+    [] as ExtendedSearchResult[]
+  );
+
+  return filtered.map((item, index) => {
     return {
       pos: item.range.to,
       above: true,
@@ -141,7 +185,7 @@ function getCursorTooltips(state: EditorState): readonly Tooltip[] {
       create: () => {
         let dom = document.createElement("div"); // create popup
         dom.onclick = function (event) {
-          // alternatively, could post state to dexie!
+          toggleHighlight({ from: item.range.from, to: item.range.to });
           togglePopup(item, event);
           loadSidebar(item);
           if (item.placeholdercontent.suggestion !== null) {
@@ -159,7 +203,35 @@ function getCursorTooltips(state: EditorState): readonly Tooltip[] {
   });
 }
 
-export function cursorTooltip() {
-  // db.sidebars.update(1, { display: false, content: {} });
-  return [cursorTooltipField, cursorTooltipBaseTheme];
+export function cursorTooltip(str: string) {
+  db.sidebars.update(1, { display: false });
+  return [fieldMaker(str), cursorTooltipBaseTheme];
+}
+
+async function checkHighlight() {
+  let x = await db.highlights.get(1);
+  return x;
+}
+
+async function toggleHighlight(pos: { from: number; to: number }) {
+  console.log("toggling highlight pos", pos);
+  try {
+    const ret = await db.highlights.get(1);
+    if (ret === undefined) {
+      // create item
+      await db.highlights.add({
+        id: 1,
+        pos: pos,
+        active: true,
+      });
+      // console.log("added new popup with id", id);
+    } else {
+      await db.highlights.update(1, {
+        pos: pos,
+        active: true,
+      });
+    }
+  } catch (error) {
+    console.log(`Failed to toggle highlight: ${error}`);
+  }
 }

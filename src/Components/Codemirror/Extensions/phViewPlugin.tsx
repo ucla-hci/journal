@@ -42,7 +42,8 @@ export const placeholders = ViewPlugin.fromClass(
       this.origin = view.state.facet(suggestionfacet).origin!;
 
       db.logs.add({
-        assocnote: this.metadata.noteid,
+        note: this.metadata.noteid,
+        realtime: Date.now(),
         timestamp: this.metadata.timeduration,
         feature: this.origin === "L1" ? "L1singleexpressiveness" : "L3rephrase",
         featurestate: "enable",
@@ -153,7 +154,8 @@ export const placeholders = ViewPlugin.fromClass(
         let timestamp = Date.now() - this.starttime + this.inittimestamp;
 
         db.logs.add({
-          assocnote: this.metadata.noteid,
+          note: this.metadata.noteid,
+          realtime: Date.now(),
           timestamp: timestamp,
           feature:
             this.origin! === "L1" ? "L1singleexpressiveness" : "L3rephrase",
@@ -202,7 +204,8 @@ export const placeholders = ViewPlugin.fromClass(
             view.plugin(plugin)?.inittimestamp!;
 
           db.logs.add({
-            assocnote: view.plugin(plugin)?.metadata.noteid!,
+            note: view.plugin(plugin)?.metadata.noteid!,
+            realtime: Date.now(),
             timestamp: timestamp,
             feature:
               view.plugin(plugin)?.origin! === "L1"

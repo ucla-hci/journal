@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
-import { db, Sidebar } from "./Dexie/db";
-import "./FeedbackSidebar.css";
+import { db, Sidebar } from "../Dexie/db";
+import "../Styles/FeedbackSidebar.css";
 
 import { Button, IconButton } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -40,7 +40,8 @@ export default function FeedbackSidebar({
     if (currentNote !== null) {
       if (feedbackbar) {
         db.logs.add({
-          assocnote: currentNote!,
+          note: currentNote!,
+          realtime: Date.now(),
           timestamp: timespent,
           feature: "L2sidebar",
           featurestate: "enable",
@@ -48,7 +49,8 @@ export default function FeedbackSidebar({
         });
       } else {
         db.logs.add({
-          assocnote: currentNote!,
+          note: currentNote!,
+          realtime: Date.now(),
           timestamp: timespent,
           feature: "L2sidebar",
           featurestate: "disable",
@@ -114,7 +116,6 @@ export default function FeedbackSidebar({
               <ThemeProvider theme={theme}>
                 <Button
                   onClick={() => {
-                    console.log("on rewrite click");
                     db.placeholders.update(1, { active: true });
                   }}
                   variant="contained"

@@ -3,8 +3,8 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { useLiveQuery } from "dexie-react-hooks";
 import React, { useEffect, useRef } from "react";
-import { db, Popup as popuptype } from "./Dexie/db";
-import "./Popup.css";
+import { db, Popup as popuptype } from "../Dexie/db";
+import "../Styles/Popup.css";
 
 export async function addSidebar() {}
 
@@ -44,10 +44,23 @@ export default function Popup({
     }
   }
 
+  async function addToDismiss(word: string, pos: { from: number; to: number }) {
+    db.dismiss.add({
+      note: currentNote!,
+      word: word,
+      pos: pos,
+      timestamp: timespent,
+      realtime: Date.now(),
+    });
+    let ret = db.dismiss.toArray();
+    return ret;
+  }
+
   useEffect(() => {
     if (show) {
       db.logs.add({
-        assocnote: currentNote!,
+        note: currentNote!,
+        realtime: Date.now(),
         timestamp: timespent,
         feature: "L2popup",
         featurestate: "enable",
@@ -55,7 +68,8 @@ export default function Popup({
       });
     } else {
       db.logs.add({
-        assocnote: currentNote!,
+        note: currentNote!,
+        realtime: Date.now(),
         timestamp: timespent,
         feature: "L2popup",
         featurestate: "disable",
@@ -109,7 +123,15 @@ export default function Popup({
         >
           Sidebar
         </Button>
-        <Button size="small" variant="outlined">
+        <Button
+          size="small"
+          variant="outlined"
+          onClick={() => {
+            console.log(
+              addToDismiss(contents?.triggerword!, contents?.wordlocation!)
+            );
+          }}
+        >
           Dismiss
         </Button>
       </div>

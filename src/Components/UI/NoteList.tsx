@@ -1,6 +1,6 @@
 import React from "react";
 import { useLiveQuery } from "dexie-react-hooks";
-import { db } from "./Dexie/db";
+import { db } from "../Dexie/db";
 import { IconButton } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 
