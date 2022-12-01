@@ -12,13 +12,13 @@
   padding-right: 10px;
   align-items: flex-start;
   transition: right 0.4s;
-  width: 300px;
+  width: 340px;
   height: 100%;
   overflow-y: scroll;
 }
 
 .feedback-sidebar.off {
-  right: -280px;
+  right: -320px;
   transition: right 0.4s;
   background-color: var(--bgcollight);
   background-image: linear-gradient(
@@ -57,14 +57,14 @@
 
 .card {
   width: 86%;
-  align-self: center;
+  /* align-self: center; */
   box-shadow: 0px 2px 3px 2px var(--softgrey);
   margin-top: 20px;
   padding: 10px;
-  border-radius: 5%;
+  border-radius: 10px;
 }
 
-.card p {
+.card > * {
   text-align: left;
 }
 

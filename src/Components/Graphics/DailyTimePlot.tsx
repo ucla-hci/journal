@@ -81,12 +81,16 @@ export default function DailyTimePlot() {
       grid: true,
       x: {
         domain: lineData.map((val) => val.noteid),
-        label: "Notes →",
+        label: "Entries →",
+        tickFormat: (d: any) => (d % 1 !== 0 ? null : d),
       },
       y: {
         label: "↑ Time (min)",
         zero: true,
-        domain: [0, 30],
+        domain: [
+          0,
+          Math.max(...lineData.map((o) => o.writingtime)) / 60000 + 10,
+        ],
       },
       marks: [
         Plot.areaY(lineData, {
@@ -127,6 +131,9 @@ export default function DailyTimePlot() {
         marginTop: "10px",
       }}
     >
+      <p>
+        Total writing time & <span style={{ color: "red" }}>pause time</span>
+      </p>
       <div className="plotdiv" ref={plotRef}></div>
     </div>
   );

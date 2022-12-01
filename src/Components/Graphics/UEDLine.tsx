@@ -50,6 +50,7 @@ export default function UEDLine() {
         marginTop: "10px",
       }}
     >
+      <p>Emotion Dynamics (NOT IMPLEMENTED)</p>
       <div className="plotdiv" ref={plotRef}></div>
     </div>
   );

@@ -83,25 +83,37 @@ export default function FeedbackSidebar({
                 <ClearIcon />
               </IconButton>
             </ThemeProvider>
-            <h1 style={{ textAlign: "center" }}>
+            {/* <h1 style={{ textAlign: "center" }}>
               Feedback
               <br />
               Sidebar
-            </h1>
+            </h1> */}
           </header>
           <div className="Feedback">
-            {data?.content
-              ? Object.entries(data.content).map((pair, idx) => {
-                  // console.log(`${pair[0]}: ${pair[1]}`);
-                  return (
-                    <div className="card">
-                      <h3>{pair[0]}</h3>
-                      <p>{pair[1]}</p>
-                    </div>
-                  );
+            {/* {Array.isArray(data?.content)
+              ? data?.content.map((html, idx) => {
+                  let x = document.createElement("div");
+                  x.className = "card";
+                  x.innerHTML = html;
+                  return x;
                 })
-              : null}
-            <div className="card">
+              : null} */}
+            <>
+              {data?.content !== null && Array.isArray(data?.content)
+                ? data!.content.map((html, idx) => {
+                    // let x = document.createElement("div");
+                    // x.className = "card";
+                    // x.innerHTML = html;
+                    return (
+                      <div
+                        className="card"
+                        dangerouslySetInnerHTML={{ __html: html }}
+                      ></div>
+                    );
+                  })
+                : null}
+            </>
+            {/* <div className="card">
               <h3>Shortcuts</h3>
               <p>* cmd+o for analysis</p>
               <p>* ctrl+space for placeholder</p>
@@ -109,7 +121,7 @@ export default function FeedbackSidebar({
             <div className="card">
               <h3>LIWC Analysis</h3>
               <p>Through API queries?</p>
-            </div>
+            </div> */}
           </div>
           <div className="rewrite-btn">
             {data!.rephrase ? (

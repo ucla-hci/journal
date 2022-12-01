@@ -6,22 +6,11 @@
  */
 
 import React, { useEffect, useRef, useState } from "react";
-import {
-  Decoration,
-  DecorationSet,
-  EditorView,
-  ViewPlugin,
-  ViewUpdate,
-} from "@codemirror/view";
-import {
-  EditorState,
-  RangeSet,
-  RangeSetBuilder,
-  SelectionRange,
-} from "@codemirror/state";
+import { EditorView } from "@codemirror/view";
+import { EditorState } from "@codemirror/state";
 
 import { annotation1, keymaps, toggleSuggestion } from "./keymaps";
-import { db, Highlight, Note, Placeholder } from "../Dexie/db";
+import { db, DismissLog, Highlight, Note, Placeholder } from "../Dexie/db";
 import { IndexableType } from "dexie";
 
 import "./Editor.css";
@@ -34,20 +23,35 @@ import { metadatafacet, suggestionfacet } from "./Extensions/facets";
 
 import { placeholders } from "./Extensions/phViewPlugin";
 import { useLiveQuery } from "dexie-react-hooks";
-import { debounce, update } from "lodash";
+import { debounce } from "lodash";
 import { timeChecker } from "./Extensions/checkPauses";
-import { underlineSelection } from "./Extensions/textMarker";
+import { l2underline } from "./Extensions/textMarker";
 
 let myTheme = EditorView.theme(
   {
     "&": {
       color: "rgba(1,1,1,0.9)",
       width: "100%",
-      height: "100%",
+      // height: "100%",
+      height: "calc(100vh - 100px)",
       textAlign: "left",
+      overflowY: "scroll",
+      // -ms-overflow-style: none;  /* IE and Edge */
+      scrollbarWidth: "none",
+    },
+    "&.cm-editor": {
+      scrollbarWidth: "none",
+      // border: "2px solid orange",
+      boxShadow: "rgba(0, 0, 0, 0.10) 0px 3px 8px",
+      padding: "20px",
+    },
+    "&.cm-editor.cm-focused": {
+      boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+      // border: "2px solid blue",
+      outline: "none",
     },
     ".cm-content": {
-      caretColor: "#f00",
+      // caretColor: "#f00",
       fontFamily: "'Roboto Mono', monospace",
       fontSize: "18px",
     },
@@ -55,14 +59,14 @@ let myTheme = EditorView.theme(
       border: "1px solid var(--fontcollight)",
     },
     "&.cm-focused .cm-selectionBackground, ::selection": {
-      backgroundColor: "#074",
+      // backgroundColor: "#074",
     },
     ".cm-gutters": {
       backgroundColor: "var(--bgcolmid)",
       color: "var(--bgcolshadow)",
     },
     ".cm-atomic": {
-      backgroundColor: "cornsilk",
+      // backgroundColor: "cornsilk",
     },
     ".cm-replace": {
       backgroundColor: "pink",
@@ -79,7 +83,7 @@ let myTheme = EditorView.theme(
 interface editorProps {
   view: EditorView | null;
   setView: React.Dispatch<React.SetStateAction<EditorView | null>>;
-  currentNote: Number | null;
+  currentNote: number | null;
   L2active: boolean;
   L1active: boolean;
   setL1active: React.Dispatch<React.SetStateAction<boolean>>;
@@ -119,6 +123,8 @@ export function Editor({
   const [waitTime, setWaitTime] = useState<number | null>(10000);
   const [highlight, setHighlight] = useState<Highlight | null>(null);
 
+  const [dismisslist, setDismisslist] = useState<DismissLog[] | null>(null);
+
   const fetchNote = async () => {
     if (currentNote === null) return;
     var response = await db.notes.get(currentNote!);
@@ -142,11 +148,17 @@ export function Editor({
       setHighlight(res);
     }
   });
+  useLiveQuery(async () => {
+    const res = await db.dismiss.where("note").equals(currentNote!).toArray();
+    if (res !== undefined) {
+      setDismisslist(res);
+    }
+  });
 
   // use for single expressiveness triggers
   useEffect(() => {
     if (L1trigger && view !== null) {
-      toggleSuggestion(view);
+      toggleSuggestion(view, "L1");
     }
   }, [L1trigger]);
 
@@ -213,7 +225,14 @@ export function Editor({
   // 1. Fetch contents
   React.useEffect(() => {
     fetchNote().catch(console.error);
-  }, [currentNote, placeholderActive, suggestion, L2active, highlight]);
+  }, [placeholderActive, suggestion, L2active, highlight]);
+  React.useEffect(() => {
+    fetchNote().catch(console.error);
+    setPlaceholderActive(false);
+    setL2active(false);
+    setHighlight(null);
+    db.highlights.update(1, { active: false });
+  }, [currentNote]);
 
   // 2. After contents have loaded, remake the editor
   React.useEffect(() => {
@@ -239,21 +258,10 @@ export function Editor({
         metadatafacet.of({ noteid: fetchedNote?.id!, timeduration: timespent }),
 
         L2active
-          ? toggleWith2("Mod-o", cursorTooltip("dummy"), setL2active)
-          : toggleWith("Mod-o", cursorTooltip("dummy"), setL2active), // toggles marks
+          ? toggleWith2("Mod-o", cursorTooltip(dismisslist!), setL2active)
+          : toggleWith("Mod-o", cursorTooltip(dismisslist!), setL2active), // toggles marks
 
-        // next try use viewplugin
-        L2active && highlight?.active
-          ? [
-              EditorView.decorations.of((view) => {
-                let deco = Decoration.mark({ class: "cm-underline" }).range(
-                  highlight.pos.from,
-                  highlight.pos.to
-                );
-                return Decoration.set(deco);
-              }),
-            ]
-          : [],
+        L2active && highlight?.active ? [l2underline(highlight)] : [],
 
         keymaps,
         placeholderActive
@@ -288,7 +296,7 @@ export function Editor({
             }
           });
 
-          let nwords = state.doc.toJSON().join("").split(" ").length;
+          let nwords = state.doc.toJSON().join("").split(" ").length - 1;
           setWordcount(nwords);
           setCursor(state.selection.ranges[0].to);
           saveNoteContents(state.doc.toString());
@@ -352,14 +360,13 @@ export function Editor({
         height: "90%",
       }}
     >
-      <div className="notifiers">
+      {/* <div className="notifiers">
         {showSave ? <p>Saving</p> : <p />}
         {L2active ? <p>marks on</p> : <p />}
         {placeholderActive ? <p>placeholder on</p> : <p />}
         <p>Word Count: {wordcount}</p>
-        {/* TIME IS NOT UPDATING AUTOMATICALLY --------------------- */}
         <p>Write Time: {Math.floor(timespent / 60000)} min</p>
-      </div>
+      </div> */}
       <div className="note-header">
         <input
           className="note-title"

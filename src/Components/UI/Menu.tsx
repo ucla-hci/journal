@@ -22,9 +22,21 @@ const theme = createTheme({
   palette: {
     primary: {
       main: "#e6a1cf",
+      // main: "#ffffff",
     },
     secondary: {
       main: "#000059",
+    },
+  },
+});
+const theme2 = createTheme({
+  palette: {
+    primary: {
+      // main: "#e6a1cf",
+      main: "#ffffff",
+    },
+    secondary: {
+      main: "#ffffff",
     },
   },
 });
@@ -133,7 +145,7 @@ export default function Menu({
               </header>
               <div style={{ display: "flex", justifyContent: "space-evenly" }}>
                 <ThemeProvider theme={theme}>
-                  <IconButton onClick={downloadDB}>
+                  <IconButton onClick={downloadDB} color="inherit">
                     <FileDownloadIcon />
                   </IconButton>
                   <Button
@@ -206,39 +218,43 @@ export default function Menu({
                     </ThemeProvider>
                   </div>
 
-                  <p style={{}}>hci@ucla</p>
+                  <div
+                    style={{
+                      display: "flex",
+                      width: "100%",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div style={{ marginLeft: "4px" }}>
+                      <ThemeProvider theme={theme2}>
+                        <IconButton
+                          color="inherit"
+                          onClick={() => {
+                            setViewHelp(true);
+                          }}
+                        >
+                          <HelpOutlineIcon />
+                        </IconButton>
+                      </ThemeProvider>
+                    </div>
+                    <p style={{ flex: 2, marginRight: "40px" }}>hci@ucla</p>
+                  </div>
                 </>
               ) : (
                 <>
-                  <p
-                    style={{
-                      position: "absolute",
-                      width: "100%",
-                      bottom: "0px",
-                    }}
-                  >
-                    hci@ucla
-                  </p>
-                  {/* // <div */}
-                  {/* //   style={{
-                //     position: "absolute",
-                //     width: "100%",
-                //     bottom: "0px",
-                //     display: "flex",
-                //     justifyContent: "center",
-                //     alignItems: "center",
-                //   }}
-                // > */}
                   <div
                     style={{
                       position: "absolute",
-                      // width: "100%",
+                      width: "230px",
                       bottom: "0px",
                       right: "30px",
+                      display: "flex",
+                      alignItems: "center",
                     }}
                   >
-                    <ThemeProvider theme={theme}>
+                    <ThemeProvider theme={theme2}>
                       <IconButton
+                        color="inherit"
                         onClick={() => {
                           setViewHelp(true);
                         }}
@@ -246,6 +262,14 @@ export default function Menu({
                         <HelpOutlineIcon />
                       </IconButton>
                     </ThemeProvider>
+                    <p
+                      style={{
+                        width: "100%",
+                        marginRight: "20px",
+                      }}
+                    >
+                      hci@ucla
+                    </p>
                   </div>
                   {/* // </div> */}
                 </>

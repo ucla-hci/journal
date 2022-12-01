@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Alexandria:wght@700&family=Roboto+Mono&display=swap");
 
 :root {
   --bgcolmid: #e6a1cf;
@@ -23,6 +24,17 @@
   font-family: "Roboto Mono", monospace;
   display: flex;
   flex-direction: row;
+}
+
+.homelogo {
+  font-size: 10vh;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  text-align: center;
+  font-weight: 800;
+  color: gray;
+  letter-spacing: -6px;
 }
 
 .App-header {

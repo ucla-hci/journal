@@ -15,6 +15,8 @@ import { db } from "./Components/Dexie/db";
 import GraphBuilder from "./Components/Graphics/GraphBuilder";
 import ReactModal from "react-modal";
 import FAQ from "./Components/UI/FAQ";
+import Welcome from "./Components/UI/Welcome";
+import { useLiveQuery } from "dexie-react-hooks";
 
 function App() {
   const [view, setView] = useState<EditorView | null>(null);
@@ -26,6 +28,12 @@ function App() {
   const [L1trigger, setL1trigger] = useState<boolean>(false);
   const [timespent, setTimespent] = useState<number>(0);
   const [viewHelp, setViewHelp] = useState<boolean>(false);
+  const [Nnotes, setNnotes] = useState<number | null>(null);
+
+  useLiveQuery(async () => {
+    let x = await db.notes.toArray();
+    setNnotes(x.length);
+  });
 
   // on day change, collect all logs from previous day and store into db snapshots
 
@@ -80,8 +88,8 @@ function App() {
           flex: 4,
           border: "var(--borderdebug) red",
           backgroundColor: "var(--bgcollight)",
-          marginLeft: currentNote === null ? "30px" : "30px",
-          marginRight: currentNote === null ? "30px" : "30px",
+          // marginLeft: currentNote === null ? "30px" : "30px",
+          // marginRight: currentNote === null ? "30px" : "30px",
           width: "100%",
           alignItems: "center",
         }}
@@ -92,30 +100,43 @@ function App() {
             width: "90%",
             height: "100%",
             // margin: "2vw",
+            display: "flex",
+
+            flexDirection: "column",
           }}
         >
           {currentNote === null ? (
             <>
-              <h1>Expresso+</h1>
-              <div
-                style={{
-                  border: "var(--borderdebug) grey",
-                  display: "flex",
-                  flexDirection: "column",
-                  width: "100%",
-                }}
-              >
-                <h4
+              <h1 className="homelogo">Expresso+</h1>
+              {/* <h1 className="homelogo">Expresso+</h1> */}
+              {Nnotes! !== 0 ? (
+                <div
                   style={{
-                    textAlign: "left",
-                    margin: "20px",
-                    border: "var(--borderdebug) purple",
+                    border: "var(--borderdebug) grey",
+                    display: "flex",
+                    flexDirection: "column",
+                    width: "100%",
+                    flex: 1,
+                    marginTop: "-30px",
                   }}
                 >
-                  Recent Activity
-                </h4>
-                <GraphBuilder />
-              </div>
+                  <h4
+                    style={{
+                      textAlign: "left",
+                      margin: "20px",
+                      border: "var(--borderdebug) purple",
+                    }}
+                  >
+                    Recent Activity (last {Nnotes! < 7 ? Nnotes?.toString() : 7}{" "}
+                    entries)
+                  </h4>
+                  <GraphBuilder />
+                </div>
+              ) : (
+                <div style={{ margin: "0 0 -60px 0" }}>
+                  <Welcome />
+                </div>
+              )}
             </>
           ) : (
             <>
@@ -149,7 +170,10 @@ function App() {
         style={{
           overlay: {
             zIndex: "5",
-            backgroundColor: "rgba(255,100,255,0.2)",
+            backgroundColor: "rgba(0,0,0,0.6)",
+          },
+          content: {
+            background: "#ccc",
           },
         }}
       >

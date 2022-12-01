@@ -40,11 +40,13 @@ export default function WordCountPlot() {
       grid: true,
       x: {
         domain: lineData.map((val) => val.day),
-        label: "Days →",
+        label: "Entries →",
+        tickFormat: (d: any) => (d % 1 !== 0 ? null : d),
       },
       y: {
         label: "↑ Number of words",
         zero: true,
+        nice: true,
       },
       marks: [
         Plot.line(lineData, {
@@ -68,6 +70,7 @@ export default function WordCountPlot() {
         marginTop: "10px",
       }}
     >
+      <p>WordCount</p>
       <div className="plotdiv" ref={plotRef}></div>
     </div>
   );

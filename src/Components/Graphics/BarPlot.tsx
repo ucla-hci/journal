@@ -1,13 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as Plot from "@observablehq/plot";
 import { db } from "../Dexie/db";
-import { dict_temp, dict_temp_reduced } from "../expressoDictionary";
+import { dev_dict } from "../expressoDictionary";
 
 export default function BarPlot() {
   const plotRef = useRef<any>();
-  const [lineData, setLineData] = useState<{ [key: string]: number } | null>(
-    null
-  );
+  const [lineData, setLineData] = useState<
+    | {
+        letter: string;
+        frequency: number;
+      }[]
+    | null
+  >(null);
   const [concatContent, setConcatContent] = useState<string | null>(null);
 
   const getcontent = async () => {
@@ -18,17 +22,6 @@ export default function BarPlot() {
     console.log("concatenated content:", content);
     setConcatContent(content);
   };
-
-  const alphabet = [
-    { letter: "Depression/Anxiety", frequency: 10 },
-    { letter: "Stress", frequency: 20 },
-    { letter: "Positive Adjectives", frequency: 50 },
-    { letter: "Negative Adjectives", frequency: 23 },
-    { letter: "Should Statements", frequency: 53 },
-    { letter: "Overgeneralization", frequency: 11 },
-    { letter: "First Pronound", frequency: 2 },
-    { letter: "Self-talk", frequency: 5 },
-  ];
 
   useEffect(() => {
     getcontent();
@@ -42,33 +35,39 @@ export default function BarPlot() {
       .split(" ");
     if (contentarray === undefined) return;
 
-    // contentarray = contentarray!.filter(function (word) {
-    //   if (word === "") {
-    //     return false;
-    //   }
-    //   return true;
-    // });
-
     contentarray.forEach((word) => {
-      for (let i = 0; i < dict_temp_reduced.length; i++) {
-        if (dict_temp_reduced[i].Word === word.toLowerCase()) {
+      for (let i = 0; i < dev_dict.length; i++) {
+        if (dev_dict[i].words.includes(word.toLowerCase())) {
           categories.push({
-            strategy_code: dict_temp_reduced[i].strategy_code,
-            // category_number: dict_temp_reduced[i].category_number,
+            strategy_code: dev_dict[i].strategy_code,
+            // category_number: dev_dict[i].category_number,
           });
         }
       }
     });
 
-    console.log("categories", categories);
-    console.log("categoriescount", categories);
-
-    let emptycount = { l2a: 0, l2b: 0, l2c: 0 } as { [key: string]: number };
+    let emptycount = { l2a: 0, l2b: 0, l2c: 0, l2d: 0, l2e: 0, l2f: 0 } as {
+      [key: string]: number;
+    };
     const count = categories.reduce((acc, curr) => {
       acc[curr.strategy_code.toLowerCase()] += 1;
       return acc;
     }, emptycount);
-    console.log("category count is:", count);
+    console.log("barplotcount:", count);
+
+    let namemapper = {
+      l2a: "Judgement",
+      l2b: "Cognitive Distortions",
+      l2c: "Harmful Self-talk",
+      l2d: "Common Symptom Indicators",
+      l2e: "Pronoun Perspectives",
+      l2f: "Healthy Patterns",
+    } as { [key: string]: string };
+
+    let plotdata = Object.entries(count).map((pair) => {
+      return { letter: namemapper[pair[0]], frequency: pair[1] };
+    });
+    setLineData(plotdata);
   }, [concatContent]);
 
   useEffect(() => {
@@ -78,13 +77,15 @@ export default function BarPlot() {
       marginBottom: 100,
       x: {
         label: "Thought Categories",
-        tickRotate: "-45",
+        tickRotate: "-36",
       },
       y: {
-        label: "Count",
+        grid: true,
+        label: "↑ Count",
+        domain: [0, Math.max(...lineData.map((o) => o.frequency)) + 4],
       },
       marks: [
-        Plot.barY(alphabet, { x: "letter", y: "frequency", fill: "letter" }),
+        Plot.barY(lineData, { x: "letter", y: "frequency", fill: "letter" }),
       ],
     });
 
@@ -100,6 +101,7 @@ export default function BarPlot() {
         marginTop: "10px",
       }}
     >
+      <p>Aggregate analysis</p>
       <div className="plotdiv" ref={plotRef}></div>
     </div>
   );

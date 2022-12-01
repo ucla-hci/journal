@@ -3,10 +3,10 @@
  * - Also, populates the sidebar and placeholder
  */
 
-import { Tooltip, showTooltip, EditorView, Decoration } from "@codemirror/view";
-import { StateField, EditorState, StateEffect } from "@codemirror/state";
+import { Tooltip, showTooltip, EditorView } from "@codemirror/view";
+import { StateField, EditorState } from "@codemirror/state";
 import { Searcher, ExtendedSearchResult } from "../cmhelpers";
-import { db } from "../../Dexie/db";
+import { db, DismissLog } from "../../Dexie/db";
 
 async function togglePopup(item: ExtendedSearchResult, event: MouseEvent) {
   try {
@@ -66,10 +66,9 @@ async function loadSidebar(item: ExtendedSearchResult) {
 
 async function loadPlaceholder(item: ExtendedSearchResult) {
   if (item.placeholdercontent.suggestion === null) {
-    console.log("in loadPlaceholder, but siggestion is null", item);
+    // console.log("in loadPlaceholder, but suggestion is null", item);
     return;
   }
-  console.log("about to push ph with", item.placeholdercontent);
 
   try {
     // ph
@@ -80,6 +79,7 @@ async function loadPlaceholder(item: ExtendedSearchResult) {
       db.placeholders.add({
         id: 1,
         origin: "L3",
+        triggerword: item.triggerword,
         active: false,
         suggestion: item.placeholdercontent.suggestion,
         location: item.placeholdercontent.location,
@@ -90,6 +90,7 @@ async function loadPlaceholder(item: ExtendedSearchResult) {
       await db.placeholders.update(1, {
         active: false,
         origin: "L3",
+        triggerword: item.triggerword,
         suggestion: item.placeholdercontent.suggestion,
         location: item.placeholdercontent.location,
         replace: item.placeholdercontent.replace,
@@ -119,38 +120,29 @@ const cursorTooltipBaseTheme = EditorView.baseTheme({
   },
 });
 
-function fieldMaker(str: string) {
+function fieldMaker(dismisslist: any) {
   return StateField.define<readonly Tooltip[]>({
     create(state) {
-      return getCursorTooltips(state);
+      return getCursorTooltips(state, dismisslist);
     },
 
     update(tooltips, tr) {
       if (!tr.docChanged && !tr.selection) return tooltips; // if unchanged, return prev
-      return getCursorTooltips(tr.state); // if change, recompute
+      return getCursorTooltips(tr.state, dismisslist); // if change, recompute
     },
 
     provide: (f) => showTooltip.computeN([f], (state) => state.field(f)),
   });
 }
-const cursorTooltipField = StateField.define<readonly Tooltip[]>({
-  create(state) {
-    return getCursorTooltips(state);
-  },
 
-  update(tooltips, tr) {
-    if (!tr.docChanged && !tr.selection) return tooltips; // if unchanged, return prev
-    return getCursorTooltips(tr.state); // if change, recompute
-  },
-
-  provide: (f) => showTooltip.computeN([f], (state) => state.field(f)),
-});
-
-function getCursorTooltips(state: EditorState): readonly Tooltip[] {
+function getCursorTooltips(
+  state: EditorState,
+  dismisslist: any
+): readonly Tooltip[] {
   var s = new Searcher({ state: state });
   var searchresults = s.searchDict();
 
-  // preprocess search results - avoid duplicates, etc.
+  // ----------------------------------- preprocess search results - avoid duplicates, etc.
   var filtered = searchresults.reduce(
     (accumulator, currentValue, currentIndex) => {
       if (
@@ -168,9 +160,25 @@ function getCursorTooltips(state: EditorState): readonly Tooltip[] {
         // console.log("got multiple dictionary entries for: ", currentValue);
         // TODO: handle duplicates!
       } else {
-        accumulator.push(currentValue);
-      }
+        const i = dismisslist.findIndex(
+          // find dismiss index of currentValue if in dismisslist
+          (entry: DismissLog) =>
+            entry.word === currentValue.triggerword &&
+            entry.pos.from === currentValue.range.from
+        );
 
+        if (i > -1) {
+          // if in dismisslist
+          const j = accumulator.findIndex((entry: ExtendedSearchResult) => {
+            return (
+              entry.triggerword === dismisslist[i].triggerword &&
+              entry.range.from === dismisslist[i].pos.from
+            );
+          });
+        } else {
+          accumulator.push(currentValue);
+        }
+      }
       return accumulator;
     },
     [] as ExtendedSearchResult[]
@@ -185,11 +193,12 @@ function getCursorTooltips(state: EditorState): readonly Tooltip[] {
       create: () => {
         let dom = document.createElement("div"); // create popup
         dom.onclick = function (event) {
+          // console.log("event.target", item.color.slice(0, -2));
+          // dom.style.backgroundColor = item.color.slice(0, -2) + "2)";
           toggleHighlight({ from: item.range.from, to: item.range.to });
           togglePopup(item, event);
           loadSidebar(item);
           if (item.placeholdercontent.suggestion !== null) {
-            console.log("loading placeholder", item.placeholdercontent);
             loadPlaceholder(item);
           }
         };
@@ -203,14 +212,9 @@ function getCursorTooltips(state: EditorState): readonly Tooltip[] {
   });
 }
 
-export function cursorTooltip(str: string) {
+export function cursorTooltip(dismisslist: DismissLog[]) {
   db.sidebars.update(1, { display: false });
-  return [fieldMaker(str), cursorTooltipBaseTheme];
-}
-
-async function checkHighlight() {
-  let x = await db.highlights.get(1);
-  return x;
+  return [fieldMaker(dismisslist), cursorTooltipBaseTheme];
 }
 
 async function toggleHighlight(pos: { from: number; to: number }) {

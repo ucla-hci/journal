@@ -1,7 +1,7 @@
 import { EditorView, keymap } from "@codemirror/view";
 import { sendToPy } from "./Extensions/sendToPy";
 import { db } from "../Dexie/db";
-import { L1_dict } from "../expressoDictionary";
+import { L1_dict, dev_dict } from "../expressoDictionary";
 import { SearchQuery, SearchCursor } from "@codemirror/search";
 import { Annotation } from "@codemirror/state";
 
@@ -10,7 +10,12 @@ export const keymaps = keymap.of([
     key: "Escape",
     preventDefault: true,
     run: (view) => {
-      db.placeholders.update(1, { active: false });
+      db.placeholders.update(1, {
+        active: false,
+        origin: "L1",
+        triggerword: null,
+        replace: null,
+      });
       view.dispatch({ annotations: annotation1.of("esc") });
       return true;
     },
@@ -19,7 +24,16 @@ export const keymaps = keymap.of([
     key: "Control-Space",
     preventDefault: true,
     run: (view: EditorView) => {
-      toggleSuggestion(view);
+      // check if L1 or L3
+      let current = db.placeholders.get(1).then((res) => {
+        if (res?.origin === "L3") {
+          console.log("ctrl space on l3");
+          toggleSuggestion(view, "L3");
+        } else {
+          console.log("ctrl space on l1");
+          toggleSuggestion(view, "L1");
+        }
+      });
       db.placeholders.update(1, { active: true });
       return true;
     },
@@ -40,7 +54,36 @@ export const keymaps = keymap.of([
 ]);
 
 // temporary hardcoded values --> replace with L1 prompts. use view to select appropriate ones
-export async function toggleSuggestion(view: EditorView) {
+export async function toggleSuggestion(view: EditorView, type: "L1" | "L3") {
+  if (type === "L3") {
+    const res = await db.placeholders.get(1);
+    let prevsuggestion = res?.suggestion!;
+    let triggerword = res?.triggerword!;
+
+    // search alternative replace based on same triggerword
+    let filtereddict = dev_dict.filter((entry) =>
+      entry.words.includes(triggerword.toLowerCase())
+    );
+    console.log("filtered dict size", filtereddict.length);
+    let possiblesuggestions = filtereddict[0].rewrite!;
+    possiblesuggestions = possiblesuggestions.filter((entry) => {
+      return entry === prevsuggestion ? false : true;
+    });
+    let newsuggestion =
+      possiblesuggestions[
+        Math.floor(Math.random() * possiblesuggestions.length)
+      ];
+
+    await db.placeholders.update(1, {
+      active: true,
+      origin: "L3",
+      triggerword: triggerword,
+      suggestion: newsuggestion,
+      location: view.state.doc.length,
+    });
+    return;
+  }
+
   // get last sentence
   var text = view.state.toString();
   const doclength = text.length;
@@ -90,6 +133,7 @@ export async function toggleSuggestion(view: EditorView) {
     await db.placeholders.update(1, {
       active: true,
       origin: "L1",
+      triggerword: null,
       suggestion: suggestion,
       location: view.state.doc.length,
     });
@@ -99,6 +143,7 @@ export async function toggleSuggestion(view: EditorView) {
       id: 1,
       active: true,
       origin: "L1",
+      triggerword: null,
       suggestion: suggestion,
       location: view.state.doc.length,
       replace: null,

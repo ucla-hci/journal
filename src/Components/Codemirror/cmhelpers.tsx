@@ -4,7 +4,7 @@ import {
   SelectionRange,
 } from "@codemirror/state";
 import { SearchQuery, SearchCursor } from "@codemirror/search";
-import { dict_temp, L1_dict } from "../expressoDictionary";
+import { dev_dict as dict_temp } from "../expressoDictionary";
 import { Sidebar } from "../Dexie/db";
 
 export interface ExtendedSearchResult {
@@ -101,60 +101,86 @@ export class Searcher {
     var searchresults = [] as ExtendedSearchResult[];
 
     dict_temp.forEach((element) => {
-      var regexsearch = "\\b" + element.Word! + "\\b";
-      var q = new SearchQuery({ search: regexsearch, regexp: true }); // might need to optimize here
-      var cursor = q.getCursor(this.state.doc) as SearchCursor;
+      element.words.forEach((single) => {
+        var regexsearch = "\\b" + single + "\\b";
+        var q = new SearchQuery({ search: regexsearch, regexp: true }); // might need to optimize here
+        var cursor = q.getCursor(this.state.doc) as SearchCursor;
 
-      while (!cursor.done) {
-        // get phlocation here!
-        let phlocation = cursor.value.to;
-        let rewrite_contents = null as null | string;
-        let replace = null as { from: number; to: number } | null;
+        while (!cursor.done) {
+          // get phlocation here!
+          let phlocation = cursor.value.to;
+          let rewrite_contents = null as null | string;
+          let replace = null as { from: number; to: number } | null;
 
-        if (element.rewrite !== null) {
-          if (element.rewrite_position.toLowerCase() === "replace") {
-            // find word to replace
-            replace = { from: cursor.value.from, to: cursor.value.to };
-            phlocation = cursor.value.to;
-          } else {
-            phlocation = this.getPHlocation(
-              element.rewrite_position,
-              cursor.value.to
-            );
+          if (element.rewrite !== null) {
+            if (element.rewrite_position.toLowerCase() === "replace") {
+              // find word to replace
+              replace = { from: cursor.value.from, to: cursor.value.to };
+              phlocation = cursor.value.to;
+            } else {
+              phlocation = this.getPHlocation(
+                element.rewrite_position,
+                cursor.value.to
+              );
+            }
+            rewrite_contents =
+              element.rewrite[
+                Math.floor(Math.random() * element.rewrite.length)
+              ]; // curently pick at random. But can be tuned!
           }
-          rewrite_contents =
-            element.rewrite[Math.floor(Math.random() * element.rewrite.length)]; // curently pick at random. But can be tuned!
-        }
 
-        if (cursor.value.from < cursor.value.to) {
-          searchresults.push({
-            range: EditorSelection.range(cursor.value.from, cursor.value.to),
-            color: element.color,
-            triggerword: this.state.sliceDoc(
-              cursor.value.from,
-              cursor.value.to
-            ),
-            popupcontent: {
-              title: element.popup_title!,
-              content: element.popup_feedback!,
-            },
-            sidebarcontent: {
-              title: "sidebar title",
-              display: false,
-              content: element.Sidebar_feedback!,
-              rephrase: element.rewrite !== null,
-            },
-            placeholdercontent: {
-              suggestion: rewrite_contents,
-              location: phlocation,
-              replace: replace !== null ? replace : null,
-            },
-          });
+          if (cursor.value.from < cursor.value.to) {
+            let rgbcol = hexToRgb(element.color);
+            let rgbcolstr =
+              "rgba(" +
+              rgbcol?.r +
+              "," +
+              rgbcol?.g +
+              "," +
+              rgbcol?.b +
+              ", 0.5)";
+
+            searchresults.push({
+              range: EditorSelection.range(cursor.value.from, cursor.value.to),
+              // color: element.color,
+              color: rgbcolstr,
+              triggerword: this.state.sliceDoc(
+                cursor.value.from,
+                cursor.value.to
+              ),
+              popupcontent: {
+                title: element.popup_title!,
+                content: element.popup_feedback!,
+              },
+              sidebarcontent: {
+                title: "sidebar title",
+                display: false,
+                content: element.Sidebar_feedback!,
+                rephrase: element.rewrite !== null,
+              },
+              placeholdercontent: {
+                suggestion: rewrite_contents,
+                location: phlocation,
+                replace: replace !== null ? replace : null,
+              },
+            });
+          }
+          cursor.next();
         }
-        cursor.next();
-      }
+      });
     });
 
     return searchresults;
   }
+}
+
+function hexToRgb(hex: string) {
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result
+    ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16),
+      }
+    : null;
 }

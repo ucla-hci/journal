@@ -44,7 +44,7 @@ export default function Popup({
     }
   }
 
-  async function addToDismiss(word: string, pos: { from: number; to: number }) {
+  function addToDismiss(word: string, pos: { from: number; to: number }) {
     db.dismiss.add({
       note: currentNote!,
       word: word,
@@ -52,8 +52,6 @@ export default function Popup({
       timestamp: timespent,
       realtime: Date.now(),
     });
-    let ret = db.dismiss.toArray();
-    return ret;
   }
 
   useEffect(() => {
@@ -121,15 +119,17 @@ export default function Popup({
           variant="outlined"
           onClick={() => setFeedbackbar(true)}
         >
-          Sidebar
+          More
         </Button>
         <Button
           size="small"
           variant="outlined"
           onClick={() => {
-            console.log(
-              addToDismiss(contents?.triggerword!, contents?.wordlocation!)
-            );
+            addToDismiss(contents?.triggerword!, contents?.wordlocation!);
+            db.highlights.update(1, {
+              active: false,
+            });
+            closePopup();
           }}
         >
           Dismiss

@@ -30,7 +30,7 @@ interface NoteSnapshots {
   feedbackusetime: number;
 }
 
-interface DismissLog {
+export interface DismissLog {
   id?: number;
   note: number;
   word: string;
@@ -72,7 +72,9 @@ export interface Logs {
 export interface Sidebar {
   id?: number;
   title: string;
-  content: { [key: string]: string };
+  // content: { [key: string]: string };
+  content: string | string[];
+  // content: string[];
   display: boolean;
   rephrase: boolean;
 }
@@ -88,8 +90,8 @@ export interface Popup {
 
 export interface Placeholder {
   id?: number;
-  prepare?: boolean;
   origin: "L1" | "L3";
+  triggerword: string | null;
   active: boolean;
   suggestion: string;
   location: number;

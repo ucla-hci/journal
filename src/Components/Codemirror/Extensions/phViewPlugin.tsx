@@ -71,7 +71,12 @@ export const placeholders = ViewPlugin.fromClass(
           let ranges = tr.state.selection.ranges;
           if (ranges.length > 0) {
             if (ranges[0].from !== this.from) {
-              db.placeholders.update(1, { active: false });
+              db.placeholders.update(1, {
+                active: false,
+                origin: "L1",
+                triggerword: null,
+                replace: null,
+              });
             }
           }
         }
@@ -143,7 +148,12 @@ export const placeholders = ViewPlugin.fromClass(
         } else if (tr.isUserEvent("delete")) {
           console.log("ph char deletion");
 
-          db.placeholders.update(1, { active: false });
+          db.placeholders.update(1, {
+            active: false,
+            origin: "L1",
+            triggerword: null,
+            replace: null,
+          });
         }
       });
       if (
@@ -166,7 +176,13 @@ export const placeholders = ViewPlugin.fromClass(
           )}/${this.suggestionfull}`,
         });
 
-        db.placeholders.update(1, { active: false });
+        db.highlights.update(1, { active: false });
+        db.placeholders.update(1, {
+          active: false,
+          origin: "L1",
+          triggerword: null,
+          replace: null,
+        });
       }
     }
   },
@@ -232,7 +248,13 @@ export const placeholders = ViewPlugin.fromClass(
             },
             sequential: true,
           });
-          db.placeholders.update(1, { active: false });
+          db.highlights.update(1, { active: false });
+          db.placeholders.update(1, {
+            active: false,
+            origin: "L1",
+            triggerword: null,
+            replace: null,
+          });
 
           return true;
         }

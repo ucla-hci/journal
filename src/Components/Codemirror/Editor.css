@@ -19,6 +19,7 @@
 
 .note-title:focus {
   outline: none;
+  text-decoration: underline;
 }
 
 .notifiers {
@@ -44,16 +45,12 @@
   font-size: medium;
 }
 
-.cm-highlight {
-  background-color: rgb(224, 191, 255);
-}
-
 .cm-atomic {
   color: grey;
-  border-radius: 15%;
+  /* border-radius: 15%; */
   width: fit-content;
   cursor: default;
   user-select: none;
-  padding-left: 3px;
+  /* padding-left: 3px; */
   padding-right: 3px;
 }
