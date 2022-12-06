@@ -35,7 +35,9 @@ function App() {
     setNnotes(x.length);
   });
 
-  // on day change, collect all logs from previous day and store into db snapshots
+  useEffect(() => {
+    ReactModal.setAppElement("#root");
+  }, []);
 
   useEffect(() => {
     // on first load clear popups, sidebars, placeholders tables
@@ -107,9 +109,9 @@ function App() {
         >
           {currentNote === null ? (
             <>
-              <h1 className="homelogo">Expresso+</h1>
+              <h1 className="homelogo noselect">Expresso+</h1>
               {/* <h1 className="homelogo">Expresso+</h1> */}
-              {Nnotes! !== 0 ? (
+              {Nnotes! >= 2 ? (
                 <div
                   style={{
                     border: "var(--borderdebug) grey",

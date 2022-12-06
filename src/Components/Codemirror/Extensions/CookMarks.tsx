@@ -18,9 +18,10 @@ async function togglePopup(item: ExtendedSearchResult, event: MouseEvent) {
         title: item.popupcontent.title,
         content: item.popupcontent.content,
         display: true,
-        location: { x: event.clientX, y: event.clientY },
+        location: { x: event.clientX - 2, y: event.clientY + 20 },
         triggerword: item.triggerword,
         wordlocation: item.range,
+        color: item.color,
       });
       // console.log("added new popup with id", id);
     } else {
@@ -28,9 +29,10 @@ async function togglePopup(item: ExtendedSearchResult, event: MouseEvent) {
         title: item.popupcontent.title,
         content: item.popupcontent.content,
         display: true,
-        location: { x: event.clientX, y: event.clientY },
+        location: { x: event.clientX - 2, y: event.clientY + 20 },
         triggerword: item.triggerword,
         wordlocation: item.range,
+        color: item.color,
       });
     }
   } catch (error) {
@@ -106,13 +108,13 @@ const cursorTooltipBaseTheme = EditorView.baseTheme({
     backgroundColor: "#22b",
     color: "white",
     border: "none",
-    padding: "2px 6px",
-    borderRadius: "6px",
+    padding: "4px 4px",
+    // borderRadius: "6px",
     height: "6px",
     cursor: "pointer",
     position: "relative",
-    marginRight: "8px",
-    marginTop: "8px",
+    // marginRight: "8px",
+    marginTop: "6px",
     zIndex: 1,
     "&:hover": {
       backgroundColor: "#bfb",
@@ -195,7 +197,11 @@ function getCursorTooltips(
         dom.onclick = function (event) {
           // console.log("event.target", item.color.slice(0, -2));
           // dom.style.backgroundColor = item.color.slice(0, -2) + "2)";
-          toggleHighlight({ from: item.range.from, to: item.range.to });
+          console.log("toggling highlight w color", item.color!);
+          toggleHighlight(
+            { from: item.range.from, to: item.range.to },
+            item.color!
+          );
           togglePopup(item, event);
           loadSidebar(item);
           if (item.placeholdercontent.suggestion !== null) {
@@ -217,7 +223,10 @@ export function cursorTooltip(dismisslist: DismissLog[]) {
   return [fieldMaker(dismisslist), cursorTooltipBaseTheme];
 }
 
-async function toggleHighlight(pos: { from: number; to: number }) {
+async function toggleHighlight(
+  pos: { from: number; to: number },
+  color: string
+) {
   console.log("toggling highlight pos", pos);
   try {
     const ret = await db.highlights.get(1);
@@ -227,12 +236,14 @@ async function toggleHighlight(pos: { from: number; to: number }) {
         id: 1,
         pos: pos,
         active: true,
+        color: color,
       });
       // console.log("added new popup with id", id);
     } else {
       await db.highlights.update(1, {
         pos: pos,
         active: true,
+        color: color,
       });
     }
   } catch (error) {

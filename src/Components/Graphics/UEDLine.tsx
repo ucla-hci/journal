@@ -51,7 +51,15 @@ export default function UEDLine() {
       }}
     >
       <p>Emotion Dynamics (NOT IMPLEMENTED)</p>
-      <div className="plotdiv" ref={plotRef}></div>
+      <div
+        className="plotdiv"
+        ref={plotRef}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      ></div>
     </div>
   );
 }

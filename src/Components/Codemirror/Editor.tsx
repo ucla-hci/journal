@@ -9,11 +9,11 @@ import React, { useEffect, useRef, useState } from "react";
 import { EditorView } from "@codemirror/view";
 import { EditorState } from "@codemirror/state";
 
-import { annotation1, keymaps, toggleSuggestion } from "./keymaps";
+import { annotation1, keymaps, togglePlaceholder } from "./keymaps";
 import { db, DismissLog, Highlight, Note, Placeholder } from "../Dexie/db";
 import { IndexableType } from "dexie";
 
-import "./Editor.css";
+import "../Styles/Editor.css";
 import { cursorTooltip } from "./Extensions/CookMarks";
 
 import { history } from "@codemirror/commands";
@@ -26,59 +26,20 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { debounce } from "lodash";
 import { timeChecker } from "./Extensions/checkPauses";
 import { l2underline } from "./Extensions/textMarker";
+import { FormControlLabel, FormGroup, Switch } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-let myTheme = EditorView.theme(
-  {
-    "&": {
-      color: "rgba(1,1,1,0.9)",
-      width: "100%",
-      // height: "100%",
-      height: "calc(100vh - 100px)",
-      textAlign: "left",
-      overflowY: "scroll",
-      // -ms-overflow-style: none;  /* IE and Edge */
-      scrollbarWidth: "none",
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#e6a1cf",
+      // main: "#ffffff",
     },
-    "&.cm-editor": {
-      scrollbarWidth: "none",
-      // border: "2px solid orange",
-      boxShadow: "rgba(0, 0, 0, 0.10) 0px 3px 8px",
-      padding: "20px",
-    },
-    "&.cm-editor.cm-focused": {
-      boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-      // border: "2px solid blue",
-      outline: "none",
-    },
-    ".cm-content": {
-      // caretColor: "#f00",
-      fontFamily: "'Roboto Mono', monospace",
-      fontSize: "18px",
-    },
-    "&.cm-focused .cm-cursor": {
-      border: "1px solid var(--fontcollight)",
-    },
-    "&.cm-focused .cm-selectionBackground, ::selection": {
-      // backgroundColor: "#074",
-    },
-    ".cm-gutters": {
-      backgroundColor: "var(--bgcolmid)",
-      color: "var(--bgcolshadow)",
-    },
-    ".cm-atomic": {
-      // backgroundColor: "cornsilk",
-    },
-    ".cm-replace": {
-      backgroundColor: "pink",
-      textDecoration: "line-through",
-    },
-
-    ".cm-underline": {
-      textDecoration: "underline 3px green",
+    secondary: {
+      main: "#000059",
     },
   },
-  { dark: false }
-);
+});
 
 interface editorProps {
   view: EditorView | null;
@@ -125,6 +86,60 @@ export function Editor({
 
   const [dismisslist, setDismisslist] = useState<DismissLog[] | null>(null);
 
+  let myTheme = EditorView.theme(
+    {
+      "&": {
+        color: "rgba(1,1,1,0.9)",
+        width: "100%",
+        // height: "100%",
+        height: "calc(100vh - 150px)",
+        textAlign: "left",
+        overflowY: "scroll",
+        // -ms-overflow-style: none;  /* IE and Edge */
+        scrollbarWidth: "none",
+      },
+      "&.cm-editor": {
+        scrollbarWidth: "none",
+        // border: "2px solid orange",
+        boxShadow: "rgba(0, 0, 0, 0.10) 0px 3px 8px",
+        padding: "20px",
+      },
+      "&.cm-editor.cm-focused": {
+        boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+        // border: "2px solid blue",
+        outline: "none",
+      },
+      ".cm-content": {
+        // caretColor: "#f00",
+        fontFamily: "'Inter', sans-serif",
+        fontSize: "18px",
+      },
+      "&.cm-focused .cm-cursor": {
+        border: "1px solid var(--fontcollight)",
+      },
+      "&.cm-focused .cm-selectionBackground, ::selection": {
+        // backgroundColor: "#074",
+      },
+      ".cm-gutters": {
+        backgroundColor: "var(--bgcolmid)",
+        color: "var(--bgcolshadow)",
+      },
+      ".cm-atomic": {
+        // backgroundColor: "cornsilk",
+      },
+      ".cm-replace": {
+        backgroundColor: "pink",
+        textDecoration: "line-through",
+      },
+
+      ".cm-underline": {
+        textDecoration: "underline 3px var(--analysis-highlight)",
+        // backgroundColor: "var(--analysis-highlight-light)",
+      },
+    },
+    { dark: false }
+  );
+
   const fetchNote = async () => {
     if (currentNote === null) return;
     var response = await db.notes.get(currentNote!);
@@ -158,7 +173,9 @@ export function Editor({
   // use for single expressiveness triggers
   useEffect(() => {
     if (L1trigger && view !== null) {
-      toggleSuggestion(view, "L1");
+      db.placeholders.get(1).then((res) => {
+        togglePlaceholder(view, "L1", res!);
+      });
     }
   }, [L1trigger]);
 
@@ -368,21 +385,71 @@ export function Editor({
         <p>Write Time: {Math.floor(timespent / 60000)} min</p>
       </div> */}
       <div className="note-header">
-        <input
-          className="note-title"
-          value={title}
-          onChange={async (e) => {
-            handleTitleChange(e);
-          }}
-        />
-
-        <p className="note-date">
-          {fetchedNote === undefined
-            ? ""
-            : new Date(fetchedNote?.lastedit!)
-                .toLocaleString("en-US")
-                .split(",")[0]}
-        </p>
+        <div className="notifiers">
+          <p className="note-date">
+            {fetchedNote === undefined
+              ? ""
+              : new Date(fetchedNote?.lastedit!)
+                  .toLocaleString("en-US")
+                  .split(",")[0]}
+          </p>
+          <p>{wordcount} words</p>
+          <p>{Math.floor(timespent / 60000)} minutes</p>
+        </div>
+        <div className="headerrow">
+          <input
+            className="note-title"
+            value={title}
+            onChange={async (e) => {
+              handleTitleChange(e);
+            }}
+          />
+          <div className="featuretoggles">
+            <ThemeProvider theme={theme}>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={L1active}
+                      onChange={(event, checked) => {
+                        console.log("L1 value", checked);
+                        // enable auto expressiveness! periodic suggestions!
+                        setL1active(checked);
+                      }}
+                    />
+                  }
+                  label="Expresso"
+                />
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={L2active}
+                      onChange={(event, checked) => {
+                        setL2active(checked);
+                        // enable marks!
+                      }}
+                    />
+                  }
+                  label="Analysis"
+                />
+                {/* <Button
+                  variant="contained"
+                  onClick={() => {
+                    // 1. prepare placeholder
+                    setTimeout(() => {
+                      setL1trigger(false);
+                    }, 15);
+                    setL1trigger(true);
+                    // 2. push display=true
+                    db.placeholders.update(1, { active: true });
+                  }}
+                >
+                  Stuck?
+                </Button> */}
+              </FormGroup>
+            </ThemeProvider>
+          </div>
+        </div>
       </div>
       <section
         ref={editorRef}

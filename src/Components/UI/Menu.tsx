@@ -22,7 +22,6 @@ const theme = createTheme({
   palette: {
     primary: {
       main: "#e6a1cf",
-      // main: "#ffffff",
     },
     secondary: {
       main: "#000059",
@@ -130,7 +129,7 @@ export default function Menu({
                     <HomeIcon />
                   </IconButton>
                 </ThemeProvider>
-                <h1>Menu</h1>
+                {/* <h1>Menu</h1> */}
                 <ThemeProvider theme={theme}>
                   <IconButton
                     onClick={() => {
@@ -145,9 +144,14 @@ export default function Menu({
               </header>
               <div style={{ display: "flex", justifyContent: "space-evenly" }}>
                 <ThemeProvider theme={theme}>
-                  <IconButton onClick={downloadDB} color="inherit">
-                    <FileDownloadIcon />
-                  </IconButton>
+                  <Button
+                    onClick={downloadDB}
+                    color="primary"
+                    variant="contained"
+                    endIcon={<FileDownloadIcon />}
+                  >
+                    Logs
+                  </Button>
                   <Button
                     onClick={() => {
                       addNote().then((id) => {
@@ -170,110 +174,39 @@ export default function Menu({
                 setCurrentNote={setCurrentNote}
                 setShowbar={setShowbar}
               />
-              {currentNote !== null ? (
-                <>
-                  <div className="featuretoggles">
-                    <ThemeProvider theme={theme}>
-                      <FormGroup>
-                        <FormControlLabel
-                          control={
-                            <Switch
-                              checked={L1active}
-                              onChange={(event, checked) => {
-                                console.log("L1 value", checked);
-                                // enable auto expressiveness! periodic suggestions!
-                                setL1active(checked);
-                              }}
-                            />
-                          }
-                          label="Auto Expressiveness"
-                        />
-                        <FormControlLabel
-                          control={
-                            <Switch
-                              checked={L2active}
-                              onChange={(event, checked) => {
-                                setL2active(checked);
-                                // enable marks!
-                              }}
-                            />
-                          }
-                          label="Auto Analysis"
-                        />
-                        <Button
-                          variant="contained"
-                          onClick={() => {
-                            // 1. prepare placeholder
-                            setTimeout(() => {
-                              setL1trigger(false);
-                            }, 15);
-                            setL1trigger(true);
-                            // 2. push display=true
-                            db.placeholders.update(1, { active: true });
-                          }}
-                        >
-                          Stuck?
-                        </Button>
-                      </FormGroup>
-                    </ThemeProvider>
-                  </div>
-
-                  <div
-                    style={{
-                      display: "flex",
-                      width: "100%",
-                      alignItems: "center",
-                    }}
-                  >
-                    <div style={{ marginLeft: "4px" }}>
-                      <ThemeProvider theme={theme2}>
-                        <IconButton
-                          color="inherit"
-                          onClick={() => {
-                            setViewHelp(true);
-                          }}
-                        >
-                          <HelpOutlineIcon />
-                        </IconButton>
-                      </ThemeProvider>
-                    </div>
-                    <p style={{ flex: 2, marginRight: "40px" }}>hci@ucla</p>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div
-                    style={{
-                      position: "absolute",
-                      width: "230px",
-                      bottom: "0px",
-                      right: "30px",
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <ThemeProvider theme={theme2}>
-                      <IconButton
-                        color="inherit"
-                        onClick={() => {
-                          setViewHelp(true);
-                        }}
-                      >
-                        <HelpOutlineIcon />
-                      </IconButton>
-                    </ThemeProvider>
-                    <p
-                      style={{
-                        width: "100%",
-                        marginRight: "20px",
+              <>
+                <div
+                  style={{
+                    position: "absolute",
+                    width: "230px",
+                    bottom: "0px",
+                    right: "30px",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <ThemeProvider theme={theme2}>
+                    <IconButton
+                      color="inherit"
+                      onClick={() => {
+                        setViewHelp(true);
                       }}
                     >
-                      hci@ucla
-                    </p>
-                  </div>
-                  {/* // </div> */}
-                </>
-              )}
+                      <HelpOutlineIcon />
+                    </IconButton>
+                  </ThemeProvider>
+                  <p
+                    style={{
+                      width: "100%",
+                      marginRight: "20px",
+                    }}
+                  >
+                    hci@ucla
+                  </p>
+                </div>
+                {/* // </div> */}
+              </>
+              {/* )} */}
             </div>
           ),
         }[showbar]

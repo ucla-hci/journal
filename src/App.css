@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Alexandria:wght@700&family=Roboto+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap");
 
 :root {
   --bgcolmid: #e6a1cf;
@@ -17,24 +18,29 @@
   --borderdebug: 0px none;
   /* --borderdebug: 2px dashed; */
   --softgrey: rgba(68, 68, 68, 0.206);
+
+  --analysis-highlight: #fff;
+  --analysis-highlight-ligh: #fff;
 }
 
 .App {
   text-align: center;
-  font-family: "Roboto Mono", monospace;
+  /* font-family: "Roboto Mono", monospace; */
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
   display: flex;
   flex-direction: row;
 }
 
 .homelogo {
-  font-size: 10vh;
+  font-size: 64px;
   margin-top: 0;
   margin-bottom: 0;
   margin-left: 0;
   text-align: center;
-  font-weight: 800;
+  font-weight: 500;
   color: gray;
-  letter-spacing: -6px;
+  letter-spacing: -4px;
 }
 
 .App-header {
@@ -48,4 +54,14 @@
   flex-grow: 1;
   /* min-width: 100%; */
   /* left: 0; */
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
 }

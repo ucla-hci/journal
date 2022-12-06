@@ -30,11 +30,10 @@
 .menu-sidebar header {
   display: flex;
   flex-direction: row;
-  margin-left: 10px;
-  margin-right: 10px;
-}
-.menu-sidebar header h1 {
-  flex: 1;
+  margin: 20px 10px 20px 10px;
+  /* margin-left: 10px;
+  margin-right: 10px; */
+  justify-content: space-between;
 }
 
 .menu-sidebar header > * {
@@ -72,19 +71,27 @@
   background-color: var(--fontcoldark);
 }
 
-.notebrief p {
+.notebrief .title {
   margin: 0px;
-  flex: 1;
+  flex-grow: 4;
   text-align: left;
   padding-left: 10px;
   align-self: center;
+  border: var(--borderdebug) rgba(255, 0, 200, 0.699);
+}
+
+.dateclose {
+  display: flex;
+  flex-direction: column;
+}
+
+.dateclose > * {
+  border: var(--borderdebug) rgba(255, 0, 200, 0.699);
 }
 
 .notebrief .date {
-  text-align: right;
   font-size: small;
   color: var(--bgcolmid);
-  align-self: center;
 }
 
 .notebrief button {
@@ -99,7 +106,7 @@
 .notelist > * {
   /* border: 2px solid var(--highlight); */
   box-sizing: border-box;
-  border-radius: 5px;
+  /* border-radius: 5px; */
 }
 
 .featuretoggles {

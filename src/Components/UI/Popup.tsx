@@ -5,8 +5,20 @@ import { useLiveQuery } from "dexie-react-hooks";
 import React, { useEffect, useRef } from "react";
 import { db, Popup as popuptype } from "../Dexie/db";
 import "../Styles/Popup.css";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 export async function addSidebar() {}
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#000",
+    },
+    secondary: {
+      main: "#000059",
+    },
+  },
+});
 
 interface popupprops {
   setFeedbackbar: React.Dispatch<React.SetStateAction<boolean>>;
@@ -100,6 +112,7 @@ export default function Popup({
     >
       <div className="popup-header">
         <h4>{contents?.title}</h4>
+
         <IconButton onClick={closePopup} aria-label="delete">
           <CloseIcon />
         </IconButton>
@@ -114,26 +127,29 @@ export default function Popup({
         {contents?.content}
       </p>
       <div className="popup-buttons">
-        <Button
-          size="small"
-          variant="outlined"
-          onClick={() => setFeedbackbar(true)}
-        >
-          More
-        </Button>
-        <Button
-          size="small"
-          variant="outlined"
-          onClick={() => {
-            addToDismiss(contents?.triggerword!, contents?.wordlocation!);
-            db.highlights.update(1, {
-              active: false,
-            });
-            closePopup();
-          }}
-        >
-          Dismiss
-        </Button>
+        <ThemeProvider theme={theme}>
+          <Button
+            size="small"
+            variant="outlined"
+            onClick={() => setFeedbackbar(true)}
+            color="primary"
+          >
+            More
+          </Button>
+          <Button
+            size="small"
+            variant="outlined"
+            onClick={() => {
+              addToDismiss(contents?.triggerword!, contents?.wordlocation!);
+              db.highlights.update(1, {
+                active: false,
+              });
+              closePopup();
+            }}
+          >
+            Dismiss
+          </Button>
+        </ThemeProvider>
       </div>
     </div>
   );

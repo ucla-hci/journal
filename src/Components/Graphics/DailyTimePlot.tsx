@@ -70,7 +70,7 @@ export default function DailyTimePlot() {
     });
 
     setLineData(plotdata!);
-    console.log("plotData()", plotdata);
+    // console.log("plotData()", plotdata);
   }, [pauses, times]);
 
   useEffect(() => {
@@ -134,7 +134,15 @@ export default function DailyTimePlot() {
       <p>
         Total writing time & <span style={{ color: "red" }}>pause time</span>
       </p>
-      <div className="plotdiv" ref={plotRef}></div>
+      <div
+        className="plotdiv"
+        ref={plotRef}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      ></div>
     </div>
   );
 }

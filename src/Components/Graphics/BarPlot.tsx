@@ -19,7 +19,6 @@ export default function BarPlot() {
     let content = mynotes.slice(-7).reduce((acc, curr) => {
       return acc + curr.content;
     }, "");
-    console.log("concatenated content:", content);
     setConcatContent(content);
   };
 
@@ -53,7 +52,7 @@ export default function BarPlot() {
       acc[curr.strategy_code.toLowerCase()] += 1;
       return acc;
     }, emptycount);
-    console.log("barplotcount:", count);
+    // console.log("barplotcount:", count);
 
     let namemapper = {
       l2a: "Judgement",
@@ -102,7 +101,15 @@ export default function BarPlot() {
       }}
     >
       <p>Aggregate analysis</p>
-      <div className="plotdiv" ref={plotRef}></div>
+      <div
+        className="plotdiv"
+        ref={plotRef}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      ></div>
     </div>
   );
 }

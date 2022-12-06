@@ -1,20 +1,20 @@
 .note-header {
   /* border: 2px solid var(--highlight); */
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   margin-bottom: 16px;
+  border: var(--borderdebug) orange;
 }
 
 .note-title {
   background-color: unset;
   border: none;
-  font-size: 32px;
-  flex: 1;
-  /* border: 1px solid cyan; */
+  font-size: 42px;
+  border: var(--borderdebug) cyan;
   font-family: inherit;
-  /* margin-left: 36px; */
   color: rgb(74, 74, 74);
+  font-style: italic;
 }
 
 .note-title:focus {
@@ -24,25 +24,34 @@
 
 .notifiers {
   display: flex;
-  height: 20px;
   justify-content: space-between;
+  margin-top: 20px;
 }
 
 .notifiers p {
-  font-size: small;
-  color: rgba(18, 18, 18, 0.506);
-  margin: 0;
-}
-
-.notifiers > * {
-  border: 1px solid blue;
   font-size: medium;
-  /* padding-right: 12px; */
-  width: 120px;
+  color: rgba(18, 18, 18, 0.506);
+  margin-right: 30px;
+  margin-top: 0;
+  text-align: left;
+  border: var(--borderdebug) blue;
 }
 
 .note-date {
   font-size: medium;
+}
+
+.headerrow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: var(--borderdebug) red;
+  width: 100%;
+}
+
+.featuretoggles {
+  border: var(--borderdebug) blue;
+  margin: 0;
 }
 
 .cm-atomic {

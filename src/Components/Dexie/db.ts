@@ -43,6 +43,7 @@ export interface Highlight {
   id?: number;
   pos: { from: number; to: number };
   active: boolean;
+  color: string | null;
 }
 
 export interface Timelog {
@@ -86,6 +87,7 @@ export interface Popup {
   triggerword: string;
   wordlocation: { from: number; to: number };
   location: { x: number; y: number };
+  color: string | null;
 }
 
 export interface Placeholder {

@@ -29,13 +29,13 @@ export default function GraphBuilder() {
         justifyContent: "space-evenly",
       }}
     >
-      {Nnotes! < 1 ? null : (
+      {Nnotes! < 2 ? null : (
         <>
           {/* <MarksPlot graphNote={graphNote!} /> */}
           <DailyTimePlot />
           <WordCountPlot />
           <BarPlot />
-          <UEDLine />
+          {/* <UEDLine /> */}
         </>
       )}
     </div>

@@ -21,6 +21,9 @@ export function l2underline(highlight: Highlight) {
           Decoration.mark({ class: "cm-underline" })
         );
         this.myDeco = e.finish();
+        let root = document.documentElement;
+        root.style.setProperty("--analysis-highlight", highlight.color!);
+        // console.log("highlight color", highlight);
       }
       update(u: ViewUpdate) {
         if (u.docChanged || u.viewportChanged) {

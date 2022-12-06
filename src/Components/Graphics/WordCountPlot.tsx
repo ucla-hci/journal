@@ -47,6 +47,7 @@ export default function WordCountPlot() {
         label: "↑ Number of words",
         zero: true,
         nice: true,
+        domain: [0, Math.max(...lineData.map((o) => o.nwords)) + 10],
       },
       marks: [
         Plot.line(lineData, {
@@ -71,7 +72,15 @@ export default function WordCountPlot() {
       }}
     >
       <p>WordCount</p>
-      <div className="plotdiv" ref={plotRef}></div>
+      <div
+        className="plotdiv"
+        ref={plotRef}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      ></div>
     </div>
   );
 }

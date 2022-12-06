@@ -51,7 +51,8 @@ export default function NoteList({
             setShowbar("hide");
           }}
         >
-          <p>{note.title}</p>
+          <p className="title">{note.title}</p>
+          {/* <div className="dateclose"> */}
           <p className="date">
             {new Date(note.creationdate).toLocaleString("en-US").split(",")[0]}
           </p>
@@ -66,6 +67,7 @@ export default function NoteList({
           >
             <ClearIcon />
           </IconButton>
+          {/* </div> */}
         </div>
       ))}
     </div>
