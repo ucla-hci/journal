@@ -24,7 +24,6 @@ export function toggleWith2(
   setL2active: React.Dispatch<React.SetStateAction<boolean>>
 ) {
   let myCompartment = new Compartment();
-  console.log("runnig togglewith2");
   function toggle(view: EditorView) {
     let on = myCompartment.get(view.state) !== extension;
     setL2active(!on);

@@ -15,18 +15,11 @@ export default function WordCountPlot() {
   async function getWordCountData() {
     let mynotes = await db.notes.toArray();
     // reverse and get last 7
-    let pairs = mynotes.slice(-7).map((note) => {
-      return { day: note.id!, nwords: note.content.split(" ").length };
+    let pairs = mynotes.slice(-7).map((note, idx) => {
+      return { day: idx + 1, nwords: note.content.split(" ").length - 1 };
     });
     setLineData(pairs);
   }
-
-  const driving = [
-    { day: 1, nwords: 100 },
-    { day: 2, nwords: 132 },
-    { day: 3, nwords: 115 },
-    { day: 4, nwords: 250 },
-  ];
 
   useEffect(() => {
     getWordCountData();
@@ -40,7 +33,7 @@ export default function WordCountPlot() {
       grid: true,
       x: {
         domain: lineData.map((val) => val.day),
-        label: "Entries →",
+        label: "Most Recent Entries →",
         tickFormat: (d: any) => (d % 1 !== 0 ? null : d),
       },
       y: {
@@ -53,7 +46,7 @@ export default function WordCountPlot() {
         Plot.line(lineData, {
           x: "day",
           y: "nwords",
-          curve: "catmull-rom",
+          // curve: "catmull-rom",
           marker: "circle",
         }),
       ],

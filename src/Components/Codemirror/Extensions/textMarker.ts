@@ -6,7 +6,11 @@ import {
   ViewUpdate,
 } from "@codemirror/view";
 import { RangeSetBuilder } from "@codemirror/state";
-import { Highlight } from "../../Dexie/db";
+import { db, Highlight } from "../../Dexie/db";
+
+async function flipPopup() {
+  let y = await db.popups.update(1, { display: true });
+}
 
 export function l2underline(highlight: Highlight) {
   return ViewPlugin.fromClass(
@@ -18,11 +22,22 @@ export function l2underline(highlight: Highlight) {
         e.add(
           highlight!.pos.from,
           highlight!.pos.to,
-          Decoration.mark({ class: "cm-underline" })
+          Decoration.mark({
+            class: "cm-underline",
+          })
         );
         this.myDeco = e.finish();
         let root = document.documentElement;
         root.style.setProperty("--analysis-highlight", highlight.color!);
+        setTimeout(() => {
+          let p = document.getElementsByClassName(
+            "cm-underline"
+          )[0] as HTMLElement;
+          console.log("p", p);
+          if (p !== undefined) {
+            p.onclick = flipPopup;
+          }
+        }, 10);
         // console.log("highlight color", highlight);
       }
       update(u: ViewUpdate) {

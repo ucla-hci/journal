@@ -87,6 +87,7 @@ export interface Popup {
   triggerword: string;
   wordlocation: { from: number; to: number };
   location: { x: number; y: number };
+  showsidebar: boolean;
   color: string | null;
 }
 
@@ -146,7 +147,32 @@ export const db = new MySubClassedDexie();
 export const downloadDB = async () => {
   try {
     const blob = await db.export({ prettyJson: true });
-    download(blob, "dexie-export.json", "application/json");
+    download(blob, "expresso+logs.json", "application/json");
+  } catch (error) {
+    console.error("" + error);
+  }
+};
+export const downloadDBlite = async () => {
+  try {
+    const notes = (await db.notes.toArray()).map((note: Note) => ({
+      ...note,
+      content: "",
+      nwords: note.content.split(" ").length - 1,
+    }));
+
+    const blob = await db.export({
+      prettyJson: true,
+      filter: (table, value, key) => {
+        if (table === "notes") {
+          return false;
+        }
+        return true;
+      },
+    });
+
+    const concatBlob = new Blob([blob, JSON.stringify(notes, null, 2)]);
+
+    download(concatBlob, "expresso+litelogs.json", "application/json");
   } catch (error) {
     console.error("" + error);
   }

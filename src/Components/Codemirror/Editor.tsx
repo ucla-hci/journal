@@ -27,19 +27,6 @@ import { debounce } from "lodash";
 import { timeChecker } from "./Extensions/checkPauses";
 import { l2underline } from "./Extensions/textMarker";
 import { FormControlLabel, FormGroup, Switch } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#e6a1cf",
-      // main: "#ffffff",
-    },
-    secondary: {
-      main: "#000059",
-    },
-  },
-});
 
 interface editorProps {
   view: EditorView | null;
@@ -72,7 +59,6 @@ export function Editor({
   const [fetchedNote, setfetchedNote] = useState<Note | undefined>(undefined);
   const [title, setTitle] = useState<string | undefined>(undefined);
   const [showSave, setShowSave] = useState<boolean>(false);
-  // const [timespent, setTimespent] = useState<number>(0);
 
   //placeholderstuff
   const [suggestion, setSuggestion] = useState<Placeholder | null>(null);
@@ -81,10 +67,25 @@ export function Editor({
 
   // persist through editor reconfig
   const [cursor, setCursor] = useState<number>(0);
-  const [waitTime, setWaitTime] = useState<number | null>(10000);
   const [highlight, setHighlight] = useState<Highlight | null>(null);
 
   const [dismisslist, setDismisslist] = useState<DismissLog[] | null>(null);
+  const [tim, setTim] = useState(0);
+
+  useEffect(() => {
+    if (!placeholderActive && L1active) {
+      if (tim !== 0) {
+        window.clearTimeout(tim);
+      }
+      let x = window.setTimeout(() => {
+        setTimeout(() => {
+          setL1trigger(false);
+        }, 2);
+        setL1trigger(true);
+      }, 7000);
+      setTim(x);
+    }
+  }, [cursor]);
 
   let myTheme = EditorView.theme(
     {
@@ -92,7 +93,7 @@ export function Editor({
         color: "rgba(1,1,1,0.9)",
         width: "100%",
         // height: "100%",
-        height: "calc(100vh - 150px)",
+        height: "calc(100vh - 160px)",
         textAlign: "left",
         overflowY: "scroll",
         // -ms-overflow-style: none;  /* IE and Edge */
@@ -134,6 +135,7 @@ export function Editor({
 
       ".cm-underline": {
         textDecoration: "underline 3px var(--analysis-highlight)",
+        cursor: "pointer",
         // backgroundColor: "var(--analysis-highlight-light)",
       },
     },
@@ -146,7 +148,9 @@ export function Editor({
     if (response !== undefined) {
       setfetchedNote(response);
       setTimespent(response.timeduration);
-      setCursor(response.content.length);
+      if (cursor > response.content.length) {
+        setCursor(response.content.length);
+      }
     }
   };
 
@@ -178,20 +182,6 @@ export function Editor({
       });
     }
   }, [L1trigger]);
-
-  useInterval(
-    () => {
-      if (!placeholderActive) {
-        setTimeout(() => {
-          setL1trigger(false);
-        }, 15);
-        setL1trigger(true);
-        // 2. push display=true
-        db.placeholders.update(1, { active: true });
-      }
-    },
-    L1active ? waitTime : null
-  );
 
   useEffect(() => {
     if (suggestion !== null) {
@@ -231,10 +221,8 @@ export function Editor({
 
   function getCursorLocation() {
     if (placeholderActive) {
-      console.log("returning cursorlocation", suggestion!.location);
       return suggestion!.location;
     } else {
-      console.log("returning cursorlocation", cursor);
       return cursor;
     }
   }
@@ -296,12 +284,8 @@ export function Editor({
 
         // onchange listener ------------------------------------------------
         EditorView.updateListener.of(({ state, view, transactions }) => {
-          if (waitTime !== null) {
-            setTimeout(() => {
-              setWaitTime(10000);
-            }, 10000);
-            setWaitTime(null);
-          }
+          console.log("in updare listener");
+          // setWaitTime(null);
 
           transactions.forEach((tr) => {
             if (tr.docChanged && L1active) {
@@ -377,24 +361,18 @@ export function Editor({
         height: "90%",
       }}
     >
-      {/* <div className="notifiers">
-        {showSave ? <p>Saving</p> : <p />}
-        {L2active ? <p>marks on</p> : <p />}
-        {placeholderActive ? <p>placeholder on</p> : <p />}
-        <p>Word Count: {wordcount}</p>
-        <p>Write Time: {Math.floor(timespent / 60000)} min</p>
-      </div> */}
       <div className="note-header">
         <div className="notifiers">
           <p className="note-date">
             {fetchedNote === undefined
               ? ""
-              : new Date(fetchedNote?.lastedit!)
+              : new Date(fetchedNote?.creationdate)
                   .toLocaleString("en-US")
                   .split(",")[0]}
           </p>
           <p>{wordcount} words</p>
           <p>{Math.floor(timespent / 60000)} minutes</p>
+          {/* <p>{keydownRate} kpm</p> */}
         </div>
         <div className="headerrow">
           <input
@@ -405,49 +383,33 @@ export function Editor({
             }}
           />
           <div className="featuretoggles">
-            <ThemeProvider theme={theme}>
-              <FormGroup>
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={L1active}
-                      onChange={(event, checked) => {
-                        console.log("L1 value", checked);
-                        // enable auto expressiveness! periodic suggestions!
-                        setL1active(checked);
-                      }}
-                    />
-                  }
-                  label="Expresso"
-                />
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={L2active}
-                      onChange={(event, checked) => {
-                        setL2active(checked);
-                        // enable marks!
-                      }}
-                    />
-                  }
-                  label="Analysis"
-                />
-                {/* <Button
-                  variant="contained"
-                  onClick={() => {
-                    // 1. prepare placeholder
-                    setTimeout(() => {
-                      setL1trigger(false);
-                    }, 15);
-                    setL1trigger(true);
-                    // 2. push display=true
-                    db.placeholders.update(1, { active: true });
-                  }}
-                >
-                  Stuck?
-                </Button> */}
-              </FormGroup>
-            </ThemeProvider>
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={L1active}
+                    onChange={(event, checked) => {
+                      console.log("L1 value", checked);
+                      // enable auto expressiveness! periodic suggestions!
+                      setL1active(checked);
+                    }}
+                  />
+                }
+                label="Expresso"
+              />
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={L2active}
+                    onChange={(event, checked) => {
+                      setL2active(checked);
+                      // enable marks!
+                    }}
+                  />
+                }
+                label="Analysis"
+              />
+            </FormGroup>
           </div>
         </div>
       </div>
@@ -464,24 +426,4 @@ export function Editor({
       />
     </div>
   );
-}
-
-function useInterval(callback: any, delay: number | null) {
-  const savedCallback = useRef<any>();
-
-  // Remember the latest callback.
-  useEffect(() => {
-    savedCallback.current = callback;
-  }, [callback]);
-
-  // Set up the interval.
-  useEffect(() => {
-    function tick() {
-      savedCallback.current();
-    }
-    if (delay !== null) {
-      let id = setInterval(tick, delay);
-      return () => clearInterval(id);
-    }
-  }, [delay]);
 }

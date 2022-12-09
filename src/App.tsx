@@ -1,7 +1,8 @@
 /**
- * App.tsx
+ * App.tsx - Entrypoint
  *
- * Entrypoint - KEEP IT MINIMAL
+ * Journaling web application for mental health. Levels of intervention (L1, L2, L3) are implemented as text editing + UI features.
+ *
  */
 
 import { useEffect, useState } from "react";
@@ -11,12 +12,40 @@ import FeedbackSidebar from "./Components/UI/FeedbackSidebar";
 import { Editor } from "./Components/Codemirror/Editor";
 import "./App.css";
 import Popup from "./Components/UI/Popup";
-import { db } from "./Components/Dexie/db";
+import { db, Highlight } from "./Components/Dexie/db";
 import GraphBuilder from "./Components/Graphics/GraphBuilder";
 import ReactModal from "react-modal";
 import FAQ from "./Components/UI/FAQ";
 import Welcome from "./Components/UI/Welcome";
+import Onboarding from "./Components/UI/Onboarding";
 import { useLiveQuery } from "dexie-react-hooks";
+
+import HighlightContext from "./Contexts/HighlightContext";
+import Tabs from "./Components/UI/Tabs";
+
+type TabsType = {
+  label: string;
+  index: number;
+  Component: React.FC<{}>;
+}[];
+
+const tabs: TabsType = [
+  {
+    label: "Welcome",
+    index: 1,
+    Component: Welcome,
+  },
+  {
+    label: "Reports",
+    index: 2,
+    Component: GraphBuilder,
+  },
+  {
+    label: "Onboarding",
+    index: 3,
+    Component: Onboarding,
+  },
+];
 
 function App() {
   const [view, setView] = useState<EditorView | null>(null);
@@ -28,12 +57,22 @@ function App() {
   const [L1trigger, setL1trigger] = useState<boolean>(false);
   const [timespent, setTimespent] = useState<number>(0);
   const [viewHelp, setViewHelp] = useState<boolean>(false);
-  const [Nnotes, setNnotes] = useState<number | null>(null);
 
-  useLiveQuery(async () => {
-    let x = await db.notes.toArray();
-    setNnotes(x.length);
+  // tab menu
+  const [selectedTab, setSelectedTab] = useState<number>(tabs[0].index);
+
+  // state refactor - start with highlights
+  const highlightContext = HighlightContext();
+  const [highlight, setHighlight] = useState<Highlight>({
+    id: -1,
+    pos: { from: 0, to: 0 },
+    active: false,
+    color: null,
   });
+
+  function updateHighlight(val: Highlight) {
+    setHighlight(val);
+  }
 
   useEffect(() => {
     ReactModal.setAppElement("#root");
@@ -75,11 +114,6 @@ function App() {
         setCurrentNote={setCurrentNote}
         currentNote={currentNote}
         setShowmenu={setShowmenu}
-        setL1active={setL1active}
-        setL2active={setL2active}
-        L1active={L1active}
-        L2active={L2active}
-        setL1trigger={setL1trigger}
         setViewHelp={setViewHelp}
       />
       <header
@@ -111,34 +145,11 @@ function App() {
             <>
               <h1 className="homelogo noselect">Expresso+</h1>
               {/* <h1 className="homelogo">Expresso+</h1> */}
-              {Nnotes! >= 2 ? (
-                <div
-                  style={{
-                    border: "var(--borderdebug) grey",
-                    display: "flex",
-                    flexDirection: "column",
-                    width: "100%",
-                    flex: 1,
-                    marginTop: "-30px",
-                  }}
-                >
-                  <h4
-                    style={{
-                      textAlign: "left",
-                      margin: "20px",
-                      border: "var(--borderdebug) purple",
-                    }}
-                  >
-                    Recent Activity (last {Nnotes! < 7 ? Nnotes?.toString() : 7}{" "}
-                    entries)
-                  </h4>
-                  <GraphBuilder />
-                </div>
-              ) : (
-                <div style={{ margin: "0 0 -60px 0" }}>
-                  <Welcome />
-                </div>
-              )}
+              <Tabs
+                selectedTab={selectedTab}
+                onClick={setSelectedTab}
+                tabs={tabs}
+              />
             </>
           ) : (
             <>
@@ -172,10 +183,12 @@ function App() {
         style={{
           overlay: {
             zIndex: "5",
-            backgroundColor: "rgba(0,0,0,0.6)",
+            backgroundColor: "rgba(0,0,0,0.3)",
           },
           content: {
-            background: "#ccc",
+            background: "rgba(244, 241, 255, 0.7)",
+            backdropFilter: "blur(8px)",
+            borderRadius: "6px",
           },
         }}
       >

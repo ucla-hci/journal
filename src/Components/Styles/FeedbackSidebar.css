@@ -11,15 +11,16 @@
   padding-left: 10px;
   padding-right: 10px;
   align-items: flex-start;
-  transition: right 0.4s;
-  width: 340px;
+  transition: right 0.7s;
+  width: 400px;
   height: 100%;
   overflow-y: scroll;
+  z-index: 5;
 }
 
 .feedback-sidebar.off {
-  right: -320px;
-  transition: right 0.4s;
+  right: -430px;
+  transition: right 1s;
   background-color: var(--bgcollight);
   background-image: linear-gradient(
     225deg,

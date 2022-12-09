@@ -12,7 +12,7 @@ export interface ExtendedSearchResult {
   color: string;
   triggerword: string;
   wordlocations?: { from: number; to: number }[];
-  popupcontent: { title: string; content: string };
+  popupcontent: { title: string; content: string; showsidebar: boolean };
   sidebarcontent: Sidebar;
   placeholdercontent: {
     suggestion: string | null;
@@ -101,7 +101,13 @@ export class Searcher {
     var searchresults = [] as ExtendedSearchResult[];
 
     dict_temp.forEach((element) => {
-      element.words.forEach((single) => {
+      let concat_word_options = element.words.concat(
+        element.phrase_ext,
+        element.wordnet_ext
+      );
+      // console.log("concat_word_options", concat_word_options);
+
+      concat_word_options.forEach((single) => {
         var regexsearch = "\\b" + single + "\\b";
         var q = new SearchQuery({ search: regexsearch, regexp: true }); // might need to optimize here
         var cursor = q.getCursor(this.state.doc) as SearchCursor;
@@ -151,6 +157,7 @@ export class Searcher {
               popupcontent: {
                 title: element.popup_title!,
                 content: element.popup_feedback!,
+                showsidebar: element.Sidebar_feedback !== null,
               },
               sidebarcontent: {
                 title: "sidebar title",

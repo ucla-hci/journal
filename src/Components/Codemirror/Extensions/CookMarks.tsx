@@ -17,10 +17,11 @@ async function togglePopup(item: ExtendedSearchResult, event: MouseEvent) {
         id: 1,
         title: item.popupcontent.title,
         content: item.popupcontent.content,
-        display: true,
+        display: false,
         location: { x: event.clientX - 2, y: event.clientY + 20 },
         triggerword: item.triggerword,
         wordlocation: item.range,
+        showsidebar: item.popupcontent.showsidebar,
         color: item.color,
       });
       // console.log("added new popup with id", id);
@@ -28,10 +29,11 @@ async function togglePopup(item: ExtendedSearchResult, event: MouseEvent) {
       await db.popups.update(1, {
         title: item.popupcontent.title,
         content: item.popupcontent.content,
-        display: true,
+        display: false,
         location: { x: event.clientX - 2, y: event.clientY + 20 },
         triggerword: item.triggerword,
         wordlocation: item.range,
+        showsidebar: item.popupcontent.showsidebar,
         color: item.color,
       });
     }
@@ -43,6 +45,7 @@ async function togglePopup(item: ExtendedSearchResult, event: MouseEvent) {
 async function loadSidebar(item: ExtendedSearchResult) {
   try {
     const ret = await db.sidebars.get(1);
+    console.log("in load sidebar", ret);
     // console.log("sidebars get array", arr);
     if (ret === undefined) {
       await db.sidebars.add({
@@ -57,7 +60,7 @@ async function loadSidebar(item: ExtendedSearchResult) {
       await db.sidebars.update(1, {
         title: item.sidebarcontent.title,
         content: item.sidebarcontent.content,
-        display: false,
+        // display: true,
         rephrase: item.sidebarcontent.rephrase,
       });
     }
@@ -202,8 +205,21 @@ function getCursorTooltips(
             { from: item.range.from, to: item.range.to },
             item.color!
           );
-          togglePopup(item, event);
           loadSidebar(item);
+          togglePopup(item, event);
+
+          // setTimeout(() => {
+          //   let p = document.getElementsByClassName(
+          //     "cm-underline"
+          //   )[0] as HTMLElement;
+          //   console.log("p", p);
+          //   if (p !== undefined) {
+          //     p.onclick = () => {
+          //       console.log("inside of the onclick ");
+          //       db.popups.update(1, { display: true });
+          //     };
+          //   }
+          // }, 10);
           if (item.placeholdercontent.suggestion !== null) {
             loadPlaceholder(item);
           }
@@ -219,7 +235,7 @@ function getCursorTooltips(
 }
 
 export function cursorTooltip(dismisslist: DismissLog[]) {
-  db.sidebars.update(1, { display: false });
+  // db.sidebars.update(1, { display: false });
   return [fieldMaker(dismisslist), cursorTooltipBaseTheme];
 }
 
@@ -227,7 +243,6 @@ async function toggleHighlight(
   pos: { from: number; to: number },
   color: string
 ) {
-  console.log("toggling highlight pos", pos);
   try {
     const ret = await db.highlights.get(1);
     if (ret === undefined) {

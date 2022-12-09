@@ -32,7 +32,7 @@ export default function FeedbackSidebar({
   const [data, setData] = useState<Sidebar | null>(null);
 
   useEffect(() => {
-    // console.log("feedbackbar change in content", data);
+    console.log("feedbackbar change in content", data);
     setFeedbackbar(data?.display!);
   }, [data]);
 
@@ -112,6 +112,12 @@ export default function FeedbackSidebar({
                     );
                   })
                 : null}
+              {data?.content !== null && !Array.isArray(data?.content) ? (
+                <div
+                  className="card"
+                  dangerouslySetInnerHTML={{ __html: data!.content }}
+                ></div>
+              ) : null}
             </>
             {/* <div className="card">
               <h3>Shortcuts</h3>
@@ -139,19 +145,7 @@ export default function FeedbackSidebar({
           </div>
         </div>
       ) : (
-        <div className="feedback-sidebar off">
-          {data?.display !== undefined && currentNote !== null ? (
-            <ThemeProvider theme={theme}>
-              <IconButton
-                onClick={() => setFeedbackbar(true)}
-                aria-label="delete"
-                color="primary"
-              >
-                <MenuIcon />
-              </IconButton>
-            </ThemeProvider>
-          ) : null}
-        </div>
+        <div className="feedback-sidebar off"></div>
       )}
     </>
   );

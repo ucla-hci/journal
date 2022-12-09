@@ -1,12 +1,11 @@
 /**
- * MAKES QUERIES HERE FOR PREPARING DATASETS
+ * Report tab on landing
  */
 
 import { useEffect, useState } from "react";
 import { db } from "../Dexie/db";
 import BarPlot from "./BarPlot";
 import DailyTimePlot from "./DailyTimePlot";
-import UEDLine from "./UEDLine";
 import WordCountPlot from "./WordCountPlot";
 
 export default function GraphBuilder() {
@@ -29,13 +28,13 @@ export default function GraphBuilder() {
         justifyContent: "space-evenly",
       }}
     >
-      {Nnotes! < 2 ? null : (
+      {Nnotes! < 2 ? (
+        <p>Try writing a few more entries!</p>
+      ) : (
         <>
-          {/* <MarksPlot graphNote={graphNote!} /> */}
           <DailyTimePlot />
           <WordCountPlot />
           <BarPlot />
-          {/* <UEDLine /> */}
         </>
       )}
     </div>

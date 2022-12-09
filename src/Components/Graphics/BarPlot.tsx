@@ -3,6 +3,17 @@ import * as Plot from "@observablehq/plot";
 import { db } from "../Dexie/db";
 import { dev_dict } from "../expressoDictionary";
 
+let colors = {
+  l2a: "#287db5",
+  l2b: "#D15B17",
+  l2c: "#D181BC",
+  // l2b: "#287db5",
+  // l2c: "#287db5",
+  l2d: "#d3cd57",
+  l2e: "#4b2a7e",
+  l2f: "#44aa38",
+} as { [key: string]: string };
+
 export default function BarPlot() {
   const plotRef = useRef<any>();
   const [lineData, setLineData] = useState<
@@ -64,7 +75,11 @@ export default function BarPlot() {
     } as { [key: string]: string };
 
     let plotdata = Object.entries(count).map((pair) => {
-      return { letter: namemapper[pair[0]], frequency: pair[1] };
+      return {
+        letter: namemapper[pair[0]],
+        frequency: pair[1],
+        color: colors[pair[0]],
+      };
     });
     setLineData(plotdata);
   }, [concatContent]);
@@ -75,6 +90,14 @@ export default function BarPlot() {
       height: 280,
       marginBottom: 100,
       x: {
+        domain: [
+          "Judgement",
+          "Cognitive Distortions",
+          "Harmful Self-talk",
+          "Common Symptom Indicators",
+          "Pronoun Perspectives",
+          "Healthy Patterns",
+        ],
         label: "Thought Categories",
         tickRotate: "-36",
       },
@@ -84,7 +107,11 @@ export default function BarPlot() {
         domain: [0, Math.max(...lineData.map((o) => o.frequency)) + 4],
       },
       marks: [
-        Plot.barY(lineData, { x: "letter", y: "frequency", fill: "letter" }),
+        Plot.barY(lineData, {
+          x: "letter",
+          y: "frequency",
+          fill: "color",
+        }),
       ],
     });
 

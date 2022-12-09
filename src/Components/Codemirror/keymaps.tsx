@@ -26,10 +26,10 @@ export const keymaps = keymap.of([
       // check if L1 or L3
       let current = db.placeholders.get(1).then((res) => {
         if (res?.origin === "L3") {
-          console.log("ctrl space on l3");
+          // console.log("ctrl space on l3");
           togglePlaceholder(view, "L3", res);
         } else {
-          console.log("ctrl space on l1");
+          // console.log("ctrl space on l1");
           togglePlaceholder(view, "L1", res!);
         }
       });
@@ -58,6 +58,7 @@ export async function togglePlaceholder(
   type: "L1" | "L3",
   prevPh: Placeholder
 ) {
+  // console.log("CALLED TOGGLE PLACEHOLDER");
   if (type === "L3") {
     // ----------------------------------------------------------------------------------------------------- toggling L3 options
     // const res = await db.placeholders.get(1);
@@ -68,7 +69,7 @@ export async function togglePlaceholder(
     let filtereddict = dev_dict.filter((entry) =>
       entry.words.includes(triggerword.toLowerCase())
     );
-    console.log("filtered dict size", filtereddict.length);
+    // console.log("filtered dict size", filtereddict.length);
     let possiblesuggestions = filtereddict[0].rewrite!;
     possiblesuggestions = possiblesuggestions.filter((entry) => {
       return entry === prevsuggestion ? false : true;
@@ -89,7 +90,7 @@ export async function togglePlaceholder(
   } else {
     // -------------------------------------------------------------------------------------------------- L1 options
     if (prevPh?.active === false) {
-      console.log("on create suggestion L1");
+      // console.log("on create suggestion L1");
       // ------------------------------------------------------------------------------------------------ Create suggestion
       // using only words from last two lines
       let text = view.state.doc.toJSON().slice(-2);
@@ -128,7 +129,7 @@ export async function togglePlaceholder(
         );
         triggerw = filteredwords[0];
       }
-      console.log("availableoptions[0]", availableoptions[0]);
+      // console.log("availableoptions[0]", availableoptions[0]);
 
       if (prevPh !== undefined) {
         // update
@@ -171,7 +172,7 @@ export async function togglePlaceholder(
       let suggestions = [] as string[];
       availableoptions.forEach((opt) => suggestions.push(...opt.rewrite));
       suggestions = suggestions.filter((val) => val !== prevsuggestion);
-      console.log("suggestionsize", suggestions.length);
+      // console.log("suggestionsize", suggestions.length);
       if (suggestions.length <= 1) {
         targetsuggestion = prevsuggestion;
       } else {
@@ -179,7 +180,7 @@ export async function togglePlaceholder(
           suggestions[Math.floor(Math.random() * suggestions.length)];
       }
 
-      console.log("TARGET SUGGESTION ON TOGGLE", targetsuggestion);
+      // console.log("TARGET SUGGESTION ON TOGGLE", targetsuggestion);
 
       const res = await db.placeholders.get(1);
       if (res !== undefined) {

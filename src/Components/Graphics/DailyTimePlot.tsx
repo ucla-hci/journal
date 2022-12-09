@@ -63,7 +63,7 @@ export default function DailyTimePlot() {
     if (pauses === null || times === null) return;
     let plotdata = noteIds?.map((id, index) => {
       return {
-        noteid: id,
+        noteid: index + 1,
         writingtime: times![index],
         pausetime: pauses![index],
       };
@@ -81,7 +81,7 @@ export default function DailyTimePlot() {
       grid: true,
       x: {
         domain: lineData.map((val) => val.noteid),
-        label: "Entries →",
+        label: "Most Recent Entries →",
         tickFormat: (d: any) => (d % 1 !== 0 ? null : d),
       },
       y: {

@@ -1,7 +1,10 @@
 .menu-sidebar {
-  z-index: 3;
+  z-index: 4;
   flex: 1;
-  background-color: var(--bgcolshadow);
+  /* background-color: var(--bgcolshadow); */
+  background-color: rgba(235, 230, 255, 0.8);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   border: var(--borderdebug) blue;
   display: flex;
   flex-direction: column;
@@ -28,16 +31,22 @@
 }
 
 .menu-sidebar header {
+  background-color: rgb(244, 241, 255);
+  /* backdrop-filter: blur(4px); */
+  /* -webkit-backdrop-filter: inherit; */
+  position: absolute;
+  left: 260px;
   display: flex;
-  flex-direction: row;
-  margin: 20px 10px 20px 10px;
-  /* margin-left: 10px;
-  margin-right: 10px; */
+  flex-direction: column;
+  height: fit-content;
   justify-content: space-between;
+  margin-left: 10px;
+  width: fit-content;
 }
 
 .menu-sidebar header > * {
   border: var(--borderdebug) rgb(106, 255, 250);
+  margin-top: 5px;
 }
 
 .menu-sidebar > * {
@@ -50,25 +59,40 @@
 
 .notelist {
   overflow-y: auto;
-  height: 54vh;
+  /* height: 54vh; */
   display: flex;
   flex-direction: column;
   margin-top: 14px;
   border: var(--borderdebug) rgba(248, 248, 248, 0.699);
-  align-items: center;
+  align-items: flex-end;
+  color: #333;
+}
+
+.notebrief-container {
+  width: 100%;
+  display: flex;
+  justify-content: end;
 }
 
 .notebrief {
   display: flex;
   flex-direction: row;
-  width: 95%;
+  width: 90%;
   cursor: default;
-  border: 2px solid var(--fontcolmid);
+  background-color: #e7d7f4;
+  margin-top: 2px;
+}
+
+.notebrief.selected {
+  background-color: #d9baf1;
+  justify-self: start;
+  width: 100%;
 }
 
 .notebrief:hover {
   /* background-color: black; */
-  background-color: var(--fontcoldark);
+  background-color: #e0caf2;
+  width: 94%;
 }
 
 .notebrief .title {
@@ -91,7 +115,8 @@
 
 .notebrief .date {
   font-size: small;
-  color: var(--bgcolmid);
+  color: #666;
+  margin-right: 6px;
 }
 
 .notebrief button {
@@ -104,17 +129,5 @@
 }
 
 .notelist > * {
-  /* border: 2px solid var(--highlight); */
   box-sizing: border-box;
-  /* border-radius: 5px; */
-}
-
-.featuretoggles {
-  /* flex: 1; */
-  border: var(--borderdebug) rgba(255, 0, 200, 0.699);
-  display: flex;
-  flex-direction: column;
-  margin-top: auto;
-  margin-left: 20px;
-  margin-right: 20px;
 }

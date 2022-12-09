@@ -5,7 +5,7 @@ export const dev_dict = [
     semantic_anchor: "Positive Adjectives",
     words: [
       "altruistic",
-      "high-rpincipled",
+      "high-principled",
       "right",
       "fair",
       "perfect",
@@ -90,9 +90,9 @@ export const dev_dict = [
     popup_title: "Should Statment",
     popup_feedback: "Come on! Things don't have to be a certain way.",
     Sidebar_feedback: [
-      "<h3>More About Should Statements</h3>\n<p>Should statements are statements that you make to yourself about what you &ldquo;should&rdquo; do, what you &ldquo;ought&rdquo; to do, or what you &ldquo;must&rdquo; do. They can also be applied to others, imposing a set of expectations that will likely not be met.</p>\n<ul>\n<li>Why do I think that it &ldquo;should&rdquo; be?</li>\n<li>What if I let go of &ldquo;should&rdquo; and &ldquo;shouldn&rsquo;t&rdquo;?</li>\n<li>What if I allowed myself to feel however I feel&mdash;without regrets or expectations or projections of what it &ldquo;should&rdquo; be?</li>\n</ul>\n<h3>Reframe Should Statements</h3>\n<p>Use more compassionate and realistic statements. Try to soften it by replacing &ldquo;should&rdquo;-type words with &ldquo;prefer&rdquo;-type words or empower it by using &ldquo;can/will/choose&rdquo;-type words and think about doable actions.</p>",
+      '<h3>More About Should Statements</h3>\n<p>Should statements are statements that you make to yourself about what you "should" do, what you "ought" to do, or what you "must" do. They can also be applied to others, imposing a set of expectations that will likely not be met.</p>\n<ul>\n<li>Why do I think that it "should" be?</li>\n<li>What if I let go of "should" and "shouldn\'t"?</li>\n<li>What if I allowed myself to feel however I feel&mdash;without regrets or expectations or projections of what it "should" be?</li>\n</ul>\n<h3>Reframe Should Statements</h3>\n<p>Use more compassionate and realistic statements. Try to soften it by replacing "should"-type words with "prefer"-type words or empower it by using "can/will/choose"-type words and think about doable actions.</p>',
     ],
-    color: "#287db5",
+    color: "#D15B17",
   },
   {
     strategy_code: "L2b",
@@ -118,7 +118,7 @@ export const dev_dict = [
     phrase_ext: ["every time", "any time"],
     rewrite: [
       "however, to be more realistic",
-      "however, there is exception when",
+      "however, there is an exception when",
       "however, one evidence against it is",
     ],
     rewrite_position: "after",
@@ -126,9 +126,9 @@ export const dev_dict = [
     popup_feedback:
       "A common cognitive distortion that will extrapolate one thing.",
     Sidebar_feedback: [
-      "<h3>More About All-or-Nothing and Overgeneralization</h3>\n<p>All or Nothing Thinking is also called Splitting, Black or White Thinking, Polarized Thinking. With this cognitive distortion, not being perfect means a complete failure. One of a few incidents can be extrapolated out as a general never-ending pattern.</p>\n<ul>\n<li>Thoughts are not facts</li>\n<li>Attitude toward negative thoughts matters</li>\n<li>Try thinking in shades of gray instead of black and white</li>\n<li>Try thinking in concrete time (last week) instead of a never-ending pattern (never, forever)</li>\n</ul>\n<h3>Reframe All-or-Nothing</h3>\n<ul>\n<li>Examine the Evidence: performing an accurate analysis of one&rsquo;s situation. Does any evidence support it? Does any evidence against it?</li>\n<li>Assign a percentage value like 30% instead of absolutive 0% or 100%; assign a specific person or situation instead of absolutive everyone or always</li>\n<li>How does this thought make you feel? Without this cognitive distortion, what you will do?</li>\n</ul>",
+      "<h3>More About All-or-Nothing and Overgeneralization</h3>\n<p>All or Nothing Thinking is also called Splitting, Black or White Thinking, Polarized Thinking. With this cognitive distortion, not being perfect means a complete failure. One of a few incidents can be extrapolated out as a general never-ending pattern.</p>\n<ul>\n<li>Thoughts are not facts</li>\n<li>Attitude toward negative thoughts matters</li>\n<li>Try thinking in shades of gray instead of black and white</li>\n<li>Try thinking in concrete time (last week) instead of a never-ending pattern (never, forever)</li>\n</ul>\n<h3>Reframe All-or-Nothing</h3>\n<ul>\n<li>Examine the Evidence: performing an accurate analysis of one's situation. Does any evidence support it? Does any evidence against it?</li>\n<li>Assign a percentage value like 30% instead of absolutive 0% or 100%; assign a specific person or situation instead of absolutive everyone or always</li>\n<li>How does this thought make you feel? Without this cognitive distortion, what you will do?</li>\n</ul>",
     ],
-    color: "#287db5",
+    color: "#D15B17",
   },
   {
     strategy_code: "L2b",
@@ -147,7 +147,7 @@ export const dev_dict = [
     phrase_ext: [],
     rewrite: [
       "however, to be more realistic",
-      "however, there is exception when",
+      "however, there is an exception when",
       "there is a chance but it is a small one of",
       "I am aware that I am making a mountain out of a molehill. The mountain is... the molehill is...",
       "I can give the situation a posive name instead:",
@@ -158,9 +158,9 @@ export const dev_dict = [
     popup_feedback:
       "A common cognitive distortion that believes in the worst case.",
     Sidebar_feedback: [
-      "<h3>More About Catastrophizing</h3>\n<p>It often happens in perfectionists. When it actually isn&rsquo;t that bad, thinking the worst-case scenario happens.</p>\n<ul>\n<li>Live in the present</li>\n<li>Accept the current situation</li>\n<li>Separate facts, feelings, and negative thoughts</li>\n</ul>\n<h3>Reframe Catastrophizing</h3>\n<ul>\n<li>Examine the Evidence: performing an accurate analysis of one&rsquo;s situation. Does any evidence support it? Does any evidence against it?</li>\n<li>Putting equal emphasis on the positive and negative of the situation, on possible strength or weakness;</li>\n<li>How does this thought make you feel? Without this cognitive distortion, what you will do?</li>\n<li>How you will respond if a close friend said a similar thing to you?</li>\n</ul>",
+      "<h3>More About Catastrophizing</h3>\n<p>It often happens in perfectionists. When it actually isn't that bad, thinking the worst-case scenario happens.</p>\n<ul>\n<li>Live in the present</li>\n<li>Accept the current situation</li>\n<li>Separate facts, feelings, and negative thoughts</li>\n</ul>\n<h3>Reframe Catastrophizing</h3>\n<ul>\n<li>Examine the Evidence: performing an accurate analysis of one's situation. Does any evidence support it? Does any evidence against it?</li>\n<li>Putting equal emphasis on the positive and negative of the situation, on possible strength or weakness;</li>\n<li>How does this thought make you feel? Without this cognitive distortion, what you will do?</li>\n<li>How you will respond if a close friend said a similar thing to you?</li>\n</ul>",
     ],
-    color: "#287db5",
+    color: "#D15B17",
   },
   {
     strategy_code: "L2b",
@@ -184,7 +184,7 @@ export const dev_dict = [
     popup_feedback:
       "A common distrotion that believes only one person is responsible for a situation that they may have little control over.",
     Sidebar_feedback: null,
-    color: "#287db5",
+    color: "#D15B17",
   },
   {
     strategy_code: "L2b",
@@ -212,7 +212,7 @@ export const dev_dict = [
     popup_feedback:
       "A common distrotion that believes only one person is responsible for a situation that they may have little control over.",
     Sidebar_feedback: null,
-    color: "#287db5",
+    color: "#D15B17",
   },
   {
     strategy_code: "L2c",
@@ -261,9 +261,10 @@ export const dev_dict = [
     popup_title: "Negative Self-Talk",
     popup_feedback:
       "Time to shift your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback:
-      "<h3>More About Self-Talk</h3>\n<p>Self-talk is something you do naturally throughout your waking hours. Positive self-talk is supportive and affirming. Positive self-talk can help you improve your outlook on life. It can also have lasting positive health benefits, including improved well-being and a better quality of life.</p>\n<p>Rumination is the flip side of positive self-talk. It happens when you replay upsetting or cringe-worthy thoughts or events over and over again in your head. Thinking through a problem can be useful, but if you spend a lot of time ruminating, small issues tend to snowball. Negative thoughts can grow and become self-defeating.</p>\n<ul>\n<li>Listening closely to your inner dialogues.&nbsp;</li>\n<li>Write down important or frequent negative thoughts.</li>\n<li>Be aware of the unbalanced, harmful thoughts.</li>\n</ul>\n<h3>Reframe Negative Self-Talk and Reinforce Positive Self-Talk</h3>\n<ul>\n<li>Look back at the thoughts and reword them in a kinder, more positive light.</li>\n<li>Writing down statements with the growth mindset of accepting the current situation and feelings, and concrete actions to make things better or make you feel better.</li>\n<li>Writing down what you are grateful for.</li>\n<li>Understanding the concept of impermanence and look into future in a positive way.</li>\n<li>Praise yourself when you write down positive self-talk! Try to think about what concrete actions you can take and let&rsquo;s move!</li>\n</ul>",
-    color: "#287db5",
+    Sidebar_feedback: [
+      "<h3>More About Self-Talk</h3>\n<p>Self-talk is something you do naturally throughout your waking hours. Positive self-talk is supportive and affirming. Positive self-talk can help you improve your outlook on life. It can also have lasting positive health benefits, including improved well-being and a better quality of life.</p>\n<p>Rumination is the flip side of positive self-talk. It happens when you replay upsetting or cringe-worthy thoughts or events over and over again in your head. Thinking through a problem can be useful, but if you spend a lot of time ruminating, small issues tend to snowball. Negative thoughts can grow and become self-defeating.</p>\n<ul>\n<li>Listening closely to your inner dialogues.</li>\n<li>Write down important or frequent negative thoughts.</li>\n<li>Be aware of the unbalanced, harmful thoughts.</li>\n</ul>\n<h3>Reframe Negative Self-Talk and Reinforce Positive Self-Talk</h3>\n<ul>\n<li>Look back at the thoughts and reword them in a kinder, more positive light.</li>\n<li>Writing down statements with the growth mindset of accepting the current situation and feelings, and concrete actions to make things better or make you feel better.</li>\n<li>Writing down what you are grateful for.</li>\n<li>Understanding the concept of impermanence and look into future in a positive way.</li>\n<li>Praise yourself when you write down positive self-talk! Try to think about what concrete actions you can take and let's move!</li>\n</ul>",
+    ],
+    color: "#D181BC",
   },
   {
     strategy_code: "L2d",
@@ -288,11 +289,12 @@ export const dev_dict = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    popup_title: "Negative Emotions",
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback:
+    Sidebar_feedback: [
       '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/"target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/"target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
+    ],
     color: "#d3cd57",
   },
   {
@@ -313,11 +315,12 @@ export const dev_dict = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    popup_title: "Negative Emotions",
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback:
+    Sidebar_feedback: [
       '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/"target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/"target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
+    ],
     color: "#d3cd57",
   },
   {
@@ -329,11 +332,12 @@ export const dev_dict = [
     phrase_ext: ["nobody help", "no one help"],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    popup_title: "Outlook",
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback:
+    Sidebar_feedback: [
       '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/"target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/"target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
+    ],
     color: "#d3cd57",
   },
   {
@@ -345,11 +349,12 @@ export const dev_dict = [
     phrase_ext: ["no help", "don't help"],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    popup_title: "Outlook",
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback:
+    Sidebar_feedback: [
       '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/"target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/"target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
+    ],
     color: "#d3cd57",
   },
   {
@@ -361,11 +366,12 @@ export const dev_dict = [
     phrase_ext: ["all my fault", "blame on me"],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    popup_title: "Negative Emotions",
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback:
+    Sidebar_feedback: [
       '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/"target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/"target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
+    ],
     color: "#d3cd57",
   },
   {
@@ -377,11 +383,12 @@ export const dev_dict = [
     phrase_ext: ["hate myself"],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    popup_title: "Negative Emotions",
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback:
+    Sidebar_feedback: [
       '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/"target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/"target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
+    ],
     color: "#d3cd57",
   },
   {
@@ -408,11 +415,12 @@ export const dev_dict = [
     ],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    popup_title: "Negative Thoughts",
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback:
+    Sidebar_feedback: [
       '<p>Are you feeling depressed, anxious, stressed or mood swings recently?</p>\n<p>Some actions you can take:</p>\n<ul>\n<li>Here, try to write down every a event in your mind, also clearly describe your emotions. Be aware of your emotions and accept them is the first and most important achievement!</li>\n<li>Identify and reframe your negative thoughts</li>\n<li>Do some relaxation exercises or mindfulness practices, such as <a href="https://dialecticalbehaviortherapy.com/mindfulness/mindful-breathing/"target="_blank" rel="noopener">breathing</a> and <a href="https://dialecticalbehaviortherapy.com/mindfulness/mental-body-scan/"target="_blank" rel="noopener">mental body scan</a></li>\n<li>Writing down 3 things make you feel good or you think you can try later today, e.g., reaching out to your friends, taking a walking in the park nearby</li>\n<li>Set a small goal to improve your eating, sleep or physical exercise routine</li>\n</ul>\n<p>These tests may help you determine if you are experiencing symptoms of Depression, Anxiety, or PTSD. These are not diagnostic tests. Please consult a physician if you are concerned about your status.</p>\n<ul>\n<li><a href="https://www.mdcalc.com/phq-9-patient-health-questionnaire-9" target="_blank" rel="noopener">PHQ-9: Depression Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/gad-7-general-anxiety-disorder-7" target="_blank" rel="noopener">GAD-7: Anxiety Screening Test</a></li>\n<li><a href="https://www.mdcalc.com/dsm-5-criteria-posttraumatic-stress-disorder" target="_blank" rel="noopener">DSM-5: PTSD Screening Test</a></li>\n</ul>\n<p>If you are in immediate distress or are thinking about hurting yourself, call the National Suicide Prevention Lifeline toll-free at 1-800-273-TALK (8255). You also can text the Crisis Text Line (HELLO to 741741) or use the Lifeline Chat on the National Suicide Prevention Lifeline website.</p>',
+    ],
     color: "#d3cd57",
   },
   {
@@ -434,7 +442,7 @@ export const dev_dict = [
     ],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    popup_title: "Loss of Interest",
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -455,7 +463,7 @@ export const dev_dict = [
     ],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    popup_title: "Changes in Motivation",
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -471,7 +479,7 @@ export const dev_dict = [
     phrase_ext: ["lose sense of humor", "lost my sense of humor"],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    popup_title: "Negative Emotions",
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -496,7 +504,7 @@ export const dev_dict = [
     ],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    popup_title: "Negative Emotions",
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -525,7 +533,7 @@ export const dev_dict = [
     ],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    popup_title: "Negative Emotions",
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -539,10 +547,11 @@ export const dev_dict = [
     words: ["fatigue"],
     wordnet_ext: [
       "weariness",
-      "tiredness\ntire",
+      "tiredness",
+      "tire",
       "pall",
       "weary",
-      "jade \ntire",
+      "jade",
       "wear upon",
       "tire out",
       "wear",
@@ -564,7 +573,7 @@ export const dev_dict = [
     ],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    popup_title: "Negative Emotions",
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -585,7 +594,7 @@ export const dev_dict = [
     ],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    popup_title: "Negative Emotions",
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -611,7 +620,7 @@ export const dev_dict = [
     ],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    popup_title: "Negative Emotions",
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -623,43 +632,11 @@ export const dev_dict = [
     category_number: 8,
     semantic_anchor: "Signs of Depression -> Suicidal ideation",
     words: ["Bury", "die", "suicidal", "suicide", "kill", "coffin"],
-    wordnet_ext: [
-      "self-destruction",
-      "self-annihilation",
-      "felo-de-se",
-      "self-destruction",
-      "self-annihilation",
-      "felo-de-se",
-      "self-destruction",
-      "self-annihilation",
-      "felo-de-se",
-      "self-destruction",
-      "self-annihilation",
-      "felo-de-se",
-      "self-destruction",
-      "self-annihilation",
-      "felo-de-se",
-      "self-destruction",
-      "self-annihilation",
-      "felo-de-se",
-    ],
-    phrase_ext: [
-      "kill myself",
-      "end my life",
-      "kill myself",
-      "end my life",
-      "kill myself",
-      "end my life",
-      "kill myself",
-      "end my life",
-      "kill myself",
-      "end my life",
-      "kill myself",
-      "end my life",
-    ],
+    wordnet_ext: ["self-destruction", "self-annihilation", "felo-de-se"],
+    phrase_ext: ["kill myself", "end my life"],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    popup_title: "Negative Emotions",
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -675,7 +652,7 @@ export const dev_dict = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    popup_title: "Negative Emotions",
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -692,7 +669,7 @@ export const dev_dict = [
     phrase_ext: ["can't help worrying", "keep worrying", "can't stop worrying"],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    popup_title: "Negative Emotions",
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -708,7 +685,7 @@ export const dev_dict = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    popup_title: "Negative Emotions",
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -730,7 +707,7 @@ export const dev_dict = [
     phrase_ext: [],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    popup_title: "Negative Emotions",
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -752,7 +729,7 @@ export const dev_dict = [
     ],
     rewrite: null,
     rewrite_position: null,
-    popup_title: null,
+    popup_title: "Negative Emotions",
     popup_feedback:
       "This is a common sign that it is time to care for your mental health. You are not alone!",
     Sidebar_feedback:
@@ -772,7 +749,7 @@ export const dev_dict = [
     popup_feedback:
       "This indicates a viewpoint of your own. You may have high level of self-awareness.",
     Sidebar_feedback:
-      "<p>&ldquo;I&rdquo;-focused language is used to describe one&rsquo;s own viewpoint. Pronouns tell us where people focus their attention. If someone uses the pronoun &ldquo;I,&rdquo; it&rsquo;s a sign of self-focus. It can be a sign of high self-confidence and self-awareness. It can also be a sign of only focusing on one viewpoint.&nbsp;</p>\n<h3>Reframe I-focused View Point</h3>\n<p>People who moved in a positive direction wrote about their situation from multiple perspectives. Try to use&nbsp; &ldquo;he/she/they&rdquo;-oriented language before shifting back to &ldquo;I.&rdquo; This cycle represents the helpful ability to consider different viewpoints &ndash; and is a key factor in helping people process their most difficult experiences.</p>\n<p>If you are using I words to express negative thoughts, try to refer to yourself by a nickname instead. using the third person in self-talk can help you step back and think more objectively about your response and emotions, whether you&rsquo;re thinking about a past event or looking into the future. It can also help you reduce stress and anxiety.</p>",
+      '<p>"I"-focused language is used to describe one\'s own viewpoint. Pronouns tell us where people focus their attention. If someone uses the pronoun "I," it\'s a sign of self-focus. It can be a sign of high self-confidence and self-awareness. It can also be a sign of only focusing on one viewpoint.</p>\n<h3>Reframe I-focused View Point</h3>\n<p>People who moved in a positive direction wrote about their situation from multiple perspectives. Try to use "he/she/they"-oriented language before shifting back to "I." This cycle represents the helpful ability to consider different viewpoints &ndash; and is a key factor in helping people process their most difficult experiences.</p>\n<p>If you are using I words to express negative thoughts, try to refer to yourself by your name instead. using the third person in self-talk can help you step back and think more objectively about your response and emotions, whether you\'re thinking about a past event or looking into the future. It can also help you reduce stress and anxiety.</p>',
     color: "#4b2a7e",
   },
   {
@@ -788,7 +765,7 @@ export const dev_dict = [
     popup_feedback:
       "You will benefit from using these words to construct a coherent story, experience insights, and find a path forward.",
     Sidebar_feedback:
-      '<h3>More About Insight Words and Coherent Narrative Words</h3>\n<p>People who write about things over and over in the same ways aren\'t getting any better. Evidence of a changed perspective can be found in the language people use. The more people use such cause-and-effect words as "realize" and "understand,"&nbsp; the more they appear to benefit. These words helped the writer construct a coherent story, experience insights, and find a path forward. Words such as "hence,""because" and "therefore" might also signal efforts to create a more coherent narrative out of fragmented stressful memories.</p>',
+      '<h3>More About Insight Words and Coherent Narrative Words</h3>\n<p>People who write about things over and over in the same ways aren\'t getting any better. Evidence of a changed perspective can be found in the language people use. The more people use such cause-and-effect words as "realize" and "understand," the more they appear to benefit. These words helped the writer construct a coherent story, experience insights, and find a path forward. Words such as "hence,""because" and "therefore" might also signal efforts to create a more coherent narrative out of fragmented stressful memories.</p>',
     color: "#44aa38",
   },
   {
@@ -804,7 +781,7 @@ export const dev_dict = [
     popup_feedback:
       "You will benefit from using these words to construct a coherent story, experience insights, and find a path forward.",
     Sidebar_feedback:
-      '<h3>More About Insight Words and Coherent Narrative Words</h3>\n<p>People who write about things over and over in the same ways aren\'t getting any better. Evidence of a changed perspective can be found in the language people use. The more people use such cause-and-effect words as "realize" and "understand,"&nbsp; the more they appear to benefit. These words helped the writer construct a coherent story, experience insights, and find a path forward. Words such as "hence,""because" and "therefore" might also signal efforts to create a more coherent narrative out of fragmented stressful memories.</p>',
+      '<h3>More About Insight Words and Coherent Narrative Words</h3>\n<p>People who write about things over and over in the same ways aren\'t getting any better. Evidence of a changed perspective can be found in the language people use. The more people use such cause-and-effect words as "realize" and "understand," the more they appear to benefit. These words helped the writer construct a coherent story, experience insights, and find a path forward. Words such as "hence,""because" and "therefore" might also signal efforts to create a more coherent narrative out of fragmented stressful memories.</p>',
     color: "#44aa38",
   },
   {
@@ -850,2431 +827,8 @@ export const dev_dict = [
     rewrite: null,
     rewrite_position: null,
     popup_title: "Positive Self-Talk",
-    popup_feedback:
-      "Make your inner dialogue to be more encouraging and uplifting!",
+    popup_feedback: "Make your inner dialogue more encouraging and uplifting!",
     Sidebar_feedback: null,
-    color: "#44aa38",
-  },
-];
-
-export const dict_temp_reduced = [
-  {
-    Word: "altruistic",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "Without this judgment, I will",
-      "Beyond judgment, the situation and my feelings can be described as:",
-    ],
-    rewrite_position: "After",
-    popup_title: "Judgment",
-    popup_feedback:
-      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-    strategy_code: "L2a",
-    category_number: 1,
-  },
-  {
-    Word: "high-principled",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "Without this judgment, I will",
-      "Beyond judgment, the situation and my feelings can be described as:",
-    ],
-    rewrite_position: "After",
-    popup_title: "Judgment",
-    popup_feedback:
-      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-    strategy_code: "L2b",
-    category_number: 2,
-  },
-  {
-    Word: "right",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "Without this judgment, I will",
-      "Beyond judgment, the situation and my feelings can be described as:",
-    ],
-    rewrite_position: "After",
-    popup_title: "Judgment",
-    popup_feedback:
-      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-    strategy_code: "L2c",
-    category_number: 2,
-  },
-  {
-    Word: "fair",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "Without this judgment, I will",
-      "Beyond judgment, the situation and my feelings can be described as:",
-    ],
-    rewrite_position: "After",
-    popup_title: "Judgment",
-    popup_feedback:
-      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-    strategy_code: "L2a",
-    category_number: 2,
-  },
-  {
-    Word: "perfect",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "Without this judgment, I will",
-      "Beyond judgment, the situation and my feelings can be described as:",
-    ],
-    rewrite_position: "After",
-    popup_title: "Judgment",
-    popup_feedback:
-      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-    strategy_code: "L2a",
-    category_number: 1,
-  },
-];
-export const dict_temp = [
-  {
-    Word: "altruistic",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "Without this judgment, I will",
-      "Beyond judgment, the situation and my feelings can be described as:",
-    ],
-    rewrite_position: "After",
-    popup_title: "Judgment",
-    popup_feedback:
-      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "high-principled",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "Without this judgment, I will",
-      "Beyond judgment, the situation and my feelings can be described as:",
-    ],
-    rewrite_position: "After",
-    popup_title: "Judgment",
-    popup_feedback:
-      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "right",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "Without this judgment, I will",
-      "Beyond judgment, the situation and my feelings can be described as:",
-    ],
-    rewrite_position: "After",
-    popup_title: "Judgment",
-    popup_feedback:
-      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "fair",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "Without this judgment, I will",
-      "Beyond judgment, the situation and my feelings can be described as:",
-    ],
-    rewrite_position: "After",
-    popup_title: "Judgment",
-    popup_feedback:
-      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "perfect",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "Without this judgment, I will",
-      "Beyond judgment, the situation and my feelings can be described as:",
-    ],
-    rewrite_position: "After",
-    popup_title: "Judgment",
-    popup_feedback:
-      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "wonderful",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "Without this judgment, I will",
-      "Beyond judgment, the situation and my feelings can be described as:",
-    ],
-    rewrite_position: "After",
-    popup_title: "Judgment",
-    popup_feedback:
-      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "confident",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "Without this judgment, I will",
-      "Beyond judgment, the situation and my feelings can be described as:",
-    ],
-    rewrite_position: "After",
-    popup_title: "Judgment",
-    popup_feedback:
-      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "egoistic",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "Without this judgment, I will",
-      "Beyond judgment, the situation and my feelings can be described as:",
-    ],
-    rewrite_position: "After",
-    popup_title: "Judgment",
-    popup_feedback:
-      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "wrong",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "Without this judgment, I will",
-      "Beyond judgment, the situation and my feelings can be described as:",
-    ],
-    rewrite_position: "After",
-    popup_title: "Judgment",
-    popup_feedback:
-      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "unfair",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "Without this judgment, I will",
-      "Beyond judgment, the situation and my feelings can be described as:",
-    ],
-    rewrite_position: "After",
-    popup_title: "Judgment",
-    popup_feedback:
-      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "stupid",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "Without this judgment, I will",
-      "Beyond judgment, the situation and my feelings can be described as:",
-    ],
-    rewrite_position: "After",
-    popup_title: "Judgment",
-    popup_feedback:
-      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "lazy",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "Without this judgment, I will",
-      "Beyond judgment, the situation and my feelings can be described as:",
-    ],
-    rewrite_position: "After",
-    popup_title: "Judgment",
-    popup_feedback:
-      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "bad",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "Without this judgment, I will",
-      "Beyond judgment, the situation and my feelings can be described as:",
-    ],
-    rewrite_position: "After",
-    popup_title: "Judgment",
-    popup_feedback:
-      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "terrible",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "Without this judgment, I will",
-      "Beyond judgment, the situation and my feelings can be described as:",
-    ],
-    rewrite_position: "After",
-    popup_title: "Judgment",
-    popup_feedback:
-      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "mean",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "Without this judgment, I will",
-      "Beyond judgment, the situation and my feelings can be described as:",
-    ],
-    rewrite_position: "After",
-    popup_title: "Judgment",
-    popup_feedback:
-      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "diligent",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "Without this judgment, I will",
-      "Beyond judgment, the situation and my feelings can be described as:",
-    ],
-    rewrite_position: "After",
-    popup_title: "Judgment",
-    popup_feedback:
-      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "tenderhearted",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "Without this judgment, I will",
-      "Beyond judgment, the situation and my feelings can be described as:",
-    ],
-    rewrite_position: "After",
-    popup_title: "Judgment",
-    popup_feedback:
-      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "despotic",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "Without this judgment, I will",
-      "Beyond judgment, the situation and my feelings can be described as:",
-    ],
-    rewrite_position: "After",
-    popup_title: "Judgment",
-    popup_feedback:
-      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "brave",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "Without this judgment, I will",
-      "Beyond judgment, the situation and my feelings can be described as:",
-    ],
-    rewrite_position: "After",
-    popup_title: "Judgment",
-    popup_feedback:
-      "Nothing special. We make judgments all the time! Just be aware of the unproductive negative ones.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "should",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "can",
-      "choose to",
-      "want to",
-      "prefer to",
-      "would like to",
-      "plan to",
-    ],
-    rewrite_position: "Replace",
-    popup_title: "Should Statment",
-    popup_feedback: "Come on! Things don't have to be a certain way.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "ought",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "can",
-      "choose to",
-      "want to",
-      "prefer to",
-      "would like to",
-      "plan to",
-    ],
-    rewrite_position: "Replace",
-    popup_title: "Should Statment",
-    popup_feedback: "Come on! Things don't have to be a certain way.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "supposed",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "can",
-      "choose to",
-      "want to",
-      "prefer to",
-      "would like to",
-      "plan to",
-    ],
-    rewrite_position: "Replace",
-    popup_title: "Should Statment",
-    popup_feedback: "Come on! Things don't have to be a certain way.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "must",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "can",
-      "choose to",
-      "want to",
-      "prefer to",
-      "would like to",
-      "plan to",
-    ],
-    rewrite_position: "Replace",
-    popup_title: "Should Statment",
-    popup_feedback: "Come on! Things don't have to be a certain way.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "have to",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "can",
-      "choose to",
-      "want to",
-      "prefer to",
-      "would like to",
-      "plan to",
-    ],
-    rewrite_position: "Replace",
-    popup_title: "Should Statment",
-    popup_feedback: "Come on! Things don't have to be a certain way.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "should",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: ["The actions I can take are", "My goal is"],
-    rewrite_position: "After",
-    popup_title: "Should Statment",
-    popup_feedback: "Come on! Things don't have to be a certain way.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "ought",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: ["The actions I can take are", "My goal is"],
-    rewrite_position: "After",
-    popup_title: "Should Statment",
-    popup_feedback: "Come on! Things don't have to be a certain way.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "supposed",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: ["The actions I can take are", "My goal is"],
-    rewrite_position: "After",
-    popup_title: "Should Statment",
-    popup_feedback: "Come on! Things don't have to be a certain way.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "must",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: ["The actions I can take are", "My goal is"],
-    rewrite_position: "After",
-    popup_title: "Should Statment",
-    popup_feedback: "Come on! Things don't have to be a certain way.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "everything",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "however, to be more realistic",
-      "however, there is exception when",
-      "however, one evidence against it is",
-    ],
-    rewrite_position: "after",
-    popup_title: "All-or-Nothing",
-    popup_feedback:
-      "A common cognitive distortion that will extrapolate one thing.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "never",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "however, to be more realistic",
-      "however, there is exception when",
-      "however, one evidence against it is",
-    ],
-    rewrite_position: "after",
-    popup_title: "All-or-Nothing",
-    popup_feedback:
-      "A common cognitive distortion that will extrapolate one thing.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "always",
-    wordnet_ext: [],
-    phrase_ext: ["every time", "any time"],
-    rewrite: [
-      "however, to be more realistic",
-      "however, there is exception when",
-      "however, one evidence against it is",
-    ],
-    rewrite_position: "after",
-    popup_title: "All-or-Nothing",
-    popup_feedback:
-      "A common cognitive distortion that will extrapolate one thing.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "forever",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "however, to be more realistic",
-      "however, there is exception when",
-      "however, one evidence against it is",
-    ],
-    rewrite_position: "after",
-    popup_title: "All-or-Nothing",
-    popup_feedback:
-      "A common cognitive distortion that will extrapolate one thing.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "again",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "however, to be more realistic",
-      "however, there is exception when",
-      "however, one evidence against it is",
-    ],
-    rewrite_position: "after",
-    popup_title: "All-or-Nothing",
-    popup_feedback:
-      "A common cognitive distortion that will extrapolate one thing.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "have to",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: ["The actions I can take are", "My goal is"],
-    rewrite_position: "After",
-    popup_title: "Should Statment",
-    popup_feedback: "Come on! Things don't have to be a certain way.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "anyone",
-    wordnet_ext: ["anybody"],
-    phrase_ext: [],
-    rewrite: [
-      "however, to be more realistic",
-      "however, there is exception when",
-      "however, one evidence against it is",
-    ],
-    rewrite_position: "after",
-    popup_title: "All-or-Nothing",
-    popup_feedback:
-      "A common cognitive distortion that will extrapolate one thing.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "all",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "however, to be more realistic",
-      "however, there is exception when",
-      "however, one evidence against it is",
-    ],
-    rewrite_position: "after",
-    popup_title: "All-or-Nothing",
-    popup_feedback:
-      "A common cognitive distortion that will extrapolate one thing.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "all my faults",
-    wordnet_ext: [],
-    phrase_ext: [
-      "all my fault",
-      "blame myself",
-      "I should have",
-      "I feel guilty",
-      "I am shamed of myself",
-      "I am inadequate",
-      "I didn't live up to",
-    ],
-    rewrite: [
-      "but I can't control",
-      "but I can't predict",
-      "but I accept it when",
-      "but next time I will",
-    ],
-    rewrite_position: "after",
-    popup_title: "Blaming ourselves",
-    popup_feedback:
-      "A common distrotion that believes only one person is responsible for a situation that they may have little control over.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "all his fault",
-    wordnet_ext: [],
-    phrase_ext: [
-      "all her fault",
-      "all their fault",
-      "blame him",
-      "blame her",
-      "blame them",
-    ],
-    rewrite: [
-      "I understand that it may happen when",
-      "if my close friend did that accidentally",
-    ],
-    rewrite_position: "after",
-    popup_title: "Blaming others",
-    popup_feedback:
-      "A common distrotion that believes only one person is responsible for a situation that they may have little control over.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "ruined all efforts",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "however, to be more realistic",
-      "however, there is exception when",
-      "there is a chance but it is a small one of",
-      "I am aware that I am making a mountain out of a molehill. The mountain is... the molehill is...",
-      "I can give the situation a posive name instead:",
-      "I will let go of my worries and foucs my energy on...",
-    ],
-    rewrite_position: "after",
-    popup_title: "Catastrophizing",
-    popup_feedback:
-      "A common cognitive distortion that believes in the worst case.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "will probably",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "however, to be more realistic",
-      "however, there is exception when",
-      "there is a chance but it is a small one of",
-      "I am aware that I am making a mountain out of a molehill. The mountain is... the molehill is...",
-      "I can give the situation a posive name instead:",
-      "I will let go of my worries and foucs my energy on...",
-    ],
-    rewrite_position: "after",
-    popup_title: "Catastrophizing",
-    popup_feedback:
-      "A common cognitive distortion that believes in the worst case.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "will bet",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "however, to be more realistic",
-      "however, there is exception when",
-      "there is a chance but it is a small one of",
-      "I am aware that I am making a mountain out of a molehill. The mountain is... the molehill is...",
-      "I can give the situation a posive name instead:",
-      "I will let go of my worries and foucs my energy on...",
-    ],
-    rewrite_position: "after",
-    popup_title: "Catastrophizing",
-    popup_feedback:
-      "A common cognitive distortion that believes in the worst case.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "worry",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "however, to be more realistic",
-      "however, there is exception when",
-      "there is a chance but it is a small one of",
-      "I am aware that I am making a mountain out of a molehill. The mountain is... the molehill is...",
-      "I can give the situation a posive name instead:",
-      "I will let go of my worries and foucs my energy on...",
-    ],
-    rewrite_position: "after",
-    popup_title: "Catastrophizing",
-    popup_feedback:
-      "A common cognitive distortion that believes in the worst case.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "panicked",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "however, to be more realistic",
-      "however, there is exception when",
-      "there is a chance but it is a small one of",
-      "I am aware that I am making a mountain out of a molehill. The mountain is... the molehill is...",
-      "I can give the situation a posive name instead:",
-      "I will let go of my worries and foucs my energy on...",
-    ],
-    rewrite_position: "after",
-    popup_title: "Catastrophizing",
-    popup_feedback:
-      "A common cognitive distortion that believes in the worst case.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "everyone",
-    wordnet_ext: ["everybody"],
-    phrase_ext: [],
-    rewrite: [
-      "however, to be more realistic",
-      "however, there is exception when",
-      "however, one evidence against it is",
-    ],
-    rewrite_position: "after",
-    popup_title: "All-or-Nothing",
-    popup_feedback:
-      "A common cognitive distortion that will extrapolate one thing.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "what if",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "however, to be more realistic",
-      "however, there is exception when",
-      "there is a chance but it is a small one of",
-      "I am aware that I am making a mountain out of a molehill. The mountain is... the molehill is...",
-      "I can give the situation a posive name instead:",
-      "I will let go of my worries and foucs my energy on...",
-    ],
-    rewrite_position: "after",
-    popup_title: "Catastrophizing",
-    popup_feedback:
-      "A common cognitive distortion that believes in the worst case.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "nothing",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "however, to be more realistic",
-      "however, there is exception when",
-      "however, one evidence against it is",
-    ],
-    rewrite_position: "after",
-    popup_title: "All-or-Nothing",
-    popup_feedback:
-      "A common cognitive distortion that will extrapolate one thing.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "none",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "however, to be more realistic",
-      "however, there is exception when",
-      "however, one evidence against it is",
-    ],
-    rewrite_position: "after",
-    popup_title: "All-or-Nothing",
-    popup_feedback:
-      "A common cognitive distortion that will extrapolate one thing.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "no one",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "however, to be more realistic",
-      "however, there is exception when",
-      "however, one evidence against it is",
-    ],
-    rewrite_position: "after",
-    popup_title: "All-or-Nothing",
-    popup_feedback:
-      "A common cognitive distortion that will extrapolate one thing.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "totally",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "however, to be more realistic",
-      "however, there is exception when",
-      "however, one evidence against it is",
-    ],
-    rewrite_position: "after",
-    popup_title: "All-or-Nothing",
-    popup_feedback:
-      "A common cognitive distortion that will extrapolate one thing.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "only",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "however, to be more realistic",
-      "however, there is exception when",
-      "however, one evidence against it is",
-    ],
-    rewrite_position: "after",
-    popup_title: "All-or-Nothing",
-    popup_feedback:
-      "A common cognitive distortion that will extrapolate one thing.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "anything",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "however, to be more realistic",
-      "however, there is exception when",
-      "however, one evidence against it is",
-    ],
-    rewrite_position: "after",
-    popup_title: "All-or-Nothing",
-    popup_feedback:
-      "A common cognitive distortion that will extrapolate one thing.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "panic",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "however, to be more realistic",
-      "however, there is exception when",
-      "there is a chance but it is a small one of",
-      "I am aware that I am making a mountain out of a molehill. The mountain is... the molehill is...",
-      "I can give the situation a posive name instead:",
-      "I will let go of my worries and foucs my energy on...",
-    ],
-    rewrite_position: "after",
-    popup_title: "Catastrophizing",
-    popup_feedback:
-      "A common cognitive distortion that believes in the worst case.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "stupid",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "I am having the thought of ...",
-      "It is my thought but not fact that",
-    ],
-    rewrite_position: "before",
-    popup_title: "Negative Self-Talk",
-    popup_feedback:
-      "Time to shift your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "dumb",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "I am having the thought of ...",
-      "It is my thought but not fact that",
-    ],
-    rewrite_position: "before",
-    popup_title: "Negative Self-Talk",
-    popup_feedback:
-      "Time to shift your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "pathetic",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: [
-      "I am having the thought of ...",
-      "It is my thought but not fact that",
-    ],
-    rewrite_position: "before",
-    popup_title: "Negative Self-Talk",
-    popup_feedback:
-      "Time to shift your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "good-for-nothing",
-    wordnet_ext: [],
-    phrase_ext: ["in a bad way"],
-    rewrite: [
-      "A different perspective might be",
-      "a better way to look at it might be",
-    ],
-    rewrite_position: "after",
-    popup_title: "Negative Self-Talk",
-    popup_feedback:
-      "Time to shift your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "failed myself",
-    wordnet_ext: [],
-    phrase_ext: ["embarrassed myself", "It is impossible for me to", "no way"],
-    rewrite: [
-      "but it is still possible for me to",
-      "actutally, this is a wonderful opportunity for me to",
-    ],
-    rewrite_position: "after",
-    popup_title: "Negative Self-Talk",
-    popup_feedback:
-      "Time to shift your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "useless",
-    wordnet_ext: [],
-    phrase_ext: [
-      "I am useless; I screwed up",
-      "I can't",
-      "I cannot",
-      "I am not able to",
-    ],
-    rewrite: [
-      "I am proud of myself when trying",
-      "next time I am going to try",
-      "at least I can try",
-      "In the past, but in the future",
-    ],
-    rewrite_position: "after",
-    popup_title: "Negative Self-Talk",
-    popup_feedback:
-      "Time to shift your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "suck",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: ["I notice that this is only a thought and I let it go"],
-    rewrite_position: "after",
-    popup_title: "Negative Self-Talk",
-    popup_feedback:
-      "Time to shift your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "lazy",
-    wordnet_ext: [],
-    phrase_ext: ["I am lazy"],
-    rewrite: ["I have the power to"],
-    rewrite_position: "after",
-    popup_title: "Negative Self-Talk",
-    popup_feedback:
-      "Time to shift your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "hate",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: ["I notice that this is only a thought and I let it go"],
-    rewrite_position: "after",
-    popup_title: "Negative Self-Talk",
-    popup_feedback:
-      "Time to shift your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "failure",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: ["but I am so close to ...", "soon I will be able to ..."],
-    rewrite_position: "after",
-    popup_title: "Negative Self-Talk",
-    popup_feedback:
-      "Time to shift your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "failure",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: ["failure but a valuable experience"],
-    rewrite_position: "Replace",
-    popup_title: "Negative Self-Talk",
-    popup_feedback:
-      "Time to shift your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "loser",
-    wordnet_ext: [],
-    phrase_ext: ["I will disappoint", "I am a loser", "what a loser"],
-    rewrite: [
-      "I am having the thought of ...",
-      "It is my thought but not fact that",
-    ],
-    rewrite_position: "Before",
-    popup_title: "Negative Self-Talk",
-    popup_feedback:
-      "Time to shift your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "idiot",
-    wordnet_ext: [],
-    phrase_ext: ["what an idiot", "I am an idiot"],
-    rewrite: [
-      "I am having the thought of ...",
-      "It is my thought but not fact that",
-    ],
-    rewrite_position: "Before",
-    popup_title: "Negative Self-Talk",
-    popup_feedback:
-      "Time to shift your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "the worst",
-    wordnet_ext: [],
-    phrase_ext: ["I am the worst"],
-    rewrite: [
-      "I am having the thought of ...",
-      "It is my thought but not fact that",
-    ],
-    rewrite_position: "before",
-    popup_title: "Negative Self-Talk",
-    popup_feedback:
-      "Time to shift your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "loser",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: ["a person who "],
-    rewrite_position: "Replace",
-    popup_title: "Negative Self-Talk",
-    popup_feedback:
-      "Time to shift your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#287db5",
-  },
-  {
-    Word: "depress",
-    wordnet_ext: [
-      "depressed",
-      "depression",
-      "gloomy",
-      "grim",
-      "blue",
-      "dispirited",
-      "feeling down",
-      "feel down",
-      "downcast",
-      "downhearted",
-      "down in the mouth",
-      "low",
-      "low-spirited",
-    ],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: "stress",
-    wordnet_ext: ["stressful", "stressed", "overwhelmed", "overwhelming"],
-    phrase_ext: [
-      "difficulty breathing",
-      "hard of breathing",
-      "unable to rest",
-      "unable to enjoy",
-      "unable to relax",
-    ],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: "dyshphoria",
-    wordnet_ext: [
-      "unhappy",
-      "uneasy",
-      "dissatisfied",
-      "discomfort",
-      "distress",
-      "unease",
-      "fidgeting",
-      "frustration",
-    ],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: "hopeless",
-    wordnet_ext: ["desperate", "despairing"],
-    phrase_ext: ["no help", "don't help"],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: "helpless",
-    wordnet_ext: ["incapacitated "],
-    phrase_ext: ["nobody help", "no one help"],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: "worthlessness",
-    wordnet_ext: [
-      "worthless",
-      "despicable",
-      "ugly",
-      "vile",
-      "slimy",
-      "unworthy",
-      "worthless",
-      "wretched",
-      "undeserving ",
-    ],
-    phrase_ext: [
-      "what is the point",
-      "there is no point",
-      "worth nothing",
-      "not worthing anything",
-    ],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: "guilt",
-    wordnet_ext: ["guilty", "ashamed", "embarrased"],
-    phrase_ext: ["all my fault", "blame on me"],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: null,
-    wordnet_ext: ["indifferent", "apathetic"],
-    phrase_ext: [
-      "loss of interest",
-      "lost interest",
-      "lose interest",
-      "used to be interested",
-      "not interested any more",
-      "can't enjoy",
-      "life is boring",
-      "life is meaningless",
-      "uninterested in life",
-    ],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: null,
-    wordnet_ext: ["avolition", "demotivated", "unmotivated"],
-    phrase_ext: [
-      "loss of motivation",
-      "not motivated",
-      "not motivated any more",
-      "less motivated",
-    ],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: null,
-    wordnet_ext: [],
-    phrase_ext: ["lose sense of humor", "lost my sense of humor"],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: "insomnia",
-    wordnet_ext: ["sleeplessness"],
-    phrase_ext: ["can't sleep", "sleepless", "difficulty falling asleep"],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: "disrupted sleep",
-    wordnet_ext: [],
-    phrase_ext: ["wake up in the midnight", "sleeping disorders"],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: "lethargy",
-    wordnet_ext: [],
-    phrase_ext: [
-      "sleep long",
-      "sleep too long",
-      "sleep too much",
-      "hard to wake up",
-      "hard waking up",
-      "difficulty staying asleep",
-    ],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: null,
-    wordnet_ext: [],
-    phrase_ext: [
-      "hungrier",
-      "eat less",
-      "eat more",
-      "loss of appetite",
-      "Increased appetite",
-      "decreased appetite",
-      "eating disorders",
-    ],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: "fatigue",
-    wordnet_ext: [
-      "weariness",
-      "tiredness\ntire",
-      "pall",
-      "weary",
-      "jade \ntire",
-      "wear upon",
-      "tire out",
-      "wear",
-      "weary",
-      "jade",
-      "wear out",
-      "outwear",
-      "wear down",
-      "fag out",
-      "fag",
-      "lethargy",
-    ],
-    phrase_ext: [
-      "out of energy",
-      "lack of energy",
-      "little energy",
-      "burn out",
-      "burnout",
-    ],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: "restlessness",
-    wordnet_ext: ["uneasiness", "queasiness"],
-    phrase_ext: [
-      "unable to calm",
-      "have to move around",
-      "wound-up",
-      "on-edge",
-    ],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: "self-hate",
-    wordnet_ext: ["self-hatred", "self-loathing", "self-disgust"],
-    phrase_ext: ["hate myself"],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: "Bury",
-    wordnet_ext: ["self-destruction", "self-annihilation", "felo-de-se"],
-    phrase_ext: ["kill myself", "end my life"],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: "chest pain",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: "body pain",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: "stomachaches",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: "muscle aches",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: "headaches",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: "worry",
-    wordnet_ext: ["worried"],
-    phrase_ext: ["can't help worrying", "keep worrying", "can't stop worrying"],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: "panic",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: "die",
-    wordnet_ext: ["self-destruction", "self-annihilation", "felo-de-se"],
-    phrase_ext: ["kill myself", "end my life"],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: "suicidal",
-    wordnet_ext: ["self-destruction", "self-annihilation", "felo-de-se"],
-    phrase_ext: ["kill myself", "end my life"],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: "suicide",
-    wordnet_ext: ["self-destruction", "self-annihilation", "felo-de-se"],
-    phrase_ext: ["kill myself", "end my life"],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: "kill",
-    wordnet_ext: ["self-destruction", "self-annihilation", "felo-de-se"],
-    phrase_ext: ["kill myself", "end my life"],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: "coffin",
-    wordnet_ext: ["self-destruction", "self-annihilation", "felo-de-se"],
-    phrase_ext: ["kill myself", "end my life"],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: "irritable",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: "distract",
-    wordnet_ext: ["perturb", "unhinge", "disquiet"],
-    phrase_ext: [
-      "can't concentrate",
-      "hard to concentrate",
-      "difficulty concentrating",
-      "can't focus",
-      "hard to focus",
-      "difficulty focusing",
-      "can't pay attention",
-      "hard to pay attention",
-      "difficulty paying attention",
-    ],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: null,
-    popup_feedback:
-      "This is a common sign that it is time to care for your mental health. You are not alone!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#d3cd57",
-  },
-  {
-    Word: "myself",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: "First Pronoun",
-    popup_feedback:
-      "This indicates a viewpoint of your own. You may have high level of self-awareness.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#4b2a7e",
-  },
-  {
-    Word: "self",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: "First Pronoun",
-    popup_feedback:
-      "This indicates a viewpoint of your own. You may have high level of self-awareness.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#4b2a7e",
-  },
-  {
-    Word: "mine",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: "First Pronoun",
-    popup_feedback:
-      "This indicates a viewpoint of your own. You may have high level of self-awareness.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#4b2a7e",
-  },
-  {
-    Word: "me",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: "First Pronoun",
-    popup_feedback:
-      "This indicates a viewpoint of your own. You may have high level of self-awareness.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#4b2a7e",
-  },
-  {
-    Word: "I",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: "First Pronoun",
-    popup_feedback:
-      "This indicates a viewpoint of your own. You may have high level of self-awareness.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#4b2a7e",
-  },
-  {
-    Word: "my",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: "First Pronoun",
-    popup_feedback:
-      "This indicates a viewpoint of your own. You may have high level of self-awareness.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#4b2a7e",
-  },
-  {
-    Word: "thankful",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: "Positive Self-Talk",
-    popup_feedback:
-      "Make your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#44aa38",
-  },
-  {
-    Word: "grateful",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: "Positive Self-Talk",
-    popup_feedback:
-      "Make your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#44aa38",
-  },
-  {
-    Word: "hopefully",
-    wordnet_ext: [],
-    phrase_ext: ["I wish", "I hope"],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: "Positive Self-Talk",
-    popup_feedback:
-      "Make your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#44aa38",
-  },
-  {
-    Word: "I am capable of",
-    wordnet_ext: [],
-    phrase_ext: [
-      "I am good enough",
-      "I can make it",
-      "I can do it",
-      "I believe in myself",
-      "I have confidence",
-      "I am awesome",
-    ],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: "Positive Self-Talk",
-    popup_feedback:
-      "Make your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#44aa38",
-  },
-  {
-    Word: "can",
-    wordnet_ext: [],
-    phrase_ext: [
-      "work on",
-      "can try",
-      "choose",
-      "want to",
-      "prefer to",
-      "plan to",
-      "would like to",
-      "will fulfill",
-      "will achieve",
-      "will outcome",
-      "I am going to",
-      "I cannot wait to see",
-      "I wish",
-    ],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: "Positive Self-Talk",
-    popup_feedback:
-      "Make your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#44aa38",
-  },
-  {
-    Word: "improve",
-    wordnet_ext: [],
-    phrase_ext: ["better"],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: "Positive Self-Talk",
-    popup_feedback:
-      "Make your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#44aa38",
-  },
-  {
-    Word: "help",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: "Positive Self-Talk",
-    popup_feedback:
-      "Make your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#44aa38",
-  },
-  {
-    Word: "therefore",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: "Coherent narrative words",
-    popup_feedback:
-      "You will benefit from using these words to construct a coherent story, experience insights, and find a path forward.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#44aa38",
-  },
-  {
-    Word: "hence",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: "Coherent narrative words",
-    popup_feedback:
-      "You will benefit from using these words to construct a coherent story, experience insights, and find a path forward.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#44aa38",
-  },
-  {
-    Word: "believe",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: "Insight Words",
-    popup_feedback:
-      "You will benefit from using these words to construct a coherent story, experience insights, and find a path forward.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#44aa38",
-  },
-  {
-    Word: "understand",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: "Insight Words",
-    popup_feedback:
-      "You will benefit from using these words to construct a coherent story, experience insights, and find a path forward.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#44aa38",
-  },
-  {
-    Word: "realize",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: "Insight Words",
-    popup_feedback:
-      "You will benefit from using these words to construct a coherent story, experience insights, and find a path forward.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#44aa38",
-  },
-  {
-    Word: "think",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: "Insight Words",
-    popup_feedback:
-      "You will benefit from using these words to construct a coherent story, experience insights, and find a path forward.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#44aa38",
-  },
-  {
-    Word: "lucky",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: "Positive Self-Talk",
-    popup_feedback:
-      "Make your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#44aa38",
-  },
-  {
-    Word: "because",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: "Coherent narrative words",
-    popup_feedback:
-      "You will benefit from using these words to construct a coherent story, experience insights, and find a path forward.",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
-    color: "#44aa38",
-  },
-  {
-    Word: "Fortunately",
-    wordnet_ext: [],
-    phrase_ext: [],
-    rewrite: null,
-    rewrite_position: null,
-    popup_title: "Positive Self-Talk",
-    popup_feedback:
-      "Make your inner dialogue to be more encouraging and uplifting!",
-    Sidebar_feedback: {
-      Explanation: "brief overview on what user might be experiencing",
-      Examples: "further illustrate point",
-      Rewrite_exercises: "Things user can try for in the future",
-    },
     color: "#44aa38",
   },
 ];

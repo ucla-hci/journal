@@ -7,8 +7,6 @@ import { db, Popup as popuptype } from "../Dexie/db";
 import "../Styles/Popup.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-export async function addSidebar() {}
-
 const theme = createTheme({
   palette: {
     primary: {
@@ -35,6 +33,9 @@ export default function Popup({
   const [contents, setContents] = React.useState<popuptype | null>(null);
   const ref = useRef<HTMLInputElement>(null);
 
+  // -- context refactor - highlights
+  // const { highlight, updateHighlight } = useContext(HighlightContext());
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (ref.current && !ref.current.contains(event.target as Node)) {
@@ -49,7 +50,7 @@ export default function Popup({
 
   async function closePopup() {
     const result = await db.popups.get(1);
-    if (result !== undefined) {
+    if (result !== undefined && result.display) {
       const ret = await db.popups.update(1, {
         display: false,
       });
@@ -93,6 +94,7 @@ export default function Popup({
     if (result !== undefined) {
       if (result.display) {
         setContents(result);
+        console.log("popup contents", contents);
         setShow(true);
       } else {
         setShow(false);
@@ -128,14 +130,16 @@ export default function Popup({
       </p>
       <div className="popup-buttons">
         <ThemeProvider theme={theme}>
-          <Button
-            size="small"
-            variant="outlined"
-            onClick={() => setFeedbackbar(true)}
-            color="primary"
-          >
-            More
-          </Button>
+          {contents?.showsidebar === false ? null : (
+            <Button
+              size="small"
+              variant="outlined"
+              onClick={() => setFeedbackbar(true)}
+              color="primary"
+            >
+              More
+            </Button>
+          )}
           <Button
             size="small"
             variant="outlined"

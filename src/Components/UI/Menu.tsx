@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../Styles/Menu.css";
-import {
-  Button,
-  FormControlLabel,
-  FormGroup,
-  IconButton,
-  Switch,
-} from "@mui/material";
+import { IconButton, Tooltip, Typography } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -14,9 +8,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
 
 import NoteList from "./NoteList";
-import { db, downloadDB } from "../Dexie/db";
+import { db, downloadDB, downloadDBlite } from "../Dexie/db";
 
 const theme = createTheme({
   palette: {
@@ -32,10 +27,10 @@ const theme2 = createTheme({
   palette: {
     primary: {
       // main: "#e6a1cf",
-      main: "#ffffff",
+      main: "#333",
     },
     secondary: {
-      main: "#ffffff",
+      main: "#333",
     },
   },
 });
@@ -44,11 +39,6 @@ interface MenuProps {
   setCurrentNote: React.Dispatch<React.SetStateAction<number | null>>;
   currentNote: number | null;
   setShowmenu: React.Dispatch<React.SetStateAction<boolean>>;
-  setL1active: React.Dispatch<React.SetStateAction<boolean>>;
-  setL2active: React.Dispatch<React.SetStateAction<boolean>>;
-  L1active: boolean;
-  L2active: boolean;
-  setL1trigger: React.Dispatch<React.SetStateAction<boolean>>;
   setViewHelp: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -56,11 +46,6 @@ export default function Menu({
   setCurrentNote,
   currentNote,
   setShowmenu,
-  setL1active,
-  setL2active,
-  L1active,
-  L2active,
-  setL1trigger,
   setViewHelp,
 }: MenuProps) {
   const [showbar, setShowbar] = useState<"hide" | "show">("hide");
@@ -102,13 +87,13 @@ export default function Menu({
         {
           hide: (
             <div className="menu-sidebar off">
-              <ThemeProvider theme={theme}>
+              <ThemeProvider theme={theme2}>
                 <IconButton
                   onClick={() => {
                     setShowbar(showbar === "hide" ? "show" : "hide");
                   }}
                   aria-label="delete"
-                  color="inherit"
+                  color="default"
                 >
                   <MenuIcon />
                 </IconButton>
@@ -118,41 +103,39 @@ export default function Menu({
           show: (
             <div className="menu-sidebar on">
               <header>
-                <ThemeProvider theme={theme}>
+                {/* <ThemeProvider theme={theme2}> */}
+                <IconButton
+                  onClick={() => {
+                    setShowbar(showbar === "hide" ? "show" : "hide");
+                  }}
+                  aria-label="Close Menu"
+                  color="default"
+                >
+                  <ClearIcon sx={{ fontSize: "32px" }} />
+                </IconButton>
+
+                <Tooltip
+                  title={<Typography fontSize={14}>Home</Typography>}
+                  placement="right"
+                >
                   <IconButton
-                    aria-label="delete"
-                    color="inherit"
+                    aria-label="Home"
+                    color="default"
                     onClick={() => {
                       setCurrentNote(null);
                     }}
                   >
-                    <HomeIcon />
+                    <HomeIcon sx={{ fontSize: "32px" }} />
                   </IconButton>
-                </ThemeProvider>
-                {/* <h1>Menu</h1> */}
-                <ThemeProvider theme={theme}>
+                </Tooltip>
+
+                <Tooltip
+                  title={<Typography fontSize={14}>New Entry</Typography>}
+                  placement="right"
+                >
                   <IconButton
-                    onClick={() => {
-                      setShowbar(showbar === "hide" ? "show" : "hide");
-                    }}
-                    aria-label="delete"
-                    color="inherit"
-                  >
-                    <ClearIcon />
-                  </IconButton>
-                </ThemeProvider>
-              </header>
-              <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-                <ThemeProvider theme={theme}>
-                  <Button
-                    onClick={downloadDB}
-                    color="primary"
-                    variant="contained"
-                    endIcon={<FileDownloadIcon />}
-                  >
-                    Logs
-                  </Button>
-                  <Button
+                    aria-label="New Entry"
+                    color="default"
                     onClick={() => {
                       addNote().then((id) => {
                         if (id) {
@@ -162,17 +145,40 @@ export default function Menu({
                         }
                       });
                     }}
-                    variant="contained"
-                    color="secondary"
-                    endIcon={<NoteAddIcon />}
                   >
-                    New Note
-                  </Button>
-                </ThemeProvider>
-              </div>
+                    <NoteAddIcon sx={{ fontSize: "32px" }} />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip
+                  title={<Typography fontSize={14}>Logs</Typography>}
+                  placement="right"
+                >
+                  <IconButton
+                    aria-label="Download Logs"
+                    color="default"
+                    onClick={downloadDB}
+                  >
+                    <FileDownloadIcon sx={{ fontSize: "32px" }} />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip
+                  title={<Typography fontSize={14}>Lite Logs</Typography>}
+                  placement="right"
+                >
+                  <IconButton
+                    aria-label="Download Lite Logs"
+                    color="default"
+                    onClick={downloadDBlite}
+                  >
+                    <DownloadForOfflineIcon sx={{ fontSize: "32px" }} />
+                  </IconButton>
+                </Tooltip>
+                {/* </ThemeProvider> */}
+              </header>
               <NoteList
                 setCurrentNote={setCurrentNote}
                 setShowbar={setShowbar}
+                currentNote={currentNote}
               />
               <>
                 <div
@@ -187,7 +193,7 @@ export default function Menu({
                 >
                   <ThemeProvider theme={theme2}>
                     <IconButton
-                      color="inherit"
+                      color="primary"
                       onClick={() => {
                         setViewHelp(true);
                       }}
@@ -199,14 +205,13 @@ export default function Menu({
                     style={{
                       width: "100%",
                       marginRight: "20px",
+                      color: "#333",
                     }}
                   >
                     hci@ucla
                   </p>
                 </div>
-                {/* // </div> */}
               </>
-              {/* )} */}
             </div>
           ),
         }[showbar]
